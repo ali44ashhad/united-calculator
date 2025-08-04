@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Mexp from "math-expression-evaluator";
 
 const ScientificCalculator = () => {
   const [expression, setExpression] = useState("");
@@ -15,19 +16,13 @@ const ScientificCalculator = () => {
 
   const calculateResult = () => {
     try {
-      const replacedExpr = expression
-        .replace(/sin\(/g, "Math.sin(")
-        .replace(/cos\(/g, "Math.cos(")
-        .replace(/tan\(/g, "Math.tan(")
-        .replace(/log\(/g, "Math.log10(")
-        .replace(/ln\(/g, "Math.log(")
-        .replace(/sqrt\(/g, "Math.sqrt(")
-        .replace(/\^/g, "**")
-        .replace(/π/g, "Math.PI")
-        .replace(/e/g, "Math.E");
+      let replacedExpr = expression
+        .replace(/π/g, "PI")
+        .replace(/e/g, "E")
+        .replace(/\^/g, "^");
 
-      // eslint-disable-next-line no-eval
-      const evalResult = eval(replacedExpr);
+      const mexp = new Mexp();
+      const evalResult = mexp.eval(replacedExpr);
       setResult(evalResult.toString());
     } catch (error) {
       setResult("Error");
