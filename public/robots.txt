@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /search/
+Disallow: /?
+Disallow: /*?
+Disallow: /*.php$
+Disallow: /*.js$
+Disallow: /*.css$
+
+Sitemap: https://www.unitedcalculator.net/sitemap.xml
+
+# Crawl-delay: 10  (Uncomment if you need to reduce server load)
