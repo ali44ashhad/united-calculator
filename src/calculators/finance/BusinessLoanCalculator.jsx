@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Helmet } from "react-helmet-async";
 const BusinessLoanCalculator = () => {
   const [loanAmount, setLoanAmount] = useState("500000");
   const [interestRate, setInterestRate] = useState("10");
@@ -26,6 +26,107 @@ const BusinessLoanCalculator = () => {
   const result = calculateLoan();
 
   return (
+    <>
+    <Helmet>
+  <title>Business Loan Calculator</title>
+  <meta
+    name="description"
+    content="Use our Business Loan Calculator to estimate monthly payments, interest costs, and total repayment amount for your business loan. Ideal for small and large business financing."
+  />
+  <meta
+    name="keywords"
+    content="business loan calculator, commercial loan calculator, small business loan calculator, business financing calculator, loan repayment calculator"
+  />
+  <meta name="robots" content="index, follow" />
+  <link
+    rel="canonical"
+    href="https://unitedcalculator.net/finance/business-loan-calculator"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="Business Loan Calculator"
+  />
+  <meta
+    property="og:description"
+    content="Calculate your business loan repayments, interest, and total cost using our Business Loan Calculator. Ideal for startups and growing businesses."
+  />
+  <meta
+    property="og:url"
+    content="https://unitedcalculator.net/finance/business-loan-calculator"
+  />
+  <script type="application/ld+json">
+    {`
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Business Loan Calculator",
+      "url": "https://unitedcalculator.net/finance/business-loan-calculator",
+      "description": "Use our Business Loan Calculator to estimate EMIs, interest charges, and total repayment amount. Perfect for planning business financing.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "United Calculator",
+        "url": "https://unitedcalculator.net"
+      }
+    }
+    `}
+  </script>
+  <script type="application/ld+json">
+    {`
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a business loan calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A business loan calculator helps you estimate the monthly EMI, total interest, and repayment amount based on loan amount, term, and interest rate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why should I use a business loan calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Using a business loan calculator allows you to plan your loan repayment strategy effectively and compare multiple loan offers for the best fit."
+          }
+        }
+      ]
+    }
+    `}
+  </script>
+  <script type="application/ld+json">
+    {`
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://unitedcalculator.net"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Finance Calculators",
+          "item": "https://unitedcalculator.net/finance"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Business Loan Calculator",
+          "item": "https://unitedcalculator.net/finance/business-loan-calculator"
+        }
+      ]
+    }
+    `}
+  </script>
+</Helmet>
+
     <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
       <div className="space-y-4">
         <div>
@@ -87,7 +188,7 @@ const BusinessLoanCalculator = () => {
           </div>
         </section>
       )}
-    </div>
+    </div></>
   );
 };
 

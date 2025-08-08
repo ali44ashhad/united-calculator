@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Helmet } from "react-helmet-async";
 const SurfaceAreaCalculator = () => {
   const [shape, setShape] = useState("cube");
   const [inputs, setInputs] = useState({});
@@ -152,44 +152,154 @@ const SurfaceAreaCalculator = () => {
   };
 
   return (
-    <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md max-w-md">
-      <div className="space-y-4">
-        <div>
-          <label className="block mb-1 font-medium">Select Shape</label>
-          <select
-            value={shape}
-            onChange={(e) => {
-              setShape(e.target.value);
-              setInputs({});
-              setResult("");
-            }}
-            className="w-full border border-gray-300 rounded px-3 py-2"
+    <>
+      <Helmet>
+        <title>Surface Area Calculator | Find Surface Area of 3D Shapes</title>
+        <meta
+          name="description"
+          content="Use our Surface Area Calculator to find the surface area of 3D shapes like cubes, spheres, cylinders, cones, and more. Quick and accurate results with formulas and explanations."
+        />
+        <meta
+          name="keywords"
+          content="surface area calculator, 3D shape surface area, cube surface area, sphere surface area, cone surface area, cylinder surface area, geometry calculator, area formulas"
+        />
+        <meta name="robots" content="index, follow" />
+        <link
+          rel="canonical"
+          href="https://unitedcalculator.net/geometry/surface-area-calculator"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Surface Area Calculator | Find Surface Area of 3D Shapes"
+        />
+        <meta
+          property="og:description"
+          content="Instantly calculate the surface area of cubes, spheres, cones, cylinders, and other 3D geometric shapes with our free Surface Area Calculator. Includes formulas and step-by-step breakdowns."
+        />
+        <meta
+          property="og:url"
+          content="https://unitedcalculator.net/geometry/surface-area-calculator"
+        />
+
+        {/* JSON-LD: WebPage */}
+        <script type="application/ld+json">
+          {`
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Surface Area Calculator",
+      "url": "https://unitedcalculator.net/geometry/surface-area-calculator",
+      "description": "Easily calculate the surface area of 3D geometric shapes like spheres, cubes, cones, and cylinders using standard formulas. Perfect for students, teachers, and geometry problems.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "United Calculator",
+        "url": "https://unitedcalculator.net"
+      }
+    }
+    `}
+        </script>
+
+        {/* JSON-LD: FAQ */}
+        <script type="application/ld+json">
+          {`
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is surface area?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Surface area is the total area of all the outer surfaces of a 3D object. It is measured in square units and varies based on the shape, such as a cube, sphere, or cone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate surface area using this calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Select the 3D shape you want to calculate, enter the required dimensions (like radius, height, side length), and the calculator will use the correct formula to compute the surface area."
+          }
+        }
+      ]
+    }
+    `}
+        </script>
+
+        {/* JSON-LD: Breadcrumb */}
+        <script type="application/ld+json">
+          {`
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://unitedcalculator.net"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Geometry Calculators",
+          "item": "https://unitedcalculator.net/geometry"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Surface Area Calculator",
+          "item": "https://unitedcalculator.net/geometry/surface-area-calculator"
+        }
+      ]
+    }
+    `}
+        </script>
+      </Helmet>
+
+      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md max-w-md">
+        <div className="space-y-4">
+          <div>
+            <label className="block mb-1 font-medium">Select Shape</label>
+            <select
+              value={shape}
+              onChange={(e) => {
+                setShape(e.target.value);
+                setInputs({});
+                setResult("");
+              }}
+              className="w-full border border-gray-300 rounded px-3 py-2"
+            >
+              <option value="cube">Cube</option>
+              <option value="cuboid">Cuboid</option>
+              <option value="sphere">Sphere</option>
+              <option value="cylinder">Cylinder</option>
+              <option value="cone">Cone</option>
+            </select>
+          </div>
+
+          <div>{renderInputs()}</div>
+
+          <button
+            onClick={calculateSurfaceArea}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition mt-2"
           >
-            <option value="cube">Cube</option>
-            <option value="cuboid">Cuboid</option>
-            <option value="sphere">Sphere</option>
-            <option value="cylinder">Cylinder</option>
-            <option value="cone">Cone</option>
-          </select>
+            Calculate Surface Area
+          </button>
         </div>
 
-        <div>{renderInputs()}</div>
-
-        <button
-          onClick={calculateSurfaceArea}
-          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition mt-2"
-        >
-          Calculate Surface Area
-        </button>
+        {result && (
+          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">Result</h2>
+            <div className="text-green-600 font-bold text-2xl">{result}</div>
+          </section>
+        )}
       </div>
-
-      {result && (
-        <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">Result</h2>
-          <div className="text-green-600 font-bold text-2xl">{result}</div>
-        </section>
-      )}
-    </div>
+    </>
   );
 };
 

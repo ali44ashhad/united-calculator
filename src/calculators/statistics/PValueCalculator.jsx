@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Helmet } from "react-helmet-async";
 const PValueCalculator = () => {
   const [zScore, setZScore] = useState("");
   const [pValue, setPValue] = useState(null);
@@ -30,41 +30,43 @@ const PValueCalculator = () => {
   };
 
   return (
-    <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">
-        P-Value Calculator
-      </h2>
+    <>
+      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
+        <h2 className="text-xl font-semibold mb-4 text-gray-800">
+          P-Value Calculator
+        </h2>
 
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Z-Score</label>
-        <input
-          type="number"
-          value={zScore}
-          onChange={(e) => setZScore(e.target.value)}
-          placeholder="e.g., 1.96"
-          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        />
-      </div>
-
-      <button
-        onClick={calculatePValue}
-        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
-      >
-        Calculate
-      </button>
-
-      {pValue !== null && (
-        <div className="mt-6 bg-gray-50 p-4 rounded border border-gray-200">
-          {pValue === "Invalid input" ? (
-            <p className="text-red-600">Please enter a valid z-score.</p>
-          ) : (
-            <p>
-              <strong>P-Value:</strong> {pValue}
-            </p>
-          )}
+        <div className="mb-4">
+          <label className="block mb-1 font-medium">Z-Score</label>
+          <input
+            type="number"
+            value={zScore}
+            onChange={(e) => setZScore(e.target.value)}
+            placeholder="e.g., 1.96"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
         </div>
-      )}
-    </div>
+
+        <button
+          onClick={calculatePValue}
+          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+        >
+          Calculate
+        </button>
+
+        {pValue !== null && (
+          <div className="mt-6 bg-gray-50 p-4 rounded border border-gray-200">
+            {pValue === "Invalid input" ? (
+              <p className="text-red-600">Please enter a valid z-score.</p>
+            ) : (
+              <p>
+                <strong>P-Value:</strong> {pValue}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Helmet } from "react-helmet-async";
 const AreaCalculator = () => {
   const [shape, setShape] = useState("rectangle");
   const [input1, setInput1] = useState("");
@@ -30,6 +30,115 @@ const AreaCalculator = () => {
   const result = calculateArea();
 
   return (
+    <>
+    <Helmet>
+  <title>Area Calculator | Calculate Area of Shapes Instantly</title>
+  <meta
+    name="description"
+    content="Use our Area Calculator to quickly find the area of various shapes including circles, rectangles, triangles, squares, and more. Perfect for students, teachers, and professionals."
+  />
+  <meta
+    name="keywords"
+    content="area calculator, circle area calculator, rectangle area calculator, triangle area calculator, square area calculator, math calculator, geometry calculator"
+  />
+  <meta name="robots" content="index, follow" />
+  <link
+    rel="canonical"
+    href="https://unitedcalculator.net/math/area-calculator"
+  />
+
+  {/* Open Graph */}
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="Area Calculator | Calculate Area of Shapes Instantly"
+  />
+  <meta
+    property="og:description"
+    content="Find the area of any shape instantly using our Area Calculator. Calculate circle, rectangle, triangle, and square areas with ease."
+  />
+  <meta
+    property="og:url"
+    content="https://unitedcalculator.net/math/area-calculator"
+  />
+
+  {/* JSON-LD: WebPage */}
+  <script type="application/ld+json">
+    {`
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Area Calculator",
+  "url": "https://unitedcalculator.net/math/area-calculator",
+  "description": "Use the Area Calculator to calculate the area of circles, rectangles, triangles, squares, and more. Ideal for students, teachers, engineers, and architects.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "United Calculator",
+    "url": "https://unitedcalculator.net"
+  }
+}
+    `}
+  </script>
+
+  {/* JSON-LD: FAQ */}
+  <script type="application/ld+json">
+    {`
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you calculate the area of a shape?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To calculate the area of a shape, you use its specific formula. For example, for a rectangle: length × width; for a circle: π × radius²; for a triangle: 0.5 × base × height."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this Area Calculator handle multiple shapes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The Area Calculator supports circles, rectangles, triangles, squares, and more. Simply select the shape and enter its dimensions to get the area instantly."
+      }
+    }
+  ]
+}
+    `}
+  </script>
+
+  {/* JSON-LD: Breadcrumb */}
+  <script type="application/ld+json">
+    {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://unitedcalculator.net"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Math Calculators",
+      "item": "https://unitedcalculator.net/math"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Area Calculator",
+      "item": "https://unitedcalculator.net/math/area-calculator"
+    }
+  ]
+}
+    `}
+  </script>
+</Helmet>
+
     <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md ">
       <div className="space-y-4">
         <div>
@@ -106,7 +215,7 @@ const AreaCalculator = () => {
           </p>
         </section>
       )}
-    </div>
+    </div></>
   );
 };
 
