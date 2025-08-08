@@ -3,43 +3,43 @@
   <!-- Homepage & Main Pages -->
   <url>
     <loc>https://www.unitedcalculator.net/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/statistics</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/geometry</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -47,439 +47,439 @@
   <!-- Finance Calculators -->
   <url>
     <loc>https://www.unitedcalculator.net/finance/sip-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/401k-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/amortization-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/annuity-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/annuity-payout-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/apr-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/auto-lease-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/auto-loan-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/average-return-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/boat-loan-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/bond-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/budget-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/business-loan-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/canadian-mortgage-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/cash-back-or-low-interest-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/cd-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/college-cost-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/commission-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/compound-interest-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/credit-card-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/credit-cards-payoff-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/currency-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/debt-consolidation-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/debt-payoff-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/debt-to-income-ratio-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/depreciation-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/discount-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/down-payment-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/estate-tax-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/fha-loan-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/finance-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/future-value-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/house-affordability-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/income-tax-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/inflation-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/interest-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/interest-rate-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/investment-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/ira-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/irr-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/lease-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/loan-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/margin-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/marriage-tax-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/mortgage-amortization-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/mortgage-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/mortgage-calculator-uk</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/mortgage-payoff-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/payback-period-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/payment-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/pension-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/percent-off-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/personal-loan-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/present-value-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/real-estate-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/refinance-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/rent-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/rent-vs-buy-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/rental-property-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/repayment-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/retirement-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/rmd-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/roi-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/roth-ira-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/salary-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/sales-tax-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/savings-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/simple-interest-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/social-security-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/student-loan-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/take-home-paycheck-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/va-mortgage-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/finance/vat-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -487,187 +487,187 @@
   <!-- Health Calculators -->
   <url>
     <loc>https://www.unitedcalculator.net/health/bmi-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/anorexic-bmi-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/army-body-fat-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/bac-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/bmr-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/body-fat-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/body-surface-area-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/body-type-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/calorie-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/calories-burned-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/carbohydrate-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/conception-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/due-date-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/fat-intake-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/gfr-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/healthy-weight-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/ideal-weight-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/lean-body-mass-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/macro-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/one-rep-max-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/overweight-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/ovulation-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/pace-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/period-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/pregnancy-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/pregnancy-conception-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/pregnancy-weight-gain-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/protein-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/target-heart-rate-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/tdee-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/health/weight-watcher-points-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -675,205 +675,205 @@
   <!-- Math Calculators -->
   <url>
     <loc>https://www.unitedcalculator.net/math/area-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/average-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/basic-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/big-number-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/binary-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/circle-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/common-factor-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/confidence-interval-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/distance-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/exponent-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/factor-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/fraction-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/greatest-common-factor-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/half-life-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/hex-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/least-common-multiple-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/log-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/long-division-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/matrix-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/mean-median-mode-range-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/number-sequence-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/percent-error-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/percentage-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/permutation-combination-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/prime-factorization-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/probability-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/quadratic-formula-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/random-number-generator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/ratio-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/root-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/rounding-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/scientific-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/scientific-notation-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/math/slope-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -881,31 +881,31 @@
   <!-- Statistics Calculators -->
   <url>
     <loc>https://www.unitedcalculator.net/statistics/p-value-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/statistics/sample-size-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/statistics/standard-deviation-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/statistics/statistics-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/statistics/z-score-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -913,31 +913,31 @@
   <!-- Geometry Calculators -->
   <url>
     <loc>https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/geometry/right-triangle-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/geometry/surface-area-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/geometry/triangle-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/geometry/volume-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -945,313 +945,313 @@
   <!-- Other Calculators -->
   <url>
     <loc>https://www.unitedcalculator.net/other/age-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/bandwidth-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/bra-size-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/btu-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/concrete-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/conversion-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/date-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/day-counter</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/day-of-the-week-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/density-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/dew-point-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/dice-roller</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/electricity-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/engine-horsepower-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/fuel-cost-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/gas-mileage-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/gdp-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/golf-handicap-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/gpa-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/grade-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/gravel-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/heat-index-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/height-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/horsepower-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/hours-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/ip-subnet-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/love-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/mass-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/mileage-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/molarity-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/molecular-weight-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/mulch-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/ohms-law-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/password-generator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/resistor-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/roman-numeral-converter</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/roofing-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/shoe-size-conversion</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/sleep-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/speed-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/square-footage-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/stair-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/tile-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/time-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/time-card-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/time-duration-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/time-zone-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/tip-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/tire-size-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/voltage-drop-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/weight-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/other/wind-chill-calculator</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1259,25 +1259,25 @@
   <!-- Static Pages -->
   <url>
     <loc>https://www.unitedcalculator.net/about</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/contact</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/privacy-policy</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.unitedcalculator.net/terms-of-service</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
