@@ -66,7 +66,7 @@ const IncomeTaxCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/income-tax-calculator"
+          href="https://www.unitedcalculator.net/finance/income-tax-calculator"
         />
 
         {/* Open Graph */}
@@ -81,7 +81,7 @@ const IncomeTaxCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/income-tax-calculator"
+          content="https://www.unitedcalculator.net/finance/income-tax-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -91,12 +91,12 @@ const IncomeTaxCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Income Tax Calculator",
-      "url": "https://unitedcalculator.net/finance/income-tax-calculator",
+      "url": "https://www.unitedcalculator.net/finance/income-tax-calculator",
       "description": "Estimate your income tax using this calculator. Compare tax liability under the old and new tax regimes and plan your finances accordingly.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -141,19 +141,19 @@ const IncomeTaxCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Income Tax Calculator",
-          "item": "https://unitedcalculator.net/finance/income-tax-calculator"
+          "item": "https://www.unitedcalculator.net/finance/income-tax-calculator"
         }
       ]
     }

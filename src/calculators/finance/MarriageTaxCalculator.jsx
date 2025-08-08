@@ -28,7 +28,7 @@ const MarriageTaxCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/marriage-tax-calculator"
+          href="https://www.unitedcalculator.net/finance/marriage-tax-calculator"
         />
 
         {/* Open Graph */}
@@ -40,7 +40,7 @@ const MarriageTaxCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/marriage-tax-calculator"
+          content="https://www.unitedcalculator.net/finance/marriage-tax-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -50,12 +50,12 @@ const MarriageTaxCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Marriage Tax Calculator",
-      "url": "https://unitedcalculator.net/finance/marriage-tax-calculator",
+      "url": "https://www.unitedcalculator.net/finance/marriage-tax-calculator",
       "description": "Use the Marriage Tax Calculator to understand the financial impact of getting married on your income taxes. Compare filing statuses and tax brackets easily.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -100,19 +100,19 @@ const MarriageTaxCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Marriage Tax Calculator",
-          "item": "https://unitedcalculator.net/finance/marriage-tax-calculator"
+          "item": "https://www.unitedcalculator.net/finance/marriage-tax-calculator"
         }
       ]
     }

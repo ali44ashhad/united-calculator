@@ -45,7 +45,7 @@ const OverweightCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/overweight-calculator"
+          href="https://www.unitedcalculator.net/health/overweight-calculator"
         />
 
         {/* Open Graph */}
@@ -60,7 +60,7 @@ const OverweightCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/overweight-calculator"
+          content="https://www.unitedcalculator.net/health/overweight-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -70,12 +70,12 @@ const OverweightCalculator = () => {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Overweight Calculator",
-            "url": "https://unitedcalculator.net/health/overweight-calculator",
+            "url": "https://www.unitedcalculator.net/health/overweight-calculator",
             "description": "Calculate your BMI and find out if you are overweight using this Overweight Calculator based on weight and height inputs.",
             "publisher": {
               "@type": "Organization",
               "name": "United Calculator",
-              "url": "https://unitedcalculator.net"
+              "url": "https://www.unitedcalculator.net"
             }
           }
           `}
@@ -120,19 +120,19 @@ const OverweightCalculator = () => {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://unitedcalculator.net"
+                "item": "https://www.unitedcalculator.net"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Health Calculators",
-                "item": "https://unitedcalculator.net/health"
+                "item": "https://www.unitedcalculator.net/health"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "Overweight Calculator",
-                "item": "https://unitedcalculator.net/health/overweight-calculator"
+                "item": "https://www.unitedcalculator.net/health/overweight-calculator"
               }
             ]
           }

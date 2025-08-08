@@ -55,7 +55,7 @@ const APRCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/apr-calculator"
+          href="https://www.unitedcalculator.net/finance/apr-calculator"
         />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
@@ -69,7 +69,7 @@ const APRCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/apr-calculator"
+          content="https://www.unitedcalculator.net/finance/apr-calculator"
         />
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -88,12 +88,12 @@ const APRCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "APR Calculator",
-      "url": "https://unitedcalculator.net/finance/apr-calculator",
+      "url": "https://www.unitedcalculator.net/finance/apr-calculator",
       "description": "This APR Calculator helps you determine the true cost of a loan or credit card by factoring in interest rates, fees, and repayment terms.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -136,19 +136,19 @@ const APRCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "APR Calculator",
-          "item": "https://unitedcalculator.net/finance/apr-calculator"
+          "item": "https://www.unitedcalculator.net/finance/apr-calculator"
         }
       ]
     }

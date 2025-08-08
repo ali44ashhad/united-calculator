@@ -57,7 +57,7 @@ const CanadianMortgageCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/canadian-mortgage-calculator"
+          href="https://www.unitedcalculator.net/finance/canadian-mortgage-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Canadian Mortgage Calculator" />
@@ -67,7 +67,7 @@ const CanadianMortgageCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/canadian-mortgage-calculator"
+          content="https://www.unitedcalculator.net/finance/canadian-mortgage-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -75,12 +75,12 @@ const CanadianMortgageCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Canadian Mortgage Calculator",
-      "url": "https://unitedcalculator.net/finance/canadian-mortgage-calculator",
+      "url": "https://www.unitedcalculator.net/finance/canadian-mortgage-calculator",
       "description": "Use our Canadian Mortgage Calculator to calculate monthly home loan payments, interest breakdown, and amortization schedule. Designed specifically for Canadian home buyers.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -121,19 +121,19 @@ const CanadianMortgageCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Canadian Mortgage Calculator",
-          "item": "https://unitedcalculator.net/finance/canadian-mortgage-calculator"
+          "item": "https://www.unitedcalculator.net/finance/canadian-mortgage-calculator"
         }
       ]
     }

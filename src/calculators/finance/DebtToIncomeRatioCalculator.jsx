@@ -41,7 +41,7 @@ const DebtToIncomeRatioCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/debt-to-income-ratio-calculator"
+          href="https://www.unitedcalculator.net/finance/debt-to-income-ratio-calculator"
         />
 
         {/* Open Graph */}
@@ -53,7 +53,7 @@ const DebtToIncomeRatioCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/debt-to-income-ratio-calculator"
+          content="https://www.unitedcalculator.net/finance/debt-to-income-ratio-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -63,12 +63,12 @@ const DebtToIncomeRatioCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Debt-to-Income Ratio Calculator",
-      "url": "https://unitedcalculator.net/finance/debt-to-income-ratio-calculator",
+      "url": "https://www.unitedcalculator.net/finance/debt-to-income-ratio-calculator",
       "description": "Use the Debt-to-Income Ratio Calculator to determine your DTI and understand how your debt compares to your income. This is a key metric used by lenders to assess your financial stability.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -113,19 +113,19 @@ const DebtToIncomeRatioCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Debt-to-Income Ratio Calculator",
-          "item": "https://unitedcalculator.net/finance/debt-to-income-ratio-calculator"
+          "item": "https://www.unitedcalculator.net/finance/debt-to-income-ratio-calculator"
         }
       ]
     }

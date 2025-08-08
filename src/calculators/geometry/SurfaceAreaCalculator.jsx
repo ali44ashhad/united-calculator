@@ -166,7 +166,7 @@ const SurfaceAreaCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/geometry/surface-area-calculator"
+          href="https://www.unitedcalculator.net/geometry/surface-area-calculator"
         />
 
         {/* Open Graph */}
@@ -181,7 +181,7 @@ const SurfaceAreaCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/geometry/surface-area-calculator"
+          content="https://www.unitedcalculator.net/geometry/surface-area-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -191,12 +191,12 @@ const SurfaceAreaCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Surface Area Calculator",
-      "url": "https://unitedcalculator.net/geometry/surface-area-calculator",
+      "url": "https://www.unitedcalculator.net/geometry/surface-area-calculator",
       "description": "Easily calculate the surface area of 3D geometric shapes like spheres, cubes, cones, and cylinders using standard formulas. Perfect for students, teachers, and geometry problems.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -241,19 +241,19 @@ const SurfaceAreaCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Geometry Calculators",
-          "item": "https://unitedcalculator.net/geometry"
+          "item": "https://www.unitedcalculator.net/geometry"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Surface Area Calculator",
-          "item": "https://unitedcalculator.net/geometry/surface-area-calculator"
+          "item": "https://www.unitedcalculator.net/geometry/surface-area-calculator"
         }
       ]
     }

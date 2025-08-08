@@ -40,7 +40,7 @@ const InterestCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/interest-calculator"
+          href="https://www.unitedcalculator.net/finance/interest-calculator"
         />
 
         {/* Open Graph */}
@@ -55,7 +55,7 @@ const InterestCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/interest-calculator"
+          content="https://www.unitedcalculator.net/finance/interest-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -65,12 +65,12 @@ const InterestCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Interest Calculator",
-      "url": "https://unitedcalculator.net/finance/interest-calculator",
+      "url": "https://www.unitedcalculator.net/finance/interest-calculator",
       "description": "The Interest Calculator lets you quickly calculate simple and compound interest on any amount. Useful for personal finance, loan planning, and investment growth projections.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -115,19 +115,19 @@ const InterestCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Interest Calculator",
-          "item": "https://unitedcalculator.net/finance/interest-calculator"
+          "item": "https://www.unitedcalculator.net/finance/interest-calculator"
         }
       ]
     }

@@ -40,7 +40,7 @@ const IRACalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/ira-calculator"
+          href="https://www.unitedcalculator.net/finance/ira-calculator"
         />
 
         {/* Open Graph */}
@@ -52,7 +52,7 @@ const IRACalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/ira-calculator"
+          content="https://www.unitedcalculator.net/finance/ira-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -62,12 +62,12 @@ const IRACalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "IRA Calculator",
-      "url": "https://unitedcalculator.net/finance/ira-calculator",
+      "url": "https://www.unitedcalculator.net/finance/ira-calculator",
       "description": "Use the IRA Calculator to project the future value of your Traditional or Roth IRA investments. Plan for retirement by estimating growth, returns, and tax impact.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -112,19 +112,19 @@ const IRACalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "IRA Calculator",
-          "item": "https://unitedcalculator.net/finance/ira-calculator"
+          "item": "https://www.unitedcalculator.net/finance/ira-calculator"
         }
       ]
     }

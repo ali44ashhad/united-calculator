@@ -58,7 +58,7 @@ const FourZeroOneKCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/four-zero-one-k-calculator"
+          href="https://www.unitedcalculator.net/finance/four-zero-one-k-calculator"
         />
 
         {/* Open Graph */}
@@ -73,7 +73,7 @@ const FourZeroOneKCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/four-zero-one-k-calculator"
+          content="https://www.unitedcalculator.net/finance/four-zero-one-k-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -83,12 +83,12 @@ const FourZeroOneKCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "401(k) Calculator",
-      "url": "https://unitedcalculator.net/finance/four-zero-one-k-calculator",
+      "url": "https://www.unitedcalculator.net/finance/four-zero-one-k-calculator",
       "description": "Use this 401(k) Calculator to forecast your retirement savings based on contribution rate, employer match, and expected investment returns.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -133,19 +133,19 @@ const FourZeroOneKCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "401(k) Calculator",
-          "item": "https://unitedcalculator.net/finance/four-zero-one-k-calculator"
+          "item": "https://www.unitedcalculator.net/finance/four-zero-one-k-calculator"
         }
       ]
     }

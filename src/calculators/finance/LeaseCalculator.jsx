@@ -24,7 +24,7 @@ const LeaseCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/lease-calculator"
+          href="https://www.unitedcalculator.net/finance/lease-calculator"
         />
 
         {/* Open Graph */}
@@ -36,7 +36,7 @@ const LeaseCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/lease-calculator"
+          content="https://www.unitedcalculator.net/finance/lease-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -46,12 +46,12 @@ const LeaseCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Lease Calculator",
-      "url": "https://unitedcalculator.net/finance/lease-calculator",
+      "url": "https://www.unitedcalculator.net/finance/lease-calculator",
       "description": "Use the Lease Calculator to determine your estimated monthly car lease payments based on cost, interest rate, down payment, and lease duration. Ideal for comparing lease offers.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -96,19 +96,19 @@ const LeaseCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Lease Calculator",
-          "item": "https://unitedcalculator.net/finance/lease-calculator"
+          "item": "https://www.unitedcalculator.net/finance/lease-calculator"
         }
       ]
     }

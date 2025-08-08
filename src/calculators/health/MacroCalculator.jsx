@@ -52,7 +52,7 @@ const MacroCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/macro-calculator"
+          href="https://www.unitedcalculator.net/health/macro-calculator"
         />
 
         {/* Open Graph */}
@@ -67,7 +67,7 @@ const MacroCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/macro-calculator"
+          content="https://www.unitedcalculator.net/health/macro-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -77,12 +77,12 @@ const MacroCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Macro Calculator",
-      "url": "https://unitedcalculator.net/health/macro-calculator",
+      "url": "https://www.unitedcalculator.net/health/macro-calculator",
       "description": "Determine your daily macronutrient needs using the Macro Calculator based on your body stats, goals, and activity level. Perfect for tracking nutrition and optimizing fitness results.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -127,19 +127,19 @@ const MacroCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Macro Calculator",
-          "item": "https://unitedcalculator.net/health/macro-calculator"
+          "item": "https://www.unitedcalculator.net/health/macro-calculator"
         }
       ]
     }

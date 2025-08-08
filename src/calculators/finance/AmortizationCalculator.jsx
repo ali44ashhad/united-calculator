@@ -50,7 +50,7 @@ const AmortizationCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/amortization-calculator"
+          href="https://www.unitedcalculator.net/finance/amortization-calculator"
         />
 
         {/* Open Graph */}
@@ -65,11 +65,7 @@ const AmortizationCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/amortization-calculator"
-        />
-        <meta
-          property="og:image"
-          content="https://unitedcalculator.net/assets/images/amortization-preview.png"
+          content="https://www.unitedcalculator.net/finance/amortization-calculator"
         />
 
         {/* Twitter */}
@@ -90,12 +86,12 @@ const AmortizationCalculator = () => {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Amortization Calculator",
-        "url": "https://unitedcalculator.net/finance/amortization-calculator",
+        "url": "https://www.unitedcalculator.net/finance/amortization-calculator",
         "description": "Free amortization calculator to generate a complete loan payment schedule. Find out how much interest and principal you'll pay over time.",
         "publisher": {
           "@type": "Organization",
           "name": "United Calculator",
-          "url": "https://unitedcalculator.net"
+          "url": "https://www.unitedcalculator.net"
         }
       }
     `}
@@ -140,19 +136,19 @@ const AmortizationCalculator = () => {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://unitedcalculator.net"
+            "item": "https://www.unitedcalculator.net"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Finance Calculators",
-            "item": "https://unitedcalculator.net/finance"
+            "item": "https://www.unitedcalculator.net/finance"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "Amortization Calculator",
-            "item": "https://unitedcalculator.net/finance/amortization-calculator"
+            "item": "https://www.unitedcalculator.net/finance/amortization-calculator"
           }
         ]
       }

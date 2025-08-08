@@ -36,7 +36,7 @@ const DownPaymentCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/down-payment-calculator"
+          href="https://www.unitedcalculator.net/finance/down-payment-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const DownPaymentCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/down-payment-calculator"
+          content="https://www.unitedcalculator.net/finance/down-payment-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const DownPaymentCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Down Payment Calculator",
-      "url": "https://unitedcalculator.net/finance/down-payment-calculator",
+      "url": "https://www.unitedcalculator.net/finance/down-payment-calculator",
       "description": "The Down Payment Calculator helps you determine how much money you'll need upfront for a major purchase like a home or car, based on a percentage of the total cost.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const DownPaymentCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Down Payment Calculator",
-          "item": "https://unitedcalculator.net/finance/down-payment-calculator"
+          "item": "https://www.unitedcalculator.net/finance/down-payment-calculator"
         }
       ]
     }

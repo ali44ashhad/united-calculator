@@ -36,7 +36,7 @@ const PaybackPeriodCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/payback-period-calculator"
+          href="https://www.unitedcalculator.net/finance/payback-period-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const PaybackPeriodCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/payback-period-calculator"
+          content="https://www.unitedcalculator.net/finance/payback-period-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const PaybackPeriodCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Payback Period Calculator",
-      "url": "https://unitedcalculator.net/finance/payback-period-calculator",
+      "url": "https://www.unitedcalculator.net/finance/payback-period-calculator",
       "description": "Use the Payback Period Calculator to calculate how many years it will take to recover your investment based on cash inflows. Perfect for business and investment planning.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const PaybackPeriodCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Payback Period Calculator",
-          "item": "https://unitedcalculator.net/finance/payback-period-calculator"
+          "item": "https://www.unitedcalculator.net/finance/payback-period-calculator"
         }
       ]
     }

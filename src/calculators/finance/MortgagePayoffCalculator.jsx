@@ -42,7 +42,7 @@ const MortgagePayoffCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/mortgage-payoff-calculator"
+          href="https://www.unitedcalculator.net/finance/mortgage-payoff-calculator"
         />
 
         {/* Open Graph */}
@@ -54,7 +54,7 @@ const MortgagePayoffCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/mortgage-payoff-calculator"
+          content="https://www.unitedcalculator.net/finance/mortgage-payoff-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -64,12 +64,12 @@ const MortgagePayoffCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Mortgage Payoff Calculator",
-      "url": "https://unitedcalculator.net/finance/mortgage-payoff-calculator",
+      "url": "https://www.unitedcalculator.net/finance/mortgage-payoff-calculator",
       "description": "Calculate how much sooner you can pay off your home loan and how much interest you can save with our Mortgage Payoff Calculator. Perfect for homeowners planning early repayment.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -114,19 +114,19 @@ const MortgagePayoffCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Mortgage Payoff Calculator",
-          "item": "https://unitedcalculator.net/finance/mortgage-payoff-calculator"
+          "item": "https://www.unitedcalculator.net/finance/mortgage-payoff-calculator"
         }
       ]
     }

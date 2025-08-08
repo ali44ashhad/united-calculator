@@ -58,7 +58,7 @@ const BinaryCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/math/binary-calculator"
+          href="https://www.unitedcalculator.net/math/binary-calculator"
         />
 
         {/* Open Graph */}
@@ -73,7 +73,7 @@ const BinaryCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/math/binary-calculator"
+          content="https://www.unitedcalculator.net/math/binary-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -83,12 +83,12 @@ const BinaryCalculator = () => {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Binary Calculator",
-  "url": "https://unitedcalculator.net/math/binary-calculator",
+  "url": "https://www.unitedcalculator.net/math/binary-calculator",
   "description": "Use the Binary Calculator to perform binary addition, subtraction, multiplication, and division, as well as convert between binary, decimal, and hexadecimal formats.",
   "publisher": {
     "@type": "Organization",
     "name": "United Calculator",
-    "url": "https://unitedcalculator.net"
+    "url": "https://www.unitedcalculator.net"
   }
 }
     `}
@@ -133,19 +133,19 @@ const BinaryCalculator = () => {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://unitedcalculator.net"
+      "item": "https://www.unitedcalculator.net"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Math Calculators",
-      "item": "https://unitedcalculator.net/math"
+      "item": "https://www.unitedcalculator.net/math"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Binary Calculator",
-      "item": "https://unitedcalculator.net/math/binary-calculator"
+      "item": "https://www.unitedcalculator.net/math/binary-calculator"
     }
   ]
 }

@@ -42,7 +42,7 @@ const BACCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/bac-calculator"
+          href="https://www.unitedcalculator.net/health/bac-calculator"
         />
 
         {/* Open Graph */}
@@ -57,7 +57,7 @@ const BACCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/bac-calculator"
+          content="https://www.unitedcalculator.net/health/bac-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -67,12 +67,12 @@ const BACCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "BAC Calculator",
-      "url": "https://unitedcalculator.net/health/bac-calculator",
+      "url": "https://www.unitedcalculator.net/health/bac-calculator",
       "description": "Use the BAC Calculator to estimate Blood Alcohol Content (BAC) based on body weight, gender, drink quantity, and time passed. Know your limits before driving or making decisions.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -125,19 +125,19 @@ const BACCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "BAC Calculator",
-          "item": "https://unitedcalculator.net/health/bac-calculator"
+          "item": "https://www.unitedcalculator.net/health/bac-calculator"
         }
       ]
     }

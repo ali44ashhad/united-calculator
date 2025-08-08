@@ -58,7 +58,7 @@ const HouseAffordabilityCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/house-affordability-calculator"
+          href="https://www.unitedcalculator.net/finance/house-affordability-calculator"
         />
 
         {/* Open Graph */}
@@ -73,7 +73,7 @@ const HouseAffordabilityCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/house-affordability-calculator"
+          content="https://www.unitedcalculator.net/finance/house-affordability-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -83,12 +83,12 @@ const HouseAffordabilityCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "House Affordability Calculator",
-      "url": "https://unitedcalculator.net/finance/house-affordability-calculator",
+      "url": "https://www.unitedcalculator.net/finance/house-affordability-calculator",
       "description": "Calculate how much house you can afford based on your income, monthly debts, and mortgage rate. This House Affordability Calculator helps you plan smart home purchases.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -133,19 +133,19 @@ const HouseAffordabilityCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "House Affordability Calculator",
-          "item": "https://unitedcalculator.net/finance/house-affordability-calculator"
+          "item": "https://www.unitedcalculator.net/finance/house-affordability-calculator"
         }
       ]
     }

@@ -133,7 +133,7 @@ const VolumeCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/geometry/volume-calculator"
+          href="https://www.unitedcalculator.net/geometry/volume-calculator"
         />
 
         {/* Open Graph */}
@@ -148,7 +148,7 @@ const VolumeCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/geometry/volume-calculator"
+          content="https://www.unitedcalculator.net/geometry/volume-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -158,12 +158,12 @@ const VolumeCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Volume Calculator",
-      "url": "https://unitedcalculator.net/geometry/volume-calculator",
+      "url": "https://www.unitedcalculator.net/geometry/volume-calculator",
       "description": "This Volume Calculator allows you to calculate the volume of common 3D shapes including cubes, cylinders, cones, spheres, and pyramids. Ideal for students, teachers, and geometry learners.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -208,19 +208,19 @@ const VolumeCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Geometry Calculators",
-          "item": "https://unitedcalculator.net/geometry"
+          "item": "https://www.unitedcalculator.net/geometry"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Volume Calculator",
-          "item": "https://unitedcalculator.net/geometry/volume-calculator"
+          "item": "https://www.unitedcalculator.net/geometry/volume-calculator"
         }
       ]
     }

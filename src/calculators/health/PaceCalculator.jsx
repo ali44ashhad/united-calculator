@@ -42,7 +42,7 @@ const PaceCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/pace-calculator"
+          href="https://www.unitedcalculator.net/health/pace-calculator"
         />
 
         {/* Open Graph */}
@@ -57,7 +57,7 @@ const PaceCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/pace-calculator"
+          content="https://www.unitedcalculator.net/health/pace-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -67,12 +67,12 @@ const PaceCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Pace Calculator",
-      "url": "https://unitedcalculator.net/health/pace-calculator",
+      "url": "https://www.unitedcalculator.net/health/pace-calculator",
       "description": "Determine your running pace per mile or kilometer by inputting your total distance and time with the Pace Calculator. Useful for tracking and improving your fitness performance.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -117,19 +117,19 @@ const PaceCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Pace Calculator",
-          "item": "https://unitedcalculator.net/health/pace-calculator"
+          "item": "https://www.unitedcalculator.net/health/pace-calculator"
         }
       ]
     }

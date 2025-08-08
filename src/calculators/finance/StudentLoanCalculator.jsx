@@ -54,7 +54,7 @@ const StudentLoanCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/student-loan-calculator"
+          href="https://www.unitedcalculator.net/finance/student-loan-calculator"
         />
 
         {/* Open Graph */}
@@ -69,7 +69,7 @@ const StudentLoanCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/student-loan-calculator"
+          content="https://www.unitedcalculator.net/finance/student-loan-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -79,12 +79,12 @@ const StudentLoanCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Student Loan Calculator",
-      "url": "https://unitedcalculator.net/finance/student-loan-calculator",
+      "url": "https://www.unitedcalculator.net/finance/student-loan-calculator",
       "description": "Use our Student Loan Calculator to plan your education loan repayments effectively. It estimates monthly payments, interest charges, and total repayment based on your loan amount, interest rate, and term.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -129,19 +129,19 @@ const StudentLoanCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Student Loan Calculator",
-          "item": "https://unitedcalculator.net/finance/student-loan-calculator"
+          "item": "https://www.unitedcalculator.net/finance/student-loan-calculator"
         }
       ]
     }

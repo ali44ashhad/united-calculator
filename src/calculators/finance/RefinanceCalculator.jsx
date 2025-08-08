@@ -49,7 +49,7 @@ const RefinanceCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/refinance-calculator"
+          href="https://www.unitedcalculator.net/finance/refinance-calculator"
         />
 
         {/* Open Graph */}
@@ -61,7 +61,7 @@ const RefinanceCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/refinance-calculator"
+          content="https://www.unitedcalculator.net/finance/refinance-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -71,12 +71,12 @@ const RefinanceCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Refinance Calculator",
-      "url": "https://unitedcalculator.net/finance/refinance-calculator",
+      "url": "https://www.unitedcalculator.net/finance/refinance-calculator",
       "description": "Use our Refinance Calculator to evaluate potential savings from refinancing a loan. Understand your new monthly payments, total interest saved, and the break-even point.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -121,19 +121,19 @@ const RefinanceCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Refinance Calculator",
-          "item": "https://unitedcalculator.net/finance/refinance-calculator"
+          "item": "https://www.unitedcalculator.net/finance/refinance-calculator"
         }
       ]
     }

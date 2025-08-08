@@ -40,7 +40,7 @@ const SimpleInterestCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/simple-interest-calculator"
+          href="https://www.unitedcalculator.net/finance/simple-interest-calculator"
         />
 
         {/* Open Graph */}
@@ -55,7 +55,7 @@ const SimpleInterestCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/simple-interest-calculator"
+          content="https://www.unitedcalculator.net/finance/simple-interest-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -65,12 +65,12 @@ const SimpleInterestCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Simple Interest Calculator",
-      "url": "https://unitedcalculator.net/finance/simple-interest-calculator",
+      "url": "https://www.unitedcalculator.net/finance/simple-interest-calculator",
       "description": "This Simple Interest Calculator allows users to compute the interest on a principal amount using the basic SI formula: (P × R × T)/100. Perfect for students, borrowers, and savers.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -115,19 +115,19 @@ const SimpleInterestCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Simple Interest Calculator",
-          "item": "https://unitedcalculator.net/finance/simple-interest-calculator"
+          "item": "https://www.unitedcalculator.net/finance/simple-interest-calculator"
         }
       ]
     }

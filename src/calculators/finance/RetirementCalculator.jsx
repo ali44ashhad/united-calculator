@@ -57,7 +57,7 @@ const RetirementCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/retirement-calculator"
+          href="https://www.unitedcalculator.net/finance/retirement-calculator"
         />
 
         {/* Open Graph */}
@@ -69,7 +69,7 @@ const RetirementCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/retirement-calculator"
+          content="https://www.unitedcalculator.net/finance/retirement-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -79,12 +79,12 @@ const RetirementCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Retirement Calculator",
-      "url": "https://unitedcalculator.net/finance/retirement-calculator",
+      "url": "https://www.unitedcalculator.net/finance/retirement-calculator",
       "description": "Use the Retirement Calculator to determine how much you need to save for a financially secure retirement. It helps you estimate your retirement corpus based on current savings, future expenses, and age.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -129,19 +129,19 @@ const RetirementCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Retirement Calculator",
-          "item": "https://unitedcalculator.net/finance/retirement-calculator"
+          "item": "https://www.unitedcalculator.net/finance/retirement-calculator"
         }
       ]
     }

@@ -64,7 +64,7 @@ const VAMortgageCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/va-mortgage-calculator"
+          href="https://www.unitedcalculator.net/finance/va-mortgage-calculator"
         />
 
         {/* Open Graph */}
@@ -79,7 +79,7 @@ const VAMortgageCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/va-mortgage-calculator"
+          content="https://www.unitedcalculator.net/finance/va-mortgage-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -89,12 +89,12 @@ const VAMortgageCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "VA Mortgage Calculator",
-      "url": "https://unitedcalculator.net/finance/va-mortgage-calculator",
+      "url": "https://www.unitedcalculator.net/finance/va-mortgage-calculator",
       "description": "Use our VA Mortgage Calculator to determine your monthly payments for a VA loan. It includes principal, interest, taxes, insurance, and VA funding fees, tailored for veterans, military members, and their families.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -139,19 +139,19 @@ const VAMortgageCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "VA Mortgage Calculator",
-          "item": "https://unitedcalculator.net/finance/va-mortgage-calculator"
+          "item": "https://www.unitedcalculator.net/finance/va-mortgage-calculator"
         }
       ]
     }

@@ -34,7 +34,7 @@ const ROICalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/roi-calculator"
+          href="https://www.unitedcalculator.net/finance/roi-calculator"
         />
 
         {/* Open Graph */}
@@ -49,7 +49,7 @@ const ROICalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/roi-calculator"
+          content="https://www.unitedcalculator.net/finance/roi-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -59,12 +59,12 @@ const ROICalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "ROI Calculator",
-      "url": "https://unitedcalculator.net/finance/roi-calculator",
+      "url": "https://www.unitedcalculator.net/finance/roi-calculator",
       "description": "This ROI Calculator helps you estimate your Return on Investment by analyzing the gain or loss from an investment relative to its cost. Useful for businesses, startups, and investors.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -109,19 +109,19 @@ const ROICalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "ROI Calculator",
-          "item": "https://unitedcalculator.net/finance/roi-calculator"
+          "item": "https://www.unitedcalculator.net/finance/roi-calculator"
         }
       ]
     }

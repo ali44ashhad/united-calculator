@@ -44,7 +44,7 @@ const RealEstateCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/real-estate-calculator"
+          href="https://www.unitedcalculator.net/finance/real-estate-calculator"
         />
 
         {/* Open Graph */}
@@ -56,7 +56,7 @@ const RealEstateCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/real-estate-calculator"
+          content="https://www.unitedcalculator.net/finance/real-estate-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -66,12 +66,12 @@ const RealEstateCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Real Estate Calculator",
-      "url": "https://unitedcalculator.net/finance/real-estate-calculator",
+      "url": "https://www.unitedcalculator.net/finance/real-estate-calculator",
       "description": "Use our Real Estate Calculator to plan your property investment by estimating mortgage payments, cash flow, and returns. Helpful for real estate buyers and investors.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -116,19 +116,19 @@ const RealEstateCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Real Estate Calculator",
-          "item": "https://unitedcalculator.net/finance/real-estate-calculator"
+          "item": "https://www.unitedcalculator.net/finance/real-estate-calculator"
         }
       ]
     }

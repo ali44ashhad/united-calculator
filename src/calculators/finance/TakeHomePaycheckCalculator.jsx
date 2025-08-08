@@ -49,7 +49,7 @@ const TakeHomePaycheckCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/take-home-paycheck-calculator"
+          href="https://www.unitedcalculator.net/finance/take-home-paycheck-calculator"
         />
 
         {/* Open Graph */}
@@ -64,7 +64,7 @@ const TakeHomePaycheckCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/take-home-paycheck-calculator"
+          content="https://www.unitedcalculator.net/finance/take-home-paycheck-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -74,12 +74,12 @@ const TakeHomePaycheckCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Take Home Paycheck Calculator",
-      "url": "https://unitedcalculator.net/finance/take-home-paycheck-calculator",
+      "url": "https://www.unitedcalculator.net/finance/take-home-paycheck-calculator",
       "description": "Use our Take Home Paycheck Calculator to estimate your actual net salary after all deductions such as taxes, health insurance, and retirement contributions. Plan your budget better with clear insights into your real income.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -124,19 +124,19 @@ const TakeHomePaycheckCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Take Home Paycheck Calculator",
-          "item": "https://unitedcalculator.net/finance/take-home-paycheck-calculator"
+          "item": "https://www.unitedcalculator.net/finance/take-home-paycheck-calculator"
         }
       ]
     }

@@ -41,7 +41,7 @@ const PaymentCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/payment-calculator"
+          href="https://www.unitedcalculator.net/finance/payment-calculator"
         />
 
         {/* Open Graph */}
@@ -53,7 +53,7 @@ const PaymentCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/payment-calculator"
+          content="https://www.unitedcalculator.net/finance/payment-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -63,12 +63,12 @@ const PaymentCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Payment Calculator",
-      "url": "https://unitedcalculator.net/finance/payment-calculator",
+      "url": "https://www.unitedcalculator.net/finance/payment-calculator",
       "description": "Use our Payment Calculator to determine your monthly payments for a loan based on amount, interest rate, and term. Useful for mortgages, auto loans, and personal financing.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -113,19 +113,19 @@ const PaymentCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Payment Calculator",
-          "item": "https://unitedcalculator.net/finance/payment-calculator"
+          "item": "https://www.unitedcalculator.net/finance/payment-calculator"
         }
       ]
     }

@@ -36,7 +36,7 @@ const WeightWatcherPointsCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/weight-watcher-points-calculator"
+          href="https://www.unitedcalculator.net/health/weight-watcher-points-calculator"
         />
 
         {/* Open Graph */}
@@ -51,7 +51,7 @@ const WeightWatcherPointsCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/weight-watcher-points-calculator"
+          content="https://www.unitedcalculator.net/health/weight-watcher-points-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -61,12 +61,12 @@ const WeightWatcherPointsCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Weight Watcher Points Calculator",
-      "url": "https://unitedcalculator.net/health/weight-watcher-points-calculator",
+      "url": "https://www.unitedcalculator.net/health/weight-watcher-points-calculator",
       "description": "This Weight Watcher Points Calculator helps you determine SmartPoints based on nutritional values like calories, sugar, saturated fat, and protein. It's ideal for users following the WW diet program and tracking food points for healthy weight loss.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -111,19 +111,19 @@ const WeightWatcherPointsCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Weight Watcher Points Calculator",
-          "item": "https://unitedcalculator.net/health/weight-watcher-points-calculator"
+          "item": "https://www.unitedcalculator.net/health/weight-watcher-points-calculator"
         }
       ]
     }

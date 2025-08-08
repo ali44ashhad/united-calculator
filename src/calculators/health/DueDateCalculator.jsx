@@ -27,7 +27,7 @@ const DueDateCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/due-date-calculator"
+          href="https://www.unitedcalculator.net/health/due-date-calculator"
         />
 
         {/* Open Graph */}
@@ -42,7 +42,7 @@ const DueDateCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/due-date-calculator"
+          content="https://www.unitedcalculator.net/health/due-date-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -52,12 +52,12 @@ const DueDateCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Due Date Calculator",
-      "url": "https://unitedcalculator.net/health/due-date-calculator",
+      "url": "https://www.unitedcalculator.net/health/due-date-calculator",
       "description": "Use the Due Date Calculator to estimate your pregnancy due date based on the first day of your last menstrual period or conception date. Perfect for expectant parents planning their pregnancy journey.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -102,19 +102,19 @@ const DueDateCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Due Date Calculator",
-          "item": "https://unitedcalculator.net/health/due-date-calculator"
+          "item": "https://www.unitedcalculator.net/health/due-date-calculator"
         }
       ]
     }

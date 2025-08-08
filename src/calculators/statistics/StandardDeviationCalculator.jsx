@@ -41,7 +41,7 @@ const StandardDeviationCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/statistics/standard-deviation-calculator"
+          href="https://www.unitedcalculator.net/statistics/standard-deviation-calculator"
         />
 
         {/* Open Graph */}
@@ -56,7 +56,7 @@ const StandardDeviationCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/statistics/standard-deviation-calculator"
+          content="https://www.unitedcalculator.net/statistics/standard-deviation-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -66,12 +66,12 @@ const StandardDeviationCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Standard Deviation Calculator",
-      "url": "https://unitedcalculator.net/statistics/standard-deviation-calculator",
+      "url": "https://www.unitedcalculator.net/statistics/standard-deviation-calculator",
       "description": "Calculate standard deviation, variance, and mean using this powerful statistics calculator. Supports both sample and population datasets with step-by-step breakdowns.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -116,19 +116,19 @@ const StandardDeviationCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Statistics Calculators",
-          "item": "https://unitedcalculator.net/statistics"
+          "item": "https://www.unitedcalculator.net/statistics"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Standard Deviation Calculator",
-          "item": "https://unitedcalculator.net/statistics/standard-deviation-calculator"
+          "item": "https://www.unitedcalculator.net/statistics/standard-deviation-calculator"
         }
       ]
     }

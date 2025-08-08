@@ -32,7 +32,7 @@ const MortgageAmortizationCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/mortgage-amortization-calculator"
+          href="https://www.unitedcalculator.net/finance/mortgage-amortization-calculator"
         />
 
         {/* Open Graph */}
@@ -44,7 +44,7 @@ const MortgageAmortizationCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/mortgage-amortization-calculator"
+          content="https://www.unitedcalculator.net/finance/mortgage-amortization-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -54,12 +54,12 @@ const MortgageAmortizationCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Mortgage Amortization Calculator",
-      "url": "https://unitedcalculator.net/finance/mortgage-amortization-calculator",
+      "url": "https://www.unitedcalculator.net/finance/mortgage-amortization-calculator",
       "description": "Use the Mortgage Amortization Calculator to view a detailed schedule of your mortgage payments. Understand how much you pay in principal and interest each month.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -104,19 +104,19 @@ const MortgageAmortizationCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Mortgage Amortization Calculator",
-          "item": "https://unitedcalculator.net/finance/mortgage-amortization-calculator"
+          "item": "https://www.unitedcalculator.net/finance/mortgage-amortization-calculator"
         }
       ]
     }

@@ -42,7 +42,7 @@ const BasicCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/math/basic-calculator"
+          href="https://www.unitedcalculator.net/math/basic-calculator"
         />
 
         {/* Open Graph */}
@@ -57,7 +57,7 @@ const BasicCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/math/basic-calculator"
+          content="https://www.unitedcalculator.net/math/basic-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -67,12 +67,12 @@ const BasicCalculator = () => {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Basic Calculator",
-  "url": "https://unitedcalculator.net/math/basic-calculator",
+  "url": "https://www.unitedcalculator.net/math/basic-calculator",
   "description": "Use the Basic Calculator to quickly perform addition, subtraction, multiplication, and division. Ideal for students, professionals, and everyday use.",
   "publisher": {
     "@type": "Organization",
     "name": "United Calculator",
-    "url": "https://unitedcalculator.net"
+    "url": "https://www.unitedcalculator.net"
   }
 }
     `}
@@ -117,19 +117,19 @@ const BasicCalculator = () => {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://unitedcalculator.net"
+      "item": "https://www.unitedcalculator.net"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Math Calculators",
-      "item": "https://unitedcalculator.net/math"
+      "item": "https://www.unitedcalculator.net/math"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Basic Calculator",
-      "item": "https://unitedcalculator.net/math/basic-calculator"
+      "item": "https://www.unitedcalculator.net/math/basic-calculator"
     }
   ]
 }

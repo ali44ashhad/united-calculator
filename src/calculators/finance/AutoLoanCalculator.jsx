@@ -43,7 +43,7 @@ const AutoLoanCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/auto-loan-calculator"
+          href="https://www.unitedcalculator.net/finance/auto-loan-calculator"
         />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
@@ -57,7 +57,7 @@ const AutoLoanCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/auto-loan-calculator"
+          content="https://www.unitedcalculator.net/finance/auto-loan-calculator"
         />
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -76,12 +76,12 @@ const AutoLoanCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Auto Loan Calculator",
-      "url": "https://unitedcalculator.net/finance/auto-loan-calculator",
+      "url": "https://www.unitedcalculator.net/finance/auto-loan-calculator",
       "description": "Auto Loan Calculator to help you determine car loan EMI, interest paid, and total repayment. Perfect tool for budgeting your next vehicle purchase.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -124,19 +124,19 @@ const AutoLoanCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Auto Loan Calculator",
-          "item": "https://unitedcalculator.net/finance/auto-loan-calculator"
+          "item": "https://www.unitedcalculator.net/finance/auto-loan-calculator"
         }
       ]
     }

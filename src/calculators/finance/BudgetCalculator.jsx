@@ -53,7 +53,7 @@ const BudgetCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/budget-calculator"
+          href="https://www.unitedcalculator.net/finance/budget-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Budget Calculator" />
@@ -63,7 +63,7 @@ const BudgetCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/budget-calculator"
+          content="https://www.unitedcalculator.net/finance/budget-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -71,12 +71,12 @@ const BudgetCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Budget Calculator",
-      "url": "https://unitedcalculator.net/finance/budget-calculator",
+      "url": "https://www.unitedcalculator.net/finance/budget-calculator",
       "description": "Plan and manage your monthly budget with our easy-to-use Budget Calculator. Track expenses, income, and savings efficiently.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -117,19 +117,19 @@ const BudgetCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Budget Calculator",
-          "item": "https://unitedcalculator.net/finance/budget-calculator"
+          "item": "https://www.unitedcalculator.net/finance/budget-calculator"
         }
       ]
     }

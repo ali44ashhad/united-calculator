@@ -45,7 +45,7 @@ const CaloriesBurnedCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/calories-burned-calculator"
+          href="https://www.unitedcalculator.net/health/calories-burned-calculator"
         />
 
         {/* Open Graph */}
@@ -60,7 +60,7 @@ const CaloriesBurnedCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/calories-burned-calculator"
+          content="https://www.unitedcalculator.net/health/calories-burned-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -70,12 +70,12 @@ const CaloriesBurnedCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Calories Burned Calculator",
-      "url": "https://unitedcalculator.net/health/calories-burned-calculator",
+      "url": "https://www.unitedcalculator.net/health/calories-burned-calculator",
       "description": "Estimate the number of calories burned during exercise or daily activities using this calculator. Simply select an activity, enter your weight and duration, and get accurate results for better health planning.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -120,19 +120,19 @@ const CaloriesBurnedCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Calories Burned Calculator",
-          "item": "https://unitedcalculator.net/health/calories-burned-calculator"
+          "item": "https://www.unitedcalculator.net/health/calories-burned-calculator"
         }
       ]
     }

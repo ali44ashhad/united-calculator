@@ -43,7 +43,7 @@ const TDEECalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/tdee-calculator"
+          href="https://www.unitedcalculator.net/health/tdee-calculator"
         />
 
         {/* Open Graph */}
@@ -58,7 +58,7 @@ const TDEECalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/tdee-calculator"
+          content="https://www.unitedcalculator.net/health/tdee-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -68,12 +68,12 @@ const TDEECalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "TDEE Calculator",
-      "url": "https://unitedcalculator.net/health/tdee-calculator",
+      "url": "https://www.unitedcalculator.net/health/tdee-calculator",
       "description": "Calculate your Total Daily Energy Expenditure (TDEE) based on your basal metabolic rate and activity level to help with diet and fitness planning.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -118,19 +118,19 @@ const TDEECalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "TDEE Calculator",
-          "item": "https://unitedcalculator.net/health/tdee-calculator"
+          "item": "https://www.unitedcalculator.net/health/tdee-calculator"
         }
       ]
     }

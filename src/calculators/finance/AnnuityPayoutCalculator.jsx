@@ -44,7 +44,7 @@ const AnnuityPayoutCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/annuity-payout-calculator"
+          href="https://www.unitedcalculator.net/finance/annuity-payout-calculator"
         />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
@@ -58,7 +58,7 @@ const AnnuityPayoutCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/annuity-payout-calculator"
+          content="https://www.unitedcalculator.net/finance/annuity-payout-calculator"
         />
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -77,12 +77,12 @@ const AnnuityPayoutCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Annuity Payout Calculator",
-      "url": "https://unitedcalculator.net/finance/annuity-payout-calculator",
+      "url": "https://www.unitedcalculator.net/finance/annuity-payout-calculator",
       "description": "Free annuity payout calculator to estimate your recurring income based on investment amount, interest rate, and time period. Ideal for retirement income planning.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -125,19 +125,19 @@ const AnnuityPayoutCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Annuity Payout Calculator",
-          "item": "https://unitedcalculator.net/finance/annuity-payout-calculator"
+          "item": "https://www.unitedcalculator.net/finance/annuity-payout-calculator"
         }
       ]
     }

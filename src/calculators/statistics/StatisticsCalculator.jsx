@@ -61,7 +61,7 @@ const StatisticsCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/statistics/statistics-calculator"
+          href="https://www.unitedcalculator.net/statistics/statistics-calculator"
         />
 
         {/* Open Graph */}
@@ -76,7 +76,7 @@ const StatisticsCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/statistics/statistics-calculator"
+          content="https://www.unitedcalculator.net/statistics/statistics-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -86,12 +86,12 @@ const StatisticsCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Statistics Calculator",
-      "url": "https://unitedcalculator.net/statistics/statistics-calculator",
+      "url": "https://www.unitedcalculator.net/statistics/statistics-calculator",
       "description": "This all-in-one Statistics Calculator lets you calculate mean, median, mode, range, variance, and standard deviation for any dataset. Ideal for students, teachers, and data analysts.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -136,19 +136,19 @@ const StatisticsCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Statistics Calculators",
-          "item": "https://unitedcalculator.net/statistics"
+          "item": "https://www.unitedcalculator.net/statistics"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Statistics Calculator",
-          "item": "https://unitedcalculator.net/statistics/statistics-calculator"
+          "item": "https://www.unitedcalculator.net/statistics/statistics-calculator"
         }
       ]
     }

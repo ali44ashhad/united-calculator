@@ -50,7 +50,7 @@ const BondCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/bond-calculator"
+          href="https://www.unitedcalculator.net/finance/bond-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Bond Calculator" />
@@ -60,7 +60,7 @@ const BondCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/bond-calculator"
+          content="https://www.unitedcalculator.net/finance/bond-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -68,12 +68,12 @@ const BondCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Bond Calculator",
-      "url": "https://unitedcalculator.net/finance/bond-calculator",
+      "url": "https://www.unitedcalculator.net/finance/bond-calculator",
       "description": "Use our Bond Calculator to determine the price, present value, and yield of bond investments. Perfect for evaluating fixed-income returns.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -114,19 +114,19 @@ const BondCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Bond Calculator",
-          "item": "https://unitedcalculator.net/finance/bond-calculator"
+          "item": "https://www.unitedcalculator.net/finance/bond-calculator"
         }
       ]
     }

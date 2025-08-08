@@ -44,7 +44,7 @@ const SIPCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/sip-calculator"
+          href="https://www.unitedcalculator.net/finance/sip-calculator"
         />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
@@ -58,12 +58,9 @@ const SIPCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/sip-calculator"
+          content="https://www.unitedcalculator.net/finance/sip-calculator"
         />
-        <meta
-          property="og:image"
-          content="https://unitedcalculator.net/assets/images/sip-preview.png"
-        />
+
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -74,10 +71,7 @@ const SIPCalculator = () => {
           name="twitter:description"
           content="Use our SIP calculator to calculate mutual fund returns. Perfect tool for monthly investment planning."
         />
-        <meta
-          name="twitter:image"
-          content="https://unitedcalculator.net/assets/images/sip-preview.png"
-        />
+
         {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
           {`
@@ -85,12 +79,12 @@ const SIPCalculator = () => {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "SIP Calculator",
-            "url": "https://unitedcalculator.net/finance/sip-calculator",
+            "url": "https://www.unitedcalculator.net/finance/sip-calculator",
             "description": "Free online SIP calculator to estimate mutual fund returns. Calculate your monthly investment and future value to plan your wealth.",
             "publisher": {
               "@type": "Organization",
               "name": "United Calculators",
-              "url": "https://unitedcalculator.net"
+              "url": "https://www.unitedcalculator.net"
             }
           }
           `}
@@ -133,19 +127,19 @@ const SIPCalculator = () => {
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Home",
-                "item": "https://unitedcalculator.net"
+                "item": "https://www.unitedcalculator.net"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Finance Calculators",
-                "item": "https://unitedcalculator.net/finance"
+                "item": "https://www.unitedcalculator.net/finance"
               },
               {
                 "@type": "ListItem",
                 "position": 3,
                 "name": "SIP Calculator",
-                "item": "https://unitedcalculator.net/finance/sip-calculator"
+                "item": "https://www.unitedcalculator.net/finance/sip-calculator"
               }
             ]
           }

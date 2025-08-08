@@ -45,7 +45,7 @@ const CurrencyCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/currency-calculator"
+          href="https://www.unitedcalculator.net/finance/currency-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Currency Calculator" />
@@ -55,7 +55,7 @@ const CurrencyCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/currency-calculator"
+          content="https://www.unitedcalculator.net/finance/currency-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -63,12 +63,12 @@ const CurrencyCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Currency Calculator",
-      "url": "https://unitedcalculator.net/finance/currency-calculator",
+      "url": "https://www.unitedcalculator.net/finance/currency-calculator",
       "description": "The Currency Calculator helps you convert between different currencies using real-time exchange rates. Ideal for travelers, investors, and international shoppers.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -109,19 +109,19 @@ const CurrencyCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Currency Calculator",
-          "item": "https://unitedcalculator.net/finance/currency-calculator"
+          "item": "https://www.unitedcalculator.net/finance/currency-calculator"
         }
       ]
     }

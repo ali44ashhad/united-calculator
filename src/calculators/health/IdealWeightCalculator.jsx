@@ -39,7 +39,7 @@ const IdealWeightCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/ideal-weight-calculator"
+          href="https://www.unitedcalculator.net/health/ideal-weight-calculator"
         />
 
         {/* Open Graph */}
@@ -54,7 +54,7 @@ const IdealWeightCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/ideal-weight-calculator"
+          content="https://www.unitedcalculator.net/health/ideal-weight-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -64,12 +64,12 @@ const IdealWeightCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Ideal Weight Calculator",
-      "url": "https://unitedcalculator.net/health/ideal-weight-calculator",
+      "url": "https://www.unitedcalculator.net/health/ideal-weight-calculator",
       "description": "The Ideal Weight Calculator helps you determine your perfect weight based on your height, gender, and body frame size. Use it to track your fitness journey and stay within a healthy weight range.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -114,19 +114,19 @@ const IdealWeightCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Ideal Weight Calculator",
-          "item": "https://unitedcalculator.net/health/ideal-weight-calculator"
+          "item": "https://www.unitedcalculator.net/health/ideal-weight-calculator"
         }
       ]
     }

@@ -56,7 +56,7 @@ const BigNumberCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/math/big-number-calculator"
+          href="https://www.unitedcalculator.net/math/big-number-calculator"
         />
 
         {/* Open Graph */}
@@ -71,7 +71,7 @@ const BigNumberCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/math/big-number-calculator"
+          content="https://www.unitedcalculator.net/math/big-number-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -81,12 +81,12 @@ const BigNumberCalculator = () => {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Big Number Calculator",
-  "url": "https://unitedcalculator.net/math/big-number-calculator",
+  "url": "https://www.unitedcalculator.net/math/big-number-calculator",
   "description": "Use the Big Number Calculator to handle very large number calculations with high precision. Ideal for scientific research, finance, and engineering applications.",
   "publisher": {
     "@type": "Organization",
     "name": "United Calculator",
-    "url": "https://unitedcalculator.net"
+    "url": "https://www.unitedcalculator.net"
   }
 }
     `}
@@ -131,19 +131,19 @@ const BigNumberCalculator = () => {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://unitedcalculator.net"
+      "item": "https://www.unitedcalculator.net"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Math Calculators",
-      "item": "https://unitedcalculator.net/math"
+      "item": "https://www.unitedcalculator.net/math"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Big Number Calculator",
-      "item": "https://unitedcalculator.net/math/big-number-calculator"
+      "item": "https://www.unitedcalculator.net/math/big-number-calculator"
     }
   ]
 }

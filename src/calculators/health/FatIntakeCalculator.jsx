@@ -33,7 +33,7 @@ const FatIntakeCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/fat-intake-calculator"
+          href="https://www.unitedcalculator.net/health/fat-intake-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const FatIntakeCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/fat-intake-calculator"
+          content="https://www.unitedcalculator.net/health/fat-intake-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const FatIntakeCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Fat Intake Calculator",
-      "url": "https://unitedcalculator.net/health/fat-intake-calculator",
+      "url": "https://www.unitedcalculator.net/health/fat-intake-calculator",
       "description": "Use the Fat Intake Calculator to determine your recommended daily fat consumption. Ideal for those planning a balanced diet, tracking macros, or adjusting fat intake for weight goals.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const FatIntakeCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Fat Intake Calculator",
-          "item": "https://unitedcalculator.net/health/fat-intake-calculator"
+          "item": "https://www.unitedcalculator.net/health/fat-intake-calculator"
         }
       ]
     }

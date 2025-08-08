@@ -44,7 +44,7 @@ const PregnancyWeightGainCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/pregnancy-weight-gain-calculator"
+          href="https://www.unitedcalculator.net/health/pregnancy-weight-gain-calculator"
         />
 
         {/* Open Graph */}
@@ -59,7 +59,7 @@ const PregnancyWeightGainCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/pregnancy-weight-gain-calculator"
+          content="https://www.unitedcalculator.net/health/pregnancy-weight-gain-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -69,12 +69,12 @@ const PregnancyWeightGainCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Pregnancy Weight Gain Calculator",
-      "url": "https://unitedcalculator.net/health/pregnancy-weight-gain-calculator",
+      "url": "https://www.unitedcalculator.net/health/pregnancy-weight-gain-calculator",
       "description": "Track and monitor healthy weight gain during pregnancy with our Pregnancy Weight Gain Calculator. Based on pre-pregnancy BMI and gestational age, this tool helps ensure a safe pregnancy.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -119,19 +119,19 @@ const PregnancyWeightGainCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Pregnancy Weight Gain Calculator",
-          "item": "https://unitedcalculator.net/health/pregnancy-weight-gain-calculator"
+          "item": "https://www.unitedcalculator.net/health/pregnancy-weight-gain-calculator"
         }
       ]
     }

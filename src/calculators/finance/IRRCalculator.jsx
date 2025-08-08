@@ -55,7 +55,7 @@ const IRRCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/irr-calculator"
+          href="https://www.unitedcalculator.net/finance/irr-calculator"
         />
 
         {/* Open Graph */}
@@ -67,7 +67,7 @@ const IRRCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/irr-calculator"
+          content="https://www.unitedcalculator.net/finance/irr-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -77,12 +77,12 @@ const IRRCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "IRR Calculator",
-      "url": "https://unitedcalculator.net/finance/irr-calculator",
+      "url": "https://www.unitedcalculator.net/finance/irr-calculator",
       "description": "Use the IRR Calculator to determine the internal rate of return for any investment or cash flow project. Ideal for evaluating financial feasibility and investment performance.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -127,19 +127,19 @@ const IRRCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "IRR Calculator",
-          "item": "https://unitedcalculator.net/finance/irr-calculator"
+          "item": "https://www.unitedcalculator.net/finance/irr-calculator"
         }
       ]
     }

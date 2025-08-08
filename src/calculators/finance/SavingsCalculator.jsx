@@ -39,7 +39,7 @@ const SavingsCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/savings-calculator"
+          href="https://www.unitedcalculator.net/finance/savings-calculator"
         />
 
         {/* Open Graph */}
@@ -54,7 +54,7 @@ const SavingsCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/savings-calculator"
+          content="https://www.unitedcalculator.net/finance/savings-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -64,12 +64,12 @@ const SavingsCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Savings Calculator",
-      "url": "https://unitedcalculator.net/finance/savings-calculator",
+      "url": "https://www.unitedcalculator.net/finance/savings-calculator",
       "description": "Estimate how your savings will grow over time using our Savings Calculator. Input interest rate, monthly deposit, and duration to calculate future savings with or without compounding.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -114,19 +114,19 @@ const SavingsCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Savings Calculator",
-          "item": "https://unitedcalculator.net/finance/savings-calculator"
+          "item": "https://www.unitedcalculator.net/finance/savings-calculator"
         }
       ]
     }

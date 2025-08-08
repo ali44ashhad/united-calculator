@@ -38,7 +38,7 @@ const EstateTaxCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/estate-tax-calculator"
+          href="https://www.unitedcalculator.net/finance/estate-tax-calculator"
         />
 
         {/* Open Graph */}
@@ -50,7 +50,7 @@ const EstateTaxCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/estate-tax-calculator"
+          content="https://www.unitedcalculator.net/finance/estate-tax-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -60,12 +60,12 @@ const EstateTaxCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Estate Tax Calculator",
-      "url": "https://unitedcalculator.net/finance/estate-tax-calculator",
+      "url": "https://www.unitedcalculator.net/finance/estate-tax-calculator",
       "description": "Use the Estate Tax Calculator to estimate taxes owed on a deceased person’s estate. Learn about the federal estate tax threshold, taxable estate value, and planning strategies.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -110,19 +110,19 @@ const EstateTaxCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Estate Tax Calculator",
-          "item": "https://unitedcalculator.net/finance/estate-tax-calculator"
+          "item": "https://www.unitedcalculator.net/finance/estate-tax-calculator"
         }
       ]
     }

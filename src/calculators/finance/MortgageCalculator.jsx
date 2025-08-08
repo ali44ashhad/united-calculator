@@ -33,7 +33,7 @@ const MortgageCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/mortgage-calculator"
+          href="https://www.unitedcalculator.net/finance/mortgage-calculator"
         />
 
         {/* Open Graph */}
@@ -45,7 +45,7 @@ const MortgageCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/mortgage-calculator"
+          content="https://www.unitedcalculator.net/finance/mortgage-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -55,12 +55,12 @@ const MortgageCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Mortgage Calculator",
-      "url": "https://unitedcalculator.net/finance/mortgage-calculator",
+      "url": "https://www.unitedcalculator.net/finance/mortgage-calculator",
       "description": "Use the Mortgage Calculator to determine your monthly home loan payments. Plan your budget by calculating principal and interest based on loan term and rate.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -105,19 +105,19 @@ const MortgageCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Mortgage Calculator",
-          "item": "https://unitedcalculator.net/finance/mortgage-calculator"
+          "item": "https://www.unitedcalculator.net/finance/mortgage-calculator"
         }
       ]
     }

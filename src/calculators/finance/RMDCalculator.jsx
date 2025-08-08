@@ -72,7 +72,7 @@ const RMDCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/rmd-calculator"
+          href="https://www.unitedcalculator.net/finance/rmd-calculator"
         />
 
         {/* Open Graph */}
@@ -87,7 +87,7 @@ const RMDCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/rmd-calculator"
+          content="https://www.unitedcalculator.net/finance/rmd-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -97,12 +97,12 @@ const RMDCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "RMD Calculator",
-      "url": "https://unitedcalculator.net/finance/rmd-calculator",
+      "url": "https://www.unitedcalculator.net/finance/rmd-calculator",
       "description": "Use our RMD Calculator to determine the minimum annual withdrawal you need to take from your retirement accounts based on your age and account balance, as per IRS guidelines.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -147,19 +147,19 @@ const RMDCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "RMD Calculator",
-          "item": "https://unitedcalculator.net/finance/rmd-calculator"
+          "item": "https://www.unitedcalculator.net/finance/rmd-calculator"
         }
       ]
     }

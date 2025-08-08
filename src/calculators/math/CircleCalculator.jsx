@@ -39,7 +39,7 @@ const CircleCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/math/circle-calculator"
+          href="https://www.unitedcalculator.net/math/circle-calculator"
         />
 
         {/* Open Graph */}
@@ -54,7 +54,7 @@ const CircleCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/math/circle-calculator"
+          content="https://www.unitedcalculator.net/math/circle-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -64,12 +64,12 @@ const CircleCalculator = () => {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Circle Calculator",
-  "url": "https://unitedcalculator.net/math/circle-calculator",
+  "url": "https://www.unitedcalculator.net/math/circle-calculator",
   "description": "Use the Circle Calculator to find the area, circumference, diameter, and radius of a circle quickly and accurately. Great for students, teachers, and professionals.",
   "publisher": {
     "@type": "Organization",
     "name": "United Calculator",
-    "url": "https://unitedcalculator.net"
+    "url": "https://www.unitedcalculator.net"
   }
 }
     `}
@@ -114,19 +114,19 @@ const CircleCalculator = () => {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://unitedcalculator.net"
+      "item": "https://www.unitedcalculator.net"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Math Calculators",
-      "item": "https://unitedcalculator.net/math"
+      "item": "https://www.unitedcalculator.net/math"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Circle Calculator",
-      "item": "https://unitedcalculator.net/math/circle-calculator"
+      "item": "https://www.unitedcalculator.net/math/circle-calculator"
     }
   ]
 }

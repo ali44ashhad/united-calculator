@@ -36,7 +36,7 @@ const PercentOffCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/percent-off-calculator"
+          href="https://www.unitedcalculator.net/finance/percent-off-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const PercentOffCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/percent-off-calculator"
+          content="https://www.unitedcalculator.net/finance/percent-off-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const PercentOffCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Percent Off Calculator",
-      "url": "https://unitedcalculator.net/finance/percent-off-calculator",
+      "url": "https://www.unitedcalculator.net/finance/percent-off-calculator",
       "description": "Easily find out how much you save with our Percent Off Calculator. Enter the original price and discount percentage to get the final price instantly.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const PercentOffCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Percent Off Calculator",
-          "item": "https://unitedcalculator.net/finance/percent-off-calculator"
+          "item": "https://www.unitedcalculator.net/finance/percent-off-calculator"
         }
       ]
     }

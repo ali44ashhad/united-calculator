@@ -77,7 +77,7 @@ const CreditCardsPayoffCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/credit-cards-payoff-calculator"
+          href="https://www.unitedcalculator.net/finance/credit-cards-payoff-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Credit Cards Payoff Calculator" />
@@ -87,7 +87,7 @@ const CreditCardsPayoffCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/credit-cards-payoff-calculator"
+          content="https://www.unitedcalculator.net/finance/credit-cards-payoff-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -95,12 +95,12 @@ const CreditCardsPayoffCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Credit Cards Payoff Calculator",
-      "url": "https://unitedcalculator.net/finance/credit-cards-payoff-calculator",
+      "url": "https://www.unitedcalculator.net/finance/credit-cards-payoff-calculator",
       "description": "Use the Credit Cards Payoff Calculator to calculate the time and cost required to eliminate your credit card debt. Optimize your repayment plan efficiently.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -141,19 +141,19 @@ const CreditCardsPayoffCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Credit Cards Payoff Calculator",
-          "item": "https://unitedcalculator.net/finance/credit-cards-payoff-calculator"
+          "item": "https://www.unitedcalculator.net/finance/credit-cards-payoff-calculator"
         }
       ]
     }

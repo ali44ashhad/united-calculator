@@ -68,7 +68,7 @@ const DebtConsolidationCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/debt-consolidation-calculator"
+          href="https://www.unitedcalculator.net/finance/debt-consolidation-calculator"
         />
 
         {/* Open Graph */}
@@ -80,7 +80,7 @@ const DebtConsolidationCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/debt-consolidation-calculator"
+          content="https://www.unitedcalculator.net/finance/debt-consolidation-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -90,12 +90,12 @@ const DebtConsolidationCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Debt Consolidation Calculator",
-      "url": "https://unitedcalculator.net/finance/debt-consolidation-calculator",
+      "url": "https://www.unitedcalculator.net/finance/debt-consolidation-calculator",
       "description": "Use the Debt Consolidation Calculator to explore how combining multiple loans into one can lower your interest rates and simplify your payments.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -140,19 +140,19 @@ const DebtConsolidationCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Debt Consolidation Calculator",
-          "item": "https://unitedcalculator.net/finance/debt-consolidation-calculator"
+          "item": "https://www.unitedcalculator.net/finance/debt-consolidation-calculator"
         }
       ]
     }

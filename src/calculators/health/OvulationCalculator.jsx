@@ -44,7 +44,7 @@ const OvulationCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/ovulation-calculator"
+          href="https://www.unitedcalculator.net/health/ovulation-calculator"
         />
 
         {/* Open Graph */}
@@ -59,7 +59,7 @@ const OvulationCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/ovulation-calculator"
+          content="https://www.unitedcalculator.net/health/ovulation-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -69,12 +69,12 @@ const OvulationCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Ovulation Calculator",
-      "url": "https://unitedcalculator.net/health/ovulation-calculator",
+      "url": "https://www.unitedcalculator.net/health/ovulation-calculator",
       "description": "Use the Ovulation Calculator to estimate your fertile window and ovulation days based on your menstrual cycle. Ideal for conception planning and fertility awareness.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -119,19 +119,19 @@ const OvulationCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Ovulation Calculator",
-          "item": "https://unitedcalculator.net/health/ovulation-calculator"
+          "item": "https://www.unitedcalculator.net/health/ovulation-calculator"
         }
       ]
     }

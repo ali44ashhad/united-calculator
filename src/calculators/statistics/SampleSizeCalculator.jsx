@@ -57,7 +57,7 @@ const SampleSizeCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/statistics/sample-size-calculator"
+          href="https://www.unitedcalculator.net/statistics/sample-size-calculator"
         />
 
         {/* Open Graph */}
@@ -72,7 +72,7 @@ const SampleSizeCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/statistics/sample-size-calculator"
+          content="https://www.unitedcalculator.net/statistics/sample-size-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -82,12 +82,12 @@ const SampleSizeCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Sample Size Calculator",
-      "url": "https://unitedcalculator.net/statistics/sample-size-calculator",
+      "url": "https://www.unitedcalculator.net/statistics/sample-size-calculator",
       "description": "Find out how many people you need to survey using our Sample Size Calculator. Enter population size, margin of error, and confidence level to determine the appropriate sample size for accurate results.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -132,19 +132,19 @@ const SampleSizeCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Statistics Calculators",
-          "item": "https://unitedcalculator.net/statistics"
+          "item": "https://www.unitedcalculator.net/statistics"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Sample Size Calculator",
-          "item": "https://unitedcalculator.net/statistics/sample-size-calculator"
+          "item": "https://www.unitedcalculator.net/statistics/sample-size-calculator"
         }
       ]
     }

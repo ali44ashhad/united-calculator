@@ -33,7 +33,7 @@ const CarbohydrateCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/carbohydrate-calculator"
+          href="https://www.unitedcalculator.net/health/carbohydrate-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const CarbohydrateCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/carbohydrate-calculator"
+          content="https://www.unitedcalculator.net/health/carbohydrate-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const CarbohydrateCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Carbohydrate Calculator",
-      "url": "https://unitedcalculator.net/health/carbohydrate-calculator",
+      "url": "https://www.unitedcalculator.net/health/carbohydrate-calculator",
       "description": "Use the Carbohydrate Calculator to find out how many grams of carbs you should consume daily for your health goals. Tailored for weight loss, muscle gain, and ketogenic diets.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const CarbohydrateCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Carbohydrate Calculator",
-          "item": "https://unitedcalculator.net/health/carbohydrate-calculator"
+          "item": "https://www.unitedcalculator.net/health/carbohydrate-calculator"
         }
       ]
     }

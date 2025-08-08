@@ -40,7 +40,7 @@ const CompoundInterestCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/compound-interest-calculator"
+          href="https://www.unitedcalculator.net/finance/compound-interest-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Compound Interest Calculator" />
@@ -50,7 +50,7 @@ const CompoundInterestCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/compound-interest-calculator"
+          content="https://www.unitedcalculator.net/finance/compound-interest-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -58,12 +58,12 @@ const CompoundInterestCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Compound Interest Calculator",
-      "url": "https://unitedcalculator.net/finance/compound-interest-calculator",
+      "url": "https://www.unitedcalculator.net/finance/compound-interest-calculator",
       "description": "Use the Compound Interest Calculator to determine the future value of an investment or savings account with compounded interest over time.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -104,19 +104,19 @@ const CompoundInterestCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Compound Interest Calculator",
-          "item": "https://unitedcalculator.net/finance/compound-interest-calculator"
+          "item": "https://www.unitedcalculator.net/finance/compound-interest-calculator"
         }
       ]
     }

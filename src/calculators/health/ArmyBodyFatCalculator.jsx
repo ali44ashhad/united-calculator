@@ -68,7 +68,7 @@ const ArmyBodyFatCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/army-body-fat-calculator"
+          href="https://www.unitedcalculator.net/health/army-body-fat-calculator"
         />
 
         {/* Open Graph */}
@@ -83,7 +83,7 @@ const ArmyBodyFatCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/army-body-fat-calculator"
+          content="https://www.unitedcalculator.net/health/army-body-fat-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -93,12 +93,12 @@ const ArmyBodyFatCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Army Body Fat Calculator",
-      "url": "https://unitedcalculator.net/health/army-body-fat-calculator",
+      "url": "https://www.unitedcalculator.net/health/army-body-fat-calculator",
       "description": "Calculate body fat percentage using the U.S. Army standard. This Army Body Fat Calculator helps determine eligibility for military service based on gender, height, neck, and waist measurements.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -143,19 +143,19 @@ const ArmyBodyFatCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Army Body Fat Calculator",
-          "item": "https://unitedcalculator.net/health/army-body-fat-calculator"
+          "item": "https://www.unitedcalculator.net/health/army-body-fat-calculator"
         }
       ]
     }

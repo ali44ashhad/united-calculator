@@ -40,7 +40,7 @@ const RentalPropertyCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/rental-property-calculator"
+          href="https://www.unitedcalculator.net/finance/rental-property-calculator"
         />
 
         {/* Open Graph */}
@@ -52,7 +52,7 @@ const RentalPropertyCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/rental-property-calculator"
+          content="https://www.unitedcalculator.net/finance/rental-property-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -62,12 +62,12 @@ const RentalPropertyCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Rental Property Calculator",
-      "url": "https://unitedcalculator.net/finance/rental-property-calculator",
+      "url": "https://www.unitedcalculator.net/finance/rental-property-calculator",
       "description": "Use our Rental Property Calculator to analyze the profitability of real estate investments. Calculate cash flow, ROI, cap rate, and income potential quickly and easily.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -112,19 +112,19 @@ const RentalPropertyCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Rental Property Calculator",
-          "item": "https://unitedcalculator.net/finance/rental-property-calculator"
+          "item": "https://www.unitedcalculator.net/finance/rental-property-calculator"
         }
       ]
     }

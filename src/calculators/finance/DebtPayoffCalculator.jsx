@@ -62,7 +62,7 @@ const DebtPayoffCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/debt-payoff-calculator"
+          href="https://www.unitedcalculator.net/finance/debt-payoff-calculator"
         />
 
         {/* Open Graph */}
@@ -74,7 +74,7 @@ const DebtPayoffCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/debt-payoff-calculator"
+          content="https://www.unitedcalculator.net/finance/debt-payoff-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -84,12 +84,12 @@ const DebtPayoffCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Debt Payoff Calculator",
-      "url": "https://unitedcalculator.net/finance/debt-payoff-calculator",
+      "url": "https://www.unitedcalculator.net/finance/debt-payoff-calculator",
       "description": "Use the Debt Payoff Calculator to plan and manage how you’ll pay off your loans or credit cards. Choose the best repayment strategy and track your debt-free journey.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -134,19 +134,19 @@ const DebtPayoffCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Debt Payoff Calculator",
-          "item": "https://unitedcalculator.net/finance/debt-payoff-calculator"
+          "item": "https://www.unitedcalculator.net/finance/debt-payoff-calculator"
         }
       ]
     }

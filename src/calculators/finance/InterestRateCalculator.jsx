@@ -36,7 +36,7 @@ const InterestRateCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/interest-rate-calculator"
+          href="https://www.unitedcalculator.net/finance/interest-rate-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const InterestRateCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/interest-rate-calculator"
+          content="https://www.unitedcalculator.net/finance/interest-rate-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const InterestRateCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Interest Rate Calculator",
-      "url": "https://unitedcalculator.net/finance/interest-rate-calculator",
+      "url": "https://www.unitedcalculator.net/finance/interest-rate-calculator",
       "description": "Use the Interest Rate Calculator to compute the rate of interest on loans or investments using principal, payment, and time period. Works for savings, EMIs, and more.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const InterestRateCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Interest Rate Calculator",
-          "item": "https://unitedcalculator.net/finance/interest-rate-calculator"
+          "item": "https://www.unitedcalculator.net/finance/interest-rate-calculator"
         }
       ]
     }

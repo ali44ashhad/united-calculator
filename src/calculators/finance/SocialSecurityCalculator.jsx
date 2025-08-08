@@ -46,7 +46,7 @@ const SocialSecurityCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/social-security-calculator"
+          href="https://www.unitedcalculator.net/finance/social-security-calculator"
         />
 
         {/* Open Graph */}
@@ -61,7 +61,7 @@ const SocialSecurityCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/social-security-calculator"
+          content="https://www.unitedcalculator.net/finance/social-security-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -71,12 +71,12 @@ const SocialSecurityCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Social Security Calculator",
-      "url": "https://unitedcalculator.net/finance/social-security-calculator",
+      "url": "https://www.unitedcalculator.net/finance/social-security-calculator",
       "description": "This Social Security Calculator helps estimate your monthly retirement benefits based on your lifetime earnings and retirement age. Plan for your future with more confidence.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -121,19 +121,19 @@ const SocialSecurityCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Social Security Calculator",
-          "item": "https://unitedcalculator.net/finance/social-security-calculator"
+          "item": "https://www.unitedcalculator.net/finance/social-security-calculator"
         }
       ]
     }

@@ -44,7 +44,7 @@ const GFRCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/gfr-calculator"
+          href="https://www.unitedcalculator.net/health/gfr-calculator"
         />
 
         {/* Open Graph */}
@@ -59,7 +59,7 @@ const GFRCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/gfr-calculator"
+          content="https://www.unitedcalculator.net/health/gfr-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -69,12 +69,12 @@ const GFRCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "GFR Calculator",
-      "url": "https://unitedcalculator.net/health/gfr-calculator",
+      "url": "https://www.unitedcalculator.net/health/gfr-calculator",
       "description": "Use the GFR Calculator to estimate your kidney's filtration rate using serum creatinine levels. Helps determine kidney function and detect early stages of chronic kidney disease (CKD).",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -119,19 +119,19 @@ const GFRCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "GFR Calculator",
-          "item": "https://unitedcalculator.net/health/gfr-calculator"
+          "item": "https://www.unitedcalculator.net/health/gfr-calculator"
         }
       ]
     }

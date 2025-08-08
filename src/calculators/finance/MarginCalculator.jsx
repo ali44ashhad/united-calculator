@@ -26,7 +26,7 @@ const MarginCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/margin-calculator"
+          href="https://www.unitedcalculator.net/finance/margin-calculator"
         />
 
         {/* Open Graph */}
@@ -38,7 +38,7 @@ const MarginCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/margin-calculator"
+          content="https://www.unitedcalculator.net/finance/margin-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -48,12 +48,12 @@ const MarginCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Margin Calculator",
-      "url": "https://unitedcalculator.net/finance/margin-calculator",
+      "url": "https://www.unitedcalculator.net/finance/margin-calculator",
       "description": "Use the Margin Calculator to calculate profit margin, markup, and gross margin based on cost and revenue. Essential tool for financial planning and business pricing.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -98,19 +98,19 @@ const MarginCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Margin Calculator",
-          "item": "https://unitedcalculator.net/finance/margin-calculator"
+          "item": "https://www.unitedcalculator.net/finance/margin-calculator"
         }
       ]
     }

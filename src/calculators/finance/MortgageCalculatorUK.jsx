@@ -41,7 +41,7 @@ const MortgageCalculatorUK = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/mortgage-calculator-uk"
+          href="https://www.unitedcalculator.net/finance/mortgage-calculator-uk"
         />
 
         {/* Open Graph */}
@@ -53,7 +53,7 @@ const MortgageCalculatorUK = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/mortgage-calculator-uk"
+          content="https://www.unitedcalculator.net/finance/mortgage-calculator-uk"
         />
 
         {/* JSON-LD: WebPage */}
@@ -63,12 +63,12 @@ const MortgageCalculatorUK = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Mortgage Calculator UK",
-      "url": "https://unitedcalculator.net/finance/mortgage-calculator-uk",
+      "url": "https://www.unitedcalculator.net/finance/mortgage-calculator-uk",
       "description": "Calculate your mortgage payments in the UK based on loan amount, interest rate, and repayment term. Useful for budgeting your home loan and understanding total cost.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -113,19 +113,19 @@ const MortgageCalculatorUK = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Mortgage Calculator UK",
-          "item": "https://unitedcalculator.net/finance/mortgage-calculator-uk"
+          "item": "https://www.unitedcalculator.net/finance/mortgage-calculator-uk"
         }
       ]
     }

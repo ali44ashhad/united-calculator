@@ -57,7 +57,7 @@ const TriangleCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/geometry/triangle-calculator"
+          href="https://www.unitedcalculator.net/geometry/triangle-calculator"
         />
 
         {/* Open Graph */}
@@ -72,7 +72,7 @@ const TriangleCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/geometry/triangle-calculator"
+          content="https://www.unitedcalculator.net/geometry/triangle-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -82,12 +82,12 @@ const TriangleCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Triangle Calculator",
-      "url": "https://unitedcalculator.net/geometry/triangle-calculator",
+      "url": "https://www.unitedcalculator.net/geometry/triangle-calculator",
       "description": "This Triangle Calculator helps you find the area, perimeter, angles, and side lengths of any triangle. Supports all triangle types with SSS, SAS, ASA, and AAS solving methods.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -132,19 +132,19 @@ const TriangleCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Geometry Calculators",
-          "item": "https://unitedcalculator.net/geometry"
+          "item": "https://www.unitedcalculator.net/geometry"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Triangle Calculator",
-          "item": "https://unitedcalculator.net/geometry/triangle-calculator"
+          "item": "https://www.unitedcalculator.net/geometry/triangle-calculator"
         }
       ]
     }

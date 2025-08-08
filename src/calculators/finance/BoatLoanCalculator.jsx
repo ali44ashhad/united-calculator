@@ -40,7 +40,7 @@ const BoatLoanCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/boat-loan-calculator"
+          href="https://www.unitedcalculator.net/finance/boat-loan-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Boat Loan Calculator" />
@@ -50,7 +50,7 @@ const BoatLoanCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/boat-loan-calculator"
+          content="https://www.unitedcalculator.net/finance/boat-loan-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -58,12 +58,12 @@ const BoatLoanCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Boat Loan Calculator",
-      "url": "https://unitedcalculator.net/finance/boat-loan-calculator",
+      "url": "https://www.unitedcalculator.net/finance/boat-loan-calculator",
       "description": "Use our Boat Loan Calculator to calculate your monthly payments and total interest. Plan your marine loan financing effectively.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -104,19 +104,19 @@ const BoatLoanCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Boat Loan Calculator",
-          "item": "https://unitedcalculator.net/finance/boat-loan-calculator"
+          "item": "https://www.unitedcalculator.net/finance/boat-loan-calculator"
         }
       ]
     }

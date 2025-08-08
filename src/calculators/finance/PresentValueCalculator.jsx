@@ -33,7 +33,7 @@ const PresentValueCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/present-value-calculator"
+          href="https://www.unitedcalculator.net/finance/present-value-calculator"
         />
 
         {/* Open Graph */}
@@ -45,7 +45,7 @@ const PresentValueCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/present-value-calculator"
+          content="https://www.unitedcalculator.net/finance/present-value-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -55,12 +55,12 @@ const PresentValueCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Present Value Calculator",
-      "url": "https://unitedcalculator.net/finance/present-value-calculator",
+      "url": "https://www.unitedcalculator.net/finance/present-value-calculator",
       "description": "Use the Present Value Calculator to determine the current value of a future amount of money or stream of cash flows, discounted at a specific rate.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -105,19 +105,19 @@ const PresentValueCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Present Value Calculator",
-          "item": "https://unitedcalculator.net/finance/present-value-calculator"
+          "item": "https://www.unitedcalculator.net/finance/present-value-calculator"
         }
       ]
     }

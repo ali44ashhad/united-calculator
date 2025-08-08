@@ -55,7 +55,7 @@ const CashBackOrLowInterestCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/cash-back-or-low-interest-calculator"
+          href="https://www.unitedcalculator.net/finance/cash-back-or-low-interest-calculator"
         />
         <meta property="og:type" content="website" />
         <meta
@@ -68,7 +68,7 @@ const CashBackOrLowInterestCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/cash-back-or-low-interest-calculator"
+          content="https://www.unitedcalculator.net/finance/cash-back-or-low-interest-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -76,12 +76,12 @@ const CashBackOrLowInterestCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Cash Back or Low Interest Calculator",
-      "url": "https://unitedcalculator.net/finance/cash-back-or-low-interest-calculator",
+      "url": "https://www.unitedcalculator.net/finance/cash-back-or-low-interest-calculator",
       "description": "Use our Cash Back or Low Interest Calculator to find out which financial offer provides greater savings — upfront rewards or long-term interest reduction.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -122,19 +122,19 @@ const CashBackOrLowInterestCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Cash Back or Low Interest Calculator",
-          "item": "https://unitedcalculator.net/finance/cash-back-or-low-interest-calculator"
+          "item": "https://www.unitedcalculator.net/finance/cash-back-or-low-interest-calculator"
         }
       ]
     }

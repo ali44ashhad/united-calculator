@@ -49,7 +49,7 @@ const BodyTypeCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/body-type-calculator"
+          href="https://www.unitedcalculator.net/health/body-type-calculator"
         />
 
         {/* Open Graph */}
@@ -64,7 +64,7 @@ const BodyTypeCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/body-type-calculator"
+          content="https://www.unitedcalculator.net/health/body-type-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -74,12 +74,12 @@ const BodyTypeCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Body Type Calculator",
-      "url": "https://unitedcalculator.net/health/body-type-calculator",
+      "url": "https://www.unitedcalculator.net/health/body-type-calculator",
       "description": "Use the Body Type Calculator to find your somatotype: ectomorph, mesomorph, or endomorph. Understand your body's natural structure to optimize your workout and nutrition plans.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -124,19 +124,19 @@ const BodyTypeCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Body Type Calculator",
-          "item": "https://unitedcalculator.net/health/body-type-calculator"
+          "item": "https://www.unitedcalculator.net/health/body-type-calculator"
         }
       ]
     }

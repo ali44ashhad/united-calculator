@@ -29,7 +29,7 @@ const LoanCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/loan-calculator"
+          href="https://www.unitedcalculator.net/finance/loan-calculator"
         />
 
         {/* Open Graph */}
@@ -41,7 +41,7 @@ const LoanCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/loan-calculator"
+          content="https://www.unitedcalculator.net/finance/loan-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -51,12 +51,12 @@ const LoanCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Loan Calculator",
-      "url": "https://unitedcalculator.net/finance/loan-calculator",
+      "url": "https://www.unitedcalculator.net/finance/loan-calculator",
       "description": "Use the Loan Calculator to calculate monthly payments, total interest, and loan amortization for personal loans, auto loans, and more.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -101,19 +101,19 @@ const LoanCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Loan Calculator",
-          "item": "https://unitedcalculator.net/finance/loan-calculator"
+          "item": "https://www.unitedcalculator.net/finance/loan-calculator"
         }
       ]
     }

@@ -46,7 +46,7 @@ const ProteinCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/protein-calculator"
+          href="https://www.unitedcalculator.net/health/protein-calculator"
         />
 
         {/* Open Graph */}
@@ -61,7 +61,7 @@ const ProteinCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/protein-calculator"
+          content="https://www.unitedcalculator.net/health/protein-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -71,12 +71,12 @@ const ProteinCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Protein Calculator",
-      "url": "https://unitedcalculator.net/health/protein-calculator",
+      "url": "https://www.unitedcalculator.net/health/protein-calculator",
       "description": "Determine your ideal daily protein intake based on your weight, activity level, and goals using the Protein Calculator. Perfect for athletes and fitness enthusiasts.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -121,19 +121,19 @@ const ProteinCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Protein Calculator",
-          "item": "https://unitedcalculator.net/health/protein-calculator"
+          "item": "https://www.unitedcalculator.net/health/protein-calculator"
         }
       ]
     }

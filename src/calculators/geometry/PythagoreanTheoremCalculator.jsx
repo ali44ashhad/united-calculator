@@ -54,7 +54,7 @@ const PythagoreanTheoremCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/geometry/pythagorean-theorem-calculator"
+          href="https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator"
         />
 
         {/* Open Graph */}
@@ -69,7 +69,7 @@ const PythagoreanTheoremCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/geometry/pythagorean-theorem-calculator"
+          content="https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -79,12 +79,12 @@ const PythagoreanTheoremCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Pythagorean Theorem Calculator",
-      "url": "https://unitedcalculator.net/geometry/pythagorean-theorem-calculator",
+      "url": "https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator",
       "description": "Use the Pythagorean Theorem Calculator to calculate the hypotenuse or any missing side of a right triangle using the a² + b² = c² formula. Ideal for students, teachers, and geometry enthusiasts.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -129,19 +129,19 @@ const PythagoreanTheoremCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Geometry Calculators",
-          "item": "https://unitedcalculator.net/geometry"
+          "item": "https://www.unitedcalculator.net/geometry"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Pythagorean Theorem Calculator",
-          "item": "https://unitedcalculator.net/geometry/pythagorean-theorem-calculator"
+          "item": "https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator"
         }
       ]
     }

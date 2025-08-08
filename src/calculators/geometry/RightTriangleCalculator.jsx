@@ -51,7 +51,7 @@ const RightTriangleCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/geometry/right-triangle-calculator"
+          href="https://www.unitedcalculator.net/geometry/right-triangle-calculator"
         />
 
         {/* Open Graph */}
@@ -66,7 +66,7 @@ const RightTriangleCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/geometry/right-triangle-calculator"
+          content="https://www.unitedcalculator.net/geometry/right-triangle-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -76,12 +76,12 @@ const RightTriangleCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Right Triangle Calculator",
-      "url": "https://unitedcalculator.net/geometry/right-triangle-calculator",
+      "url": "https://www.unitedcalculator.net/geometry/right-triangle-calculator",
       "description": "Use this Right Triangle Calculator to solve for any side or angle of a right-angled triangle. It calculates height, area, perimeter, and unknowns using trigonometric functions and geometry rules.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -126,19 +126,19 @@ const RightTriangleCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Geometry Calculators",
-          "item": "https://unitedcalculator.net/geometry"
+          "item": "https://www.unitedcalculator.net/geometry"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Right Triangle Calculator",
-          "item": "https://unitedcalculator.net/geometry/right-triangle-calculator"
+          "item": "https://www.unitedcalculator.net/geometry/right-triangle-calculator"
         }
       ]
     }

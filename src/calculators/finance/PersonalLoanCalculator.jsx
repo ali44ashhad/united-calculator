@@ -40,7 +40,7 @@ const PersonalLoanCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/personal-loan-calculator"
+          href="https://www.unitedcalculator.net/finance/personal-loan-calculator"
         />
 
         {/* Open Graph */}
@@ -52,7 +52,7 @@ const PersonalLoanCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/personal-loan-calculator"
+          content="https://www.unitedcalculator.net/finance/personal-loan-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -62,12 +62,12 @@ const PersonalLoanCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Personal Loan Calculator",
-      "url": "https://unitedcalculator.net/finance/personal-loan-calculator",
+      "url": "https://www.unitedcalculator.net/finance/personal-loan-calculator",
       "description": "Calculate monthly EMI and total repayment for your personal loan using our Personal Loan Calculator. Ideal for financial planning and debt management.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -112,19 +112,19 @@ const PersonalLoanCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Personal Loan Calculator",
-          "item": "https://unitedcalculator.net/finance/personal-loan-calculator"
+          "item": "https://www.unitedcalculator.net/finance/personal-loan-calculator"
         }
       ]
     }

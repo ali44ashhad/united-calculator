@@ -56,7 +56,7 @@ const AutoLeaseCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/auto-lease-calculator"
+          href="https://www.unitedcalculator.net/finance/auto-lease-calculator"
         />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
@@ -70,7 +70,7 @@ const AutoLeaseCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/auto-lease-calculator"
+          content="https://www.unitedcalculator.net/finance/auto-lease-calculator"
         />
         {/* Twitter */}
 
@@ -89,12 +89,12 @@ const AutoLeaseCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Auto Lease Calculator",
-      "url": "https://unitedcalculator.net/finance/auto-lease-calculator",
+      "url": "https://www.unitedcalculator.net/finance/auto-lease-calculator",
       "description": "Use our free Auto Lease Calculator to compute your monthly lease payments based on car price, interest rate, lease term, and residual value. Ideal for vehicle budgeting.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -137,19 +137,19 @@ const AutoLeaseCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Auto Lease Calculator",
-          "item": "https://unitedcalculator.net/finance/auto-lease-calculator"
+          "item": "https://www.unitedcalculator.net/finance/auto-lease-calculator"
         }
       ]
     }

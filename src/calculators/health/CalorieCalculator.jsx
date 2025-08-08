@@ -48,7 +48,7 @@ const CalorieCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/calorie-calculator"
+          href="https://www.unitedcalculator.net/health/calorie-calculator"
         />
 
         {/* Open Graph */}
@@ -63,7 +63,7 @@ const CalorieCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/calorie-calculator"
+          content="https://www.unitedcalculator.net/health/calorie-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -73,12 +73,12 @@ const CalorieCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Calorie Calculator",
-      "url": "https://unitedcalculator.net/health/calorie-calculator",
+      "url": "https://www.unitedcalculator.net/health/calorie-calculator",
       "description": "This Calorie Calculator estimates the number of calories you should consume daily based on your body metrics and activity level. Ideal for anyone planning to lose weight, build muscle, or maintain their current weight.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -123,19 +123,19 @@ const CalorieCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Calorie Calculator",
-          "item": "https://unitedcalculator.net/health/calorie-calculator"
+          "item": "https://www.unitedcalculator.net/health/calorie-calculator"
         }
       ]
     }

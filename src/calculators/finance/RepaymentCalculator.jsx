@@ -40,7 +40,7 @@ const RepaymentCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/repayment-calculator"
+          href="https://www.unitedcalculator.net/finance/repayment-calculator"
         />
 
         {/* Open Graph */}
@@ -52,7 +52,7 @@ const RepaymentCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/repayment-calculator"
+          content="https://www.unitedcalculator.net/finance/repayment-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -62,12 +62,12 @@ const RepaymentCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Repayment Calculator",
-      "url": "https://unitedcalculator.net/finance/repayment-calculator",
+      "url": "https://www.unitedcalculator.net/finance/repayment-calculator",
       "description": "Use the Repayment Calculator to plan your loan EMI based on principal amount, interest rate, and repayment tenure. Ideal for home, personal, and car loans.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -112,19 +112,19 @@ const RepaymentCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Repayment Calculator",
-          "item": "https://unitedcalculator.net/finance/repayment-calculator"
+          "item": "https://www.unitedcalculator.net/finance/repayment-calculator"
         }
       ]
     }

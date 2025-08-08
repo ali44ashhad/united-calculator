@@ -41,7 +41,7 @@ const CommonFactorCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/math/common-factor-calculator"
+          href="https://www.unitedcalculator.net/math/common-factor-calculator"
         />
 
         {/* Open Graph */}
@@ -56,7 +56,7 @@ const CommonFactorCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/math/common-factor-calculator"
+          content="https://www.unitedcalculator.net/math/common-factor-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -66,12 +66,12 @@ const CommonFactorCalculator = () => {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Common Factor Calculator",
-  "url": "https://unitedcalculator.net/math/common-factor-calculator",
+  "url": "https://www.unitedcalculator.net/math/common-factor-calculator",
   "description": "Find the Greatest Common Factor (GCF) or Highest Common Factor (HCF) of two or more numbers instantly using our Common Factor Calculator.",
   "publisher": {
     "@type": "Organization",
     "name": "United Calculator",
-    "url": "https://unitedcalculator.net"
+    "url": "https://www.unitedcalculator.net"
   }
 }
     `}
@@ -116,19 +116,19 @@ const CommonFactorCalculator = () => {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://unitedcalculator.net"
+      "item": "https://www.unitedcalculator.net"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Math Calculators",
-      "item": "https://unitedcalculator.net/math"
+      "item": "https://www.unitedcalculator.net/math"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Common Factor Calculator",
-      "item": "https://unitedcalculator.net/math/common-factor-calculator"
+      "item": "https://www.unitedcalculator.net/math/common-factor-calculator"
     }
   ]
 }

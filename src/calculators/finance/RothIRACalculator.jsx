@@ -42,7 +42,7 @@ const RothIRACalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/roth-ira-calculator"
+          href="https://www.unitedcalculator.net/finance/roth-ira-calculator"
         />
 
         {/* Open Graph */}
@@ -57,7 +57,7 @@ const RothIRACalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/roth-ira-calculator"
+          content="https://www.unitedcalculator.net/finance/roth-ira-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -67,12 +67,12 @@ const RothIRACalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Roth IRA Calculator",
-      "url": "https://unitedcalculator.net/finance/roth-ira-calculator",
+      "url": "https://www.unitedcalculator.net/finance/roth-ira-calculator",
       "description": "Use our Roth IRA Calculator to forecast your retirement savings. This tool helps you estimate tax-free growth based on contributions, investment returns, and time horizon.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -117,19 +117,19 @@ const RothIRACalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Roth IRA Calculator",
-          "item": "https://unitedcalculator.net/finance/roth-ira-calculator"
+          "item": "https://www.unitedcalculator.net/finance/roth-ira-calculator"
         }
       ]
     }

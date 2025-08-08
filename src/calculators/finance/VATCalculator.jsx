@@ -49,7 +49,7 @@ const VATCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/vat-calculator"
+          href="https://www.unitedcalculator.net/finance/vat-calculator"
         />
 
         {/* Open Graph */}
@@ -64,7 +64,7 @@ const VATCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/vat-calculator"
+          content="https://www.unitedcalculator.net/finance/vat-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -74,12 +74,12 @@ const VATCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "VAT Calculator",
-      "url": "https://unitedcalculator.net/finance/vat-calculator",
+      "url": "https://www.unitedcalculator.net/finance/vat-calculator",
       "description": "Our VAT Calculator helps you calculate VAT-inclusive and VAT-exclusive prices quickly. Add or remove Value Added Tax based on any percentage rate for accurate pricing.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -124,19 +124,19 @@ const VATCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "VAT Calculator",
-          "item": "https://unitedcalculator.net/finance/vat-calculator"
+          "item": "https://www.unitedcalculator.net/finance/vat-calculator"
         }
       ]
     }

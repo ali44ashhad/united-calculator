@@ -46,7 +46,7 @@ const BodyFatCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/body-fat-calculator"
+          href="https://www.unitedcalculator.net/health/body-fat-calculator"
         />
 
         {/* Open Graph */}
@@ -61,7 +61,7 @@ const BodyFatCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/body-fat-calculator"
+          content="https://www.unitedcalculator.net/health/body-fat-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -71,12 +71,12 @@ const BodyFatCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Body Fat Calculator",
-      "url": "https://unitedcalculator.net/health/body-fat-calculator",
+      "url": "https://www.unitedcalculator.net/health/body-fat-calculator",
       "description": "The Body Fat Calculator provides an estimate of your body fat percentage using your age, gender, height, weight, and waist measurements. Ideal for fitness tracking and health monitoring.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -121,19 +121,19 @@ const BodyFatCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Body Fat Calculator",
-          "item": "https://unitedcalculator.net/health/body-fat-calculator"
+          "item": "https://www.unitedcalculator.net/health/body-fat-calculator"
         }
       ]
     }

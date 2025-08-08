@@ -45,7 +45,7 @@ const AverageReturnCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/average-return-calculator"
+          href="https://www.unitedcalculator.net/finance/average-return-calculator"
         />
         {/* Open Graph */}
         <meta property="og:type" content="website" />
@@ -59,7 +59,7 @@ const AverageReturnCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/average-return-calculator"
+          content="https://www.unitedcalculator.net/finance/average-return-calculator"
         />
         {/* Twitter */}
         <meta
@@ -77,12 +77,12 @@ const AverageReturnCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Average Return Calculator",
-      "url": "https://unitedcalculator.net/finance/average-return-calculator",
+      "url": "https://www.unitedcalculator.net/finance/average-return-calculator",
       "description": "Use the Average Return Calculator to measure the average rate of return on your investments over a specific time period. Ideal for mutual funds, stocks, and portfolios.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -125,19 +125,19 @@ const AverageReturnCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Average Return Calculator",
-          "item": "https://unitedcalculator.net/finance/average-return-calculator"
+          "item": "https://www.unitedcalculator.net/finance/average-return-calculator"
         }
       ]
     }

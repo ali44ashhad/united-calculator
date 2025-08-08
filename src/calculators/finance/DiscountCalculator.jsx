@@ -36,7 +36,7 @@ const DiscountCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/discount-calculator"
+          href="https://www.unitedcalculator.net/finance/discount-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const DiscountCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/discount-calculator"
+          content="https://www.unitedcalculator.net/finance/discount-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const DiscountCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Discount Calculator",
-      "url": "https://unitedcalculator.net/finance/discount-calculator",
+      "url": "https://www.unitedcalculator.net/finance/discount-calculator",
       "description": "The Discount Calculator helps you determine the sale price after applying a discount. Ideal for shopping, comparing deals, and calculating total savings.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const DiscountCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Discount Calculator",
-          "item": "https://unitedcalculator.net/finance/discount-calculator"
+          "item": "https://www.unitedcalculator.net/finance/discount-calculator"
         }
       ]
     }

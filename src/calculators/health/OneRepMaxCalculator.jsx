@@ -35,7 +35,7 @@ const OneRepMaxCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/one-rep-max-calculator"
+          href="https://www.unitedcalculator.net/health/one-rep-max-calculator"
         />
 
         {/* Open Graph */}
@@ -50,7 +50,7 @@ const OneRepMaxCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/one-rep-max-calculator"
+          content="https://www.unitedcalculator.net/health/one-rep-max-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -60,12 +60,12 @@ const OneRepMaxCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "One Rep Max Calculator",
-      "url": "https://unitedcalculator.net/health/one-rep-max-calculator",
+      "url": "https://www.unitedcalculator.net/health/one-rep-max-calculator",
       "description": "Estimate your maximum lift for a single repetition using the One Rep Max Calculator. Useful for designing strength training programs and tracking progress.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -110,19 +110,19 @@ const OneRepMaxCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "One Rep Max Calculator",
-          "item": "https://unitedcalculator.net/health/one-rep-max-calculator"
+          "item": "https://www.unitedcalculator.net/health/one-rep-max-calculator"
         }
       ]
     }

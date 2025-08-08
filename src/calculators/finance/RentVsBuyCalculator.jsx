@@ -60,7 +60,7 @@ const RentVsBuyCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/rent-vs-buy-calculator"
+          href="https://www.unitedcalculator.net/finance/rent-vs-buy-calculator"
         />
 
         {/* Open Graph */}
@@ -72,7 +72,7 @@ const RentVsBuyCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/rent-vs-buy-calculator"
+          content="https://www.unitedcalculator.net/finance/rent-vs-buy-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -82,12 +82,12 @@ const RentVsBuyCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Rent vs Buy Calculator",
-      "url": "https://unitedcalculator.net/finance/rent-vs-buy-calculator",
+      "url": "https://www.unitedcalculator.net/finance/rent-vs-buy-calculator",
       "description": "Use our Rent vs Buy Calculator to evaluate whether it is financially better to rent or purchase a home. Analyze total costs, equity gained, and investment performance over time.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -132,19 +132,19 @@ const RentVsBuyCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Rent vs Buy Calculator",
-          "item": "https://unitedcalculator.net/finance/rent-vs-buy-calculator"
+          "item": "https://www.unitedcalculator.net/finance/rent-vs-buy-calculator"
         }
       ]
     }

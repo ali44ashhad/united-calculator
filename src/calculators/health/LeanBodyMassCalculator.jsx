@@ -41,7 +41,7 @@ const LeanBodyMassCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/lean-body-mass-calculator"
+          href="https://www.unitedcalculator.net/health/lean-body-mass-calculator"
         />
 
         {/* Open Graph */}
@@ -56,7 +56,7 @@ const LeanBodyMassCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/lean-body-mass-calculator"
+          content="https://www.unitedcalculator.net/health/lean-body-mass-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -66,12 +66,12 @@ const LeanBodyMassCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Lean Body Mass Calculator",
-      "url": "https://unitedcalculator.net/health/lean-body-mass-calculator",
+      "url": "https://www.unitedcalculator.net/health/lean-body-mass-calculator",
       "description": "This Lean Body Mass Calculator helps you find your fat-free body weight using your height, weight, and gender. You can also use your body fat percentage for more accuracy. It's great for tracking progress in muscle gain or fat loss.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -116,19 +116,19 @@ const LeanBodyMassCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Lean Body Mass Calculator",
-          "item": "https://unitedcalculator.net/health/lean-body-mass-calculator"
+          "item": "https://www.unitedcalculator.net/health/lean-body-mass-calculator"
         }
       ]
     }

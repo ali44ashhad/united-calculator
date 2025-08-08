@@ -41,7 +41,7 @@ const BMICalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/bmi-calculator"
+          href="https://www.unitedcalculator.net/health/bmi-calculator"
         />
 
         {/* Open Graph */}
@@ -56,7 +56,7 @@ const BMICalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/bmi-calculator"
+          content="https://www.unitedcalculator.net/health/bmi-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -66,12 +66,12 @@ const BMICalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "BMI Calculator",
-      "url": "https://unitedcalculator.net/health/bmi-calculator",
+      "url": "https://www.unitedcalculator.net/health/bmi-calculator",
       "description": "Find your Body Mass Index (BMI) using our accurate BMI Calculator. Enter your height and weight to instantly get your BMI score and understand your health category.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -124,19 +124,19 @@ const BMICalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "BMI Calculator",
-          "item": "https://unitedcalculator.net/health/bmi-calculator"
+          "item": "https://www.unitedcalculator.net/health/bmi-calculator"
         }
       ]
     }

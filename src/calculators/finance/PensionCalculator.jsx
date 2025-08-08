@@ -56,7 +56,7 @@ const PensionCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/pension-calculator"
+          href="https://www.unitedcalculator.net/finance/pension-calculator"
         />
 
         {/* Open Graph */}
@@ -68,7 +68,7 @@ const PensionCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/pension-calculator"
+          content="https://www.unitedcalculator.net/finance/pension-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -78,12 +78,12 @@ const PensionCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Pension Calculator",
-      "url": "https://unitedcalculator.net/finance/pension-calculator",
+      "url": "https://www.unitedcalculator.net/finance/pension-calculator",
       "description": "Use our Pension Calculator to calculate your future pension based on current contributions, expected returns, and retirement goals.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -128,19 +128,19 @@ const PensionCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Pension Calculator",
-          "item": "https://unitedcalculator.net/finance/pension-calculator"
+          "item": "https://www.unitedcalculator.net/finance/pension-calculator"
         }
       ]
     }

@@ -33,7 +33,7 @@ const TargetHeartRateCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/target-heart-rate-calculator"
+          href="https://www.unitedcalculator.net/health/target-heart-rate-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const TargetHeartRateCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/target-heart-rate-calculator"
+          content="https://www.unitedcalculator.net/health/target-heart-rate-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const TargetHeartRateCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Target Heart Rate Calculator",
-      "url": "https://unitedcalculator.net/health/target-heart-rate-calculator",
+      "url": "https://www.unitedcalculator.net/health/target-heart-rate-calculator",
       "description": "Determine your optimal exercise heart rate zones with the Target Heart Rate Calculator. Based on your age and fitness level, it helps improve cardio workouts safely.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const TargetHeartRateCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Target Heart Rate Calculator",
-          "item": "https://unitedcalculator.net/health/target-heart-rate-calculator"
+          "item": "https://www.unitedcalculator.net/health/target-heart-rate-calculator"
         }
       ]
     }

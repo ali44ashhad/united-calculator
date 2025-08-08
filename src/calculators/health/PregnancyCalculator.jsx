@@ -32,7 +32,7 @@ const PregnancyCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/pregnancy-calculator"
+          href="https://www.unitedcalculator.net/health/pregnancy-calculator"
         />
 
         {/* Open Graph */}
@@ -47,7 +47,7 @@ const PregnancyCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/pregnancy-calculator"
+          content="https://www.unitedcalculator.net/health/pregnancy-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -57,12 +57,12 @@ const PregnancyCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Pregnancy Calculator",
-      "url": "https://unitedcalculator.net/health/pregnancy-calculator",
+      "url": "https://www.unitedcalculator.net/health/pregnancy-calculator",
       "description": "Use the Pregnancy Calculator to estimate your baby’s due date and track pregnancy progress based on your last menstrual period or conception date. Ideal for expectant mothers and healthcare planning.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -107,19 +107,19 @@ const PregnancyCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Pregnancy Calculator",
-          "item": "https://unitedcalculator.net/health/pregnancy-calculator"
+          "item": "https://www.unitedcalculator.net/health/pregnancy-calculator"
         }
       ]
     }

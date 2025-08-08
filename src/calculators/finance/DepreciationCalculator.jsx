@@ -47,7 +47,7 @@ const DepreciationCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/depreciation-calculator"
+          href="https://www.unitedcalculator.net/finance/depreciation-calculator"
         />
 
         {/* Open Graph */}
@@ -59,7 +59,7 @@ const DepreciationCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/depreciation-calculator"
+          content="https://www.unitedcalculator.net/finance/depreciation-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -69,12 +69,12 @@ const DepreciationCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Depreciation Calculator",
-      "url": "https://unitedcalculator.net/finance/depreciation-calculator",
+      "url": "https://www.unitedcalculator.net/finance/depreciation-calculator",
       "description": "The Depreciation Calculator helps you determine the loss in value of assets over time using methods like straight-line and declining balance. Useful for accounting, taxes, and budgeting.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -119,19 +119,19 @@ const DepreciationCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Depreciation Calculator",
-          "item": "https://unitedcalculator.net/finance/depreciation-calculator"
+          "item": "https://www.unitedcalculator.net/finance/depreciation-calculator"
         }
       ]
     }

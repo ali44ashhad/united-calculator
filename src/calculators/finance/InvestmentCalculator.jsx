@@ -38,7 +38,7 @@ const InvestmentCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/investment-calculator"
+          href="https://www.unitedcalculator.net/finance/investment-calculator"
         />
 
         {/* Open Graph */}
@@ -50,7 +50,7 @@ const InvestmentCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/investment-calculator"
+          content="https://www.unitedcalculator.net/finance/investment-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -60,12 +60,12 @@ const InvestmentCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Investment Calculator",
-      "url": "https://unitedcalculator.net/finance/investment-calculator",
+      "url": "https://www.unitedcalculator.net/finance/investment-calculator",
       "description": "Use the Investment Calculator to forecast the growth of your investments based on principal, interest rate, and time. Ideal for financial planning, SIPs, and long-term goals.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -110,19 +110,19 @@ const InvestmentCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Investment Calculator",
-          "item": "https://unitedcalculator.net/finance/investment-calculator"
+          "item": "https://www.unitedcalculator.net/finance/investment-calculator"
         }
       ]
     }

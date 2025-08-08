@@ -53,7 +53,7 @@ const CreditCardCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/credit-card-calculator"
+          href="https://www.unitedcalculator.net/finance/credit-card-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Credit Card Calculator" />
@@ -63,7 +63,7 @@ const CreditCardCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/credit-card-calculator"
+          content="https://www.unitedcalculator.net/finance/credit-card-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -71,12 +71,12 @@ const CreditCardCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Credit Card Calculator",
-      "url": "https://unitedcalculator.net/finance/credit-card-calculator",
+      "url": "https://www.unitedcalculator.net/finance/credit-card-calculator",
       "description": "Use our Credit Card Calculator to analyze monthly payments, interest accumulation, and the time needed to repay your credit card balance.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -117,19 +117,19 @@ const CreditCardCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Credit Card Calculator",
-          "item": "https://unitedcalculator.net/finance/credit-card-calculator"
+          "item": "https://www.unitedcalculator.net/finance/credit-card-calculator"
         }
       ]
     }

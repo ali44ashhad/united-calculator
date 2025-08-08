@@ -37,7 +37,7 @@ const ConceptionCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/conception-calculator"
+          href="https://www.unitedcalculator.net/health/conception-calculator"
         />
 
         {/* Open Graph */}
@@ -52,7 +52,7 @@ const ConceptionCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/conception-calculator"
+          content="https://www.unitedcalculator.net/health/conception-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -62,12 +62,12 @@ const ConceptionCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Conception Calculator",
-      "url": "https://unitedcalculator.net/health/conception-calculator",
+      "url": "https://www.unitedcalculator.net/health/conception-calculator",
       "description": "Use the Conception Calculator to calculate ovulation dates, fertile windows, and the best days to conceive based on your menstrual cycle. Ideal for pregnancy planning and fertility awareness.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -112,19 +112,19 @@ const ConceptionCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Conception Calculator",
-          "item": "https://unitedcalculator.net/health/conception-calculator"
+          "item": "https://www.unitedcalculator.net/health/conception-calculator"
         }
       ]
     }

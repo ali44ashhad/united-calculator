@@ -38,7 +38,7 @@ const FinanceCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/finance-calculator"
+          href="https://www.unitedcalculator.net/finance/finance-calculator"
         />
 
         {/* Open Graph */}
@@ -53,7 +53,7 @@ const FinanceCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/finance-calculator"
+          content="https://www.unitedcalculator.net/finance/finance-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -63,12 +63,12 @@ const FinanceCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Finance Calculator",
-      "url": "https://unitedcalculator.net/finance/finance-calculator",
+      "url": "https://www.unitedcalculator.net/finance/finance-calculator",
       "description": "Use the Finance Calculator to make informed decisions on loans, savings, investments, and more. Get accurate financial insights with this all-in-one tool.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -113,19 +113,19 @@ const FinanceCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Finance Calculator",
-          "item": "https://unitedcalculator.net/finance/finance-calculator"
+          "item": "https://www.unitedcalculator.net/finance/finance-calculator"
         }
       ]
     }

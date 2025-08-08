@@ -34,7 +34,7 @@ const RentCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/rent-calculator"
+          href="https://www.unitedcalculator.net/finance/rent-calculator"
         />
 
         {/* Open Graph */}
@@ -46,7 +46,7 @@ const RentCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/rent-calculator"
+          content="https://www.unitedcalculator.net/finance/rent-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -56,12 +56,12 @@ const RentCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Rent Calculator",
-      "url": "https://unitedcalculator.net/finance/rent-calculator",
+      "url": "https://www.unitedcalculator.net/finance/rent-calculator",
       "description": "Use our Rent Calculator to find out how much rent you can afford based on your income and monthly expenses. Perfect for renters planning their housing budget.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -106,19 +106,19 @@ const RentCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Rent Calculator",
-          "item": "https://unitedcalculator.net/finance/rent-calculator"
+          "item": "https://www.unitedcalculator.net/finance/rent-calculator"
         }
       ]
     }

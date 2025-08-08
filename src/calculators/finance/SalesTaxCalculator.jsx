@@ -36,7 +36,7 @@ const SalesTaxCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/sales-tax-calculator"
+          href="https://www.unitedcalculator.net/finance/sales-tax-calculator"
         />
 
         {/* Open Graph */}
@@ -51,7 +51,7 @@ const SalesTaxCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/sales-tax-calculator"
+          content="https://www.unitedcalculator.net/finance/sales-tax-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -61,12 +61,12 @@ const SalesTaxCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Sales Tax Calculator",
-      "url": "https://unitedcalculator.net/finance/sales-tax-calculator",
+      "url": "https://www.unitedcalculator.net/finance/sales-tax-calculator",
       "description": "Use our Sales Tax Calculator to find the total price of an item including or excluding tax. Perfect for consumers, online shoppers, and businesses.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -111,19 +111,19 @@ const SalesTaxCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Sales Tax Calculator",
-          "item": "https://unitedcalculator.net/finance/sales-tax-calculator"
+          "item": "https://www.unitedcalculator.net/finance/sales-tax-calculator"
         }
       ]
     }

@@ -33,7 +33,7 @@ const BodySurfaceAreaCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/body-surface-area-calculator"
+          href="https://www.unitedcalculator.net/health/body-surface-area-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const BodySurfaceAreaCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/body-surface-area-calculator"
+          content="https://www.unitedcalculator.net/health/body-surface-area-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const BodySurfaceAreaCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Body Surface Area Calculator",
-      "url": "https://unitedcalculator.net/health/body-surface-area-calculator",
+      "url": "https://www.unitedcalculator.net/health/body-surface-area-calculator",
       "description": "Use the Body Surface Area (BSA) Calculator to estimate BSA using standard formulas such as Du Bois or Mosteller. Suitable for medical professionals and individuals monitoring health.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const BodySurfaceAreaCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Body Surface Area Calculator",
-          "item": "https://unitedcalculator.net/health/body-surface-area-calculator"
+          "item": "https://www.unitedcalculator.net/health/body-surface-area-calculator"
         }
       ]
     }

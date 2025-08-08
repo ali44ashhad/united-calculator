@@ -38,7 +38,7 @@ const InflationCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/inflation-calculator"
+          href="https://www.unitedcalculator.net/finance/inflation-calculator"
         />
 
         {/* Open Graph */}
@@ -53,7 +53,7 @@ const InflationCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/inflation-calculator"
+          content="https://www.unitedcalculator.net/finance/inflation-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -63,12 +63,12 @@ const InflationCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Inflation Calculator",
-      "url": "https://unitedcalculator.net/finance/inflation-calculator",
+      "url": "https://www.unitedcalculator.net/finance/inflation-calculator",
       "description": "Use the Inflation Calculator to evaluate the changing value of money over time. Calculate real value adjusted for inflation for any year range.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -113,19 +113,19 @@ const InflationCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Inflation Calculator",
-          "item": "https://unitedcalculator.net/finance/inflation-calculator"
+          "item": "https://www.unitedcalculator.net/finance/inflation-calculator"
         }
       ]
     }

@@ -40,7 +40,7 @@ const CDCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/cd-calculator"
+          href="https://www.unitedcalculator.net/finance/cd-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="CD Calculator" />
@@ -50,7 +50,7 @@ const CDCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/cd-calculator"
+          content="https://www.unitedcalculator.net/finance/cd-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -58,12 +58,12 @@ const CDCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "CD Calculator",
-      "url": "https://unitedcalculator.net/finance/cd-calculator",
+      "url": "https://www.unitedcalculator.net/finance/cd-calculator",
       "description": "Use our CD Calculator to calculate the final value of your Certificate of Deposit including earned interest. Great for fixed-term investment planning.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -104,19 +104,19 @@ const CDCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "CD Calculator",
-          "item": "https://unitedcalculator.net/finance/cd-calculator"
+          "item": "https://www.unitedcalculator.net/finance/cd-calculator"
         }
       ]
     }

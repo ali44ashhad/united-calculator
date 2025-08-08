@@ -35,7 +35,7 @@ const AverageCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/math/average-calculator"
+          href="https://www.unitedcalculator.net/math/average-calculator"
         />
 
         {/* Open Graph */}
@@ -50,7 +50,7 @@ const AverageCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/math/average-calculator"
+          content="https://www.unitedcalculator.net/math/average-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -60,12 +60,12 @@ const AverageCalculator = () => {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Average Calculator",
-  "url": "https://unitedcalculator.net/math/average-calculator",
+  "url": "https://www.unitedcalculator.net/math/average-calculator",
   "description": "Use the Average Calculator to quickly calculate the mean, median, and mode of a set of numbers. Perfect for students, teachers, and professionals working with data.",
   "publisher": {
     "@type": "Organization",
     "name": "United Calculator",
-    "url": "https://unitedcalculator.net"
+    "url": "https://www.unitedcalculator.net"
   }
 }
     `}
@@ -110,19 +110,19 @@ const AverageCalculator = () => {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://unitedcalculator.net"
+      "item": "https://www.unitedcalculator.net"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Math Calculators",
-      "item": "https://unitedcalculator.net/math"
+      "item": "https://www.unitedcalculator.net/math"
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": "Average Calculator",
-      "item": "https://unitedcalculator.net/math/average-calculator"
+      "item": "https://www.unitedcalculator.net/math/average-calculator"
     }
   ]
 }

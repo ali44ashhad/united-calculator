@@ -34,7 +34,7 @@ const PeriodCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/period-calculator"
+          href="https://www.unitedcalculator.net/health/period-calculator"
         />
 
         {/* Open Graph */}
@@ -49,7 +49,7 @@ const PeriodCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/period-calculator"
+          content="https://www.unitedcalculator.net/health/period-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -59,12 +59,12 @@ const PeriodCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Period Calculator",
-      "url": "https://unitedcalculator.net/health/period-calculator",
+      "url": "https://www.unitedcalculator.net/health/period-calculator",
       "description": "The Period Calculator helps you estimate your next menstrual period based on your cycle length and last period date. Ideal for menstrual health management and planning.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -109,19 +109,19 @@ const PeriodCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Period Calculator",
-          "item": "https://unitedcalculator.net/health/period-calculator"
+          "item": "https://www.unitedcalculator.net/health/period-calculator"
         }
       ]
     }

@@ -36,7 +36,7 @@ const CommissionCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/commission-calculator"
+          href="https://www.unitedcalculator.net/finance/commission-calculator"
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Commission Calculator" />
@@ -46,7 +46,7 @@ const CommissionCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/commission-calculator"
+          content="https://www.unitedcalculator.net/finance/commission-calculator"
         />
         <script type="application/ld+json">
           {`
@@ -54,12 +54,12 @@ const CommissionCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Commission Calculator",
-      "url": "https://unitedcalculator.net/finance/commission-calculator",
+      "url": "https://www.unitedcalculator.net/finance/commission-calculator",
       "description": "Use the Commission Calculator to determine commission earnings based on flat or tiered percentage structures. Great for sales, consulting, and service industries.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -100,19 +100,19 @@ const CommissionCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Commission Calculator",
-          "item": "https://unitedcalculator.net/finance/commission-calculator"
+          "item": "https://www.unitedcalculator.net/finance/commission-calculator"
         }
       ]
     }

@@ -44,7 +44,7 @@ const FutureValueCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/future-value-calculator"
+          href="https://www.unitedcalculator.net/finance/future-value-calculator"
         />
 
         {/* Open Graph */}
@@ -59,7 +59,7 @@ const FutureValueCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/future-value-calculator"
+          content="https://www.unitedcalculator.net/finance/future-value-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -69,12 +69,12 @@ const FutureValueCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Future Value Calculator",
-      "url": "https://unitedcalculator.net/finance/future-value-calculator",
+      "url": "https://www.unitedcalculator.net/finance/future-value-calculator",
       "description": "Calculate the future value of your investments with interest using this free online Future Value Calculator. Perfect for planning savings and returns over time.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -119,19 +119,19 @@ const FutureValueCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Future Value Calculator",
-          "item": "https://unitedcalculator.net/finance/future-value-calculator"
+          "item": "https://www.unitedcalculator.net/finance/future-value-calculator"
         }
       ]
     }

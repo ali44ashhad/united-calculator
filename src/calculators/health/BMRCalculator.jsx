@@ -40,7 +40,7 @@ const BMRCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/bmr-calculator"
+          href="https://www.unitedcalculator.net/health/bmr-calculator"
         />
 
         {/* Open Graph */}
@@ -55,7 +55,7 @@ const BMRCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/bmr-calculator"
+          content="https://www.unitedcalculator.net/health/bmr-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -65,12 +65,12 @@ const BMRCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "BMR Calculator",
-      "url": "https://unitedcalculator.net/health/bmr-calculator",
+      "url": "https://www.unitedcalculator.net/health/bmr-calculator",
       "description": "Calculate your Basal Metabolic Rate (BMR) using the Harris-Benedict or Mifflin-St Jeor formulas. This calculator helps you understand how many calories your body needs at rest for maintaining basic functions.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -123,19 +123,19 @@ const BMRCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "BMR Calculator",
-          "item": "https://unitedcalculator.net/health/bmr-calculator"
+          "item": "https://www.unitedcalculator.net/health/bmr-calculator"
         }
       ]
     }

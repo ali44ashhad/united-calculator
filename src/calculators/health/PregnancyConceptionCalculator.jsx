@@ -33,7 +33,7 @@ const PregnancyConceptionCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/pregnancy-conception-calculator"
+          href="https://www.unitedcalculator.net/health/pregnancy-conception-calculator"
         />
 
         {/* Open Graph */}
@@ -48,7 +48,7 @@ const PregnancyConceptionCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/pregnancy-conception-calculator"
+          content="https://www.unitedcalculator.net/health/pregnancy-conception-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -58,12 +58,12 @@ const PregnancyConceptionCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Pregnancy Conception Calculator",
-      "url": "https://unitedcalculator.net/health/pregnancy-conception-calculator",
+      "url": "https://www.unitedcalculator.net/health/pregnancy-conception-calculator",
       "description": "Use the Pregnancy Conception Calculator to estimate your conception date and fertile window based on your menstrual cycle and ovulation. Helpful for pregnancy planning and fertility awareness.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -108,19 +108,19 @@ const PregnancyConceptionCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Pregnancy Conception Calculator",
-          "item": "https://unitedcalculator.net/health/pregnancy-conception-calculator"
+          "item": "https://www.unitedcalculator.net/health/pregnancy-conception-calculator"
         }
       ]
     }

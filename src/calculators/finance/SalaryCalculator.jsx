@@ -40,7 +40,7 @@ const SalaryCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/salary-calculator"
+          href="https://www.unitedcalculator.net/finance/salary-calculator"
         />
 
         {/* Open Graph */}
@@ -55,7 +55,7 @@ const SalaryCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/salary-calculator"
+          content="https://www.unitedcalculator.net/finance/salary-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -65,12 +65,12 @@ const SalaryCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Salary Calculator",
-      "url": "https://unitedcalculator.net/finance/salary-calculator",
+      "url": "https://www.unitedcalculator.net/finance/salary-calculator",
       "description": "Our Salary Calculator helps you estimate your monthly and annual income from hourly, daily, weekly, or monthly wages. Great for employees, freelancers, and job seekers.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -115,19 +115,19 @@ const SalaryCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Salary Calculator",
-          "item": "https://unitedcalculator.net/finance/salary-calculator"
+          "item": "https://www.unitedcalculator.net/finance/salary-calculator"
         }
       ]
     }

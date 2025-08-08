@@ -58,7 +58,7 @@ const FHALoanCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/finance/fha-loan-calculator"
+          href="https://www.unitedcalculator.net/finance/fha-loan-calculator"
         />
 
         {/* Open Graph */}
@@ -70,7 +70,7 @@ const FHALoanCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/finance/fha-loan-calculator"
+          content="https://www.unitedcalculator.net/finance/fha-loan-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -80,12 +80,12 @@ const FHALoanCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "FHA Loan Calculator",
-      "url": "https://unitedcalculator.net/finance/fha-loan-calculator",
+      "url": "https://www.unitedcalculator.net/finance/fha-loan-calculator",
       "description": "Use the FHA Loan Calculator to estimate your monthly mortgage payment and upfront costs, including mortgage insurance premiums and property taxes.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -130,19 +130,19 @@ const FHALoanCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Finance Calculators",
-          "item": "https://unitedcalculator.net/finance"
+          "item": "https://www.unitedcalculator.net/finance"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "FHA Loan Calculator",
-          "item": "https://unitedcalculator.net/finance/fha-loan-calculator"
+          "item": "https://www.unitedcalculator.net/finance/fha-loan-calculator"
         }
       ]
     }

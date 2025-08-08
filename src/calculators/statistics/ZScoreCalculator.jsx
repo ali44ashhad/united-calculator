@@ -35,7 +35,7 @@ const ZScoreCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/statistics/z-score-calculator"
+          href="https://www.unitedcalculator.net/statistics/z-score-calculator"
         />
 
         {/* Open Graph */}
@@ -50,7 +50,7 @@ const ZScoreCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/statistics/z-score-calculator"
+          content="https://www.unitedcalculator.net/statistics/z-score-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -60,12 +60,12 @@ const ZScoreCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Z-Score Calculator",
-      "url": "https://unitedcalculator.net/statistics/z-score-calculator",
+      "url": "https://www.unitedcalculator.net/statistics/z-score-calculator",
       "description": "The Z-Score Calculator helps you determine how far a value is from the mean in terms of standard deviations. Useful for statistical analysis and understanding standard normal distribution.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -110,19 +110,19 @@ const ZScoreCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Statistics Calculators",
-          "item": "https://unitedcalculator.net/statistics"
+          "item": "https://www.unitedcalculator.net/statistics"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Z-Score Calculator",
-          "item": "https://unitedcalculator.net/statistics/z-score-calculator"
+          "item": "https://www.unitedcalculator.net/statistics/z-score-calculator"
         }
       ]
     }

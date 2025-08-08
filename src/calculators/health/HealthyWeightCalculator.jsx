@@ -36,7 +36,7 @@ const HealthyWeightCalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/healthy-weight-calculator"
+          href="https://www.unitedcalculator.net/health/healthy-weight-calculator"
         />
 
         {/* Open Graph */}
@@ -51,7 +51,7 @@ const HealthyWeightCalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/healthy-weight-calculator"
+          content="https://www.unitedcalculator.net/health/healthy-weight-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -61,12 +61,12 @@ const HealthyWeightCalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Healthy Weight Calculator",
-      "url": "https://unitedcalculator.net/health/healthy-weight-calculator",
+      "url": "https://www.unitedcalculator.net/health/healthy-weight-calculator",
       "description": "Determine your ideal body weight using the Healthy Weight Calculator. Based on your height, gender, and age, it helps you find a healthy range to maintain physical well-being and prevent obesity or underweight conditions.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -111,19 +111,19 @@ const HealthyWeightCalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Healthy Weight Calculator",
-          "item": "https://unitedcalculator.net/health/healthy-weight-calculator"
+          "item": "https://www.unitedcalculator.net/health/healthy-weight-calculator"
         }
       ]
     }

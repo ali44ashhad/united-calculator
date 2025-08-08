@@ -52,7 +52,7 @@ const AnorexicBMICalculator = () => {
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
-          href="https://unitedcalculator.net/health/anorexic-bmi-calculator"
+          href="https://www.unitedcalculator.net/health/anorexic-bmi-calculator"
         />
 
         {/* Open Graph */}
@@ -67,7 +67,7 @@ const AnorexicBMICalculator = () => {
         />
         <meta
           property="og:url"
-          content="https://unitedcalculator.net/health/anorexic-bmi-calculator"
+          content="https://www.unitedcalculator.net/health/anorexic-bmi-calculator"
         />
 
         {/* JSON-LD: WebPage */}
@@ -77,12 +77,12 @@ const AnorexicBMICalculator = () => {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Anorexic BMI Calculator",
-      "url": "https://unitedcalculator.net/health/anorexic-bmi-calculator",
+      "url": "https://www.unitedcalculator.net/health/anorexic-bmi-calculator",
       "description": "Use the Anorexic BMI Calculator to assess whether your Body Mass Index (BMI) indicates an anorexic range. Helpful for identifying eating disorder-related risks and understanding body weight classification.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
-        "url": "https://unitedcalculator.net"
+        "url": "https://www.unitedcalculator.net"
       }
     }
     `}
@@ -127,19 +127,19 @@ const AnorexicBMICalculator = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://unitedcalculator.net"
+          "item": "https://www.unitedcalculator.net"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Health Calculators",
-          "item": "https://unitedcalculator.net/health"
+          "item": "https://www.unitedcalculator.net/health"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Anorexic BMI Calculator",
-          "item": "https://unitedcalculator.net/health/anorexic-bmi-calculator"
+          "item": "https://www.unitedcalculator.net/health/anorexic-bmi-calculator"
         }
       ]
     }
