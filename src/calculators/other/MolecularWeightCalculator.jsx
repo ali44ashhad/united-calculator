@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Helmet } from "react-helmet-async";
 const MolecularWeightCalculator = () => {
   const [formula, setFormula] = useState("");
   const [result, setResult] = useState("");
@@ -71,42 +71,154 @@ const MolecularWeightCalculator = () => {
   };
 
   return (
-    <div className=" mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
-      <h2 className="text-2xl font-bold text-center mb-6 text-blue-700">
-        Molecular Weight Calculator
-      </h2>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-medium mb-2">
-          Chemical Formula
-        </label>
-        <input
-          type="text"
-          value={formula}
-          onChange={(e) => setFormula(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-          placeholder="e.g., H2O, CO2, C6H12O6"
+    <>
+      <Helmet>
+        <title>
+          Molecular Weight Calculator | Calculate Molecular Weight Easily
+        </title>
+        <meta
+          name="description"
+          content="Use our Molecular Weight Calculator to quickly find the molecular weight of a compound based on its chemical formula."
         />
-      </div>
-      <div className="flex justify-between space-x-2 mb-4">
-        <button
-          onClick={calculateWeight}
-          className="w-1/2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-        >
-          Calculate
-        </button>
-        <button
-          onClick={clearFields}
-          className="w-1/2 bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
-        >
-          Clear
-        </button>
-      </div>
-      {result && (
-        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded text-center text-blue-800 font-semibold">
-          {result}
+        <meta
+          name="keywords"
+          content="molecular weight calculator, molecular mass calculator, chemical formula calculator, chemistry calculator, other calculator"
+        />
+        <meta name="robots" content="index, follow" />
+        <link
+          rel="canonical"
+          href="https://www.unitedcalculator.net/other/molecular-weight-calculator"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Molecular Weight Calculator | Calculate Molecular Weight Easily"
+        />
+        <meta
+          property="og:description"
+          content="Quickly calculate the molecular weight of chemical compounds using our easy Molecular Weight Calculator."
+        />
+        <meta
+          property="og:url"
+          content="https://www.unitedcalculator.net/other/molecular-weight-calculator"
+        />
+
+        {/* JSON-LD: WebPage */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Molecular Weight Calculator",
+  "url": "https://www.unitedcalculator.net/other/molecular-weight-calculator",
+  "description": "Calculate the molecular weight of compounds quickly and accurately using our Molecular Weight Calculator.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "United Calculator",
+    "url": "https://www.unitedcalculator.net"
+  }
+}
+    `}
+        </script>
+
+        {/* JSON-LD: FAQ */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a Molecular Weight Calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Molecular Weight Calculator helps you find the molecular weight or molar mass of a compound based on its chemical formula."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I use the Molecular Weight Calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the chemical formula of the compound, and the calculator will compute its molecular weight."
+      }
+    }
+  ]
+}
+    `}
+        </script>
+
+        {/* JSON-LD: Breadcrumb */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.unitedcalculator.net"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Other Calculators",
+      "item": "https://www.unitedcalculator.net/other"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Molecular Weight Calculator",
+      "item": "https://www.unitedcalculator.net/other/molecular-weight-calculator"
+    }
+  ]
+}
+    `}
+        </script>
+      </Helmet>
+
+      <div className=" mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
+        <h2 className="text-2xl font-bold text-center mb-6 text-blue-700">
+          Molecular Weight Calculator
+        </h2>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">
+            Chemical Formula
+          </label>
+          <input
+            type="text"
+            value={formula}
+            onChange={(e) => setFormula(e.target.value)}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="e.g., H2O, CO2, C6H12O6"
+          />
         </div>
-      )}
-    </div>
+        <div className="flex justify-between space-x-2 mb-4">
+          <button
+            onClick={calculateWeight}
+            className="w-1/2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+          >
+            Calculate
+          </button>
+          <button
+            onClick={clearFields}
+            className="w-1/2 bg-gray-300 text-gray-800 py-2 px-4 rounded hover:bg-gray-400"
+          >
+            Clear
+          </button>
+        </div>
+        {result && (
+          <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded text-center text-blue-800 font-semibold">
+            {result}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

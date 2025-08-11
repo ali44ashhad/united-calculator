@@ -23,6 +23,116 @@ const DistanceCalculator = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Distance Calculator | Calculate Distance Between Two Points
+        </title>
+        <meta
+          name="description"
+          content="Use our Distance Calculator to quickly find the distance between two points in 2D or 3D space. Perfect for students, engineers, and professionals."
+        />
+        <meta
+          name="keywords"
+          content="distance calculator, calculate distance, distance between two points, geometry calculator, 2D distance calculator, 3D distance calculator"
+        />
+        <meta name="robots" content="index, follow" />
+        <link
+          rel="canonical"
+          href="https://www.unitedcalculator.net/math/distance-calculator"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Distance Calculator | Calculate Distance Between Two Points"
+        />
+        <meta
+          property="og:description"
+          content="Easily calculate the distance between two points in 2D or 3D space using our Distance Calculator."
+        />
+        <meta
+          property="og:url"
+          content="https://www.unitedcalculator.net/math/distance-calculator"
+        />
+
+        {/* JSON-LD: WebPage */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Distance Calculator",
+  "url": "https://www.unitedcalculator.net/math/distance-calculator",
+  "description": "Calculate the distance between two points in 2D or 3D space quickly and accurately with our Distance Calculator.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "United Calculator",
+    "url": "https://www.unitedcalculator.net"
+  }
+}
+    `}
+        </script>
+
+        {/* JSON-LD: FAQ */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the distance between two points?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The distance between two points is the length of the straight line connecting them, calculated using the distance formula."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate distance using the Distance Calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Enter the coordinates of the two points in 2D or 3D format, and the calculator will compute the distance instantly."
+      }
+    }
+  ]
+}
+    `}
+        </script>
+
+        {/* JSON-LD: Breadcrumb */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.unitedcalculator.net"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Math Calculators",
+      "item": "https://www.unitedcalculator.net/math"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Distance Calculator",
+      "item": "https://www.unitedcalculator.net/math/distance-calculator"
+    }
+  ]
+}
+    `}
+        </script>
+      </Helmet>
+
       <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
         <div className="space-y-4">
           <div>

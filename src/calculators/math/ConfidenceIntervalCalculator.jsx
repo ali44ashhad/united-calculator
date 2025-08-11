@@ -38,6 +38,116 @@ const ConfidenceIntervalCalculator = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Confidence Interval Calculator | Calculate Confidence Intervals
+        </title>
+        <meta
+          name="description"
+          content="Use our Confidence Interval Calculator to easily compute confidence intervals for population means and proportions. Ideal for students, researchers, and statisticians."
+        />
+        <meta
+          name="keywords"
+          content="confidence interval calculator, statistical calculator, confidence level calculator, interval estimation, math calculator, population mean calculator"
+        />
+        <meta name="robots" content="index, follow" />
+        <link
+          rel="canonical"
+          href="https://www.unitedcalculator.net/math/confidence-interval-calculator"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Confidence Interval Calculator | Calculate Confidence Intervals"
+        />
+        <meta
+          property="og:description"
+          content="Calculate confidence intervals for means and proportions quickly and accurately with our Confidence Interval Calculator."
+        />
+        <meta
+          property="og:url"
+          content="https://www.unitedcalculator.net/math/confidence-interval-calculator"
+        />
+
+        {/* JSON-LD: WebPage */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Confidence Interval Calculator",
+  "url": "https://www.unitedcalculator.net/math/confidence-interval-calculator",
+  "description": "Calculate confidence intervals for population means and proportions with ease using our Confidence Interval Calculator.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "United Calculator",
+    "url": "https://www.unitedcalculator.net"
+  }
+}
+    `}
+        </script>
+
+        {/* JSON-LD: FAQ */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a confidence interval?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A confidence interval is a range of values used to estimate a population parameter with a specified level of confidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I use the Confidence Interval Calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Input your sample size, sample mean or proportion, and confidence level to calculate the confidence interval instantly."
+      }
+    }
+  ]
+}
+    `}
+        </script>
+
+        {/* JSON-LD: Breadcrumb */}
+        <script type="application/ld+json">
+          {`
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.unitedcalculator.net"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "math Calculators",
+      "item": "https://www.unitedcalculator.net/math"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Confidence Interval Calculator",
+      "item": "https://www.unitedcalculator.net/math/confidence-interval-calculator"
+    }
+  ]
+}
+    `}
+        </script>
+      </Helmet>
+
       <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
         <div className="space-y-4">
           <div>
