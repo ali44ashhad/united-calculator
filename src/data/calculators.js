@@ -346,6 +346,14 @@ export const calculators = [
     component: "LoanCalculator",
   },
   {
+    id: "loan-payoff-calculator",
+    title: "Loan payoff Calculator",
+    description: "calculate your monthly loan payoff.",
+    category: "Finance",
+    path: "/finance/loan-payoff-calculator",
+    component: "LoanPayoffCalculator",
+  },
+  {
     id: "margin-calculator",
     title: "Margin Calculator",
     description: "Calculate profit margin, markup, and gross profit easily.",

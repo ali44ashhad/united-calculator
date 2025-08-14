@@ -203,6 +203,192 @@ const AnorexicBMICalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+        <p class="mb-6">
+          This <strong>Anorexic BMI Calculator</strong> is a specialized free
+          tool which will helps you to determine if your Body Mass Index (BMI)
+          falls into the severely underweight range often associated with
+          anorexia or other health risks. this calculator is specially designed
+          to raise awareness about dangerously low BMI values so you can take
+          action early by checking your anorexic with this calculator.
+        </p>
+
+        <p class="mb-6">
+          You should aware that only BMI alone doesn’t diagnose anorexia, it’s
+          only a way to see that your weight is too below the healthy range for
+          your height which is average for your height. For a more complete
+          picture of your body composition, you can also check your{" "}
+          <a
+            href="https://www.unitedcalculator.net/health/body-fat-calculator"
+            target="_blank"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            Body Fat Percentage
+          </a>
+          .
+        </p>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">What is an Anorexic BMI?</h2>
+          <p>
+            BMI (Body Mass Index) is calculated by using your weight and
+            height.if your BMI below 18.5 then you are considered as
+            underweight, and below 17.5 is often considered as a warning sign
+            for anorexia or severe malnutrition.
+          </p>
+          <p class="mt-2">
+            Extremely low BMI can harm your in ealy stages of life span and
+            serious health risks such as weakened immunity system , nutrient
+            deficiencies effect, or heart complications for long time. If you
+            want to understand how many calories you need to regain healthy
+            weight, our{" "}
+            <a
+              href="https://www.unitedcalculator.net/health/calorie-calculator"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+            >
+              Calorie Calculator
+            </a>
+            can be a helpful guide.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Anorexic BMI Formula</h2>
+          <p>Standard BMI formula is given below</p>
+          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
+            <code>
+              Metric: BMI = weight (kg) ÷ [height (m)]² Imperial: BMI = (weight
+              (lb) ÷ [height (in)]²) × 703
+            </code>
+          </pre>
+          <ul class="list-disc ml-5 mb-3">
+            <li>
+              <code>Weight</code> — Your body weight in kilograms or pounds
+            </li>
+            <li>
+              <code>Height</code> — Your height in meters or inches
+            </li>
+          </ul>
+          <p>
+            Example: A person who has 42 kg weight and 1.65 m height would have:
+            <code>42 ÷ (1.65 × 1.65) = 15.43</code> → Severely underweight. To
+            know your body’s energy needs in recovery, also check our{" "}
+            <a
+              href="https://www.unitedcalculator.net/health/bmr-calculator"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+            >
+              BMR Calculator
+            </a>
+            .
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            How to Use the Anorexic BMI Calculator
+          </h2>
+          <ol class="list-decimal ml-5 mb-3">
+            <li>Enter your weight (kg or lb).</li>
+            <li>Enter your height in (cm/m or ft/in).</li>
+            <li>
+              Click <strong>Calculate</strong>.
+            </li>
+            <li>Check if your BMI is in the severely underweight range.</li>
+          </ol>
+          <ul class="list-disc ml-5">
+            <li>Below 17.5 — Possible anorexia risk</li>
+            <li>17.5 – 18.4 — Underweight</li>
+            <li>18.5 – 24.9 — Healthy weight</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
+          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+            <p>
+              <strong>Example:</strong> You weigh <strong>40 kg</strong> and
+              your height is <strong>1.60 m</strong>.
+            </p>
+            <p>Step 1: Square your height → 1.60 × 1.60 = 2.56</p>
+            <p>Step 2: Divide weight by squared height → 40 ÷ 2.56 = 15.62</p>
+            <p>
+              Your BMI is <strong>15.6</strong>, which is in the severely
+              underweight range and may require medical attention.
+            </p>
+            <p>
+              Using imperial units: 88 lb at 5 ft 3 in → (88 ÷ (63 × 63)) × 703
+              ≈ <strong>15.6</strong>.
+            </p>
+          </div>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Risks of Low BMI</h2>
+          <ul class="list-disc ml-5">
+            <li>Weakened immune system and higher risk of infections</li>
+            <li>Loss of bone density leading to fractures</li>
+            <li>Hormonal imbalances affecting metabolism and fertility</li>
+            <li>Potential heart complications due to malnutrition</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Frequently Asked Questions (FAQs)
+          </h2>
+          <dl>
+            <dt class="font-semibold mt-4">
+              Q.1 Is a low BMI always mean anorexia disease?
+            </dt>
+            <dd>
+              Ans. Not always. A low BMI can result from genetics, high
+              metabolism, illness, or eating disorders. Professional evaluation
+              is necessary for a proper diagnosis.
+            </dd>
+
+            <dt class="font-semibold mt-4">Q.2 What BMI indicates anorexia?</dt>
+            <dd>
+              Ans. A BMI below 17.5 is often considered a marker for anorexia
+              risk, though diagnosis involves more factors than BMI alone.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.3 Can you recover from a severely low BMI?
+            </dt>
+            <dd>
+              Ans. Yes, with proper nutrition, medical support, and sometimes
+              therapy, healthy weight can be restored.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.4 How quickly should I gain weight if my BMI is very low?
+            </dt>
+            <dd>
+              Ans. Weight gain should be gradual under the guidance of a
+              healthcare professional to avoid refeeding syndrome and other
+              complications.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.5 Should I track other health metrics too?
+            </dt>
+            <dd>
+              Ans. Absolutely — monitoring body fat percentage, muscle mass, and
+              calorie intake is crucial for recovery. Tools like our{" "}
+              <a
+                href="https://www.unitedcalculator.net/health/macro-calculator"
+                target="_blank"
+                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+              >
+                Macro Calculator
+              </a>
+              can help plan balanced meals.
+            </dd>
+          </dl>
+        </section>
+      </article>
     </>
   );
 };

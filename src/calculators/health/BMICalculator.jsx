@@ -187,6 +187,202 @@ const BMICalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+        <p class="mb-6">
+          This <strong>BMI Calculator</strong> is a simple and powerful tool
+          which helps you to find out your Body mass index whether you’re
+          underweight, at a healthy weight, overweight, or obese based on your
+          height and weight. BMI (Body Mass Index) is a quick way to get a
+          result of your overall health risk, and it’s used by doctors,
+          trainers, and health experts all over the world.
+        </p>
+
+        <p class="mb-6">
+          Your BMI doesn’t measure body fat directly, but it gives you a strong
+          indicator of where you stand compared to healthy ranges. If you want
+          to go one step further and measure your fat percentage, try our{" "}
+          <a
+            href="https://www.unitedcalculator.net/health/body-fat-calculator"
+            target="_blank"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            Body Fat Calculator
+          </a>
+          for more detailed insights.
+        </p>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            What is BMI and Why Does it Matter?
+          </h2>
+          <p>
+            BMI (Body Mass Index) is a number calculated using your height and
+            weight. It’s an easy way to estimate whether you’re in a healthy
+            range or at risk for weight-related health problems such as heart
+            disease, type 2 diabetes, or high blood pressure.
+          </p>
+          <p class="mt-2">
+            While it’s not perfect because it doesn’t account for muscle mass or
+            body composition it’s still one of the most widely used health
+            metrics in the world. If you're aiming for a healthy lifestyle, you
+            might also want to estimate your daily calorie needs with our{" "}
+            <a
+              href="https://www.unitedcalculator.net/health/calorie-calculator"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+            >
+              Calorie Calculator
+            </a>
+            .
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">BMI Formula</h2>
+          <p>
+            There are two standard formulas for BMI, depending on your
+            measurement system:
+          </p>
+          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
+            <code>
+              Metric: BMI = weight (kg) ÷ [height (m)]² Imperial: BMI = (weight
+              (lb) ÷ [height (in)]²) × 703
+            </code>
+          </pre>
+          <ul class="list-disc ml-5 mb-3">
+            <li>
+              <code>Weight</code> — Your body weight in kilograms or pounds
+            </li>
+            <li>
+              <code>Height</code> — Your height in meters or inches
+            </li>
+          </ul>
+          <p>
+            For example, a person weighing 70 kg with a height of 1.75 m would
+            have:
+            <code>70 ÷ (1.75 × 1.75) = 22.86</code>, which is considered a
+            healthy BMI. To know how many calories your body burns at rest,
+            check our{" "}
+            <a
+              href="https://www.unitedcalculator.net/health/bmr-calculator"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+            >
+              BMR Calculator
+            </a>
+            .
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            How to Use the BMI Calculator
+          </h2>
+          <ol class="list-decimal ml-5 mb-3">
+            <li>Enter your weight (in kg or lb).</li>
+            <li>Enter your height (in cm/m or ft/in).</li>
+            <li>
+              Click <strong>Calculate</strong>.
+            </li>
+            <li>Check your result against the BMI categories below.</li>
+          </ol>
+          <ul class="list-disc ml-5">
+            <li>Below 18.5 — Underweight</li>
+            <li>18.5 – 24.9 — Healthy weight</li>
+            <li>25.0 – 29.9 — Overweight</li>
+            <li>30.0 and above — Obese</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Example BMI Calculation</h2>
+          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+            <p>
+              <strong>Example:</strong> Let’s say you weigh{" "}
+              <strong>65 kg</strong> and your height is <strong>1.70 m</strong>.
+            </p>
+            <p>Step 1: Square your height → 1.70 × 1.70 = 2.89</p>
+            <p>
+              Step 2: Divide your weight by squared height → 65 ÷ 2.89 = 22.49
+            </p>
+            <p>
+              Your BMI is <strong>22.5</strong>, which falls in the “Healthy
+              weight” range.
+            </p>
+            <p>
+              If you prefer imperial units, a person weighing 150 lb at 5 ft 6
+              in would have: (150 ÷ (66 × 66)) × 703 ≈ <strong>24.2</strong>.
+            </p>
+          </div>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Tips for Maintaining a Healthy BMI
+          </h2>
+          <ul class="list-disc ml-5">
+            <li>
+              Follow a balanced diet rich in fruits, vegetables, and lean
+              proteins.
+            </li>
+            <li>
+              Engage in at least 150 minutes of moderate exercise each week.
+            </li>
+            <li>
+              Limit processed foods, sugary drinks, and excessive snacking.
+            </li>
+            <li>Stay hydrated and get enough quality sleep.</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Frequently Asked Questions
+          </h2>
+          <dl>
+            <dt class="font-semibold mt-4">
+              Q.1 Is BMI an accurate measure of health?
+            </dt>
+            <dd>
+              Ans. BMI is a useful screening tool but not a perfect measure.
+              Athletes or people with high muscle mass may have a high BMI but
+              low body fat.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.2 What’s the healthiest BMI range?
+            </dt>
+            <dd>
+              Ans. For most adults a BMI between 18.5 and 24.9 is considered
+              healthy.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.3 Can BMI be used for children?
+            </dt>
+            <dd>
+              Ans. Yes, but children’s BMI is interpreted differently using age
+              and sex-specific percentiles.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.4 How often should I check my BMI?
+            </dt>
+            <dd>
+              Ans. Checking every few months is enough unless you’re on a
+              specific weight-loss or muscle-gain program.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.5 Does a healthy BMI mean I’m fit?
+            </dt>
+            <dd>
+              Ans. Not necessarily BMI doesn’t measure fitness levels or muscle
+              strength so it’s best to combine it with other health indicators.
+            </dd>
+          </dl>
+        </section>
+      </article>
     </>
   );
 };

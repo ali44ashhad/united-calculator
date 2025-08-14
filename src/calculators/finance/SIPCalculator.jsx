@@ -214,200 +214,186 @@ const SIPCalculator = () => {
           </section>
         )}
       </div>
-      <div className=" py-10 space-y-10 text-gray-800 [&_a]:text-blue-600 [&_a]:font-semibold [&_a]:no-underline">
-        <section>
-          <p className="text-lg text-gray-700">
-            It has never been simpler to make a financial future statement. Use
-            our SIP Calculator to determine how much money will grow over time
-            from consistent monthly mutual fund investments. This tool makes it
-            simple and accurate to see your long-term development as an
-            investor, regardless of your level of experience.
-          </p>
-        </section>
+      <article class="py-6">
+        <p class="mb-6">
+          Our <strong>SIP Calculator</strong> is a simple yet powerful tool that
+          helps you estimate the future value of your mutual fund investments
+          made through a Systematic Investment Plan (SIP). Whether you’re
+          investing for retirement, a dream home, or your child’s education,
+          this calculator shows how consistent monthly investments can grow into
+          substantial wealth over time.
+        </p>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">
-            What is SIP Calculator?
-          </h2>
-          <p className="mb-2">
-            A Systematic Investment Plan (SIP) allows investors to invest a
-            fixed amount in a mutual fund on a regular basis. The SIP calculator
-            helps determine how much money your monthly investment can yield
-            over a certain period of time at the expected rate of return.
-          </p>
+        <p class="mb-6">
+          Understanding how SIP works can help you plan your financial goals
+          better and stay motivated to invest regularly. If you want to explore
+          how inflation affects your returns, you can try our
+          <a
+            href="https://www.unitedcalculator.net/finance/inflation-calculator"
+            target="_blank"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            Inflation Calculator
+          </a>
+          .
+        </p>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">What is SIP?</h2>
           <p>
-            Unlike a lump sum investment, SIPs promote disciplined investment
-            and take advantage of rupee cost averaging and compounding.
+            A Systematic Investment Plan (SIP) is a disciplined way of investing
+            a fixed amount in mutual funds at regular intervals, typically
+            monthly. It works on the principle of rupee cost averaging, which
+            helps you buy more units when prices are low and fewer when prices
+            are high, balancing out market fluctuations.
+          </p>
+          <p class="mt-2">
+            SIP encourages consistent investing habits and makes wealth creation
+            easier over the long term. For a one-time investment projection, you
+            can use our Lump Sum Calculator .
           </p>
         </section>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">
-            How to use the SIP Calculator?
-          </h2>
-          <p className="mb-4">
-            Our SIP calculator is simple to use and only takes a few seconds:
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">SIP Calculator Formula</h2>
+          <p>
+            The SIP maturity amount is calculated using the future value
+            formula:
           </p>
-          <ul className="list-disc pl-6 space-y-2">
+          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
+            <code>FV = P × [(1 + r)ⁿ - 1] × (1 + r) ÷ r</code>
+          </pre>
+          <ul class="list-disc ml-5 mb-3">
             <li>
-              <strong>Enter the monthly investment</strong> – the amount that
-              you plan to invest every month.
+              <code>P</code> — Monthly investment amount
             </li>
             <li>
-              <strong>Enter the expected rate of return</strong> – Usually
-              between 10%-15% annually for equity mutual funds.
+              <code>r</code> — Monthly rate of return (annual return ÷ 12)
             </li>
             <li>
-              <strong>Set the time period</strong> – Total investment period in
-              years.
+              <code>n</code> — Total number of months
             </li>
+          </ul>
+          <p>
+            For example, investing ₹5,000/month for 10 years at an annual return
+            of 12% would give you a maturity amount of around ₹11.6 lakh. To
+            estimate returns with different interest rates, try our
+            <a
+              href="https://www.unitedcalculator.net/finance/compound-interest-calculator"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+            >
+              Compound Interest Calculator
+            </a>
+            .
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            How to Use the SIP Calculator
+          </h2>
+          <ol class="list-decimal ml-5 mb-3">
+            <li>Enter your monthly investment amount.</li>
+            <li>Enter the expected annual return rate (in %).</li>
+            <li>Enter the total investment duration (in years or months).</li>
             <li>
-              <strong>Click on "Calculate"</strong> to get:
-              <ul className="list-disc pl-6 mt-1 space-y-1">
-                <li>Total amount of investment</li>
-                <li>Estimated return</li>
-                <li>Maturity Amount</li>
-              </ul>
+              Click <strong>Calculate</strong> to see your maturity amount and
+              total investment value.
             </li>
+          </ol>
+          <ul class="list-disc ml-5">
+            <li>Shows total invested amount and total wealth gained</li>
+            <li>Calculates returns instantly</li>
+            <li>Works for any time frame or return rate</li>
           </ul>
         </section>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">
-            SIP Calculator Formula
-          </h2>
-          <p className="mb-2">The formula used for calculating SIP is:</p>
-          <p className="bg-gray-100 border-l-4 border-gray-400 p-4 rounded text-sm sm:text-base overflow-x-auto">
-            FV = P × [(1 + r)<sup>n</sup> - 1] × (1 + r) / r
-          </p>
-          <ul className="list-disc pl-6 mt-3 space-y-1">
-            <li>
-              <strong>FV</strong> = Future Value (Maturity Amount)
-            </li>
-            <li>
-              <strong>P</strong> = Monthly investment
-            </li>
-            <li>
-              <strong>r</strong> = Expected return per month (annual rate ÷ 12 ÷
-              100)
-            </li>
-            <li>
-              <strong>n</strong> = Total number of months
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">
-            Why use SIP Calculator?
-          </h2>
-          <p className="mb-2">
-            It is important to understand the potential returns in advance for
-            financial planning. Our SIP calculator helps with:
-          </p>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Setting realistic financial goals</li>
-            <li>Comparison of different investment scenarios</li>
-            <li>Anticipating the long-term benefits of early investment</li>
-            <li>Encouraging continued savings</li>
-          </ul>
-          <p className="mt-4">
-            For instance, investing ₹5,000 monthly for 10 years at a 12% return
-            can fetch you over ₹11.6 lakh – almost double the amount you
-            invested.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">
-            Explore Related Financial Tools
-          </h2>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>
-              <strong>CAGR Calculator</strong> – to measure investment growth
-              over time
-            </li>
-            <li>
-              <strong>Lumpsum Calculator</strong> – Ideal if you are planning to
-              invest once instead of monthly SIPs
-            </li>
-            <li>
-              <strong>Income Tax Calculator</strong> – To plan the after-tax
-              return
-            </li>
-            <li>
-              <strong>EMI Calculator</strong> – To manage debt while investing
-              in SIPs
-            </li>
-          </ul>
-          <p className="mt-3">
-            These tools work together to support smart investment decisions and
-            overall financial management.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-lg">
-                What is the minimum amount to start a SIP?
-              </h3>
-              <p>
-                You can start a SIP with as little as ₹500 per month depending
-                on the mutual fund scheme.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg">
-                Is SIP better than a lump sum investment?
-              </h3>
-              <p>
-                Both have their own benefits. SIPs are better for regular
-                savings and market fluctuations, while lump sums work well when
-                you have a large sum ready to invest.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg">
-                Are SIP returns guaranteed?
-              </h3>
-              <p>
-                No. SIP returns depend on market performance. However, long-term
-                SIPs in equity funds offer better returns with lower average
-                risk.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg">
-                Can I increase my SIP amount over time?
-              </h3>
-              <p>
-                Yes, many mutual funds offer a SIP step-up facility that lets
-                you increase your SIP amount periodically.
-              </p>
-            </div>
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
+          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+            <p>
+              <strong>Example:</strong> You invest <strong>₹10,000</strong>{" "}
+              monthly for <strong>15 years</strong> at an annual return rate of{" "}
+              <strong>12%</strong>.
+            </p>
+            <p>Step 1: Monthly rate → 12% ÷ 12 = 0.01</p>
+            <p>Step 2: Total months → 15 × 12 = 180</p>
+            <p>Step 3: Apply formula → FV ≈ ₹50.4 lakh</p>
+            <p>
+              Out of this, your total investment is ₹18 lakh, and the remaining
+              ₹32.4 lakh is the wealth created through compounding.
+            </p>
           </div>
         </section>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">Start Planning Today</h2>
-          <p>
-            The SIP calculator isn't just a number cruncher – it's your first
-            step toward financial discipline. Use it regularly to keep track of
-            your growth, explore alternative scenarios, and stay committed to
-            your goals.
-          </p>
-          <p className="mt-3">
-            Want to estimate a lump-sum investment? Try our{" "}
-            <a href="/lumpsum-calculator">Lumpsum Calculator</a> or calculate
-            effective investment return using the{" "}
-            <a href="/cagr-calculator">CAGR Calculator</a>.
-          </p>
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Benefits of Using SIP Calculator
+          </h2>
+          <ul class="list-disc ml-5">
+            <li>Plan your financial goals with clarity</li>
+            <li>Visualize the power of compounding</li>
+            <li>Experiment with different investment amounts</li>
+            <li>Stay motivated to invest regularly</li>
+          </ul>
         </section>
-      </div>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Frequently Asked Questions (FAQs)
+          </h2>
+          <dl>
+            <dt class="font-semibold mt-4">
+              Q.1 Is SIP better than lump sum investment?
+            </dt>
+            <dd>
+              Ans. SIP is ideal for regular investing and managing market
+              volatility, while lump sum investment can be better if you have a
+              large amount ready to invest.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.2 Can I change my SIP amount later?
+            </dt>
+            <dd>
+              Ans. Yes, you can increase or decrease your SIP amount anytime,
+              depending on your financial situation.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.3 What happens if I miss a SIP payment?
+            </dt>
+            <dd>
+              Ans. Missing one or two payments won’t cancel your SIP, but
+              frequent misses may affect your total returns.
+            </dd>
+
+            <dt class="font-semibold mt-4">Q.4 Does SIP guarantee returns?</dt>
+            <dd>
+              Ans. No, mutual fund returns depend on market performance, but SIP
+              helps reduce the impact of volatility over time.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.5 Can I use this calculator for retirement planning?
+            </dt>
+            <dd>
+              Ans. Absolutely — SIP is one of the most effective ways to build a
+              retirement corpus. For a more detailed retirement projection,
+              check our
+              <a
+                href="https://www.unitedcalculator.net/finance/retirement-calculator"
+                target="_blank"
+                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+              >
+                Retirement Calculator
+              </a>
+              .
+            </dd>
+          </dl>
+        </section>
+      </article>
     </>
   );
 };

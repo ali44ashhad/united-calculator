@@ -203,6 +203,7 @@ import TireSizeCalculator from "../calculators/other/TireSizeCalculator";
 import VoltageDropCalculator from "../calculators/other/VoltageDropCalculator";
 import WeightCalculator from "../calculators/other/WeightCalculator";
 import WindChillCalculator from "../calculators/other/WindChillCalculator";
+import LoanPayoffCalculator from "../calculators/finance/LoanPayoffCalculator";
 // Component mapping
 
 const componentMap = {
@@ -406,6 +407,7 @@ const componentMap = {
   VoltageDropCalculator,
   WeightCalculator,
   WindChillCalculator,
+  LoanPayoffCalculator,
   // 👉 Add all other calculator mappings here
 };
 const CalculatorPage = () => {

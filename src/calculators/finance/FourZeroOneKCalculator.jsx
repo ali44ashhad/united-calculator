@@ -245,6 +245,217 @@ const FourZeroOneKCalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+        <p class="mb-6">
+          Our <strong>401(k) Calculator</strong> helps you estimate how much you
+          could accumulate in your retirement account based on your
+          contributions, employer match, expected investment return, and years
+          to retirement. Whether you’re starting your first job or reviewing
+          your retirement plan, this tool gives a clear snapshot of your
+          long-term savings outlook.
+        </p>
+
+        <p class="mb-6">
+          The calculator models tax-deferred growth (for traditional 401(k)
+          plans) and shows how employer contributions and compound returns can
+          accelerate your savings. If you want a broader retirement projection
+          that includes other savings and retirement goals, try our
+          <a
+            href="https://www.unitedcalculator.net/finance/retirement-calculator"
+            target="_blank"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            Retirement Calculator
+          </a>
+          .
+        </p>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">What is a 401(k)?</h2>
+          <p>
+            A 401(k) is an employer-sponsored retirement account commonly used
+            in the United States. You contribute a portion of your
+            paycheck—often pre-tax for traditional 401(k)s—and your employer may
+            match some portion of that contribution. Money in the account grows
+            tax-deferred until withdrawal, usually in retirement.
+          </p>
+          <p class="mt-2">
+            Some employers offer a dollar-for-dollar match, others match a
+            percentage; either way, the employer match is effectively free money
+            and can significantly boost your retirement balance. To compare
+            growth under different return scenarios, you can also use our
+            <a
+              href="https://www.unitedcalculator.net/finance/compound-interest-calculator"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+            >
+              Compound Interest Calculator
+            </a>
+            .
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            How the 401(k) Calculator Works
+          </h2>
+          <p>
+            The calculator asks for a few simple inputs and uses compound growth
+            to project your balance:
+          </p>
+          <ul class="list-disc ml-5 mb-3">
+            <li>
+              <strong>Employee contribution</strong> (amount or % of salary)
+            </li>
+            <li>
+              <strong>Employer match</strong> (percentage or fixed amount)
+            </li>
+            <li>
+              <strong>Expected annual rate of return</strong> (assumed average)
+            </li>
+            <li>
+              <strong>Years until retirement</strong>
+            </li>
+          </ul>
+          <p>
+            Results include a projected ending balance, total contributions (you
+            + employer), and the portion of your balance that comes from
+            investment gains.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Calculation Logic (basic)</h2>
+          <p>
+            For regular contributions at the end of each period, the future
+            value of a series of equal contributions is commonly calculated
+            using:
+          </p>
+          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
+            <code>FV = C × [ (1 + r)^n − 1 ] ÷ r</code>
+          </pre>
+          <p class="mt-2">
+            Where <code>C</code> is the total annual contribution (employee +
+            employer), <code>r</code> is the annual rate of return (expressed as
+            a decimal), and <code>n</code> is the number of years. If
+            contributions are made monthly, the same formula applies using
+            monthly values (monthly contribution, monthly rate, and total
+            months).
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
+          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+            <p>
+              <strong>Example:</strong> Suppose you contribute{" "}
+              <strong>$5,000</strong> per year, your employer contributes an
+              additional <strong>$2,500</strong> per year (total annual
+              contribution = <strong>$7,500</strong>), you expect an average
+              annual return of <strong>7%</strong>, and you plan to work for{" "}
+              <strong>30 years</strong>.
+            </p>
+            <p>Step 1: Annual contribution (C) = $7,500</p>
+            <p>Step 2: Annual rate (r) = 7% = 0.07</p>
+            <p>Step 3: Years (n) = 30</p>
+            <p>
+              Step 4: Apply formula →{" "}
+              <strong>Projected balance ≈ $708,456</strong>
+            </p>
+            <p>
+              Over 30 years you would have contributed <strong>$225,000</strong>{" "}
+              in total (you + employer), and the remaining{" "}
+              <strong>≈ $483,456</strong> comes from investment growth — that’s
+              the power of compound interest.
+            </p>
+          </div>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Tips for Maximizing Your 401(k)
+          </h2>
+          <ul class="list-disc ml-5">
+            <li>
+              Try to contribute at least enough to get the full employer match —
+              it’s essentially free return.
+            </li>
+            <li>
+              Increase contributions gradually when you get raises or bonuses.
+            </li>
+            <li>
+              Consider diversified investments within your plan to manage risk.
+            </li>
+            <li>
+              If you switch jobs, roll over old 401(k) balances into your new
+              401(k) or an IRA to avoid losing tax advantages.
+            </li>
+            <li>
+              Adjust assumptions (rate of return and years) in the calculator to
+              see best- and worst-case scenarios.
+            </li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Frequently Asked Questions (FAQs)
+          </h2>
+          <dl>
+            <dt class="font-semibold mt-4">
+              Q.1 Does this calculator account for taxes?
+            </dt>
+            <dd>
+              Ans. This projection assumes tax-deferred growth typical of
+              traditional 401(k)s and does not explicitly model post-retirement
+              taxes. For Roth 401(k)s, contributions are after-tax but qualified
+              withdrawals are tax-free — you may want to consult a tax
+              professional for detailed planning.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.2 What if my employer match changes?
+            </dt>
+            <dd>
+              Ans. You can adjust the employer match input in the calculator to
+              model different employer contributions. Small increases in
+              employer match significantly improve long-term results.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.3 Is the calculator accurate for all cases?
+            </dt>
+            <dd>
+              Ans. The tool provides estimates based on the inputs you provide.
+              Real returns vary year to year and fees, plan-specific investment
+              options, and taxes will affect actual results.
+            </dd>
+
+            <dt class="font-semibold mt-4">Q.4 Should I consider inflation?</dt>
+            <dd>
+              Ans. Yes — inflation reduces purchasing power over time. To see
+              inflation-adjusted values, try our
+              <a
+                href="https://www.unitedcalculator.net/finance/inflation-calculator"
+                target="_blank"
+                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+              >
+                Inflation Calculator
+              </a>
+              .
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.5 Can I use this for non-US retirement accounts?
+            </dt>
+            <dd>
+              Ans. The growth math is the same for most retirement savings
+              accounts worldwide; adjust contribution rules and tax assumptions
+              according to your country’s regulations.
+            </dd>
+          </dl>
+        </section>
+      </article>
     </>
   );
 };
