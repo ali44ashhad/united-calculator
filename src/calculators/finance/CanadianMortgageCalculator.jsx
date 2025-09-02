@@ -220,6 +220,229 @@ const CanadianMortgageCalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+        <p class="mb-6">
+          Our <strong>Canadian Mortgage Calculator</strong> helps you estimate
+          your monthly mortgage payments, total interest, and overall loan costs
+          based on Canadian lending rules. By entering your home price, down
+          payment, interest rate, and amortization period, the calculator gives
+          you a clear breakdown of what to expect as a homeowner in Canada. This
+          tool is especially useful for first-time buyers and property investors
+          looking to budget accurately before making one of the biggest
+          financial commitments of their lives.
+        </p>
+
+        <p class="mb-6">
+          Whether you’re buying a new home or refinancing an existing mortgage,
+          this calculator makes it easy to compare scenarios and make better
+          financial decisions. If you’d also like to explore how your loan
+          payments are spread across principal and interest, try our{" "}
+          <a
+            href="https://www.unitedcalculator.net/finance/amortization-calculator"
+            target="_blank"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            Amortization Calculator
+          </a>
+          .
+        </p>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            What is a Canadian Mortgage?
+          </h2>
+          <p>
+            A mortgage in Canada is a type of loan that allows you to purchase a
+            home by borrowing money from a bank or lender. You repay the loan in
+            fixed installments over a set number of years, known as the
+            amortization period. Your payment is typically divided into two
+            parts:
+          </p>
+          <ul class="list-disc ml-5 mt-2">
+            <li>
+              <strong>Principal:</strong> The amount borrowed to purchase the
+              home.
+            </li>
+            <li>
+              <strong>Interest:</strong> The cost of borrowing money, charged by
+              the lender.
+            </li>
+          </ul>
+          <p class="mt-2">
+            In Canada, buyers are required to make a minimum down payment of
+            <strong>5%</strong> on homes priced up to $500,000. For homes above
+            $1,000,000, at least 20% is required. If your down payment is less
+            than 20%, you must purchase{" "}
+            <strong>mortgage default insurance</strong> from CMHC (Canada
+            Mortgage and Housing Corporation) or other insurers.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Mortgage Payment Formula</h2>
+          <p>
+            The Canadian mortgage payment calculation is based on the following
+            formula:
+          </p>
+          <p class="mt-2 font-mono bg-gray-100 p-2 rounded">
+            M = P × [ i(1 + i)<sup>n</sup> ] / [ (1 + i)<sup>n</sup> – 1 ]
+          </p>
+          <ul class="list-disc ml-5 mt-2">
+            <li>
+              <strong>M</strong> = Monthly mortgage payment
+            </li>
+            <li>
+              <strong>P</strong> = Loan amount (home price – down payment)
+            </li>
+            <li>
+              <strong>i</strong> = Monthly interest rate (annual ÷ 12)
+            </li>
+            <li>
+              <strong>n</strong> = Total number of payments (years × 12)
+            </li>
+          </ul>
+          <p class="mt-2">
+            This formula ensures accurate results, factoring in interest
+            compounding and amortization, so you know exactly how much you’ll
+            owe monthly.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            How to Use the Canadian Mortgage Calculator
+          </h2>
+          <p>Follow these simple steps:</p>
+          <ol class="list-decimal ml-5 mb-3">
+            <li>Enter the total home price you want to purchase.</li>
+            <li>Add your planned down payment amount.</li>
+            <li>Choose the interest rate offered by your lender.</li>
+            <li>
+              Select the amortization period (usually 15, 20, or 25 years).
+            </li>
+            <li>
+              Click <strong>Calculate</strong> to view monthly payments,
+              interest paid, and total loan cost.
+            </li>
+          </ol>
+          <ul class="list-disc ml-5">
+            <li>Shows monthly mortgage payments instantly</li>
+            <li>Provides breakdown of principal vs. interest</li>
+            <li>Helps compare different loan terms</li>
+            <li>Assists in budgeting before applying for a mortgage</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
+          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+            <p>
+              <strong>Example:</strong> Suppose you want to buy a home worth
+              <strong> $500,000</strong> with a{" "}
+              <strong>10% down payment</strong>
+              ($50,000).
+            </p>
+            <ul class="list-disc ml-5">
+              <li>Loan Amount = $450,000</li>
+              <li>Interest Rate = 5% annually (0.416% monthly)</li>
+              <li>Amortization = 25 years (300 payments)</li>
+            </ul>
+            <p>
+              Monthly Payment ≈ <strong>$2,620</strong>
+            </p>
+            <p>
+              Over the 25 years, total payments will equal about
+              <strong>$786,000</strong>, including nearly
+              <strong>$336,000</strong> in interest.
+            </p>
+          </div>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Benefits of Using the Calculator
+          </h2>
+          <ul class="list-disc ml-5">
+            <li>Provides realistic monthly payment estimates</li>
+            <li>Helps evaluate affordability before purchasing</li>
+            <li>Assists in comparing mortgage terms and rates</li>
+            <li>Encourages better financial planning and savings</li>
+            <li>
+              Prepares you for hidden costs like property tax and insurance
+            </li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Frequently Asked Questions (FAQs)
+          </h2>
+          <dl>
+            <dt class="font-semibold mt-4">
+              Q.1 What does the Canadian Mortgage Calculator show?
+            </dt>
+            <dd>
+              Ans. It shows your estimated monthly mortgage payments, total
+              interest, and total cost of the loan.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.2 Does this include property taxes and insurance?
+            </dt>
+            <dd>
+              Ans. No, the calculator focuses on mortgage payments only. You
+              should budget separately for taxes and insurance.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.3 Can I use this for refinancing?
+            </dt>
+            <dd>
+              Ans. Yes, simply enter your current balance, interest rate, and
+              remaining term.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.4 What is the maximum amortization period in Canada?
+            </dt>
+            <dd>
+              Ans. For insured mortgages, the maximum is 25 years. Uninsured
+              mortgages may go up to 30 years.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.5 How does a larger down payment affect my mortgage?
+            </dt>
+            <dd>
+              Ans. A larger down payment reduces the loan amount, lowers monthly
+              payments, and may help you avoid mortgage insurance.
+            </dd>
+          </dl>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Conclusion</h2>
+          <p>
+            A <strong>Canadian Mortgage Calculator</strong> is a powerful tool
+            for homebuyers and investors. By estimating monthly payments and
+            long-term costs, it allows you to plan realistically, avoid
+            financial surprises, and make smarter borrowing decisions.
+          </p>
+          <p>
+            With consistent planning, you’ll not only secure the right mortgage
+            but also work toward long-term financial stability. For more
+            insights into loan planning, you may also find our{" "}
+            <a
+              href="https://www.unitedcalculator.net/finance/house-affordability-calculator"
+              target="_blank"
+              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+            >
+              House Affordability Calculator
+            </a>{" "}
+            helpful.
+          </p>
+        </section>
+      </article>
     </>
   );
 };

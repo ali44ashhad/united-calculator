@@ -221,6 +221,160 @@ const APRCalculator = () => {
           </section>
         )}
       </div>
+     <article class="py-6">
+  <p class="mb-6">
+    Our <strong>APR Calculator</strong> helps you determine the annual percentage
+    rate (APR) for loans and credit products. By entering the loan amount,
+    interest rate, fees, and loan term, you’ll get a clear picture of the true
+    cost of borrowing. This makes it easier to compare loans, credit cards, and
+    other financial products.
+  </p>
+
+  <p class="mb-6">
+    Whether you’re taking out a personal loan, mortgage, or credit card, this
+    calculator provides accurate results to guide your financial decisions. You
+    can also try our{" "}
+    <a
+      href="https://www.unitedcalculator.net/finance/loan-calculator"
+      target="_blank"
+      class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+    >
+      Loan Calculator
+    </a>{" "}
+    to estimate monthly payments and total interest.
+  </p>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">What is APR?</h2>
+    <p>
+      APR, or Annual Percentage Rate, represents the total cost of borrowing over
+      a year, expressed as a percentage. It includes the nominal interest rate
+      plus any fees or additional costs associated with the loan.
+    </p>
+    <p class="mt-2">Key terms related to APR:</p>
+    <ul class="list-disc ml-5 mt-2">
+      <li><strong>Nominal Interest Rate:</strong> The stated interest rate on the loan.</li>
+      <li><strong>Fees:</strong> Any upfront charges or ongoing costs for the loan.</li>
+      <li><strong>Loan Term:</strong> Duration over which the loan is repaid.</li>
+      <li><strong>APR:</strong> True annualized cost of borrowing, combining interest and fees.</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">APR Formula</h2>
+    <p>
+      The APR can be calculated using the formula that accounts for loan fees and
+      the interest rate:
+    </p>
+    <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
+      <code>APR = [ (Total Interest + Fees) ÷ Loan Amount ÷ Number of Years ] × 100</code>
+    </pre>
+    <ul class="list-disc ml-5 mb-3">
+      <li><strong>Total Interest:</strong> Interest paid over the loan term</li>
+      <li><strong>Fees:</strong> Any additional charges for the loan</li>
+      <li><strong>Loan Amount:</strong> Principal borrowed</li>
+      <li><strong>Number of Years:</strong> Loan term in years</li>
+    </ul>
+    <p>
+      This formula ensures you see the real cost of borrowing, helping you
+      compare loans with different rates and fees accurately.
+    </p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">How to Use the APR Calculator</h2>
+    <p>Follow these steps to calculate APR:</p>
+    <ol class="list-decimal ml-5 mb-3">
+      <li>Enter the loan amount (principal).</li>
+      <li>Input the nominal interest rate.</li>
+      <li>Include any fees associated with the loan.</li>
+      <li>Enter the loan term in years.</li>
+      <li>Click <strong>Calculate</strong> to get the APR.</li>
+    </ol>
+    <ul class="list-disc ml-5">
+      <li>Shows the true cost of borrowing</li>
+      <li>Helps compare loans with different fees and interest rates</li>
+      <li>Provides clarity on the annualized interest rate</li>
+      <li>Assists in making better financial decisions</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
+    <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+      <p>
+        <strong>Example:</strong> You borrow <strong>$10,000</strong> for 3 years
+        with a nominal interest rate of <strong>6%</strong> and fees of
+        <strong>$300</strong>:
+      </p>
+      <p>Step 1: Total interest = 10,000 × 6% × 3 = $1,800</p>
+      <p>Step 2: Total cost including fees = 1,800 + 300 = $2,100</p>
+      <p>Step 3: APR = (2,100 ÷ 10,000 ÷ 3) × 100 ≈ <strong>7%</strong></p>
+      <p>
+        This shows the true annual cost of borrowing, including fees, is 7%.
+      </p>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">Factors That Affect APR</h2>
+    <ul class="list-disc ml-5">
+      <li><strong>Interest Rate:</strong> Higher nominal rates increase APR.</li>
+      <li><strong>Fees:</strong> Upfront or recurring fees raise the effective APR.</li>
+      <li><strong>Loan Term:</strong> Shorter terms may increase or decrease APR depending on payment structure.</li>
+      <li><strong>Payment Frequency:</strong> Monthly vs. yearly repayments can slightly affect APR.</li>
+      <li><strong>Type of Loan:</strong> Secured vs. unsecured loans may have different APRs.</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">Benefits of Using the APR Calculator</h2>
+    <ul class="list-disc ml-5">
+      <li>Understand the true cost of borrowing</li>
+      <li>Compare different loans effectively</li>
+      <li>Account for both interest and fees</li>
+      <li>Make smarter financial decisions</li>
+      <li>Plan repayment strategies based on the effective annual rate</li>
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">Frequently Asked Questions (FAQs)</h2>
+    <dl>
+      <dt class="font-semibold mt-4">Q.1 What does the APR Calculator show?</dt>
+      <dd>Ans. It calculates the annual percentage rate including interest and fees, showing the true cost of borrowing.</dd>
+
+      <dt class="font-semibold mt-4">Q.2 How is APR different from interest rate?</dt>
+      <dd>Ans. Interest rate only shows the nominal rate, while APR includes fees and provides the annualized cost.</dd>
+
+      <dt class="font-semibold mt-4">Q.3 Can I use APR to compare loans?</dt>
+      <dd>Ans. Yes, APR allows you to compare loans with different fees and terms accurately.</dd>
+
+      <dt class="font-semibold mt-4">Q.4 Does APR account for compounding?</dt>
+      <dd>Ans. Yes, APR calculations often include the effect of interest compounding if applicable.</dd>
+
+      <dt class="font-semibold mt-4">Q.5 Is APR applicable to credit cards?</dt>
+      <dd>Ans. Yes, credit card APRs indicate the effective annual interest rate including fees.</dd>
+    </dl>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-semibold mb-2">Conclusion</h2>
+    <p>
+      An <strong>APR Calculator</strong> is an essential tool for borrowers who
+      want to understand the true cost of loans and credit products. By
+      considering both interest and fees, it provides a clear picture of annual
+      borrowing costs.
+    </p>
+    <p>
+      Using this calculator allows you to compare loans accurately, choose the
+      most cost-effective option, and plan your finances better. Whether for a
+      personal loan, mortgage, or credit card, understanding APR ensures smarter
+      financial decisions.
+    </p>
+  </section>
+</article>
+
     </>
   );
 };

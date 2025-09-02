@@ -209,6 +209,290 @@ const AverageReturnCalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+        <p class="mb-6">
+          Our <strong>Average Return Calculator</strong> helps you quickly
+          determine the average annual return of an investment over a specific
+          period. By entering your starting value, ending value, and the number
+          of years, the calculator provides a simple way to understand how well
+          your investment has performed on average. This makes it easier to
+          compare different investments and evaluate long-term financial growth.
+        </p>
+
+        <p class="mb-6">
+          Whether you’re tracking stock market performance, mutual fund returns,
+          or even a personal portfolio, this calculator gives you clear insights
+          into average returns. It works for both simple return calculations and
+          compound growth analysis. If you’re planning investments, you may also
+          want to try our{" "}
+          <a
+            href="/compound-interest-calculator"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            Compound Interest Calculator
+          </a>{" "}
+          or our{" "}
+          <a
+            href="/sip-calculator"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            SIP Calculator
+          </a>{" "}
+          to project future returns.
+        </p>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">What is Average Return?</h2>
+          <p>
+            The average return is a measure of the overall performance of an
+            investment over a given period. It represents the mean percentage
+            return per year and helps investors evaluate whether their
+            investments are generating desirable results.
+          </p>
+          <p class="mt-2">
+            There are two main types of average return calculations:
+          </p>
+          <ul class="list-disc ml-5 mt-2">
+            <li>
+              <strong>Arithmetic Average Return:</strong> The simple average of
+              yearly returns. Best for quick comparisons, but does not consider
+              compounding.
+            </li>
+            <li>
+              <strong>Geometric Average Return (CAGR):</strong> The compounded
+              average growth rate, also called{" "}
+              <em>Compound Annual Growth Rate</em>. This is more accurate for
+              long-term investments since it accounts for compounding.
+            </li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Average Return Formula</h2>
+          <p>
+            The formula depends on the type of average return being calculated:
+          </p>
+          <p class="mt-2 font-semibold">1. Arithmetic Average Return</p>
+          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
+            <code>Average Return = (R₁ + R₂ + R₃ + ... + Rn) ÷ n</code>
+          </pre>
+          <ul class="list-disc ml-5 mb-3">
+            <li>
+              <strong>R₁, R₂, R₃...</strong> = Returns in each year
+            </li>
+            <li>
+              <strong>n</strong> = Total number of years
+            </li>
+          </ul>
+
+          <p class="mt-2 font-semibold">2. Geometric Average Return (CAGR)</p>
+          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
+            <code>CAGR = (Ending Value ÷ Beginning Value)^(1 ÷ n) – 1</code>
+          </pre>
+          <ul class="list-disc ml-5 mb-3">
+            <li>
+              <strong>Beginning Value</strong> = Initial investment amount
+            </li>
+            <li>
+              <strong>Ending Value</strong> = Value after n years
+            </li>
+            <li>
+              <strong>n</strong> = Number of years
+            </li>
+          </ul>
+          <p>
+            The <strong>CAGR</strong> formula is widely used in finance because
+            it provides a realistic measure of annualized growth, taking
+            compounding into account.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            How to Use the Average Return Calculator
+          </h2>
+          <p>
+            Using the calculator is quick and easy. You only need to provide:
+          </p>
+          <ol class="list-decimal ml-5 mb-3">
+            <li>Enter the initial investment amount.</li>
+            <li>Enter the final investment value.</li>
+            <li>Enter the total investment period (in years).</li>
+            <li>
+              Click <strong>Calculate</strong> to see both arithmetic and CAGR
+              results.
+            </li>
+          </ol>
+          <ul class="list-disc ml-5">
+            <li>Shows simple average annual return</li>
+            <li>Calculates CAGR for accurate long-term growth measurement</li>
+            <li>
+              Helps compare investment performance across different options
+            </li>
+            <li>
+              Provides insight into whether your portfolio is outperforming the
+              market
+            </li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
+          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+            <p>
+              <strong>Example:</strong> Suppose you invested{" "}
+              <strong>$10,000</strong>
+              in a mutual fund, and after 5 years, it grew to{" "}
+              <strong>$15,000</strong>.
+            </p>
+            <p>Step 1: Beginning Value = $10,000</p>
+            <p>Step 2: Ending Value = $15,000</p>
+            <p>Step 3: Number of years = 5</p>
+            <p>
+              Apply CAGR formula → CAGR = (15,000 ÷ 10,000)^(1/5) – 1 ≈
+              <strong>8.45%</strong>
+            </p>
+            <p>
+              This means the investment grew at an average compounded rate of
+              8.45% per year over 5 years.
+            </p>
+          </div>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Factors That Affect Investment Returns
+          </h2>
+          <p>Several factors influence the average return of an investment:</p>
+          <ul class="list-disc ml-5">
+            <li>
+              <strong>Market Conditions:</strong> Bull or bear markets
+              significantly affect returns.
+            </li>
+            <li>
+              <strong>Investment Type:</strong> Stocks, bonds, mutual funds, and
+              real estate all generate different levels of risk and return.
+            </li>
+            <li>
+              <strong>Time Horizon:</strong> Longer investments usually benefit
+              more from compounding.
+            </li>
+            <li>
+              <strong>Diversification:</strong> A diversified portfolio helps
+              smooth out volatile returns.
+            </li>
+            <li>
+              <strong>Inflation:</strong> Higher inflation reduces the real
+              value of returns.
+            </li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Benefits of Using the Average Return Calculator
+          </h2>
+          <ul class="list-disc ml-5">
+            <li>Quickly measure performance of any investment</li>
+            <li>
+              Helps track historical returns of stocks, funds, or portfolios
+            </li>
+            <li>
+              Provides both arithmetic and CAGR results for deeper understanding
+            </li>
+            <li>
+              Assists in comparing different investment options before deciding
+            </li>
+            <li>
+              Useful for financial planning, retirement savings, and long-term
+              wealth building
+            </li>
+            <li>Simplifies complex calculations into easy, instant results</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Frequently Asked Questions (FAQs)
+          </h2>
+          <dl>
+            <dt class="font-semibold mt-4">
+              Q.1 What does the Average Return Calculator show?
+            </dt>
+            <dd>
+              Ans. It shows both the arithmetic mean return and the compounded
+              annual growth rate (CAGR), helping you evaluate investment
+              performance.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.2 What is the difference between Arithmetic Return and CAGR?
+            </dt>
+            <dd>
+              Ans. Arithmetic return is a simple average, while CAGR accounts
+              for compounding and is more accurate for long-term investments.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.3 Can I use this calculator for stock investments?
+            </dt>
+            <dd>
+              Ans. Yes, you can enter the stock’s purchase price, selling price,
+              and the number of years held to get average return results.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.4 Does the calculator adjust for inflation?
+            </dt>
+            <dd>
+              Ans. No, the calculator provides nominal returns. To measure real
+              returns, you must adjust by subtracting inflation.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.5 Is CAGR always better than Arithmetic Average?
+            </dt>
+            <dd>
+              Ans. CAGR is more accurate for long-term investments, while
+              arithmetic return can be useful for short-term comparisons.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.6 Can I compare multiple investments with this calculator?
+            </dt>
+            <dd>
+              Ans. Yes, simply input different beginning and ending values for
+              each investment to see their respective average returns.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.7 Can I use this calculator for retirement planning?
+            </dt>
+            <dd>
+              Ans. Yes, it’s an excellent tool to track whether your retirement
+              savings are growing at a sufficient rate.
+            </dd>
+          </dl>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Conclusion</h2>
+          <p>
+            An <strong>Average Return Calculator</strong> is a vital financial
+            tool that simplifies the process of analyzing investment
+            performance. By showing both arithmetic and compounded returns, it
+            gives investors a complete picture of how their money has grown over
+            time.
+          </p>
+          <p>
+            Whether you’re comparing mutual funds, stocks, or retirement
+            portfolios, understanding average returns helps you make informed
+            financial decisions. Use this calculator before committing to any
+            investment strategy, so you can choose options that align with your
+            financial goals.
+          </p>
+        </section>
+      </article>
     </>
   );
 };

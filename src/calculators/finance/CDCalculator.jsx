@@ -197,6 +197,224 @@ const CDCalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+        <p class="mb-6">
+          Our <strong>CD Calculator</strong> helps you estimate the future value
+          of your Certificate of Deposit by calculating the interest earned over
+          a set period of time. By entering your deposit amount, interest rate,
+          term length, and compounding frequency, you’ll get a clear picture of
+          how much your savings will grow. This tool makes it easier to plan for
+          short-term and long-term financial goals with guaranteed returns.
+        </p>
+
+        <p class="mb-6">
+          Whether you’re saving for an emergency fund, a vacation, or a large
+          purchase, this calculator provides accurate projections to show how
+          your money will accumulate. If you’d like to explore more ways to grow
+          your savings, try our{" "}
+          <a
+            href="https://www.unitedcalculator.net/finance/compound-interest-calculator"
+            target="_blank"
+            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+          >
+            Compound Interest Calculator
+          </a>
+          .
+        </p>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            What is a Certificate of Deposit (CD)?
+          </h2>
+          <p>
+            A Certificate of Deposit (CD) is a type of savings account that
+            locks in your money for a fixed period of time, usually ranging from
+            a few months to several years. In return, banks or credit unions pay
+            a fixed interest rate, often higher than standard savings accounts.
+            CDs are considered low-risk investments because they are typically
+            insured by the FDIC (banks) or NCUA (credit unions).
+          </p>
+          <p class="mt-2">Key features of a CD include:</p>
+          <ul class="list-disc ml-5 mt-2">
+            <li>
+              <strong>Fixed Interest Rate:</strong> Guaranteed return for the
+              duration of the term.
+            </li>
+            <li>
+              <strong>Term Length:</strong> Can range from 3 months to 10 years.
+            </li>
+            <li>
+              <strong>Compounding:</strong> Daily, monthly, quarterly, or
+              annually depending on the institution.
+            </li>
+            <li>
+              <strong>Early Withdrawal Penalty:</strong> Taking out money before
+              maturity usually incurs a fee.
+            </li>
+            <li>
+              <strong>Safe Investment:</strong> Ideal for risk-averse savers.
+            </li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">CD Growth Formula</h2>
+          <p>
+            The future value of a CD is calculated using the compound interest
+            formula:
+          </p>
+          <p class="mt-2 text-gray-700 italic">
+            A = P (1 + r/n)<sup>nt</sup>
+          </p>
+          <ul class="list-disc ml-5 mt-2">
+            <li>
+              <strong>A:</strong> Final amount after interest
+            </li>
+            <li>
+              <strong>P:</strong> Initial principal (deposit)
+            </li>
+            <li>
+              <strong>r:</strong> Annual interest rate (decimal form)
+            </li>
+            <li>
+              <strong>n:</strong> Number of compounding periods per year
+            </li>
+            <li>
+              <strong>t:</strong> Time in years
+            </li>
+          </ul>
+          <p class="mt-2">
+            This formula ensures you can calculate exactly how much your CD will
+            be worth at maturity.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            How to Use the CD Calculator
+          </h2>
+          <p>
+            Using the CD Calculator is straightforward. Just follow these steps:
+          </p>
+          <ol class="list-decimal ml-5 mb-3">
+            <li>Enter your deposit amount (the initial principal).</li>
+            <li>Input the annual interest rate offered by the bank.</li>
+            <li>Select the term length (in months or years).</li>
+            <li>
+              Choose the compounding frequency (daily, monthly, quarterly,
+              annually).
+            </li>
+            <li>
+              Click <strong>Calculate</strong> to view your total maturity
+              amount and interest earned.
+            </li>
+          </ol>
+          <ul class="list-disc ml-5">
+            <li>Provides accurate maturity value of your CD</li>
+            <li>Highlights the effect of different compounding frequencies</li>
+            <li>Shows how interest rates and terms affect returns</li>
+            <li>Helps in comparing CD options before investing</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
+          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
+            <p>
+              <strong>Example:</strong> Suppose you invest{" "}
+              <strong>$10,000</strong> in a 3-year CD with an annual interest
+              rate of <strong>4%</strong>, compounded monthly.
+            </p>
+            <p>
+              Using the formula, your CD would grow to approximately{" "}
+              <strong>$11,265</strong> at maturity. That means you earned{" "}
+              <strong>$1,265</strong> in interest over three years.
+            </p>
+          </div>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Benefits of Using the CD Calculator
+          </h2>
+          <ul class="list-disc ml-5">
+            <li>Shows guaranteed returns with zero market risk</li>
+            <li>Helps compare CDs of different banks and terms</li>
+            <li>Demonstrates the power of compounding</li>
+            <li>Encourages disciplined savings with fixed maturity</li>
+            <li>Assists in planning for short-term and long-term goals</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">
+            Frequently Asked Questions (FAQs)
+          </h2>
+          <dl>
+            <dt class="font-semibold mt-4">
+              Q.1 What does the CD Calculator show?
+            </dt>
+            <dd>
+              Ans. It shows the maturity value of your CD based on deposit
+              amount, interest rate, term, and compounding frequency.
+            </dd>
+
+            <dt class="font-semibold mt-4">Q.2 Is a CD risk-free?</dt>
+            <dd>
+              Ans. Yes, CDs are generally insured by FDIC or NCUA, making them
+              very safe investments.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.3 Can I withdraw my money before the CD matures?
+            </dt>
+            <dd>
+              Ans. Yes, but you’ll usually pay an early withdrawal penalty,
+              which reduces your earnings.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.4 How does compounding affect my CD growth?
+            </dt>
+            <dd>
+              Ans. More frequent compounding (e.g., daily or monthly) results in
+              higher returns compared to annual compounding.
+            </dd>
+
+            <dt class="font-semibold mt-4">
+              Q.5 Should I invest in a CD or other savings options?
+            </dt>
+            <dd>
+              Ans. CDs are great for conservative savers. If you want higher
+              returns and are comfortable with risk, you may consider other
+              options like investments or use our{" "}
+              <a
+                href="https://www.unitedcalculator.net/finance/investment-calculator"
+                target="_blank"
+                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+              >
+                Investment Calculator
+              </a>
+              .
+            </dd>
+          </dl>
+        </section>
+
+        <section class="mb-8">
+          <h2 class="text-2xl font-semibold mb-2">Conclusion</h2>
+          <p>
+            A <strong>CD Calculator</strong> is an excellent tool for anyone who
+            wants to maximize savings with guaranteed interest. By understanding
+            the impact of interest rates, terms, and compounding, you can make
+            smarter decisions about where to place your money.
+          </p>
+          <p>
+            With consistent use, this calculator will help you compare CD
+            options, avoid surprises, and achieve financial stability through
+            safe, predictable growth.
+          </p>
+        </section>
+      </article>
     </>
   );
 };

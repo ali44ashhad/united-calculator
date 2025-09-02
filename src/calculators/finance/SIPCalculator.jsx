@@ -227,7 +227,7 @@ const SIPCalculator = () => {
         <p class="mb-6">
           Understanding how SIP works can help you plan your financial goals
           better and stay motivated to invest regularly. If you want to explore
-          how inflation affects your returns, you can try our
+          how inflation affects your returns, you can try our{" "}
           <a
             href="https://www.unitedcalculator.net/finance/inflation-calculator"
             target="_blank"
@@ -277,7 +277,7 @@ const SIPCalculator = () => {
           <p>
             For example, investing ₹5,000/month for 10 years at an annual return
             of 12% would give you a maturity amount of around ₹11.6 lakh. To
-            estimate returns with different interest rates, try our
+            estimate returns with different interest rates, try our{" "}
             <a
               href="https://www.unitedcalculator.net/finance/compound-interest-calculator"
               target="_blank"
@@ -381,7 +381,7 @@ const SIPCalculator = () => {
             <dd>
               Ans. Absolutely — SIP is one of the most effective ways to build a
               retirement corpus. For a more detailed retirement projection,
-              check our
+              check our{" "}
               <a
                 href="https://www.unitedcalculator.net/finance/retirement-calculator"
                 target="_blank"
