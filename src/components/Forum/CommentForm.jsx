@@ -1,68 +1,132 @@
-import { useState } from "react";
-import { useForum } from "../../context/ForumContext";
-import { useAuth } from "../../context/AuthContext";
-import UserAvatar from "./UserAvatar";
+// import { useState } from "react";
+// import { useAuth } from "../../contexts/AuthContext";
 
-export default function CommentForm({ threadId, parentId = null, onCancel }) {
+// export default function CommentForm({ threadId, onCommentAdded }) {
+//   const [content, setContent] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState("");
+//   const { user } = useAuth();
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (!content.trim()) return;
+
+//     setLoading(true);
+//     setError("");
+
+//     try {
+//       // This will be implemented in the parent component
+//       await onCommentAdded(content);
+//       setContent("");
+//     } catch (err) {
+//       setError(err.message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   if (!user) {
+//     return (
+//       <div className="bg-white p-4 rounded-lg shadow-md">
+//         <p className="text-gray-600">Please login to leave a comment</p>
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="bg-white border border-gray-200 p-4 rounded-lg hover:shadow">
+//       <h3 className="text-lg font-semibold mb-3">Leave a comment</h3>
+
+//       {error && (
+//         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+//           {error}
+//         </div>
+//       )}
+
+//       <form onSubmit={handleSubmit}>
+//         <textarea
+//           value={content}
+//           onChange={(e) => setContent(e.target.value)}
+//           placeholder="Write your comment here..."
+//           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//           rows="4"
+//           required
+//         />
+
+//         <button
+//           type="submit"
+//           disabled={loading || !content.trim()}
+//           className="mt-3 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors "
+//         >
+//           {loading ? "Posting..." : "Post Comment"}
+//         </button>
+//       </form>
+//     </div>
+//   );
+// }
+
+import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+
+export default function CommentForm({ threadId, onCommentAdded }) {
   const [content, setContent] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { addComment } = useForum();
-  const { currentUser } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!content.trim()) return;
 
-    setIsSubmitting(true);
+    setLoading(true);
+    setError("");
+
     try {
-      await addComment(threadId, {
-        content: content.trim(),
-        parentId,
-      });
+      await onCommentAdded(content);
       setContent("");
-      if (onCancel) onCancel();
-    } catch (error) {
-      console.error("Error adding comment:", error);
+    } catch (err) {
+      setError(err.message || "Failed to post comment");
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
-  return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="flex items-start mb-4">
-        <UserAvatar user={currentUser} />
-        <div className="ml-4 flex-1">
-          <form onSubmit={handleSubmit}>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Write your comment..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-              rows="4"
-              required
-            />
-            <div className="flex justify-end mt-4 space-x-2">
-              {onCancel && (
-                <button
-                  type="button"
-                  onClick={onCancel}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-lg"
-                >
-                  Cancel
-                </button>
-              )}
-              <button
-                type="submit"
-                disabled={isSubmitting || !content.trim()}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? "Posting..." : "Post Comment"}
-              </button>
-            </div>
-          </form>
-        </div>
+  if (!user) {
+    return (
+      <div className="bg-white p-4 rounded-lg shadow-md">
+        <p className="text-gray-600">Please login to leave a comment</p>
       </div>
+    );
+  }
+
+  return (
+    <div className="bg-white border border-gray-200 p-4 rounded-lg hover:shadow">
+      <h3 className="text-lg font-semibold mb-3">Leave a comment</h3>
+
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Write your comment here..."
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          rows="4"
+          required
+        />
+
+        <button
+          type="submit"
+          disabled={loading || !content.trim()}
+          className="mt-3 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+        >
+          {loading ? "Posting..." : "Post Comment"}
+        </button>
+      </form>
     </div>
   );
 }

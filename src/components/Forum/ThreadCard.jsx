@@ -1,32 +1,96 @@
+// import { Link } from "react-router-dom";
+
+// export default function ThreadCard({ thread }) {
+//   return (
+//     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+//       <Link to={`/thread/${thread._id}`}>
+//         <h3 className="text-xl font-semibold text-gray-800 mb-2 hover:text-blue-600">
+//           {thread.title}
+//         </h3>
+//       </Link>
+
+//       <p className="text-gray-600 mb-4 line-clamp-2">{thread.content}</p>
+
+//       <div className="flex items-center justify-between text-sm text-gray-500">
+//         <span>By {thread.author?.name || "Unknown"}</span>
+//         <div className="flex items-center space-x-4">
+//           <span>{thread.views} views</span>
+//           <span>{thread.replies} replies</span>
+//           <span>{new Date(thread.createdAt).toLocaleDateString()}</span>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// import { Link } from "react-router-dom";
+
+// // Slugify function inside ThreadCard
+// function slugify(text) {
+//   return text
+//     .toString()
+//     .toLowerCase()
+//     .trim()
+//     .replace(/[\s\W-]+/g, "-"); // spaces & special chars ko "-" me convert
+// }
+
+// export default function ThreadCard({ thread }) {
+//   const slug = `${slugify(thread.title)}-${thread._id}`;
+
+//   return (
+//     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+//       <Link to={`/thread/${slug}`}>
+//         <h3 className="text-xl font-semibold text-gray-800 mb-2 hover:text-blue-600">
+//           {thread.title}
+//         </h3>
+//       </Link>
+
+//       <p className="text-gray-600 mb-4 line-clamp-2">{thread.content}</p>
+
+//       <div className="flex items-center justify-between text-sm text-gray-500">
+//         <span>By {thread.author?.name || "Unknown"}</span>
+//         <div className="flex items-center space-x-4">
+//           <span>{thread.views} views</span>
+//           <span>{thread.replies} replies</span>
+//           <span>{new Date(thread.createdAt).toLocaleDateString()}</span>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 import { Link } from "react-router-dom";
 
+// Slugify function inside ThreadCard
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\W-]+/g, "-") // spaces & special chars → "-"
+    .replace(/^-+|-+$/g, ""); // remove leading & trailing hyphens
+}
+
 export default function ThreadCard({ thread }) {
+  const slug = slugify(thread.title);
+
   return (
-    <Link to={`/community/thread/${thread.id}`}>
-      <div className="thread-item bg-white p-4 rounded-lg shadow mb-4 border-l-4 border-blue-500 cursor-pointer hover:shadow-md transition-shadow">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <h3 className="font-semibold text-lg mb-1">{thread.title}</h3>
-            <div className="flex items-center text-sm text-gray-500">
-              <span className="mr-3">By: {thread.author}</span>
-              <span className="mr-3">
-                <i className="far fa-comment mr-1"></i> {thread.replies || 0}
-              </span>
-              <span>
-                <i className="far fa-eye mr-1"></i> {thread.views || 0}
-              </span>
-            </div>
-          </div>
-          <div className="text-right">
-            <span className="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full">
-              {thread.category}
-            </span>
-            <p className="text-sm text-gray-500 mt-2">
-              {new Date(thread.date).toLocaleDateString()}
-            </p>
-          </div>
+    <div className="bg-white border border-gray-200 p-4 rounded-lg hover:shadow">
+      <Link to={`/thread/${slug}`}>
+        <h3 className="text-xl font-semibold text-gray-800 mb-2 hover:text-blue-600">
+          {thread.title}
+        </h3>
+      </Link>
+
+      <p className="text-gray-600 mb-4 line-clamp-2">{thread.content}</p>
+
+      <div className="flex items-center justify-between text-sm text-gray-500">
+        <span>By {thread.author?.name || "Unknown"}</span>
+        <div className="flex items-center space-x-4">
+          <span>{thread.views} views</span>
+          <span>{thread.replies} replies</span>
+          <span>{new Date(thread.createdAt).toLocaleDateString()}</span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

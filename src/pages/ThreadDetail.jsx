@@ -1,152 +1,232 @@
+// import { useState, useEffect } from "react";
+// import { useParams, Link, useNavigate } from "react-router-dom";
+// import { useForum } from "../contexts/ForumContext";
+// import ThreadCard from "../components/Forum/ThreadCard";
+// import CommentForm from "../components/Forum/CommentForm";
+// import LoadingSpinner from "../components/UI/LoadingSpinner";
+
+// // Slugify function
+// function slugify(text) {
+//   return text
+//     .toString()
+//     .toLowerCase()
+//     .trim()
+//     .replace(/[\s\W-]+/g, "-")
+//     .replace(/^-+|-+$/g, "");
+// }
+
+// export default function ThreadDetail() {
+//   const { slug } = useParams(); // slug from URL
+//   const navigate = useNavigate();
+//   const [thread, setThread] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+//   const { threads, getThread } = useForum(); // assuming you have all threads in context
+
+//   useEffect(() => {
+//     loadThread();
+//   }, [slug]);
+
+//   const loadThread = async () => {
+//     try {
+//       setLoading(true);
+
+//       // Find thread by slug in frontend
+//       const matchedThread = threads.find((t) => slugify(t.title) === slug);
+
+//       if (!matchedThread) {
+//         setError("Thread not found");
+//         return;
+//       }
+
+//       const threadData = await getThread(matchedThread._id); // fetch full thread data
+//       setThread(threadData);
+//     } catch (err) {
+//       setError(err.message || "Failed to load thread");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const handleAddComment = async (content) => {
+//     if (!thread) return;
+//     await createComment(thread._id, content);
+//     await loadThread(); // refresh comments
+//   };
+
+//   if (loading) return <LoadingSpinner />;
+//   if (error)
+//     return <div className="text-center py-12 text-red-600">{error}</div>;
+//   if (!thread) return <div className="text-center py-12">Thread not found</div>;
+
+//   return (
+//     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+//       <Link
+//         to="/forum"
+//         className="text-blue-500 hover:text-blue-700 mb-6 inline-block"
+//       >
+//         ← Back to Forum
+//       </Link>
+
+//       <ThreadCard thread={thread} />
+
+//       <div className="mt-8">
+//         <h2 className="text-2xl font-semibold mb-6">
+//           Comments ({thread.comments?.length || 0})
+//         </h2>
+
+//         <CommentForm threadId={thread._id} onCommentAdded={handleAddComment} />
+
+//         <div className="mt-8 space-y-6">
+//           {thread.comments?.length === 0 ? (
+//             <div className="text-center py-8 text-gray-500">
+//               <p>No comments yet. Be the first to comment!</p>
+//             </div>
+//           ) : (
+//             thread.comments?.map((comment) => (
+//               <div
+//                 key={comment._id}
+//                 className="bg-white p-6 rounded-lg shadow-md"
+//               >
+//                 <div className="flex items-start space-x-4">
+//                   <div className="flex-shrink-0">
+//                     <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+//                       {comment.author?.name?.charAt(0)?.toUpperCase() || "U"}
+//                     </div>
+//                   </div>
+//                   <div className="flex-1">
+//                     <div className="flex items-center space-x-2 mb-2">
+//                       <span className="font-semibold text-gray-900">
+//                         {comment.author?.name || "Unknown"}
+//                       </span>
+//                       <span className="text-sm text-gray-500">
+//                         {new Date(comment.createdAt).toLocaleDateString()}
+//                       </span>
+//                     </div>
+//                     <p className="text-gray-700">{comment.content}</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             ))
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useForum } from "../context/ForumContext";
-import { useAuth } from "../context/AuthContext";
+import { useForum } from "../contexts/ForumContext";
+import ThreadCard from "../components/Forum/ThreadCard";
 import CommentForm from "../components/Forum/CommentForm";
-import UserAvatar from "../components/Forum/UserAvatar";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
+
+// Slugify function to match URL
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\W-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 export default function ThreadDetail() {
-  const { id } = useParams();
-  const { threads, addComment } = useForum();
-  const { currentUser } = useAuth();
+  const { slug } = useParams();
+  const [thread, setThread] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const { threads, getThread, createComment } = useForum();
 
-  const thread = threads.find((t) => t.id === id);
+  useEffect(() => {
+    loadThread();
+  }, [slug]);
 
-  if (!thread) {
-    return (
-      <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-800">Thread not found</h2>
-        <p className="text-gray-600 mt-2">
-          The requested discussion thread does not exist.
-        </p>
-        <Link
-          to="/community"
-          className="text-blue-500 hover:underline mt-4 inline-block"
-        >
-          ← Back to Community
-        </Link>
-      </div>
-    );
-  }
+  const loadThread = async () => {
+    try {
+      setLoading(true);
+      const matchedThread = threads.find((t) => slugify(t.title) === slug);
+      if (!matchedThread) {
+        setError("Thread not found");
+        return;
+      }
+      const threadData = await getThread(matchedThread._id);
+      setThread(threadData);
+    } catch (err) {
+      setError(err.message || "Failed to load thread");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddComment = async (content) => {
+    if (!thread) return;
+    try {
+      await createComment(thread._id, content); // call context function
+      await loadThread(); // refresh comments
+    } catch (err) {
+      console.error("Post Comment error", err);
+    }
+  };
+
+  if (loading) return <LoadingSpinner />;
+  if (error)
+    return <div className="text-center py-12 text-red-600">{error}</div>;
+  if (!thread) return <div className="text-center py-12">Thread not found</div>;
 
   return (
-    <div>
-      {/* Thread Content */}
-      <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-        <div className="flex justify-between items-start mb-4">
-          <div className="flex items-center">
-            <UserAvatar user={thread} size="large" />
-            <div className="ml-4">
-              <Link
-                to={`/community/profile/${thread.authorId}`}
-                className="font-semibold text-lg hover:text-blue-600"
-              >
-                {thread.author}
-              </Link>
-              <p className="text-sm text-gray-500">
-                {new Date(thread.date).toLocaleDateString()} at{" "}
-                {new Date(thread.date).toLocaleTimeString()}
-              </p>
-            </div>
-          </div>
-          <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
-            {thread.category}
-          </span>
-        </div>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <Link
+        to="/forum"
+        className="text-blue-500 hover:text-blue-700 mb-6 inline-block"
+      >
+        ← Back to Forum
+      </Link>
 
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">
-          {thread.title}
-        </h1>
+      <ThreadCard thread={thread} />
 
-        <div className="prose max-w-none mb-6">
-          <p className="whitespace-pre-line">{thread.content}</p>
-        </div>
-
-        <div className="flex items-center text-sm text-gray-500 border-t pt-4">
-          <button className="flex items-center mr-4 hover:text-blue-500">
-            <i className="far fa-thumbs-up mr-1"></i> Like
-          </button>
-          <button className="flex items-center mr-4 hover:text-blue-500">
-            <i className="far fa-comment mr-1"></i> {thread.replies} comments
-          </button>
-          <button className="flex items-center hover:text-blue-500">
-            <i className="far fa-eye mr-1"></i> {thread.views} views
-          </button>
-        </div>
-      </div>
-
-      {/* Comments Section */}
-      <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">
-          Comments ({thread.comments ? thread.comments.length : 0})
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold mb-6">
+          Comments ({thread.comments?.length || 0})
         </h2>
 
-        {thread.comments && thread.comments.length > 0 ? (
-          <div className="space-y-6">
-            {thread.comments.map((comment) => (
+        <CommentForm threadId={thread._id} onCommentAdded={handleAddComment} />
+
+        <div className="mt-8 space-y-6">
+          {thread.comments?.length === 0 ? (
+            <div className="text-center py-8 text-gray-500">
+              <p>No comments yet. Be the first to comment!</p>
+            </div>
+          ) : (
+            thread.comments.map((comment) => (
               <div
-                key={comment.id}
-                className="border-b pb-6 last:border-0 last:pb-0"
+                key={comment._id}
+                className="bg-white border border-gray-200 p-4 rounded-lg hover:shadow"
               >
-                <div className="flex items-start mb-4">
-                  <UserAvatar user={comment} />
-                  <div className="ml-4 flex-1">
-                    <div className="flex justify-between items-start">
-                      <Link
-                        to={`/community/profile/${comment.authorId}`}
-                        className="font-semibold hover:text-blue-600"
-                      >
-                        {comment.author}
-                      </Link>
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                      {comment.author?.name?.charAt(0)?.toUpperCase() || "U"}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="font-semibold text-gray-900">
+                        {comment.author?.name || "Unknown"}
+                      </span>
                       <span className="text-sm text-gray-500">
-                        {new Date(comment.date).toLocaleDateString()}
+                        {new Date(comment.createdAt).toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="text-gray-700 mt-2 whitespace-pre-line">
-                      {comment.content}
-                    </p>
-
-                    <div className="flex items-center text-sm text-gray-500 mt-3">
-                      <button className="flex items-center mr-4 hover:text-blue-500">
-                        <i className="far fa-thumbs-up mr-1"></i> Like
-                      </button>
-                      <button className="flex items-center hover:text-blue-500">
-                        <i className="fas fa-reply mr-1"></i> Reply
-                      </button>
-                    </div>
+                    <p className="text-gray-700">{comment.content}</p>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-8 text-gray-500">
-            <i className="far fa-comments text-4xl mb-4"></i>
-            <p>No comments yet. Be the first to comment!</p>
-          </div>
-        )}
-      </div>
-
-      {/* Comment Form */}
-      {currentUser ? (
-        <CommentForm threadId={thread.id} />
-      ) : (
-        <div className="bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-gray-600 mb-4">
-            You need to be logged in to comment
-          </p>
-          <Link
-            to="/community"
-            onClick={() =>
-              document.dispatchEvent(
-                new CustomEvent("showAuthModal", { detail: "login" })
-              )
-            }
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-          >
-            Log In
-          </Link>
+            ))
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

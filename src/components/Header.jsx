@@ -1,58 +1,47 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import AuthModal from "./Forum/AuthModal";
 
 const Header = () => {
-  const { currentUser, logout } = useAuth();
+  const { user, logout } = useAuth();
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState("login");
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  // Open Auth modal
   const showAuthModal = (mode) => {
     setAuthModalMode(mode);
     setAuthModalOpen(true);
-    setIsMobileOpen(false); // close mobile menu when opening modal
+    setIsMobileOpen(false); // close mobile menu
   };
 
+  // Logout
   const handleLogout = () => {
     logout();
-    setIsMobileOpen(false); // close mobile menu after logout
+    setIsMobileOpen(false); // close mobile menu
   };
 
-  const stringToColor = (str) => {
-    if (!str) return "#6b7280";
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    let color = "#";
-    for (let i = 0; i < 3; i++) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += ("00" + value.toString(16)).substr(-2);
-    }
-    return color;
-  };
-
+  // Navigation links
   const navLinks = (
     <>
       <Link
         to="/"
-        className="hover:text-yellow-300 transition"
+        className="block md:inline-block hover:text-yellow-300 transition"
         onClick={() => setIsMobileOpen(false)}
       >
         Home
       </Link>
       <Link
         to="/all-calculators"
-        className="hover:text-yellow-300 transition"
+        className="block md:inline-block hover:text-yellow-300 transition"
         onClick={() => setIsMobileOpen(false)}
       >
         All Calculators
       </Link>
       <Link
-        to="/community"
-        className="hover:text-yellow-300 transition"
+        to="/forum"
+        className="block md:inline-block hover:text-yellow-300 transition"
         onClick={() => setIsMobileOpen(false)}
       >
         Community
@@ -60,30 +49,19 @@ const Header = () => {
     </>
   );
 
-  const authButtons = currentUser ? (
-    <div className="flex items-center space-x-3">
-      <Link
-        to={`/community/profile/${currentUser.id}`}
-        className="flex items-center space-x-2 hover:text-yellow-300"
-        onClick={() => setIsMobileOpen(false)}
-      >
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
-          style={{ backgroundColor: stringToColor(currentUser.name) }}
-        >
-          {currentUser.name.charAt(0).toUpperCase()}
-        </div>
-        <span className="hidden sm:inline">{currentUser.name}</span>
-      </Link>
+  // Auth buttons / user info
+  const authButtons = user ? (
+    <div className="flex flex-col md:flex-row md:items-center md:space-x-3 space-y-2 md:space-y-0">
+      <span className="text-gray-200 md:text-white">Hello, {user.name}</span>
       <button
         onClick={handleLogout}
-        className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm transition"
+        className="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600 transition"
       >
         Logout
       </button>
     </div>
   ) : (
-    <div className="flex items-center space-x-2">
+    <div className="flex flex-col md:flex-row md:space-x-3 space-y-2 md:space-y-0">
       <button
         onClick={() => showAuthModal("login")}
         className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded text-sm transition"
@@ -101,22 +79,26 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-indigo-700 text-white shadow-md">
+      <header className="sticky top-0 z-50 w-full bg-indigo-700 shadow-md font-sans">
         <div className="max-w-[1150px] mx-auto px-4 py-3 flex justify-between items-center">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold hover:opacity-90">
+          <Link
+            to="/"
+            className="text-2xl font-bold text-white tracking-wide hover:opacity-90"
+          >
             United Calculator
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-6 text-sm font-medium items-center">
+          <nav className="hidden md:flex gap-6 items-center text-sm font-medium text-white">
             {navLinks}
             {authButtons}
           </nav>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-2xl focus:outline-none"
+            className="md:hidden text-2xl text-white focus:outline-none"
+            aria-label="Toggle Menu"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
           >
             {isMobileOpen ? "✖" : "☰"}
@@ -125,9 +107,9 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMobileOpen && (
-          <div className="md:hidden px-4 pb-4 space-y-3 text-sm bg-indigo-700">
+          <div className="md:hidden px-4 pb-4 space-y-4 bg-indigo-700 text-white border-t border-indigo-600">
             {navLinks}
-            <div>{authButtons}</div>
+            {authButtons}
           </div>
         )}
       </header>
@@ -136,7 +118,7 @@ const Header = () => {
       <AuthModal
         isOpen={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
-        initialMode={authModalMode}
+        mode={authModalMode} // ✅ keep same as your first Header
       />
     </>
   );
