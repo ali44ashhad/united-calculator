@@ -40,7 +40,7 @@ const Header = () => {
         All Calculators
       </Link>
       <Link
-        to="/thread"
+        to="/forum"
         className="block md:inline-block hover:text-yellow-300 transition"
         onClick={() => setIsMobileOpen(false)}
       >
