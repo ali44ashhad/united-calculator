@@ -1,11 +1,11 @@
 // import { useState, useEffect } from "react";
-// import { useParams, Link, useNavigate } from "react-router-dom";
+// import { useParams, Link } from "react-router-dom";
 // import { useForum } from "../contexts/ForumContext";
 // import ThreadCard from "../components/Forum/ThreadCard";
 // import CommentForm from "../components/Forum/CommentForm";
 // import LoadingSpinner from "../components/UI/LoadingSpinner";
 
-// // Slugify function
+// // Slugify function to match URL
 // function slugify(text) {
 //   return text
 //     .toString()
@@ -16,12 +16,11 @@
 // }
 
 // export default function ThreadDetail() {
-//   const { slug } = useParams(); // slug from URL
-//   const navigate = useNavigate();
+//   const { slug } = useParams();
 //   const [thread, setThread] = useState(null);
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState("");
-//   const { threads, getThread } = useForum(); // assuming you have all threads in context
+//   const { threads, getThread, createComment } = useForum();
 
 //   useEffect(() => {
 //     loadThread();
@@ -30,16 +29,12 @@
 //   const loadThread = async () => {
 //     try {
 //       setLoading(true);
-
-//       // Find thread by slug in frontend
 //       const matchedThread = threads.find((t) => slugify(t.title) === slug);
-
 //       if (!matchedThread) {
 //         setError("Thread not found");
 //         return;
 //       }
-
-//       const threadData = await getThread(matchedThread._id); // fetch full thread data
+//       const threadData = await getThread(matchedThread._id);
 //       setThread(threadData);
 //     } catch (err) {
 //       setError(err.message || "Failed to load thread");
@@ -50,8 +45,12 @@
 
 //   const handleAddComment = async (content) => {
 //     if (!thread) return;
-//     await createComment(thread._id, content);
-//     await loadThread(); // refresh comments
+//     try {
+//       await createComment(thread._id, content);
+//       await loadThread(); // refresh after comment
+//     } catch (err) {
+//       console.error("Post Comment error", err);
+//     }
 //   };
 
 //   if (loading) return <LoadingSpinner />;
@@ -61,6 +60,7 @@
 
 //   return (
 //     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+//       {/* Back to forum */}
 //       <Link
 //         to="/forum"
 //         className="text-blue-500 hover:text-blue-700 mb-6 inline-block"
@@ -68,25 +68,29 @@
 //         ← Back to Forum
 //       </Link>
 
-//       <ThreadCard thread={thread} />
+//       {/* Full thread details */}
+//       <ThreadCard thread={thread} full={true} />
 
+//       {/* Comments Section */}
 //       <div className="mt-8">
 //         <h2 className="text-2xl font-semibold mb-6">
 //           Comments ({thread.comments?.length || 0})
 //         </h2>
 
+//         {/* Comment Form */}
 //         <CommentForm threadId={thread._id} onCommentAdded={handleAddComment} />
 
+//         {/* Comment List */}
 //         <div className="mt-8 space-y-6">
 //           {thread.comments?.length === 0 ? (
 //             <div className="text-center py-8 text-gray-500">
 //               <p>No comments yet. Be the first to comment!</p>
 //             </div>
 //           ) : (
-//             thread.comments?.map((comment) => (
+//             thread.comments.map((comment) => (
 //               <div
 //                 key={comment._id}
-//                 className="bg-white p-6 rounded-lg shadow-md"
+//                 className="bg-white border border-gray-200 p-4 rounded-lg hover:shadow"
 //               >
 //                 <div className="flex items-start space-x-4">
 //                   <div className="flex-shrink-0">
@@ -122,22 +126,12 @@ import ThreadCard from "../components/Forum/ThreadCard";
 import CommentForm from "../components/Forum/CommentForm";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 
-// Slugify function to match URL
-function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/[\s\W-]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 export default function ThreadDetail() {
   const { slug } = useParams();
   const [thread, setThread] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { threads, getThread, createComment } = useForum();
+  const { getThread, createComment } = useForum();
 
   useEffect(() => {
     loadThread();
@@ -146,12 +140,7 @@ export default function ThreadDetail() {
   const loadThread = async () => {
     try {
       setLoading(true);
-      const matchedThread = threads.find((t) => slugify(t.title) === slug);
-      if (!matchedThread) {
-        setError("Thread not found");
-        return;
-      }
-      const threadData = await getThread(matchedThread._id);
+      const threadData = await getThread(slug); // slug pass karna
       setThread(threadData);
     } catch (err) {
       setError(err.message || "Failed to load thread");
@@ -163,8 +152,8 @@ export default function ThreadDetail() {
   const handleAddComment = async (content) => {
     if (!thread) return;
     try {
-      await createComment(thread._id, content); // call context function
-      await loadThread(); // refresh comments
+      await createComment(thread._id, content);
+      await loadThread();
     } catch (err) {
       console.error("Post Comment error", err);
     }
