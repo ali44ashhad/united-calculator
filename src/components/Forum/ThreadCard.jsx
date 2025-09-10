@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-// Slugify function inside ThreadCard
 function slugify(text) {
   return text
     .toString()
