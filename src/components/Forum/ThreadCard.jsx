@@ -43,7 +43,6 @@
 //     </div>
 //   );
 // }
-
 import { Link } from "react-router-dom";
 
 export default function ThreadCard({ thread, full = false }) {
@@ -61,7 +60,6 @@ export default function ThreadCard({ thread, full = false }) {
         </h1>
       )}
 
-      {/* Rest of your code... */}
       {full ? (
         <p className="text-gray-700 whitespace-pre-line">{thread.content}</p>
       ) : (

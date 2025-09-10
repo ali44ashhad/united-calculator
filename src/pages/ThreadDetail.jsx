@@ -118,7 +118,6 @@
 //     </div>
 //   );
 // }
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import ThreadCard from "../components/Forum/ThreadCard";
@@ -153,7 +152,7 @@ export default function ThreadDetail() {
     if (!thread) return;
 
     try {
-      const response = await api.post(`/comments/thread/${thread._id}`, {
+      await api.post(`/comments/thread/${thread._id}`, {
         content,
       });
 
