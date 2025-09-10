@@ -47,21 +47,9 @@
 
 import { Link } from "react-router-dom";
 
-// ✅ Improved Slugify Function - Special characters handle karta hai
-function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .normalize("NFD") // Special characters ko decompose karein (é -> e + ´)
-    .replace(/[\u0300-\u036f]/g, "") // Combining diacritical marks hata dein
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "") // Alphabet, numbers, space, hyphen ke alawa sab hata dein
-    .replace(/[\s—–-]+/g, "-") // spaces, em-dash, en-dash aur hyphens → single hyphen
-    .replace(/^-+|-+$/g, ""); // start/end ke hyphens hata dein
-}
-
 export default function ThreadCard({ thread, full = false }) {
-  const slug = slugify(thread.title);
+  // ✅ Ab backend se direct slug aa raha hai, isliye frontend mein slugify ki zaroorat nahi
+  const slug = thread.slug; // Direct backend se aaye slug ko use karein
 
   return (
     <div className="bg-white border border-gray-200 p-4 rounded-lg hover:shadow">

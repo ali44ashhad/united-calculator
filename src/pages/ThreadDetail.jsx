@@ -118,97 +118,43 @@
 //     </div>
 //   );
 // }
-
 import { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useForum } from "../contexts/ForumContext";
 import ThreadCard from "../components/Forum/ThreadCard";
 import CommentForm from "../components/Forum/CommentForm";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import { getThreadBySlug } from "../services/api"; // ✅ Naya import
 
-// ✅ Improved Slugify Function - Special characters handle karta hai
-function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .normalize("NFD") // Special characters ko decompose karein (é -> e + ´)
-    .replace(/[\u0300-\u036f]/g, "") // Combining diacritical marks hata dein
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "") // Alphabet, numbers, space, hyphen ke alawa sab hata dein
-    .replace(/[\s—–-]+/g, "-") // spaces, em-dash, en-dash aur hyphens → single hyphen
-    .replace(/^-+|-+$/g, ""); // start/end ke hyphens hata dein
-}
-
 export default function ThreadDetail() {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const [thread, setThread] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { threads, getThread, createComment, fetchThreads } = useForum();
+  const { createComment } = useForum(); // ✅ threads aur getThread hata diye
 
   useEffect(() => {
     loadThread();
   }, [slug]);
 
+  // ✅ NAYA FUNCTION: Directly backend se slug ke through thread lao
   const loadThread = async () => {
     try {
       setLoading(true);
       setError("");
 
-      // ✅ Pehle threads list se match karein
-      let matchedThread = threads.find((t) => slugify(t.title) === slug);
+      const response = await getThreadBySlug(slug);
 
-      // ✅ Agar thread list mein nahi mila, toh threads ko fetch karein
-      if (!matchedThread && threads.length === 0) {
-        await fetchThreads();
-        matchedThread = threads.find((t) => slugify(t.title) === slug);
+      if (response.data.success) {
+        setThread(response.data.thread);
+      } else {
+        setError("Thread not found");
       }
-
-      // ✅ Phir bhi nahi mila toh direct API se try karein
-      if (!matchedThread) {
-        try {
-          const response = await getThreadBySlug(slug);
-          if (response.data.success) {
-            setThread(response.data.thread);
-            return;
-          }
-        } catch (apiError) {
-          console.log("Direct API call failed, trying fallback...");
-        }
-
-        // ✅ Last try: Pure threads list se manually dhundhein
-        const allThreads = await fetchAllThreads();
-        matchedThread = allThreads.find((t) => slugify(t.title) === slug);
-
-        if (!matchedThread) {
-          setError("Thread not found");
-          return;
-        }
-      }
-
-      // ✅ Finally thread data load karein
-      const threadData = await getThread(matchedThread._id);
-      setThread(threadData);
     } catch (err) {
-      setError(
-        err.response?.data?.message || err.message || "Failed to load thread"
-      );
+      setError(err.response?.data?.message || "Failed to load thread");
       console.error("Load Thread Error:", err);
     } finally {
       setLoading(false);
-    }
-  };
-
-  // ✅ Agar threads list empty hai toh fetch karne ke liye function
-  const fetchAllThreads = async () => {
-    try {
-      const response = await api.get("/threads?limit=1000");
-      return response.data.threads || [];
-    } catch (error) {
-      console.error("Error fetching all threads:", error);
-      return [];
     }
   };
 
@@ -223,21 +169,20 @@ export default function ThreadDetail() {
   };
 
   if (loading) return <LoadingSpinner />;
-  if (error) {
+  if (error)
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="text-center text-red-600 mb-4">{error}</div>
         <div className="text-center">
-          <button
-            onClick={() => navigate("/forum")}
+          <Link
+            to="/forum"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
             Back to Forum
-          </button>
+          </Link>
         </div>
       </div>
     );
-  }
 
   if (!thread) return <div className="text-center py-12">Thread not found</div>;
 

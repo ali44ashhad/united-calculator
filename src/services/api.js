@@ -75,10 +75,7 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// ✅ NAYA FUNCTION: Get thread by slug
-export const getThreadBySlug = (slug) => {
-  return api.get(`/threads/slug/${slug}`);
-};
+// api.js - Existing code ke saath yeh add karein
+export const getThreadBySlug = (slug) => api.get(`/threads/slug/${slug}`);
 
 export default api;
