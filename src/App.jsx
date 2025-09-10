@@ -43,7 +43,7 @@ function App() {
                       />
 
                       {/* Community Routes - SPECIFIC ROUTES FIRST */}
-                      <Route path="/forum" element={<ForumPage />} />
+                      <Route path="/thread" element={<ForumPage />} />
                       {/* <Route path="/thread/:id" element={<ThreadDetail />} /> */}
                       <Route path="/thread/:slug" element={<ThreadDetail />} />
                       <Route path="*" element={<NotFound />} />
