@@ -28,9 +28,8 @@ function App() {
                 <div className="w-full max-w-[1150px] flex flex-col md:flex-row gap-4 px-4 py-6">
                   <main className="flex-1">
                     <Routes>
-                      {/* Home Route */}
+                      Home Route
                       <Route path="/" element={<Home />} />
-
                       {/* Calculator Routes */}
                       <Route path="/:category" element={<CategoryPage />} />
                       <Route
@@ -41,7 +40,6 @@ function App() {
                         path="/all-calculators"
                         element={<AllCalculators />}
                       />
-
                       {/* Community Routes - SPECIFIC ROUTES FIRST */}
                       <Route path="/thread" element={<ForumPage />} />
                       {/* <Route path="/thread/:id" element={<ThreadDetail />} /> */}
