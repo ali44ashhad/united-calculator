@@ -28,25 +28,27 @@ function App() {
                 <div className="w-full max-w-[1150px] flex flex-col md:flex-row gap-4 px-4 py-6">
                   <main className="flex-1">
                     <Routes>
-                      {/* Home Route */}
-                      <Route path="/" element={<Home />} />
+                      <Routes>
+                        {/* Specific routes first */}
+                        <Route path="/thread" element={<ForumPage />} />
+                        <Route
+                          path="/thread/:slug"
+                          element={<ThreadDetail />}
+                        />
 
-                      {/* Calculator Routes */}
-                      <Route path="/:category" element={<CategoryPage />} />
-                      <Route
-                        path="/:category/:id"
-                        element={<CalculatorPage />}
-                      />
-                      <Route
-                        path="/all-calculators"
-                        element={<AllCalculators />}
-                      />
-
-                      {/* Community Routes - SPECIFIC ROUTES FIRST */}
-                      <Route path="/thread" element={<ForumPage />} />
-                      {/* <Route path="/thread/:id" element={<ThreadDetail />} /> */}
-                      <Route path="/thread/:slug" element={<ThreadDetail />} />
-                      <Route path="*" element={<NotFound />} />
+                        {/* General routes last */}
+                        <Route path="/:category" element={<CategoryPage />} />
+                        <Route
+                          path="/:category/:id"
+                          element={<CalculatorPage />}
+                        />
+                        <Route
+                          path="/all-calculators"
+                          element={<AllCalculators />}
+                        />
+                        <Route path="/" element={<Home />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
                     </Routes>
                   </main>
                   <Sidebar />
