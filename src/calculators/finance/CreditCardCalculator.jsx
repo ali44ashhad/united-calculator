@@ -211,6 +211,148 @@ const CreditCardCalculator = () => {
           )
         )}
       </div>
+      <article class="py-6">
+  <div class="mx-auto ">
+    <p class="mb-6 text-base sm:text-lg leading-relaxed">
+      Our <strong>Credit Card Calculator</strong> helps you understand payments,
+      interest costs, and payoff timelines for one or more credit cards.
+      Enter balance, APR, minimum payment rules or fixed payment amounts to see
+      amortization, total interest paid, and recommended payoff strategies.
+    </p>
+
+    <p class="mb-6 text-base sm:text-lg leading-relaxed">
+      Whether you're managing one card or multiple accounts, this tool makes it
+      simple to compare strategies like fixed payments, minimum payments, or
+      the debt-snowball and avalanche methods. For related tools.
+    </p>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">What does this calculator do?</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        The Credit Card Calculator models how balances change over time given an
+        Annual Percentage Rate (APR), compounding method, and payment behavior.
+        It shows monthly interest charges, principal reduction, time-to-payoff,
+        and total interest paid under different strategies.
+      </p>
+      <ul class="list-disc ml-5 mt-3 text-sm sm:text-base space-y-1">
+        <li><strong>Amortization schedule:</strong> month-by-month balance & interest.</li>
+        <li><strong>Payoff time:</strong> estimate how long until balance is zero.</li>
+        <li><strong>Total interest:</strong> cumulative interest paid over the payoff period.</li>
+        <li><strong>Strategy comparison:</strong> minimum vs fixed payments vs extra payments.</li>
+      </ul>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Key Inputs</h2>
+      <p class="text-sm sm:text-base leading-relaxed mb-3">
+        Provide these to run the calculation:
+      </p>
+      <ol class="list-decimal ml-5 mb-3 text-sm sm:text-base space-y-1">
+        <li>Current balance (total owed).</li>
+        <li>APR (annual rate) — enter as percentage (e.g., 19.99%).</li>
+        <li>Compounding / billing frequency (usually monthly).</li>
+        <li>Payment rule: minimum percentage, fixed monthly payment, or custom schedule.</li>
+        <li>Optional: fees, new charges, or one-time credits/refunds.</li>
+      </ol>
+      <p class="text-sm sm:text-base leading-relaxed">
+        The calculator assumes interest compounds according to the billing cycle
+        and applies payments after interest each period (typical credit-card behavior).
+      </p>
+    </section>
+ 
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Examples</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="bg-yellow-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
+          <p><strong>Example 1 (Minimum payments):</strong></p>
+          <p>Balance = $3,500; APR = 20% (monthly rate ≈ 1.6667%); Minimum = 2% or $25 minimum.</p>
+          <p>Result → Paying only the minimum can take many years and cost a large amount in interest.</p>
+        </div>
+
+        <div class="bg-yellow-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
+          <p><strong>Example 2 (Fixed extra payment):</strong></p>
+          <p>Balance = $3,500; APR = 20%; Fixed monthly payment = $150.</p>
+          <p>Result → Faster payoff and much less total interest compared with minimum payments.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Formulas & Notes</h2>
+      <div class="bg-gray-50 border border-gray-100 rounded-lg p-3 overflow-x-auto">
+        <pre class="whitespace-pre-wrap text-sm sm:text-base leading-relaxed"><code>Monthly interest = Previous balance × (APR / 12)
+New balance = Previous balance + Monthly interest − Payment</code></pre>
+      </div>
+      <p class="mt-3 text-sm sm:text-base leading-relaxed">
+        For multiple cards, run scenarios per-card or use the multi-account mode (if implemented) to compare snowball vs avalanche strategies.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Strategy Comparison</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Two popular payoff strategies:
+      </p>
+      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
+        <li><strong>Debt Snowball:</strong> pay smallest balance first to build momentum (psychological wins).</li>
+        <li><strong>Debt Avalanche:</strong> pay highest APR first to minimize total interest paid (mathematically optimal).</li>
+      </ul>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Factors That Increase Interest Costs</h2>
+      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
+        <li>High APRs and frequent compounding</li>
+        <li>Making only minimum payments</li>
+        <li>New purchases while carrying a balance</li>
+        <li>Late fees and penalty APRs</li>
+      </ul>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Benefits of Using the Calculator</h2>
+      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
+        <li>Quickly estimate payoff time and total interest for different payment plans</li>
+        <li>Compare payoff strategies for multiple cards</li>
+        <li>Plan budgets to minimize interest costs and accelerate debt-free dates</li>
+      </ul>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Frequently Asked Questions (FAQs)</h2>
+      <dl class="text-sm sm:text-base">
+        <dt class="font-semibold mt-4">Q.1 Will this include late fees or penalty APRs?</dt>
+        <dd class="mt-1">Ans. You can include one-time fees as extra charges; penalty APRs should be modeled by increasing the APR for periods where penalties apply.</dd>
+
+        <dt class="font-semibold mt-4">Q.2 Should I pay the minimum or a fixed amount?</dt>
+        <dd class="mt-1">Ans. Paying more than the minimum reduces time-to-payoff and total interest. Use the <a href="https://www.unitedcalculator.net/finance/payment-calculator" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800 underline">Payment Calculator</a> to figure affordable fixed payments.</dd>
+
+        <dt class="font-semibold mt-4">Q.3 Which payoff method saves the most interest?</dt>
+        <dd class="mt-1">Ans. The avalanche method (highest APR first) typically minimizes total interest. The snowball method may be better for motivation depending on user preference.</dd>
+
+        <dt class="font-semibold mt-4">Q.4 How do I compare APRs?</dt>
+        <dd class="mt-1">Ans. Use an <a href="https://www.unitedcalculator.net/finance/apr-calculator" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800 underline">APR Calculator</a> to convert fees and rates into a comparable annual rate if needed.</dd>
+
+        <dt class="font-semibold mt-4">Q.5 Can I include multiple cards and transfers?</dt>
+        <dd class="mt-1">Ans. The calculator supports multi-card scenarios when you add each account; include balance transfer promos by modeling temporary lower APRs for the promo period and then the standard APR afterward.</dd>
+      </dl>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Conclusion</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        A <strong>Credit Card Calculator</strong> is a powerful tool to visualize the
+        cost of carrying balances and to plan payments that reduce interest and
+        accelerate payoff. Enter your card data to get a clear month-by-month
+        plan and compare payoff strategies.
+      </p>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        For additional planning, use the linked tools above to calculate APR details, payment sizing, and multi-card payoff comparisons.
+      </p>
+    </section>
+  </div>
+</article>
+
     </>
   );
 };

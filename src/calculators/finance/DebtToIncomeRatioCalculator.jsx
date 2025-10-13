@@ -184,6 +184,120 @@ const DebtToIncomeRatioCalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+  <div class="mx-auto">
+    <p class="mb-6 text-base sm:text-lg leading-relaxed">
+      Use our <strong>Debt-to-Income Ratio (DTI) Calculator</strong> to quickly find
+      your DTI — a key number lenders use to decide how much you can borrow.
+      Enter your gross monthly income and total monthly debt payments to see
+      your front-end and back-end DTI percentages and understand how lenders
+      view your borrowing risk. If you need to estimate take-home pay after taxes,
+      compare results with the <a href="https://www.unitedcalculator.net/finance/income-tax-calculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Income Tax Calculator</a>.
+    </p>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">What is Debt-to-Income Ratio?</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        <strong>DTI</strong> is the percentage of your gross monthly income that
+        goes toward debt payments. Lenders commonly evaluate two DTIs:
+      </p>
+      <ul class="list-disc ml-5 mt-3 text-sm sm:text-base space-y-1">
+        <li><strong>Front-end DTI:</strong> housing-related payments (mortgage, insurance, property taxes) ÷ gross monthly income.</li>
+        <li><strong>Back-end DTI:</strong> all monthly debt payments (housing, credit cards, student loans, auto loans, minimum payments) ÷ gross monthly income.</li>
+      </ul>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        Lenders use DTI to assess whether you can comfortably repay a new loan; lower ratios are generally better.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">How the DTI Calculator Works</h2>
+      <p class="text-sm sm:text-base leading-relaxed mb-3">
+        The calculator asks for:
+      </p>
+      <ol class="list-decimal ml-5 mb-3 text-sm sm:text-base space-y-1">
+        <li>Gross monthly income (salary, bonuses, rental income, etc.).</li>
+        <li>Monthly housing payment (rent or mortgage principal & interest + insurance + taxes).</li>
+        <li>Other monthly debt payments: credit card minimums, auto loans, student loans, personal loans, alimony, and child support.</li>
+      </ol>
+
+      <div class="bg-gray-50 border border-gray-100 rounded-lg p-3 overflow-x-auto">
+        <pre class="whitespace-pre-wrap text-sm sm:text-base leading-relaxed"><code>Front-end DTI = (Monthly housing payment ÷ Gross monthly income) × 100
+Back-end DTI = (Total monthly debt payments ÷ Gross monthly income) × 100</code></pre>
+      </div>
+
+      <p class="mt-3 text-sm sm:text-base leading-relaxed">
+        For borrowers considering refinancing or applying for a new loan, model the proposed monthly payment with our <a href="https://www.unitedcalculator.net/finance/loan-calculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Loan Calculator</a> and enter that value into the DTI calculator to see the impact.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Why DTI Matters</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Lenders often have maximum DTI thresholds for mortgage approvals, credit lines, and personal loans. Keeping your DTI low increases your chances of:
+      </p>
+      <ul class="list-disc ml-5 mt-3 text-sm sm:text-base space-y-1">
+        <li>Qualifying for better interest rates</li>
+        <li>Getting approved for larger loan amounts</li>
+        <li>Avoiding the need for mortgage insurance or additional underwriting requirements</li>
+      </ul>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        Typical guideline examples: many mortgage lenders prefer a back-end DTI under ~43%, while stricter programs may require lower ratios — but exact thresholds vary by lender and loan program.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">How to Improve Your DTI</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Common ways to lower your DTI include reducing debt, increasing income, or both. Tactics:
+      </p>
+      <ul class="list-disc ml-5 mt-3 text-sm sm:text-base space-y-1">
+        <li>Pay down high-interest credit cards or balances to lower monthly minimums.</li>
+        <li>Refinance or consolidate debts to reduce monthly payments (check the <a href="https://www.unitedcalculator.net/finance/loan-calculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Loan Calculator</a> for payment estimates before refinancing).</li>
+        <li>Increase gross income via a raise, side gig, or documented rental income.</li>
+      </ul>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        If you’re planning to buy a home, use the DTI calculator together with our <a href="https://www.unitedcalculator.net/finance/mortgage-calculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Mortgage Calculator</a> to see what loan amount and payment fit your DTI targets.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Example Calculation</h2>
+      <div class="bg-blue-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
+        <p><strong>Example:</strong> Gross monthly income = $6,000</p>
+        <p>Monthly housing (rent/mortgage+taxes+insurance) = $1,500</p>
+        <p>Other monthly debts (cards, loans, etc.) = $700</p>
+        <p>Front-end DTI → ($1,500 ÷ $6,000) × 100 = <strong>25%</strong></p>
+        <p>Back-end DTI → (($1,500 + $700) ÷ $6,000) × 100 = <strong>36.67%</strong></p>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Frequently Asked Questions (FAQs)</h2>
+      <dl class="text-sm sm:text-base">
+        <dt class="font-semibold mt-4">Q.1 What is a "good" DTI?</dt>
+        <dd class="mt-1">Ans. Lower is better. Many lenders prefer back-end DTI under 43%, but “good” depends on lender, loan type, and other compensating factors like savings and credit score.</dd>
+
+        <dt class="font-semibold mt-4">Q.2 Should I include taxes in gross income?</dt>
+        <dd class="mt-1">Ans. Use gross (pre-tax) monthly income. If you have complex income sources, verify which income lenders will consider — and if you want to estimate post-tax affordability, the <a href="/IncomeTaxCalculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Income Tax Calculator</a> can help approximate net pay.</dd>
+
+        <dt class="font-semibold mt-4">Q.3 Do lenders count all monthly obligations?</dt>
+        <dd class="mt-1">Ans. Most lenders include recurring obligations (minimum credit card payments, auto loans, student loans, child support). Utilities and non-recurring expenses are usually excluded.</dd>
+      </dl>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Conclusion</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        The <strong>DTI Calculator</strong> is a quick way to understand your borrowing profile and plan steps to improve mortgage or loan eligibility. Enter accurate gross income and monthly obligations to get actionable DTI percentages.
+      </p>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        Want to test payment scenarios or mortgage affordability tied to DTI targets? Use the <a href="/MortgageCalculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Mortgage Calculator</a> or the <a href="/LoanCalculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Loan Calculator</a> and re-run DTI calculations to see what fits your goals.
+      </p>
+    </section>
+  </div>
+</article>
+
     </>
   );
 };

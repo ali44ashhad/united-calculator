@@ -202,6 +202,131 @@ const DepreciationCalculator = () => {
           </section>
         )}
       </div>
+      <article class="py-6">
+  <div class="mx-auto">
+    <p class="mb-6 text-base sm:text-lg leading-relaxed">
+      Our <strong>Depreciation Calculator</strong> helps business owners,
+      accountants, and individuals estimate how an asset loses value over time.
+      Choose from common methods — straight-line, declining balance, or units
+      of production — enter purchase price, useful life, and salvage value to
+      get yearly depreciation schedules and accumulated depreciation.
+    </p>
+
+    <p class="mb-6 text-base sm:text-lg leading-relaxed">
+      Use this tool to prepare financial statements, plan asset replacements,
+      or estimate tax deductions. If you want to compare the present value of
+      future depreciation tax shields, see the{" "}
+      <a href="https://www.unitedcalculator.net/finance/present-value-calculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Present Value Calculator</a>.
+    </p>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Depreciation Methods</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Common depreciation approaches:
+      </p>
+      <ul class="list-disc ml-5 mt-3 text-sm sm:text-base space-y-1">
+        <li><strong>Straight-line:</strong> (Cost − Salvage) ÷ Useful life → equal expense each period.</li>
+        <li><strong>Declining balance:</strong> Accelerated method applying a fixed rate to book value (e.g., 200% declining balance).</li>
+        <li><strong>Units of production:</strong> Expense based on usage (e.g., hours, miles, units produced).</li>
+      </ul>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        Select the method that best matches the asset’s wear pattern and accounting policy.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">How the Calculator Works</h2>
+      <p class="text-sm sm:text-base leading-relaxed mb-3">
+        Enter:
+      </p>
+      <ol class="list-decimal ml-5 mb-3 text-sm sm:text-base space-y-1">
+        <li>Asset purchase price (initial cost).</li>
+        <li>Estimated salvage value at end of useful life (resale value).</li>
+        <li>Useful life (years or production units).</li>
+        <li>Chosen depreciation method and (if applicable) decline factor or expected production.</li>
+      </ol>
+
+      <div class="bg-gray-50 border border-gray-100 rounded-lg p-3 overflow-x-auto">
+        <pre class="whitespace-pre-wrap text-sm sm:text-base leading-relaxed"><code>Straight-line annual depreciation = (Cost − Salvage) ÷ Useful life
+
+Declining-balance depreciation (period) = Book value at period start × Decline rate
+
+Units-of-production depreciation (period) = (Cost − Salvage) × (Units used in period ÷ Total estimated units)</code></pre>
+      </div>
+
+      <p class="mt-3 text-sm sm:text-base leading-relaxed">
+        The calculator outputs period-by-period depreciation, accumulated depreciation, and ending book value. For assets financed with loans, compare payment effects on cash flow using the <a href="/LoanCalculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Loan Calculator</a>.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Why Depreciation Matters</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        Depreciation affects reported profit, taxable income, and the book value
+        of assets. Choosing an appropriate method influences period earnings and
+        tax timing. Businesses use depreciation schedules for budgeting,
+        replacement planning, and financial reporting.
+      </p>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        Note: tax authorities often have their own allowable depreciation rules — to estimate tax impact, consider combining results with the <a href="https://www.unitedcalculator.net/finance/income-tax-calculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Income Tax Calculator</a>.
+      </p>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Example Calculation</h2>
+      <div class="bg-blue-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
+        <p><strong>Example — Straight-line:</strong></p>
+        <p>Cost = $12,000; Salvage = $2,000; Useful life = 5 years</p>
+        <p>Annual depreciation = ($12,000 − $2,000) ÷ 5 = <strong>$2,000</strong></p>
+        <p>Book value after 3 years = $12,000 − (3 × $2,000) = <strong>$6,000</strong></p>
+
+        <hr class="my-2"/>
+
+        <p><strong>Example — Declining balance (200% DB):</strong></p>
+        <p>Year 1 depreciation = $12,000 × (2 ÷ 5) = $4,800 (approx; then apply to declining book value subsequently)</p>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Practical Tips</h2>
+      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
+        <li>Keep consistent policies — switch methods only when appropriate and disclose in financial statements.</li>
+        <li>Review useful-life estimates periodically — major changes (e.g., technology shifts) may require adjustments.</li>
+        <li>Record salvage value conservatively — overstating salvage understates depreciation expense.</li>
+      </ul>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Frequently Asked Questions (FAQs)</h2>
+      <dl class="text-sm sm:text-base">
+        <dt class="font-semibold mt-4">Q.1 Which method is best?</dt>
+        <dd class="mt-1">Ans. It depends on how the asset is used. Straight-line is simple and common; declining balance accelerates expense for assets that lose value quickly; units-of-production is best when usage varies significantly.</dd>
+
+        <dt class="font-semibold mt-4">Q.2 Can I change depreciation method later?</dt>
+        <dd class="mt-1">Ans. Accounting rules allow method changes when justified, but you should apply consistently and disclose changes. Tax rules may restrict or require adjustments.</dd>
+
+        <dt class="font-semibold mt-4">Q.3 Does depreciation affect cash flow?</dt>
+        <dd class="mt-1">Ans. Depreciation is a non-cash expense — it reduces reported profit and taxable income but does not directly change cash. However, financing the asset (loan payments) does affect cash — use the <a href="https://www.unitedcalculator.net/finance/loan-calculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Loan Calculator</a> to model cash payments.</dd>
+      </dl>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Conclusion</h2>
+      <p class="text-sm sm:text-base leading-relaxed">
+        A <strong>Depreciation Calculator</strong> makes it easy to generate
+        schedules for accounting, tax planning, and asset management. Enter
+        accurate cost, salvage, and useful-life figures to get an itemized
+        depreciation table and book-value projections.
+      </p>
+      <p class="mt-2 text-sm sm:text-base leading-relaxed">
+        Want me to add JSON-LD `Article`/`FAQPage` schema, absolute permalinks,
+        or a printable depreciation schedule export? Tell me which and I’ll
+        generate it.
+      </p>
+    </section>
+  </div>
+</article>
+
     </>
   );
 };
