@@ -40,7 +40,7 @@
 
 import axios from "axios";
 
-const API_URL = "https://api.unitedcalculator.net/api";
+const API_URL = "https://united-forum.vercel.app/api";
 
 const api = axios.create({
   baseURL: API_URL,
