@@ -24,7 +24,7 @@ const ScientificCalculator = () => {
       const mexp = new Mexp();
       const evalResult = mexp.eval(replacedExpr);
       setResult(evalResult.toString());
-    } catch (error) {
+    } catch {
       setResult("Error");
     }
   };

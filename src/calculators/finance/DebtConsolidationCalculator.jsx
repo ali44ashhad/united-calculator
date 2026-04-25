@@ -19,7 +19,6 @@ const DebtConsolidationCalculator = () => {
   };
 
   const calculateConsolidation = () => {
-    let totalMonthly = 0;
     let totalOriginalInterest = 0;
 
     currentDebts.forEach(({ balance, rate, term }) => {
@@ -31,7 +30,6 @@ const DebtConsolidationCalculator = () => {
 
       const monthlyPayment = (P * r) / (1 - Math.pow(1 + r, -n));
 
-      totalMonthly += monthlyPayment;
       totalOriginalInterest += monthlyPayment * n - P;
     });
 

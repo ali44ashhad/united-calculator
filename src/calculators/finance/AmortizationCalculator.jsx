@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 const AmortizationCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState("250000");
-  const [annualInterestRate, setAnnualInterestRate] = useState("6.5");
-  const [loanTermYears, setLoanTermYears] = useState("30");
+  const DEFAULTS = {
+    loanAmount: "250000",
+    annualInterestRate: "6.5",
+    loanTermYears: "30",
+  };
+
+  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
+  const [annualInterestRate, setAnnualInterestRate] = useState(
+    DEFAULTS.annualInterestRate
+  );
+  const [loanTermYears, setLoanTermYears] = useState(DEFAULTS.loanTermYears);
 
   const calculateAmortization = () => {
     const principal = parseFloat(loanAmount);
@@ -156,268 +164,138 @@ const AmortizationCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Loan Amount ($)</label>
-            <input
-              type="number"
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 250000"
-            />
-          </div>
+      <div className="space-y-8">
+        <div className="space-y-2">
+          <h2 className="text-xl md:text-2xl font-bold text-on-surface">
+            Loan details
+          </h2>
+          <p className="text-on-surface-variant">
+            Enter your loan amount, interest rate, and term to see your monthly
+            payment and total interest.
+          </p>
+        </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Interest Rate (%)
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Loan Amount */}
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Loan Amount
             </label>
-            <input
-              type="number"
-              value={annualInterestRate}
-              onChange={(e) => setAnnualInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 6.5"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.loanAmount}
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
-            <input
-              type="number"
+          {/* Annual Interest Rate */}
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual Interest Rate
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={annualInterestRate}
+                onChange={(e) => setAnnualInterestRate(e.target.value)}
+                className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.annualInterestRate}
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
+          </div>
+
+          {/* Loan Term */}
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan Term</label>
+            <select
               value={loanTermYears}
               onChange={(e) => setLoanTermYears(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 30"
-            />
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg appearance-none transition-all"
+            >
+              <option value="30">30 Years</option>
+              <option value="20">20 Years</option>
+              <option value="15">15 Years</option>
+              <option value="10">10 Years</option>
+              <option value="5">5 Years</option>
+            </select>
           </div>
         </div>
 
+        {/* Actions */}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setLoanAmount(DEFAULTS.loanAmount);
+                setAnnualInterestRate(DEFAULTS.annualInterestRate);
+                setLoanTermYears(DEFAULTS.loanTermYears);
+              }}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        {/* Summary */}
         {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Amortization Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Monthly Payment:</span>
-                <span className="text-blue-600 font-medium">
+          <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+            <div className="mb-6 space-y-1">
+              <h2 className="text-xl font-bold text-on-surface">Results</h2>
+              <p className="text-on-surface-variant">
+                Your payment stays fixed (for a fixed-rate loan), while the
+                interest/principal split changes over time.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-on-surface">Monthly Payment</span>
+                <span className="font-code-num text-code-num text-primary">
                   ${result.monthlyPayment}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Payment:</span>
-                <span className="text-yellow-600 font-medium">
+              <div className="flex items-center justify-between">
+                <span className="text-on-surface">Total Payment</span>
+                <span className="font-code-num text-code-num">
                   ${result.totalPayment}
                 </span>
               </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Total Interest Paid:</span>
-                <span className="text-red-600">${result.totalInterest}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-on-surface">Total Interest Paid</span>
+                <span className="font-code-num text-code-num">
+                  ${result.totalInterest}
+                </span>
               </div>
             </div>
           </section>
         )}
       </div>
-      <article class="py-6">
-        <p class="mb-6">
-          Our <strong>Amortization Calculator</strong> is a smart tool which
-          helps y users to break down their loan repayments into
-          easy-to-understand monthly schedules for payout. Whether it’s a
-          mortgage, car loan, or personal loan, our mortgage calculator always
-          give exactly how much of each payment goes toward principal and how
-          much goes toward interest.
-        </p>
-
-        <p class="mb-6">
-          if you understand amortization then it can help you to plan your
-          finances in better ways, save on interest, and it decide whether you
-          are making extra payments is worth it. If you want to explore how
-          additional payments you can reduce your loan term, you can try our{" "}
-          <a
-            href="https://www.unitedcalculator.net/finance/loan-payoff-calculator"
-            target="_blank"
-            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-          >
-            Loan Payoff Calculator
-          </a>
-          .
-        </p>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            What is Loan Amortization?
-          </h2>
-          <p>
-            Loan amortization is the process of paying off a debt in regular
-            installments over a set period. Each payed installement covers your
-            interest charges and reduces the principal amount which you owed. At
-            the starting of your loan, interest makes up a larger portion of
-            your payment, but over time, more of your payment goes toward the
-            principal.
-          </p>
-          <p class="mt-2">
-            This schedule gives you a clear and stat-forward view of your
-            repayment journey and helps you to make early financial decisions.
-            For mortgage-specific estimates, you can also use our{" "}
-            <a
-              href="https://www.unitedcalculator.net/finance/mortgage-calculator"
-              target="_blank"
-              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-            >
-              Mortgage Calculator
-            </a>
-            .
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Amortization Formula</h2>
-          <p>The main standard formula of loan amortization is given below</p>
-          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
-            <code>EMI = P × [ r(1 + r)ⁿ ] ÷ [ (1 + r)ⁿ – 1 ]</code>
-          </pre>
-          <ul class="list-disc ml-5 mb-3">
-            <li>
-              <code>P</code> — Loan amount (principal)
-            </li>
-            <li>
-              <code>r</code> — Monthly interest rate (annual rate ÷ 12)
-            </li>
-            <li>
-              <code>n</code> — Total number of monthly payments
-            </li>
-          </ul>
-          <p>
-            For example, if you take a $50,000 loan at 6% annual interest over 5
-            years would have a monthly payment of about $966.64, as given with
-            details in the calculator’s repayment table. if you want to compare
-            different loan interest rates, try our{" "}
-            <a
-              href="https://www.unitedcalculator.net/finance/apr-calculator"
-              target="_blank"
-              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-            >
-              APR Calculator
-            </a>
-            .
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            How i can Use the Amortization Calculator
-          </h2>
-          <ol class="list-decimal ml-5 mb-3">
-            <li>First you need to enter your loan amount (principal).</li>
-            <li>After that enter the annual interest rate.</li>
-            <li>Select the loan term (in years or months).</li>
-            <li>
-              Click <strong>Calculate</strong> to see how much your monthly
-              payment will be pay and schdueled.
-            </li>
-          </ol>
-          <ul class="list-disc ml-5">
-            <li>Shows month-by-month breakdown</li>
-            <li>Highlights total interest paid</li>
-            <li>Reveals how extra payments save money</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
-          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
-            <p>
-              <strong>Example:</strong>Les`s suppose you take a loan of{" "}
-              <strong>$20,000</strong> at an annual interest rate of{" "}
-              <strong>5%</strong> for <strong>3 years</strong>.
-            </p>
-            <p>Step 1: Monthly interest rate will be → 5% ÷ 12 = 0.004167</p>
-            <p>Step 2: Total number of payments from starting → 3 × 12 = 36</p>
-            <p>Step 3: Apply formula → EMI ≈ $599.42</p>
-            <p>
-              Over the loan term, you’ll pay about <strong>$1,579.12</strong> in
-              interest, and your balance will decrease with every payment.
-            </p>
-          </div>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Benefits of Knowing Your Amortization Schedule
-          </h2>
-          <ul class="list-disc ml-5">
-            <li>Plan your monthly budget with accuracy</li>
-            <li>
-              Understand how your interest affects your loan cost with time
-              period
-            </li>
-            <li>Make planning about refinancing your loan amount</li>
-            <li>
-              You can save money by identifying the impact of extra payments if
-              you understand properly
-            </li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <dl>
-            <dt class="font-semibold mt-4">
-              Q.1 What an amortization schedule show at calculation?
-            </dt>
-            <dd>
-              Ans. It shows each monthly payment split between principal and
-              interest, along with your remaining balance over time.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.2 Is there any option to reduce my total interest cost?
-            </dt>
-            <dd>
-              Ans. Yes, you can reduce your total interest cost by making extra
-              payments toward the principal or refinancing at a lower rate can
-              be reduce your interest cost.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.3 Is amortization only used for fixed-rate loans?
-            </dt>
-            <dd>
-              Ans. In most of the cases amortization schedules are for
-              fixed-rate loans, variable-rate loans can also be amortized but
-              require adjustments when rates change.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.4 Does the Amortization calculator include taxes and insurance?
-            </dt>
-            <dd>
-              Ans. No, Amortization calculator focuses only on principal and
-              interest only. For mortgage-related costs, you can check our{" "}
-              <a
-                href="https://www.unitedcalculator.net/finance/mortgage-calculator"
-                target="_blank"
-                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-              >
-                Mortgage Calculator
-              </a>
-              .
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.5 Can I use this calculator for business loans?
-            </dt>
-            <dd>
-              Ans. Absolutely, it works for any loan with regular monthly
-              payments, including personal, business, and auto loans.
-            </dd>
-          </dl>
-        </section>
-      </article>
     </>
   );
 };

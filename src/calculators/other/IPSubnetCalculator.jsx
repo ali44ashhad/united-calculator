@@ -32,7 +32,7 @@ const IPSubnetCalculator = () => {
         broadcastAddress: broadcastAddress.join("."),
         numberOfHosts: numHosts,
       });
-    } catch (err) {
+    } catch {
       setResult({ error: "Invalid input" });
     }
   };

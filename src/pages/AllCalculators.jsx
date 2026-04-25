@@ -1,13 +1,28 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { calculators } from "../data/calculators";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 const AllCalculators = () => {
   const [query, setQuery] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const filtered = calculators.filter((calc) =>
-    calc.title.toLowerCase().includes(query.toLowerCase())
-  );
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get("q") || "";
+    setQuery(q);
+  }, [location.search]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return calculators;
+    return calculators.filter(
+      (calc) =>
+        calc.title.toLowerCase().includes(q) ||
+        calc.description.toLowerCase().includes(q) ||
+        calc.category.toLowerCase().includes(q)
+    );
+  }, [query]);
 
   return (
     <>
@@ -118,39 +133,60 @@ const AllCalculators = () => {
           `}
         </script>
       </Helmet>
-      <div>
-        <h1 className="text-3xl font-bold mb-4 text-indigo-700">
-          All Calculators
-        </h1>
+      <main className="max-w-[1280px] mx-auto w-full px-6 py-10">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-on-surface mb-2">
+            All Calculators
+          </h1>
+          <p className="text-on-surface-variant">
+            Browse and search across every tool in the directory.
+          </p>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Search calculators..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="w-full mb-6 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
-        />
+        <div className="relative mb-6">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+            search
+          </span>
+          <input
+            type="text"
+            placeholder="Search calculators..."
+            value={query}
+            onChange={(e) => {
+              const v = e.target.value;
+              setQuery(v);
+              const params = new URLSearchParams(location.search);
+              if (v.trim()) params.set("q", v);
+              else params.delete("q");
+              navigate(`?${params.toString()}`, { replace: true });
+            }}
+            className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((calc) => (
             <Link
               key={calc.id}
               to={`/${calc.category.toLowerCase()}/${calc.id}`}
-              className="bg-white border border-gray-200 p-4 rounded-lg hover:shadow"
+              className="group bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
-              <h3 className="font-semibold text-indigo-700">{calc.title}</h3>
-              <p className="text-sm text-gray-600">{calc.description}</p>
-              <p className="text-xs text-gray-400 mt-1">
-                Category: {calc.category}
+              <h3 className="font-semibold text-on-surface group-hover:text-primary transition-colors mb-2">
+                {calc.title}
+              </h3>
+              <p className="text-on-surface-variant mb-4 flex-grow">
+                {calc.description}
               </p>
+              <span className="text-xs font-semibold bg-surface-container px-2 py-1 rounded text-primary w-fit">
+                {calc.category.toUpperCase()}
+              </span>
             </Link>
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <p className="text-gray-500 mt-6">No calculators found.</p>
+          <p className="text-on-surface-variant mt-6">No calculators found.</p>
         )}
-      </div>
+      </main>
     </>
   );
 };

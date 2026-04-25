@@ -1,7 +1,15 @@
-import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { calculators } from "../data/calculators";
-import Breadcrumb from "../components/Breadcrumb";
+import GlobalBreadcrumb from "../components/GlobalBreadcrumb";
+import MortgageSeoContent from "../components/seo/MortgageSeoContent";
+import AmortizationSeoContent from "../components/seo/AmortizationSeoContent";
+import AnnuitySeoContent from "../components/seo/AnnuitySeoContent";
+import AnnuityPayoutSeoContent from "../components/seo/AnnuityPayoutSeoContent";
+import APRSeoContent from "../components/seo/APRSeoContent";
+import AutoLeaseSeoContent from "../components/seo/AutoLeaseSeoContent";
+import AverageReturnSeoContent from "../components/seo/AverageReturnSeoContent";
+import AutoLoanSeoContent from "../components/seo/AutoLoanSeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -411,7 +419,7 @@ const componentMap = {
   // 👉 Add all other calculator mappings here
 };
 const CalculatorPage = () => {
-  const { id } = useParams();
+  const { category, id } = useParams();
   const [copied, setCopied] = useState(false);
   const calculator = calculators.find((c) => c.id === id);
   const Component = componentMap[calculator?.component];
@@ -425,95 +433,262 @@ const CalculatorPage = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const categoryName = useMemo(() => {
+    const c = (category || "").toLowerCase();
+    return c ? c.charAt(0).toUpperCase() + c.slice(1) : "Calculators";
+  }, [category]);
+
+  const categoryIcon = useMemo(() => {
+    const c = (category || "").toLowerCase();
+    if (c === "finance") return "account_balance_wallet";
+    if (c === "health") return "monitor_heart";
+    if (c === "math") return "functions";
+    if (c === "geometry") return "architecture";
+    if (c === "statistics") return "show_chart";
+    return "calculate";
+  }, [category]);
+
+  const popularInCategory = useMemo(() => {
+    if (!calculator) return [];
+    const list = calculators.filter(
+      (c) => c.category === calculator.category && c.id !== calculator.id
+    );
+    // Simple deterministic "popular" pick (first 4)
+    return list.slice(0, 4);
+  }, [calculator]);
+
+  const relatedTools = useMemo(() => {
+    if (!calculator) return [];
+    const list = calculators.filter(
+      (c) => c.category === calculator.category && c.id !== calculator.id
+    );
+    return list.slice(0, 3);
+  }, [calculator]);
+
+  const exploreMore = useMemo(() => {
+    if (!calculator) return [];
+    const current = calculator.category.toLowerCase();
+
+    const CATEGORY_CARDS = [
+      {
+        key: "finance",
+        title: "Finance",
+        subtitle: "Loans, interest, tax & investing",
+        icon: "account_balance_wallet",
+        colorClass: "bg-blue-100 text-primary",
+      },
+      {
+        key: "health",
+        title: "Health",
+        subtitle: "BMI, calories, fitness metrics",
+        icon: "monitor_heart",
+        colorClass: "bg-green-100 text-emerald-700",
+      },
+      {
+        key: "math",
+        title: "Math",
+        subtitle: "Percentages, algebra, numbers",
+        icon: "functions",
+        colorClass: "bg-indigo-100 text-indigo-700",
+      },
+      {
+        key: "geometry",
+        title: "Geometry",
+        subtitle: "Shapes, area, volume tools",
+        icon: "architecture",
+        colorClass: "bg-orange-100 text-orange-700",
+      },
+      {
+        key: "statistics",
+        title: "Statistics",
+        subtitle: "Stats, z-score, p-value tools",
+        icon: "show_chart",
+        colorClass: "bg-slate-100 text-slate-700",
+      },
+      {
+        key: "other",
+        title: "Other",
+        subtitle: "Everyday utilities & converters",
+        icon: "straighten",
+        colorClass: "bg-purple-100 text-purple-700",
+      },
+    ];
+
+    return CATEGORY_CARDS.filter((c) => c.key !== current);
+  }, [calculator]);
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: shareText, url: shareUrl });
+        return;
+      } catch {
+        // fallback below
+      }
+    }
+    handleCopyLink();
+  };
+
   return (
-    <div className=" py-6">
-      <Breadcrumb />
-      <h1 className="text-2xl font-bold mb-2">{calculator?.title}</h1>
-      <p className="mb-4 text-gray-500">{calculator?.description}</p>
+    <main className="flex-grow max-w-[1280px] mx-auto w-full px-6 py-6">
+      {/* Breadcrumbs & Title */}
+      <div className="mb-8">
+        <GlobalBreadcrumb />
 
-      {Component ? <Component /> : <p>Calculator not found.</p>}
-      {/* Share Buttons */}
-      <div className="flex items-center gap-4 py-8 flex-wrap">
-        {/* Facebook */}
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            shareUrl
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-600 hover:bg-blue-700 text-white p-1 rounded-full transition"
-          title="Share on Facebook"
-        >
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.2 3-3.2.9 0 1.9.2 1.9.2v2h-1c-1 0-1.3.6-1.3 1.2V12h2.2l-.4 3H14v7A10 10 0 0 0 22 12Z" />
-          </svg>
-        </a>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-on-surface mb-2">
+              {calculator?.title}
+            </h1>
+            <p className="text-on-surface-variant max-w-2xl text-lg">
+              {calculator?.description}
+            </p>
+          </div>
 
-        {/* Twitter */}
-        <a
-          href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-            shareUrl
-          )}&text=${shareText}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-400 hover:bg-blue-500 text-white p-1 rounded-full transition"
-          title="Share on Twitter"
-        >
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M19.633 7.997c.013.176.013.353.013.53 0 5.37-4.087 11.56-11.56 11.56-2.29 0-4.42-.668-6.215-1.807.32.037.626.05.959.05 1.885 0 3.624-.638 5-1.716a4.077 4.077 0 0 1-3.806-2.823c.247.037.494.063.754.063.355 0 .71-.05 1.042-.137a4.072 4.072 0 0 1-3.262-3.993v-.05a4.106 4.106 0 0 0 1.85.523 4.07 4.07 0 0 1-1.26-5.43 11.558 11.558 0 0 0 8.395 4.26 4.596 4.596 0 0 1-.1-.93 4.07 4.07 0 0 1 7.046-2.78 8.095 8.095 0 0 0 2.583-.986 4.04 4.04 0 0 1-1.78 2.24 8.17 8.17 0 0 0 2.34-.63 8.72 8.72 0 0 1-2.043 2.113z" />
-          </svg>
-        </a>
-
-        {/* LinkedIn */}
-        <a
-          href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-            shareUrl
-          )}&title=${shareText}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-700 hover:bg-blue-800 text-white p-1 rounded-full transition"
-          title="Share on LinkedIn"
-        >
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 8.98h4v12H3v-12Zm7 0h3.64v1.64h.05a4 4 0 0 1 3.6-2c3.86 0 4.57 2.54 4.57 5.84v6.52h-4v-5.78c0-1.38 0-3.14-1.91-3.14-1.92 0-2.21 1.5-2.21 3.04v5.88h-4v-12Z" />
-          </svg>
-        </a>
-
-        {/* WhatsApp */}
-        <a
-          href={`https://wa.me/?text=${encodeURIComponent(
-            `${shareText} ${shareUrl}`
-          )}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-500 hover:bg-green-600 text-white p-1 rounded-full transition"
-          title="Share on WhatsApp"
-        >
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 32 32">
-            <path d="M16.003 3.2C9.303 3.2 3.997 8.508 3.997 15.206c0 2.675.998 5.13 2.648 7.033L5.2 28.8l6.747-1.397c1.803.958 3.87 1.497 6.056 1.497 6.7 0 12.007-5.308 12.007-12.007 0-6.697-5.308-12.005-12.007-12.005zm0 21.81c-1.825 0-3.605-.487-5.158-1.405l-.367-.214-4.005.83.83-3.89-.238-.368c-1.206-1.67-1.84-3.643-1.84-5.676 0-5.43 4.418-9.848 9.848-9.848s9.847 4.417 9.847 9.848c.002 5.43-4.416 9.847-9.847 9.847zm5.01-7.16c-.274-.137-1.607-.79-1.857-.88-.248-.093-.428-.137-.606.137-.18.273-.696.878-.854 1.057-.157.18-.312.203-.586.07-.273-.138-1.153-.424-2.196-1.353-.81-.72-1.358-1.61-1.517-1.884-.158-.274-.017-.422.12-.56.124-.124.275-.32.412-.48.14-.16.186-.273.276-.457.092-.184.045-.344-.023-.48-.067-.137-.606-1.465-.832-2.01-.22-.524-.445-.454-.606-.463-.158-.008-.34-.01-.522-.01s-.48.07-.732.344c-.253.273-.96.937-.96 2.285s.983 2.646 1.12 2.828c.138.183 1.93 2.947 4.678 4.13.654.28 1.164.446 1.56.57.655.208 1.25.18 1.722.11.525-.078 1.607-.655 1.833-1.288.226-.633.226-1.175.158-1.29-.065-.113-.25-.18-.524-.317z" />
-          </svg>
-        </a>
-
-        {/* Copy Link */}
-        <button
-          onClick={handleCopyLink}
-          className={`${
-            copied ? "bg-green-600" : "bg-gray-500 hover:bg-gray-600"
-          } text-white p-1 rounded-full transition`}
-          title="Copy Link"
-        >
-          {copied ? (
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.285 6.709l-11.93 11.93-5.657-5.657 1.414-1.415 4.243 4.243 10.516-10.516z" />
-            </svg>
-          ) : (
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-            </svg>
-          )}
-        </button>
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={handleShare}
+              className="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-on-surface hover:bg-surface-container transition-colors"
+            >
+              <span className="material-symbols-outlined">share</span>
+              {copied ? "Copied" : "Share"}
+            </button>
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-on-surface hover:bg-surface-container transition-colors"
+            >
+              <span className="material-symbols-outlined">print</span>
+              Print
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* Calculator Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Main column */}
+        <div className="lg:col-span-8 space-y-8">
+          <div className="bg-surface-container-lowest rounded-xl border border-outline-variant p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+            {Component ? <Component /> : <p>Calculator not found.</p>}
+          </div>
+ 
+          {/* SEO content below the calculator card (mortgage only) */}
+          {calculator?.id === "mortgage-calculator" && <MortgageSeoContent />}
+          {calculator?.id === "amortization-calculator" && (
+            <AmortizationSeoContent />
+          )}
+          {calculator?.id === "annuity-calculator" && <AnnuitySeoContent />}
+          {calculator?.id === "annuity-payout-calculator" && (
+            <AnnuityPayoutSeoContent />
+          )}
+          {calculator?.id === "apr-calculator" && <APRSeoContent />}
+          {calculator?.id === "auto-lease-calculator" && <AutoLeaseSeoContent />}
+          {calculator?.id === "average-return-calculator" && (
+            <AverageReturnSeoContent />
+          )}
+          {calculator?.id === "auto-loan-calculator" && <AutoLoanSeoContent />}
+
+          {/* Related Tools (global, same for all calculators) */}
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-on-surface">
+              Related {categoryName} Tools
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {relatedTools.map((c) => (
+                <Link
+                  key={c.id}
+                  className="p-5 bg-white border border-outline-variant rounded-xl hover:border-primary hover:shadow-md transition-all group"
+                  to={`/${c.category.toLowerCase()}/${c.id}`}
+                >
+                  <span className="material-symbols-outlined text-primary mb-3 block">
+                    {categoryIcon}
+                  </span>
+                  <h4 className="font-bold text-on-surface group-hover:text-primary mb-1">
+                    {c.title}
+                  </h4>
+                  <p className="text-sm text-on-surface-variant">
+                    {c.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right sidebar */}
+        <aside className="lg:col-span-4 space-y-6">
+          <div className="bg-surface-container rounded-xl p-6">
+            <h3 className="text-lg text-on-surface mb-4 flex items-center gap-2 font-semibold">
+              <span className="material-symbols-outlined text-primary">star</span>
+              Popular in {categoryName}
+            </h3>
+            <div className="space-y-3">
+              {popularInCategory.map((c) => (
+                <Link
+                  key={c.id}
+                  className="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-lg border border-outline-variant hover:border-primary transition-all group"
+                  to={`/${c.category.toLowerCase()}/${c.id}`}
+                >
+                  <span className="material-symbols-outlined text-secondary group-hover:text-primary">
+                    trending_up
+                  </span>
+                  <span className="text-sm font-medium text-on-surface group-hover:text-primary">
+                    {c.title}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant">
+            <h3 className="font-h2 text-h2 text-on-surface mb-4">
+              Explore More
+            </h3>
+            <div className="space-y-4">
+              {exploreMore.map((c) => (
+                <Link
+                  key={c.key}
+                  className="group flex items-center p-3 bg-surface-container-low rounded-lg border border-transparent hover:border-primary transition-all"
+                  to={`/${c.key}`}
+                >
+                  <div
+                    className={[
+                      "w-10 h-10 rounded flex items-center justify-center shrink-0",
+                      c.colorClass,
+                    ].join(" ")}
+                  >
+                    <span className="material-symbols-outlined">{c.icon}</span>
+                  </div>
+                  <div className="ml-4">
+                    <div className="font-h3 text-h3 text-sm group-hover:text-primary transition-colors">
+                      {c.title}
+                    </div>
+                    <div className="text-xs text-on-surface-variant">
+                      {c.subtitle}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="material-symbols-outlined text-primary">info</span>
+              <h3 className="text-lg font-semibold text-on-surface">
+                How it works
+              </h3>
+            </div>
+            <p className="text-sm text-on-surface-variant leading-relaxed">
+              This calculator uses standard formulas to produce results from the
+              inputs you provide. Exact assumptions may vary per tool.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
   );
 };
 

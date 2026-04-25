@@ -7,7 +7,16 @@ const Sidebar = () => {
   const location = useLocation();
 
   // Don't render Sidebar on home page
-  if (location.pathname === "/") {
+  const categoryRoutes = new Set([
+    "/finance",
+    "/health",
+    "/math",
+    "/geometry",
+    "/statistics",
+    "/other",
+  ]);
+
+  if (location.pathname === "/" || categoryRoutes.has(location.pathname)) {
     return null;
   }
 

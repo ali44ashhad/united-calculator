@@ -42,7 +42,7 @@ const TimeZoneCalculator = () => {
       }).format(utcDate);
 
       return { fromTime, converted };
-    } catch (err) {
+    } catch {
       return { error: "Conversion failed. Please check your input." };
     }
   };

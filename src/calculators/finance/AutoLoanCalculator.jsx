@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 const AutoLoanCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState("20000");
-  const [interestRate, setInterestRate] = useState("6");
-  const [loanTerm, setLoanTerm] = useState("5");
+  const DEFAULTS = {
+    loanAmount: "20000",
+    interestRate: "6",
+    loanTerm: "5",
+  };
+
+  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+  const [loanTerm, setLoanTerm] = useState(DEFAULTS.loanTerm);
 
   const calculateAutoLoan = () => {
     const P = parseFloat(loanAmount);
@@ -144,71 +150,123 @@ const AutoLoanCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Loan Amount ($)</label>
-            <input
-              type="number"
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 20000"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Loan Amount */}
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan Amount</label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.loanAmount}
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Interest Rate (Annual %)
+          {/* Interest Rate */}
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Interest Rate
             </label>
-            <input
-              type="number"
-              value={interestRate}
-              onChange={(e) => setInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 6"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.interestRate}
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
-            <input
-              type="number"
+          {/* Loan Term */}
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan Term</label>
+            <select
               value={loanTerm}
               onChange={(e) => setLoanTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5"
-            />
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg appearance-none transition-all"
+            >
+              <option value="2">2 Years</option>
+              <option value="3">3 Years</option>
+              <option value="4">4 Years</option>
+              <option value="5">5 Years</option>
+              <option value="6">6 Years</option>
+              <option value="7">7 Years</option>
+            </select>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Auto Loan Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Monthly Payment:</span>
-                <span className="text-blue-600 font-medium">
-                  ${result.monthlyPayment}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Payment:</span>
-                <span className="text-green-600 font-medium">
-                  ${result.totalPayment}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Total Interest:</span>
-                <span className="text-red-600">${result.totalInterest}</span>
-              </div>
+        {/* Actions */}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setLoanAmount(DEFAULTS.loanAmount);
+                setInterestRate(DEFAULTS.interestRate);
+                setLoanTerm(DEFAULTS.loanTerm);
+              }}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        {/* Summary */}
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Auto Loan Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Monthly Payment</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result ? `$${result.monthlyPayment}` : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total Payment</span>
+              <span className="font-code-num text-code-num">
+                {result ? `$${result.totalPayment}` : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total Interest</span>
+              <span className="font-code-num text-code-num">
+                {result ? `$${result.totalInterest}` : "—"}
+              </span>
+            </div>
+          </div>
+        </section>
       </div>
-      <article class="py-6">
+
+      <article className="hidden">
         <p class="mb-6">
           Our <strong>Auto Loan Calculator</strong> helps you estimate your
           monthly car loan payments, total interest, and overall loan cost. By
