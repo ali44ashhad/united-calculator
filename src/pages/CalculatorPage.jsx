@@ -10,6 +10,11 @@ import APRSeoContent from "../components/seo/APRSeoContent";
 import AutoLeaseSeoContent from "../components/seo/AutoLeaseSeoContent";
 import AverageReturnSeoContent from "../components/seo/AverageReturnSeoContent";
 import AutoLoanSeoContent from "../components/seo/AutoLoanSeoContent";
+import BoatLoanSeoContent from "../components/seo/BoatLoanSeoContent";
+import BondSeoContent from "../components/seo/BondSeoContent";
+import BudgetSeoContent from "../components/seo/BudgetSeoContent";
+import BusinessLoanSeoContent from "../components/seo/BusinessLoanSeoContent";
+import CanadianMortgageSeoContent from "../components/seo/CanadianMortgageSeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -589,6 +594,15 @@ const CalculatorPage = () => {
             <AverageReturnSeoContent />
           )}
           {calculator?.id === "auto-loan-calculator" && <AutoLoanSeoContent />}
+          {calculator?.id === "boat-loan-calculator" && <BoatLoanSeoContent />}
+          {calculator?.id === "bond-calculator" && <BondSeoContent />}
+          {calculator?.id === "budget-calculator" && <BudgetSeoContent />}
+          {calculator?.id === "business-loan-calculator" && (
+            <BusinessLoanSeoContent />
+          )}
+          {calculator?.id === "canadian-mortgage-calculator" && (
+            <CanadianMortgageSeoContent />
+          )}
 
           {/* Related Tools (global, same for all calculators) */}
           <div className="space-y-6">

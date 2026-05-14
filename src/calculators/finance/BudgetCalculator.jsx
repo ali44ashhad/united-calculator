@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
+const EXPENSE_LABELS = {
+  rent: "Rent / housing",
+  food: "Food & groceries",
+  transport: "Transport",
+  utilities: "Utilities",
+  entertainment: "Entertainment",
+  others: "Other expenses",
+};
+
 const BudgetCalculator = () => {
-  const [income, setIncome] = useState("50000");
-  const [expenses, setExpenses] = useState({
-    rent: "15000",
-    food: "8000",
-    transport: "3000",
-    utilities: "2000",
-    entertainment: "2000",
-    others: "1000",
-  });
+  const DEFAULTS = {
+    income: "50000",
+    expenses: {
+      rent: "15000",
+      food: "8000",
+      transport: "3000",
+      utilities: "2000",
+      entertainment: "2000",
+      others: "1000",
+    },
+  };
+
+  const [income, setIncome] = useState(DEFAULTS.income);
+  const [expenses, setExpenses] = useState(DEFAULTS.expenses);
 
   const calculateBudget = () => {
     const totalIncome = parseFloat(income);
@@ -22,7 +36,8 @@ const BudgetCalculator = () => {
     if (isNaN(totalIncome) || isNaN(totalExpenses)) return null;
 
     const savings = totalIncome - totalExpenses;
-    const savingsPercent = ((savings / totalIncome) * 100).toFixed(2);
+    const savingsPercent =
+      totalIncome !== 0 ? ((savings / totalIncome) * 100).toFixed(2) : "0.00";
 
     return {
       totalIncome: totalIncome.toFixed(2),
@@ -41,14 +56,16 @@ const BudgetCalculator = () => {
   return (
     <>
       <Helmet>
-        <title>Budget Calculator | calculate your budget today</title>
+        <title>
+          Budget Calculator - Monthly Income, Expenses & Savings Planner
+        </title>
         <meta
           name="description"
-          content="Use our Budget Calculator to manage your monthly expenses, income, and savings. Perfect for planning personal or household budgets effectively."
+          content="Plan your monthly budget: enter income and expense categories to see total spending, surplus or shortfall, and savings as a percent of income."
         />
         <meta
           name="keywords"
-          content="budget calculator, monthly budget calculator, personal budget planner, income and expense calculator, household budget calculator, savings planner"
+          content="budget calculator, monthly budget calculator, personal budget planner, household budget calculator, income and expense calculator, savings planner, monthly savings calculator"
         />
         <meta name="robots" content="index, follow" />
         <link
@@ -56,14 +73,26 @@ const BudgetCalculator = () => {
           href="https://www.unitedcalculator.net/finance/budget-calculator"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Budget Calculator" />
+        <meta
+          property="og:title"
+          content="Budget Calculator - Income & Expense Planner"
+        />
         <meta
           property="og:description"
-          content="Create a personal or household budget using our Budget Calculator. Track income, expenses, and savings to take control of your finances."
+          content="Track monthly income and categorized expenses to spot surplus, overspending, and savings rate."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/finance/budget-calculator"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Budget Calculator - Personal Finance Planner"
+        />
+        <meta
+          name="twitter:description"
+          content="Compare monthly income to rent, food, transport, and more—see savings or deficit instantly."
         />
         <script type="application/ld+json">
           {`
@@ -137,273 +166,113 @@ const BudgetCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Monthly Income (₹)</label>
+      <div className="space-y-8">
+        <div className="space-y-2">
+          <label className="font-h3 text-h3 text-on-surface">Monthly income</label>
+          <div className="relative max-w-full md:max-w-md">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+              ₹
+            </span>
             <input
               type="number"
               value={income}
               onChange={(e) => setIncome(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 50000"
+              className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              placeholder={DEFAULTS.income}
             />
           </div>
-
-          <h3 className="font-semibold text-gray-700 mt-4 mb-2">
-            Monthly Expenses
-          </h3>
-
-          {Object.keys(expenses).map((key) => (
-            <div key={key}>
-              <label className="block mb-1 capitalize font-medium">
-                {key} (₹)
-              </label>
-              <input
-                type="number"
-                value={expenses[key]}
-                onChange={(e) => handleExpenseChange(key, e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                placeholder={`e.g. ${key === "rent" ? "15000" : "1000"}`}
-              />
-            </div>
-          ))}
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Budget Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Income:</span>
-                <span className="text-blue-600 font-medium">
-                  ₹{result.totalIncome}
-                </span>
+        <div>
+          <h3 className="font-h3 text-h3 text-on-surface mb-4">
+            Monthly expenses
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {Object.keys(expenses).map((key) => (
+              <div key={key} className="space-y-2">
+                <label className="font-h3 text-h3 text-on-surface text-sm md:text-base">
+                  {EXPENSE_LABELS[key] || key}
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    value={expenses[key]}
+                    onChange={(e) => handleExpenseChange(key, e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                    placeholder="0"
+                  />
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Expenses:</span>
-                <span className="text-red-500 font-medium">
-                  ₹{result.totalExpenses}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Savings:</span>
-                <span className="text-green-600">
-                  ₹{result.savings} ({result.savingsPercent}%)
-                </span>
-              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIncome(DEFAULTS.income);
+                setExpenses({ ...DEFAULTS.expenses });
+              }}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">Budget Summary</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total income</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result ? `₹${result.totalIncome}` : "—"}
+              </span>
             </div>
-          </section>
-        )}
-      </div>
-      <article class="py-6">
-        <p class="mb-6">
-          Our <strong>Budget Calculator</strong> helps you track income,
-          expenses, and savings to gain a clear picture of your financial
-          health. By entering your monthly earnings and categorizing expenses
-          such as housing, transportation, food, and entertainment, you’ll see
-          whether you’re living within your means or overspending. This makes it
-          easier to plan, save, and achieve financial goals.
-        </p>
-
-        <p class="mb-6">
-          Whether you’re managing a household budget or planning for personal
-          savings, this calculator provides accurate results to help you stay in
-          control of your money. If you’d also like to explore how your
-          investments grow over time, try our{" "}
-          <a
-            href="https://www.unitedcalculator.net/finance/average-return-calculator"
-            target="_blank"
-            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-          >
-            Average Return Calculator
-          </a>
-          .
-        </p>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">What is a Budget?</h2>
-          <p>
-            A budget is a financial plan that compares your income against
-            expenses over a given period. It helps you allocate funds
-            effectively for needs, wants, and savings. By regularly reviewing
-            your budget, you can identify spending leaks, cut unnecessary costs,
-            and redirect money toward important goals like debt repayment or
-            retirement savings.
-          </p>
-          <p class="mt-2">Key components of a budget include:</p>
-          <ul class="list-disc ml-5 mt-2">
-            <li>
-              <strong>Income:</strong> Salary, business revenue, or passive
-              income.
-            </li>
-            <li>
-              <strong>Fixed Expenses:</strong> Rent, mortgage, utilities,
-              insurance, and debt payments.
-            </li>
-            <li>
-              <strong>Variable Expenses:</strong> Food, transportation, and
-              entertainment.
-            </li>
-            <li>
-              <strong>Savings:</strong> Contributions to savings accounts,
-              emergency funds, or investments.
-            </li>
-            <li>
-              <strong>Discretionary Spending:</strong> Non-essential purchases
-              like travel or hobbies.
-            </li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Budgeting Formula</h2>
-          <p>
-            One of the most common budgeting approaches is the{" "}
-            <strong>50/30/20 Rule</strong>:
-          </p>
-          <ul class="list-disc ml-5 mt-2">
-            <li>
-              <strong>50%</strong> of income → Needs (housing, bills, food)
-            </li>
-            <li>
-              <strong>30%</strong> of income → Wants (entertainment, shopping)
-            </li>
-            <li>
-              <strong>20%</strong> of income → Savings and debt repayment
-            </li>
-          </ul>
-          <p class="mt-2">
-            While the percentages may vary based on your situation, this method
-            ensures a balance between enjoying life now and preparing for the
-            future.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            How to Use the Budget Calculator
-          </h2>
-          <p>Using the Budget Calculator is simple. Follow these steps:</p>
-          <ol class="list-decimal ml-5 mb-3">
-            <li>Enter your total monthly income.</li>
-            <li>
-              Input your fixed expenses (e.g., rent, utilities, loan payments).
-            </li>
-            <li>
-              List variable expenses such as groceries and transportation.
-            </li>
-            <li>Add savings and discretionary spending categories.</li>
-            <li>
-              Click <strong>Calculate</strong> to see whether your expenses
-              exceed your income and how much you can save monthly.
-            </li>
-          </ol>
-          <ul class="list-disc ml-5">
-            <li>Highlights overspending or surplus</li>
-            <li>Helps you balance needs vs. wants</li>
-            <li>Shows potential monthly savings</li>
-            <li>Encourages better financial discipline</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
-          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
-            <p>
-              <strong>Example:</strong> Suppose your monthly income is{" "}
-              <strong>$4,000</strong>.
-            </p>
-            <p>Expenses:</p>
-            <ul class="list-disc ml-5">
-              <li>Housing: $1,200</li>
-              <li>Utilities & Transportation: $600</li>
-              <li>Food & Groceries: $500</li>
-              <li>Entertainment: $400</li>
-              <li>Savings: $800</li>
-            </ul>
-            <p>
-              Total expenses = <strong>$3,500</strong>. Surplus ={" "}
-              <strong>$500</strong> left each month, which you can add to
-              savings or pay down debt.
-            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total expenses</span>
+              <span className="font-code-num text-code-num">
+                {result ? `₹${result.totalExpenses}` : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Savings (surplus / deficit)</span>
+              <span className="font-code-num text-code-num">
+                {result ? (
+                  <>
+                    ₹{result.savings}{" "}
+                    <span className="text-body-lg font-body-lg text-on-surface-variant">
+                      ({result.savingsPercent}% of income)
+                    </span>
+                  </>
+                ) : (
+                  "—"
+                )}
+              </span>
+            </div>
           </div>
         </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Benefits of Using the Budget Calculator
-          </h2>
-          <ul class="list-disc ml-5">
-            <li>Gives a clear picture of your financial health</li>
-            <li>Helps control overspending</li>
-            <li>Encourages consistent savings habits</li>
-            <li>Assists in planning for emergencies and long-term goals</li>
-            <li>Improves financial decision-making</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <dl>
-            <dt class="font-semibold mt-4">
-              Q.1 What does the Budget Calculator show?
-            </dt>
-            <dd>
-              Ans. It shows whether your income covers your expenses and how
-              much you can save monthly.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.2 Can I use this for both personal and household budgeting?
-            </dt>
-            <dd>Ans. Yes, it works for individuals, couples, and families.</dd>
-
-            <dt class="font-semibold mt-4">
-              Q.3 How often should I update my budget?
-            </dt>
-            <dd>
-              Ans. At least once a month, or whenever your income or expenses
-              change significantly.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.4 Does it include debt repayment?
-            </dt>
-            <dd>
-              Ans. Yes, loan and credit card payments should be listed under
-              expenses.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.5 What if my expenses are greater than my income?
-            </dt>
-            <dd>
-              Ans. The calculator will highlight overspending, helping you
-              identify areas to cut costs.
-            </dd>
-          </dl>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Conclusion</h2>
-          <p>
-            A <strong>Budget Calculator</strong> is an essential tool for anyone
-            who wants to take control of their money. By comparing income and
-            expenses, it highlights areas where you can save, cut back, or
-            reallocate funds.
-          </p>
-          <p>
-            With consistent use, you’ll develop stronger financial habits, avoid
-            overspending, and work toward long-term stability and financial
-            freedom.
-          </p>
-        </section>
-      </article>
+      </div>
     </>
   );
 };

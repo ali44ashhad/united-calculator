@@ -5,6 +5,10 @@ import Home from "./pages/Home";
 import CategoryPage from "./pages/CategoryPage";
 import CalculatorPage from "./pages/CalculatorPage";
 import AllCalculators from "./pages/AllCalculators";
+import About from "./pages/About";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Contact from "./pages/Contact";
 import ScrollToTop from "./ScrollToTop";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from "./components/UI/ErrorBoundary";
@@ -20,10 +24,14 @@ function App() {
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
-              {/* Calculator Routes */}
+              <Route path="/about" element={<About />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/all-calculators" element={<AllCalculators />} />
+              {/* Calculator routes (after static paths so /all-calculators etc. match first) */}
               <Route path="/:category" element={<CategoryPage />} />
               <Route path="/:category/:id" element={<CalculatorPage />} />
-              <Route path="/all-calculators" element={<AllCalculators />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

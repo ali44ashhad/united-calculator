@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 const CanadianMortgageCalculator = () => {
-  const [homePrice, setHomePrice] = useState("500000");
-  const [downPayment, setDownPayment] = useState("100000");
-  const [loanTerm, setLoanTerm] = useState("25");
-  const [interestRate, setInterestRate] = useState("5");
+  const DEFAULTS = {
+    homePrice: "500000",
+    downPayment: "100000",
+    loanTerm: "25",
+    interestRate: "5",
+  };
+
+  const [homePrice, setHomePrice] = useState(DEFAULTS.homePrice);
+  const [downPayment, setDownPayment] = useState(DEFAULTS.downPayment);
+  const [loanTerm, setLoanTerm] = useState(DEFAULTS.loanTerm);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
 
   const calculateMortgage = () => {
     const price = parseFloat(homePrice);
     const down = parseFloat(downPayment);
     const termYears = parseFloat(loanTerm);
-    const rate = parseFloat(interestRate) / 100 / 12;
+    const annualRate = parseFloat(interestRate);
+    const rate = annualRate / 100 / 12;
 
     const loanAmount = price - down;
     const totalMonths = termYears * 12;
@@ -20,14 +28,19 @@ const CanadianMortgageCalculator = () => {
       isNaN(price) ||
       isNaN(down) ||
       isNaN(termYears) ||
+      isNaN(annualRate) ||
       isNaN(rate) ||
-      totalMonths <= 0
-    )
+      totalMonths <= 0 ||
+      loanAmount <= 0
+    ) {
       return null;
+    }
 
     const EMI =
-      (loanAmount * rate * Math.pow(1 + rate, totalMonths)) /
-      (Math.pow(1 + rate, totalMonths) - 1);
+      rate === 0
+        ? loanAmount / totalMonths
+        : (loanAmount * rate * Math.pow(1 + rate, totalMonths)) /
+          (Math.pow(1 + rate, totalMonths) - 1);
 
     const totalPayment = EMI * totalMonths;
     const totalInterest = totalPayment - loanAmount;
@@ -45,14 +58,16 @@ const CanadianMortgageCalculator = () => {
   return (
     <>
       <Helmet>
-        <title>Canadian Mortgage Calculator | calculate your mortgage</title>
+        <title>
+          Canadian Mortgage Calculator - Monthly Payment & Interest (CAD)
+        </title>
         <meta
           name="description"
-          content="Use our Canadian Mortgage Calculator to estimate your monthly mortgage payments, interest cost, and amortization schedule. Ideal for home buyers in Canada."
+          content="Estimate Canadian mortgage payments in CAD: enter home price, down payment, amortization in years, and annual interest rate to see loan amount, monthly payment, total interest, and total repayment."
         />
         <meta
           name="keywords"
-          content="canadian mortgage calculator, mortgage calculator canada, home loan calculator canada, canada mortgage payments, mortgage amortization calculator, mortgage interest calculator canada"
+          content="canadian mortgage calculator, mortgage calculator canada, canada mortgage payment calculator, home loan calculator canada, mortgage amortization canada, CMHC down payment, canadian mortgage interest"
         />
         <meta name="robots" content="index, follow" />
         <link
@@ -60,14 +75,26 @@ const CanadianMortgageCalculator = () => {
           href="https://www.unitedcalculator.net/finance/canadian-mortgage-calculator"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Canadian Mortgage Calculator" />
+        <meta
+          property="og:title"
+          content="Canadian Mortgage Calculator - CAD Payment Estimator"
+        />
         <meta
           property="og:description"
-          content="Calculate your Canadian mortgage payments with ease using our Mortgage Calculator. Get detailed insights on principal, interest, and amortization."
+          content="Plan your Canada home loan: monthly payment, total interest, and full repayment from price, down payment, rate, and amortization."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/finance/canadian-mortgage-calculator"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Canadian Mortgage Calculator"
+        />
+        <meta
+          name="twitter:description"
+          content="Quick CAD mortgage payment estimate for Canadian buyers and refinancers."
         />
         <script type="application/ld+json">
           {`
@@ -76,7 +103,7 @@ const CanadianMortgageCalculator = () => {
       "@type": "WebPage",
       "name": "Canadian Mortgage Calculator",
       "url": "https://www.unitedcalculator.net/finance/canadian-mortgage-calculator",
-      "description": "Use our Canadian Mortgage Calculator to calculate monthly home loan payments, interest breakdown, and amortization schedule. Designed specifically for Canadian home buyers.",
+      "description": "Estimate monthly mortgage payments and total borrowing cost in Canadian dollars using home price, down payment, interest rate, and amortization period.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -96,7 +123,7 @@ const CanadianMortgageCalculator = () => {
           "name": "What is a Canadian mortgage calculator?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A Canadian mortgage calculator estimates monthly payments, interest costs, and amortization schedule based on Canadian mortgage terms and rates."
+            "text": "A Canadian mortgage calculator estimates monthly payments and total interest based on home price, down payment, interest rate, and amortization period, using a standard monthly payment model."
           }
         },
         {
@@ -104,7 +131,7 @@ const CanadianMortgageCalculator = () => {
           "name": "Why should I use a Canadian mortgage calculator?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Using a Canadian mortgage calculator helps home buyers in Canada plan their finances, understand mortgage costs, and compare loan options before purchasing a home."
+            "text": "It helps Canadian home buyers plan payments, compare scenarios, and understand borrowing cost before committing to a mortgage."
           }
         }
       ]
@@ -141,308 +168,142 @@ const CanadianMortgageCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Home Price (CAD)</label>
-            <input
-              type="number"
-              value={homePrice}
-              onChange={(e) => setHomePrice(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 500000"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Home price (CAD)</label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={homePrice}
+                onChange={(e) => setHomePrice(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.homePrice}
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Down Payment (CAD)</label>
-            <input
-              type="number"
-              value={downPayment}
-              onChange={(e) => setDownPayment(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 100000"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Down payment (CAD)
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={downPayment}
+                onChange={(e) => setDownPayment(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.downPayment}
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
-            <input
-              type="number"
-              value={loanTerm}
-              onChange={(e) => setLoanTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 25"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Amortization</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={loanTerm}
+                onChange={(e) => setLoanTerm(e.target.value)}
+                className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.loanTerm}
+                min="1"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">
+                years
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Interest Rate (%)</label>
-            <input
-              type="number"
-              value={interestRate}
-              onChange={(e) => setInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual interest rate
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.interestRate}
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Canadian Mortgage Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Loan Amount:</span>
-                <span className="text-blue-600 font-medium">
-                  ${result.loanAmount}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Monthly Payment (EMI):</span>
-                <span className="text-green-600 font-medium">
-                  ${result.emi}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Interest:</span>
-                <span className="text-red-500 font-medium">
-                  ${result.totalInterest}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Total Payment:</span>
-                <span className="text-yellow-600">${result.totalPayment}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setHomePrice(DEFAULTS.homePrice);
+                setDownPayment(DEFAULTS.downPayment);
+                setLoanTerm(DEFAULTS.loanTerm);
+                setInterestRate(DEFAULTS.interestRate);
+              }}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Canadian Mortgage Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Loan amount</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result ? `$${result.loanAmount}` : "—"}
+              </span>
             </div>
-          </section>
-        )}
-      </div>
-      <article class="py-6">
-        <p class="mb-6">
-          Our <strong>Canadian Mortgage Calculator</strong> helps you estimate
-          your monthly mortgage payments, total interest, and overall loan costs
-          based on Canadian lending rules. By entering your home price, down
-          payment, interest rate, and amortization period, the calculator gives
-          you a clear breakdown of what to expect as a homeowner in Canada. This
-          tool is especially useful for first-time buyers and property investors
-          looking to budget accurately before making one of the biggest
-          financial commitments of their lives.
-        </p>
-
-        <p class="mb-6">
-          Whether you’re buying a new home or refinancing an existing mortgage,
-          this calculator makes it easy to compare scenarios and make better
-          financial decisions. If you’d also like to explore how your loan
-          payments are spread across principal and interest, try our{" "}
-          <a
-            href="https://www.unitedcalculator.net/finance/amortization-calculator"
-            target="_blank"
-            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-          >
-            Amortization Calculator
-          </a>
-          .
-        </p>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            What is a Canadian Mortgage?
-          </h2>
-          <p>
-            A mortgage in Canada is a type of loan that allows you to purchase a
-            home by borrowing money from a bank or lender. You repay the loan in
-            fixed installments over a set number of years, known as the
-            amortization period. Your payment is typically divided into two
-            parts:
-          </p>
-          <ul class="list-disc ml-5 mt-2">
-            <li>
-              <strong>Principal:</strong> The amount borrowed to purchase the
-              home.
-            </li>
-            <li>
-              <strong>Interest:</strong> The cost of borrowing money, charged by
-              the lender.
-            </li>
-          </ul>
-          <p class="mt-2">
-            In Canada, buyers are required to make a minimum down payment of
-            <strong>5%</strong> on homes priced up to $500,000. For homes above
-            $1,000,000, at least 20% is required. If your down payment is less
-            than 20%, you must purchase{" "}
-            <strong>mortgage default insurance</strong> from CMHC (Canada
-            Mortgage and Housing Corporation) or other insurers.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Mortgage Payment Formula</h2>
-          <p>
-            The Canadian mortgage payment calculation is based on the following
-            formula:
-          </p>
-          <p class="mt-2 font-mono bg-gray-100 p-2 rounded">
-            M = P × [ i(1 + i)<sup>n</sup> ] / [ (1 + i)<sup>n</sup> – 1 ]
-          </p>
-          <ul class="list-disc ml-5 mt-2">
-            <li>
-              <strong>M</strong> = Monthly mortgage payment
-            </li>
-            <li>
-              <strong>P</strong> = Loan amount (home price – down payment)
-            </li>
-            <li>
-              <strong>i</strong> = Monthly interest rate (annual ÷ 12)
-            </li>
-            <li>
-              <strong>n</strong> = Total number of payments (years × 12)
-            </li>
-          </ul>
-          <p class="mt-2">
-            This formula ensures accurate results, factoring in interest
-            compounding and amortization, so you know exactly how much you’ll
-            owe monthly.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            How to Use the Canadian Mortgage Calculator
-          </h2>
-          <p>Follow these simple steps:</p>
-          <ol class="list-decimal ml-5 mb-3">
-            <li>Enter the total home price you want to purchase.</li>
-            <li>Add your planned down payment amount.</li>
-            <li>Choose the interest rate offered by your lender.</li>
-            <li>
-              Select the amortization period (usually 15, 20, or 25 years).
-            </li>
-            <li>
-              Click <strong>Calculate</strong> to view monthly payments,
-              interest paid, and total loan cost.
-            </li>
-          </ol>
-          <ul class="list-disc ml-5">
-            <li>Shows monthly mortgage payments instantly</li>
-            <li>Provides breakdown of principal vs. interest</li>
-            <li>Helps compare different loan terms</li>
-            <li>Assists in budgeting before applying for a mortgage</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
-          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
-            <p>
-              <strong>Example:</strong> Suppose you want to buy a home worth
-              <strong> $500,000</strong> with a{" "}
-              <strong>10% down payment</strong>
-              ($50,000).
-            </p>
-            <ul class="list-disc ml-5">
-              <li>Loan Amount = $450,000</li>
-              <li>Interest Rate = 5% annually (0.416% monthly)</li>
-              <li>Amortization = 25 years (300 payments)</li>
-            </ul>
-            <p>
-              Monthly Payment ≈ <strong>$2,620</strong>
-            </p>
-            <p>
-              Over the 25 years, total payments will equal about
-              <strong>$786,000</strong>, including nearly
-              <strong>$336,000</strong> in interest.
-            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Monthly payment</span>
+              <span className="font-code-num text-code-num">
+                {result ? `$${result.emi}` : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total interest</span>
+              <span className="font-code-num text-code-num">
+                {result ? `$${result.totalInterest}` : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total payment</span>
+              <span className="font-code-num text-code-num">
+                {result ? `$${result.totalPayment}` : "—"}
+              </span>
+            </div>
           </div>
         </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Benefits of Using the Calculator
-          </h2>
-          <ul class="list-disc ml-5">
-            <li>Provides realistic monthly payment estimates</li>
-            <li>Helps evaluate affordability before purchasing</li>
-            <li>Assists in comparing mortgage terms and rates</li>
-            <li>Encourages better financial planning and savings</li>
-            <li>
-              Prepares you for hidden costs like property tax and insurance
-            </li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <dl>
-            <dt class="font-semibold mt-4">
-              Q.1 What does the Canadian Mortgage Calculator show?
-            </dt>
-            <dd>
-              Ans. It shows your estimated monthly mortgage payments, total
-              interest, and total cost of the loan.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.2 Does this include property taxes and insurance?
-            </dt>
-            <dd>
-              Ans. No, the calculator focuses on mortgage payments only. You
-              should budget separately for taxes and insurance.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.3 Can I use this for refinancing?
-            </dt>
-            <dd>
-              Ans. Yes, simply enter your current balance, interest rate, and
-              remaining term.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.4 What is the maximum amortization period in Canada?
-            </dt>
-            <dd>
-              Ans. For insured mortgages, the maximum is 25 years. Uninsured
-              mortgages may go up to 30 years.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.5 How does a larger down payment affect my mortgage?
-            </dt>
-            <dd>
-              Ans. A larger down payment reduces the loan amount, lowers monthly
-              payments, and may help you avoid mortgage insurance.
-            </dd>
-          </dl>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Conclusion</h2>
-          <p>
-            A <strong>Canadian Mortgage Calculator</strong> is a powerful tool
-            for homebuyers and investors. By estimating monthly payments and
-            long-term costs, it allows you to plan realistically, avoid
-            financial surprises, and make smarter borrowing decisions.
-          </p>
-          <p>
-            With consistent planning, you’ll not only secure the right mortgage
-            but also work toward long-term financial stability. For more
-            insights into loan planning, you may also find our{" "}
-            <a
-              href="https://www.unitedcalculator.net/finance/house-affordability-calculator"
-              target="_blank"
-              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-            >
-              House Affordability Calculator
-            </a>{" "}
-            helpful.
-          </p>
-        </section>
-      </article>
+      </div>
     </>
   );
 };
