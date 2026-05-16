@@ -1,81 +1,108 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+
+const getZScore = (level) => {
+  switch (parseInt(level, 10)) {
+    case 90:
+      return 1.645;
+    case 95:
+      return 1.96;
+    case 99:
+      return 2.576;
+    default:
+      return 1.96;
+  }
+};
+
 const SampleSizeCalculator = () => {
-  const [population, setPopulation] = useState("10000");
-  const [confidenceLevel, setConfidenceLevel] = useState("95");
-  const [marginOfError, setMarginOfError] = useState("5");
-  const [result, setResult] = useState("");
+  const DEFAULTS = {
+    population: "10000",
+    confidenceLevel: "95",
+    marginOfError: "5",
+  };
+
+  const [population, setPopulation] = useState(DEFAULTS.population);
+  const [confidenceLevel, setConfidenceLevel] = useState(
+    DEFAULTS.confidenceLevel
+  );
+  const [marginOfError, setMarginOfError] = useState(DEFAULTS.marginOfError);
 
   const calculateSampleSize = () => {
     const N = parseFloat(population);
     const z = getZScore(confidenceLevel);
     const E = parseFloat(marginOfError) / 100;
-    const p = 0.5; // proportion of population
+    const p = 0.5;
     const q = 1 - p;
 
-    if (isNaN(N) || isNaN(z) || isNaN(E) || N <= 0 || E <= 0) {
-      setResult("Invalid input");
-      return;
+    if (
+      population.trim() === "" ||
+      marginOfError.trim() === "" ||
+      isNaN(N) ||
+      isNaN(E) ||
+      N <= 0 ||
+      E <= 0
+    ) {
+      return null;
     }
 
-    const numerator = z * z * p * q;
-    const denominator = E * E;
-    const n0 = numerator / denominator;
-
+    const n0 = (z * z * p * q) / (E * E);
     const n = n0 / (1 + (n0 - 1) / N);
-    setResult(Math.ceil(n));
+
+    return {
+      sampleSize: Math.ceil(n),
+      infiniteSample: Math.ceil(n0),
+    };
   };
 
-  const getZScore = (level) => {
-    switch (parseInt(level)) {
-      case 90:
-        return 1.645;
-      case 95:
-        return 1.96;
-      case 99:
-        return 2.576;
-      default:
-        return 1.96;
-    }
+  const result = calculateSampleSize();
+
+  const reset = () => {
+    setPopulation(DEFAULTS.population);
+    setConfidenceLevel(DEFAULTS.confidenceLevel);
+    setMarginOfError(DEFAULTS.marginOfError);
   };
 
   return (
     <>
       <Helmet>
         <title>
-          Sample Size Calculator | Determine Required Sample for Surveys &
-          Studies
+          Sample Size Calculator - Survey Respondents with Finite Population
         </title>
         <meta
           name="description"
-          content="Use our Sample Size Calculator to determine the number of respondents or samples needed for surveys, polls, or statistical studies. Input confidence level, margin of error, and population size."
+          content="Estimate required survey sample size from population size, confidence level (90/95/99%), and margin of error. Uses p = 0.5 and finite population correction."
         />
         <meta
           name="keywords"
-          content="sample size calculator, calculate sample size, survey sample size, statistical sample calculator, confidence interval calculator, population sampling calculator, margin of error calculator"
+          content="sample size calculator, survey sample size, margin of error calculator, confidence level sample, population sampling calculator, finite population correction"
         />
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
           href="https://www.unitedcalculator.net/statistics/sample-size-calculator"
         />
-
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Sample Size Calculator | Determine Required Sample for Surveys & Studies"
+          content="Sample Size Calculator - Surveys & Polls"
         />
         <meta
           property="og:description"
-          content="Calculate the ideal sample size for your survey or study with this Sample Size Calculator. Just enter your population size, confidence level, and margin of error to get started."
+          content="Enter population, confidence level, and margin of error to see how many respondents you need."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/statistics/sample-size-calculator"
         />
-
-        {/* JSON-LD: WebPage */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Sample Size Calculator - Confidence & Margin of Error"
+        />
+        <meta
+          name="twitter:description"
+          content="Quick sample size estimate for proportion surveys with finite population adjustment."
+        />
         <script type="application/ld+json">
           {`
     {
@@ -83,7 +110,7 @@ const SampleSizeCalculator = () => {
       "@type": "WebPage",
       "name": "Sample Size Calculator",
       "url": "https://www.unitedcalculator.net/statistics/sample-size-calculator",
-      "description": "Find out how many people you need to survey using our Sample Size Calculator. Enter population size, margin of error, and confidence level to determine the appropriate sample size for accurate results.",
+      "description": "Sample size calculator for surveys using population size, confidence level, margin of error, and finite population correction with p = 0.5.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -92,8 +119,6 @@ const SampleSizeCalculator = () => {
     }
     `}
         </script>
-
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
           {`
     {
@@ -105,23 +130,21 @@ const SampleSizeCalculator = () => {
           "name": "What is sample size in statistics?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sample size refers to the number of observations or individuals included in a statistical sample. It helps ensure the accuracy and reliability of survey or study results."
+            "text": "Sample size is how many people or observations you include in a survey or study. A larger sample usually narrows uncertainty around your estimate."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I calculate the right sample size?",
+          "name": "Why does this calculator assume p = 0.5?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "To calculate sample size, input the total population size, desired confidence level (like 95%), and acceptable margin of error (like 5%). The calculator uses standard statistical formulas to give the result."
+            "text": "When you do not know the true proportion ahead of time, p = 0.5 gives the most conservative (largest) sample size because p(1−p) is maximized at 0.25."
           }
         }
       ]
     }
     `}
         </script>
-
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
           {`
     {
@@ -152,27 +175,30 @@ const SampleSizeCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Population Size</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Population Size
+            </label>
             <input
               type="number"
               value={population}
               onChange={(e) => setPopulation(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter population size"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              placeholder={DEFAULTS.population}
+              min="1"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Confidence Level (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Confidence Level
             </label>
             <select
               value={confidenceLevel}
               onChange={(e) => setConfidenceLevel(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
             >
               <option value="90">90%</option>
               <option value="95">95%</option>
@@ -180,37 +206,79 @@ const SampleSizeCalculator = () => {
             </select>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Margin of Error (%)
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Margin of Error
             </label>
-            <input
-              type="number"
-              value={marginOfError}
-              onChange={(e) => setMarginOfError(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={marginOfError}
+                onChange={(e) => setMarginOfError(e.target.value)}
+                className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.marginOfError}
+                min="0.01"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
-
-          <button
-            onClick={calculateSampleSize}
-            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
-          >
-            Calculate Sample Size
-          </button>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Required Sample Size
-            </h2>
-            <div className="text-green-600 font-bold text-2xl">
-              {result} people
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Sample Size Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Required sample size</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result ? result.sampleSize.toLocaleString() : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Infinite-population estimate
+              </span>
+              <span className="font-code-num text-code-num">
+                {result ? result.infiniteSample.toLocaleString() : "—"}
+              </span>
+            </div>
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Assumes maximum-variance proportion p = 0.5 and applies finite
+              population correction when N is known.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

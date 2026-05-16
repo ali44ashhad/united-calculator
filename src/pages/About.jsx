@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-
+import React from "react";
 const SITE = "https://unitedcalculator.net";
 
 export default function About() {

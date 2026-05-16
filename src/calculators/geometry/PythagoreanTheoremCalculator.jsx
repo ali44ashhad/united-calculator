@@ -1,78 +1,122 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+
 const PythagoreanTheoremCalculator = () => {
-  const [a, setA] = useState("");
-  const [b, setB] = useState("");
-  const [c, setC] = useState("");
-  const [result, setResult] = useState("");
+  const DEFAULTS = { a: "3", b: "4", c: "" };
+
+  const [a, setA] = useState(DEFAULTS.a);
+  const [b, setB] = useState(DEFAULTS.b);
+  const [c, setC] = useState(DEFAULTS.c);
+
+  const isEmpty = (val) => val.trim() === "";
 
   const calculateMissingSide = () => {
+    const emptyA = isEmpty(a);
+    const emptyB = isEmpty(b);
+    const emptyC = isEmpty(c);
+    const emptyCount = [emptyA, emptyB, emptyC].filter(Boolean).length;
+
+    if (emptyCount !== 1) {
+      return {
+        error:
+          emptyCount === 0
+            ? "Leave exactly one side blank to solve for it."
+            : "Enter two known sides and leave one blank.",
+      };
+    }
+
     const numA = parseFloat(a);
     const numB = parseFloat(b);
     const numC = parseFloat(c);
 
-    if (c === "") {
-      if (!isNaN(numA) && !isNaN(numB)) {
-        const hypotenuse = Math.sqrt(numA ** 2 + numB ** 2);
-        setResult(`Hypotenuse (c) = ${hypotenuse.toFixed(4)}`);
-      } else {
-        setResult("Enter valid values for a and b");
+    if (emptyC) {
+      if (isNaN(numA) || isNaN(numB) || numA <= 0 || numB <= 0) {
+        return { error: "Enter positive valid values for sides a and b." };
       }
-    } else if (a === "") {
-      if (!isNaN(numC) && !isNaN(numB) && numC > numB) {
-        const sideA = Math.sqrt(numC ** 2 - numB ** 2);
-        setResult(`Side a = ${sideA.toFixed(4)}`);
-      } else {
-        setResult("Enter valid values for c and b (c > b)");
-      }
-    } else if (b === "") {
-      if (!isNaN(numC) && !isNaN(numA) && numC > numA) {
-        const sideB = Math.sqrt(numC ** 2 - numA ** 2);
-        setResult(`Side b = ${sideB.toFixed(4)}`);
-      } else {
-        setResult("Enter valid values for c and a (c > a)");
-      }
-    } else {
-      setResult("Leave one field empty to calculate it");
+      return {
+        label: "Hypotenuse (c)",
+        value: Math.sqrt(numA ** 2 + numB ** 2),
+      };
     }
+
+    if (emptyA) {
+      if (isNaN(numC) || isNaN(numB) || numC <= 0 || numB <= 0) {
+        return { error: "Enter positive valid values for c and b." };
+      }
+      if (numC <= numB) {
+        return { error: "Hypotenuse c must be greater than side b." };
+      }
+      return {
+        label: "Side a",
+        value: Math.sqrt(numC ** 2 - numB ** 2),
+      };
+    }
+
+    if (emptyB) {
+      if (isNaN(numC) || isNaN(numA) || numC <= 0 || numA <= 0) {
+        return { error: "Enter positive valid values for c and a." };
+      }
+      if (numC <= numA) {
+        return { error: "Hypotenuse c must be greater than side a." };
+      }
+      return {
+        label: "Side b",
+        value: Math.sqrt(numC ** 2 - numA ** 2),
+      };
+    }
+
+    return null;
+  };
+
+  const result = calculateMissingSide();
+
+  const reset = () => {
+    setA(DEFAULTS.a);
+    setB(DEFAULTS.b);
+    setC(DEFAULTS.c);
   };
 
   return (
     <>
       <Helmet>
         <title>
-          Pythagorean Theorem Calculator | Calculate Hypotenuse & Triangle Sides
+          Pythagorean Theorem Calculator - Hypotenuse & Right Triangle Sides
         </title>
         <meta
           name="description"
-          content="Use our Pythagorean Theorem Calculator to find the hypotenuse or any side of a right-angled triangle. Apply the Pythagorean formula with ease and solve geometry problems instantly."
+          content="Solve a² + b² = c² for the missing side of a right triangle. Enter any two sides and leave one blank to find the hypotenuse or a leg."
         />
         <meta
           name="keywords"
-          content="pythagorean theorem calculator, hypotenuse calculator, right triangle calculator, triangle side calculator, geometry calculator, a squared plus b squared equals c squared"
+          content="pythagorean theorem calculator, hypotenuse calculator, right triangle calculator, a squared plus b squared, missing triangle side calculator"
         />
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
           href="https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator"
         />
-
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Pythagorean Theorem Calculator | Calculate Hypotenuse & Triangle Sides"
+          content="Pythagorean Theorem Calculator - a² + b² = c²"
         />
         <meta
           property="og:description"
-          content="Find any side of a right-angled triangle using the Pythagorean Theorem Calculator. Calculate hypotenuse or legs easily using the a² + b² = c² formula."
+          content="Find the missing side of a right triangle when you know the other two."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator"
         />
-
-        {/* JSON-LD: WebPage */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Pythagorean Theorem Calculator - Right Triangle Sides"
+        />
+        <meta
+          name="twitter:description"
+          content="Calculate hypotenuse or leg length from two known sides."
+        />
         <script type="application/ld+json">
           {`
     {
@@ -80,7 +124,7 @@ const PythagoreanTheoremCalculator = () => {
       "@type": "WebPage",
       "name": "Pythagorean Theorem Calculator",
       "url": "https://www.unitedcalculator.net/geometry/pythagorean-theorem-calculator",
-      "description": "Use the Pythagorean Theorem Calculator to calculate the hypotenuse or any missing side of a right triangle using the a² + b² = c² formula. Ideal for students, teachers, and geometry enthusiasts.",
+      "description": "Pythagorean theorem calculator to find the missing side of a right triangle using a² + b² = c² when two sides are known.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -89,8 +133,6 @@ const PythagoreanTheoremCalculator = () => {
     }
     `}
         </script>
-
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
           {`
     {
@@ -102,23 +144,21 @@ const PythagoreanTheoremCalculator = () => {
           "name": "What is the Pythagorean Theorem?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The Pythagorean Theorem is a fundamental principle in geometry that states: a² + b² = c², where c is the hypotenuse of a right-angled triangle, and a and b are the lengths of the other two sides."
+            "text": "For a right triangle, a² + b² = c², where c is the hypotenuse (longest side) and a and b are the legs."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I use a Pythagorean Theorem Calculator?",
+          "name": "How many sides do I enter?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "To use the calculator, enter the lengths of any two sides of a right triangle. The calculator will use the Pythagorean formula to find the missing third side instantly."
+            "text": "Enter exactly two known sides and leave the third blank. The calculator solves for the missing value."
           }
         }
       ]
     }
     `}
         </script>
-
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
           {`
     {
@@ -149,56 +189,103 @@ const PythagoreanTheoremCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">
-          Pythagorean Theorem Calculator
-        </h2>
-
-        <div className="mb-3">
-          <label className="block font-medium mb-1">Side a</label>
-          <input
-            type="number"
-            value={a}
-            onChange={(e) => setA(e.target.value)}
-            placeholder="Leave blank if unknown"
-            className="w-full px-3 py-2 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="block font-medium mb-1">Side b</label>
-          <input
-            type="number"
-            value={b}
-            onChange={(e) => setB(e.target.value)}
-            placeholder="Leave blank if unknown"
-            className="w-full px-3 py-2 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="block font-medium mb-1">Hypotenuse (c)</label>
-          <input
-            type="number"
-            value={c}
-            onChange={(e) => setC(e.target.value)}
-            placeholder="Leave blank if unknown"
-            className="w-full px-3 py-2 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-          />
-        </div>
-
-        <button
-          onClick={calculateMissingSide}
-          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
-        >
-          Calculate
-        </button>
-
-        {result && (
-          <div className="mt-4 bg-gray-50 p-4 border rounded text-gray-800">
-            {result}
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Side a</label>
+            <input
+              type="number"
+              value={a}
+              onChange={(e) => setA(e.target.value)}
+              placeholder="Leave blank if unknown"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              min="0"
+              step="any"
+            />
           </div>
-        )}
+
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Side b</label>
+            <input
+              type="number"
+              value={b}
+              onChange={(e) => setB(e.target.value)}
+              placeholder="Leave blank if unknown"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              min="0"
+              step="any"
+            />
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Hypotenuse (c)
+            </label>
+            <input
+              type="number"
+              value={c}
+              onChange={(e) => setC(e.target.value)}
+              placeholder="Leave blank if unknown"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              min="0"
+              step="any"
+            />
+            <p className="text-sm text-on-surface-variant">
+              Leave exactly one field empty. c must be the longest side when
+              solving for a leg.
+            </p>
+          </div>
+        </div>
+
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Pythagorean Theorem Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Missing side</span>
+              <span className="font-code-num text-code-num">
+                {result?.label ?? "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Length</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result?.value != null ? result.value.toFixed(4) : "—"}
+              </span>
+            </div>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+          </div>
+        </section>
       </div>
     </>
   );

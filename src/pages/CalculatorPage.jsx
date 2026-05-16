@@ -15,6 +15,22 @@ import BondSeoContent from "../components/seo/BondSeoContent";
 import BudgetSeoContent from "../components/seo/BudgetSeoContent";
 import BusinessLoanSeoContent from "../components/seo/BusinessLoanSeoContent";
 import CanadianMortgageSeoContent from "../components/seo/CanadianMortgageSeoContent";
+import CashBackOrLowInterestSeoContent from "../components/seo/CashBackOrLowInterestSeoContent";
+import CDSeoContent from "../components/seo/CDSeoContent";
+import CollegeCostSeoContent from "../components/seo/CollegeCostSeoContent";
+import CommissionSeoContent from "../components/seo/CommissionSeoContent";
+import CompoundInterestSeoContent from "../components/seo/CompoundInterestSeoContent";
+import CreditCardSeoContent from "../components/seo/CreditCardSeoContent";
+import PValueSeoContent from "../components/seo/PValueSeoContent";
+import SampleSizeSeoContent from "../components/seo/SampleSizeSeoContent";
+import StandardDeviationSeoContent from "../components/seo/StandardDeviationSeoContent";
+import StatisticsSeoContent from "../components/seo/StatisticsSeoContent";
+import ZScoreSeoContent from "../components/seo/ZScoreSeoContent";
+import PythagoreanTheoremSeoContent from "../components/seo/PythagoreanTheoremSeoContent";
+import RightTriangleSeoContent from "../components/seo/RightTriangleSeoContent";
+import SurfaceAreaSeoContent from "../components/seo/SurfaceAreaSeoContent";
+import TriangleSeoContent from "../components/seo/TriangleSeoContent";
+import VolumeSeoContent from "../components/seo/VolumeSeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -603,6 +619,44 @@ const CalculatorPage = () => {
           {calculator?.id === "canadian-mortgage-calculator" && (
             <CanadianMortgageSeoContent />
           )}
+          {calculator?.id === "cash-back-or-low-interest-calculator" && (
+            <CashBackOrLowInterestSeoContent />
+          )}
+          {calculator?.id === "cd-calculator" && <CDSeoContent />}
+          {calculator?.id === "college-cost-calculator" && (
+            <CollegeCostSeoContent />
+          )}
+          {calculator?.id === "commission-calculator" && (
+            <CommissionSeoContent />
+          )}
+          {calculator?.id === "compound-interest-calculator" && (
+            <CompoundInterestSeoContent />
+          )}
+          {calculator?.id === "credit-card-calculator" && (
+            <CreditCardSeoContent />
+          )}
+          {calculator?.id === "p-value-calculator" && <PValueSeoContent />}
+          {calculator?.id === "sample-size-calculator" && (
+            <SampleSizeSeoContent />
+          )}
+          {calculator?.id === "standard-deviation-calculator" && (
+            <StandardDeviationSeoContent />
+          )}
+          {calculator?.id === "statistics-calculator" && (
+            <StatisticsSeoContent />
+          )}
+          {calculator?.id === "z-score-calculator" && <ZScoreSeoContent />}
+          {calculator?.id === "pythagorean-theorem-calculator" && (
+            <PythagoreanTheoremSeoContent />
+          )}
+          {calculator?.id === "right-triangle-calculator" && (
+            <RightTriangleSeoContent />
+          )}
+          {calculator?.id === "surface-area-calculator" && (
+            <SurfaceAreaSeoContent />
+          )}
+          {calculator?.id === "triangle-calculator" && <TriangleSeoContent />}
+          {calculator?.id === "volume-calculator" && <VolumeSeoContent />}
 
           {/* Related Tools (global, same for all calculators) */}
           <div className="space-y-6">

@@ -1,7 +1,7 @@
 import { calculators } from "../data/calculators";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 const Home = () => {
   const [query, setQuery] = useState("");

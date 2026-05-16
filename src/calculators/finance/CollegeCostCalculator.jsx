@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+
 const CollegeCostCalculator = () => {
-  const [currentCost, setCurrentCost] = useState("20000"); // per year
-  const [yearsUntilCollege, setYearsUntilCollege] = useState("10");
-  const [inflationRate, setInflationRate] = useState("5");
-  const [numberOfYears, setNumberOfYears] = useState("4");
+  const DEFAULTS = {
+    currentCost: "20000",
+    yearsUntilCollege: "10",
+    inflationRate: "5",
+    numberOfYears: "4",
+  };
+
+  const [currentCost, setCurrentCost] = useState(DEFAULTS.currentCost);
+  const [yearsUntilCollege, setYearsUntilCollege] = useState(
+    DEFAULTS.yearsUntilCollege
+  );
+  const [inflationRate, setInflationRate] = useState(DEFAULTS.inflationRate);
+  const [numberOfYears, setNumberOfYears] = useState(DEFAULTS.numberOfYears);
 
   const calculateCollegeCost = () => {
     const cost = parseFloat(currentCost);
@@ -16,9 +26,13 @@ const CollegeCostCalculator = () => {
       isNaN(cost) ||
       isNaN(inflation) ||
       isNaN(waitYears) ||
-      isNaN(studyYears)
-    )
+      isNaN(studyYears) ||
+      cost <= 0 ||
+      studyYears <= 0 ||
+      waitYears < 0
+    ) {
       return null;
+    }
 
     let totalFutureCost = 0;
     for (let i = 0; i < studyYears; i++) {
@@ -38,14 +52,16 @@ const CollegeCostCalculator = () => {
   return (
     <>
       <Helmet>
-        <title>College Cost Calculator</title>
+        <title>
+          College Cost Calculator - Future Tuition & Total Degree Estimate
+        </title>
         <meta
           name="description"
-          content="Use our College Cost Calculator to estimate the total cost of college including tuition, room & board, books, and other expenses. Plan your education budget effectively."
+          content="Project college costs with inflation: enter today's annual cost, years until enrollment, inflation rate, and years of study to see first-year and total future expenses."
         />
         <meta
           name="keywords"
-          content="college cost calculator, education cost calculator, university expense calculator, tuition calculator, college budget planner, college savings calculator"
+          content="college cost calculator, future tuition calculator, education inflation calculator, university cost estimator, four year college cost, college budget planner"
         />
         <meta name="robots" content="index, follow" />
         <link
@@ -56,11 +72,17 @@ const CollegeCostCalculator = () => {
         <meta property="og:title" content="College Cost Calculator" />
         <meta
           property="og:description"
-          content="Calculate your total college expenses with our College Cost Calculator. Estimate tuition, housing, books, and other costs to plan your financial future."
+          content="Estimate inflated annual college costs and total degree expense before your student enrolls."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/finance/college-cost-calculator"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="College Cost Calculator" />
+        <meta
+          name="twitter:description"
+          content="See first-year and total future college costs with an annual inflation assumption."
         />
         <script type="application/ld+json">
           {`
@@ -69,7 +91,7 @@ const CollegeCostCalculator = () => {
       "@type": "WebPage",
       "name": "College Cost Calculator",
       "url": "https://www.unitedcalculator.net/finance/college-cost-calculator",
-      "description": "Use our College Cost Calculator to estimate and plan for all higher education expenses including tuition, room & board, and other costs.",
+      "description": "Estimate future college costs by inflating current annual expenses over years until enrollment and through the degree program.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -89,7 +111,7 @@ const CollegeCostCalculator = () => {
           "name": "What is a College Cost Calculator?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A College Cost Calculator helps you estimate the total cost of attending college, including tuition, fees, housing, books, and other expenses."
+            "text": "It projects future annual college costs and total degree expense using today's cost, years until college, an inflation rate, and number of years enrolled."
           }
         },
         {
@@ -97,7 +119,7 @@ const CollegeCostCalculator = () => {
           "name": "Why should I use a College Cost Calculator?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Using a College Cost Calculator allows students and parents to better understand and plan for the financial requirements of higher education."
+            "text": "It helps families plan savings targets by showing how tuition inflation compounds before and during enrollment."
           }
         }
       ]
@@ -134,82 +156,129 @@ const CollegeCostCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">
-              Current Annual College Cost ($)
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Current annual college cost
             </label>
-            <input
-              type="number"
-              value={currentCost}
-              onChange={(e) => setCurrentCost(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 20000"
-            />
+            <div className="relative max-w-full md:max-w-md">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={currentCost}
+                onChange={(e) => setCurrentCost(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.currentCost}
+              />
+            </div>
+            <p className="text-sm text-on-surface-variant">
+              Tuition, room, board, and fees combined for one year today.
+            </p>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Years Until College
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Years until college starts
             </label>
             <input
               type="number"
               value={yearsUntilCollege}
               onChange={(e) => setYearsUntilCollege(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              placeholder={DEFAULTS.yearsUntilCollege}
+              min="0"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Inflation Rate (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual inflation rate
             </label>
-            <input
-              type="number"
-              value={inflationRate}
-              onChange={(e) => setInflationRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={inflationRate}
+                onChange={(e) => setInflationRate(e.target.value)}
+                className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+                placeholder={DEFAULTS.inflationRate}
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Number of Years in College
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Years enrolled (degree length)
             </label>
             <input
               type="number"
               value={numberOfYears}
               onChange={(e) => setNumberOfYears(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 4"
+              className="w-full max-w-full md:max-w-md px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              placeholder={DEFAULTS.numberOfYears}
+              min="1"
             />
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              College Cost Estimate
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">First Year Cost (Future):</span>
-                <span className="text-yellow-600 font-medium">
-                  ${result.futureAnnualCost}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">
-                  Total College Cost (All Years):
-                </span>
-                <span className="text-blue-600">${result.totalFutureCost}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setCurrentCost(DEFAULTS.currentCost);
+                setYearsUntilCollege(DEFAULTS.yearsUntilCollege);
+                setInflationRate(DEFAULTS.inflationRate);
+                setNumberOfYears(DEFAULTS.numberOfYears);
+              }}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            College Cost Estimate
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">First year cost (future)</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result ? `$${result.futureAnnualCost}` : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Total cost (all enrolled years)
+              </span>
+              <span className="font-code-num text-code-num">
+                {result ? `$${result.totalFutureCost}` : "—"}
+              </span>
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );

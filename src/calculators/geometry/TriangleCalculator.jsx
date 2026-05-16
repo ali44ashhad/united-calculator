@@ -1,81 +1,105 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+
+const DEFAULTS = {
+  base: "10",
+  height: "5",
+  sideA: "10",
+  sideB: "6",
+  sideC: "8",
+};
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
 const TriangleCalculator = () => {
-  const [base, setBase] = useState("10");
-  const [height, setHeight] = useState("5");
-  const [sideA, setSideA] = useState("10");
-  const [sideB, setSideB] = useState("6");
-  const [sideC, setSideC] = useState("8");
-  const [results, setResults] = useState({ area: "", perimeter: "" });
+  const [base, setBase] = useState(DEFAULTS.base);
+  const [height, setHeight] = useState(DEFAULTS.height);
+  const [sideA, setSideA] = useState(DEFAULTS.sideA);
+  const [sideB, setSideB] = useState(DEFAULTS.sideB);
+  const [sideC, setSideC] = useState(DEFAULTS.sideC);
 
   const calculateTriangle = () => {
     const b = parseFloat(base);
     const h = parseFloat(height);
     const a = parseFloat(sideA);
+    const sb = parseFloat(sideB);
     const c = parseFloat(sideC);
-    const d = parseFloat(sideB);
 
     if (
-      isNaN(b) ||
-      isNaN(h) ||
-      isNaN(a) ||
-      isNaN(c) ||
-      isNaN(d) ||
-      b <= 0 ||
-      h <= 0 ||
-      a <= 0 ||
-      c <= 0 ||
-      d <= 0
+      [b, h, a, sb, c].some((n) => isNaN(n) || n <= 0) ||
+      [base, height, sideA, sideB, sideC].some((v) => v.trim() === "")
     ) {
-      setResults({ area: "Invalid input", perimeter: "Invalid input" });
-      return;
+      return { error: "Enter positive values for base, height, and all three sides." };
     }
 
-    const area = 0.5 * b * h;
-    const perimeter = a + c + d;
+    const validTriangle =
+      a + sb > c && a + c > sb && sb + c > a;
 
-    setResults({
-      area: area.toFixed(2),
-      perimeter: perimeter.toFixed(2),
-    });
+    if (!validTriangle) {
+      return {
+        error:
+          "Side lengths must satisfy the triangle inequality (each pair must sum to more than the third side).",
+      };
+    }
+
+    return {
+      area: 0.5 * b * h,
+      perimeter: a + sb + c,
+    };
+  };
+
+  const result = calculateTriangle();
+
+  const reset = () => {
+    setBase(DEFAULTS.base);
+    setHeight(DEFAULTS.height);
+    setSideA(DEFAULTS.sideA);
+    setSideB(DEFAULTS.sideB);
+    setSideC(DEFAULTS.sideC);
   };
 
   return (
     <>
       <Helmet>
         <title>
-          Triangle Calculator | Find Area, Perimeter & Angles of Any Triangle
+          Triangle Calculator - Area (Base × Height) & Perimeter
         </title>
         <meta
           name="description"
-          content="Use our Triangle Calculator to calculate the area, perimeter, angles, and sides of any triangle type. Solve triangle problems using Heron's formula, SSS, SAS, ASA, and more."
+          content="Calculate triangle area with ½ × base × height and perimeter from three side lengths. Free online triangle area and perimeter calculator for geometry homework."
         />
         <meta
           name="keywords"
-          content="triangle calculator, triangle area calculator, triangle perimeter calculator, heron's formula calculator, triangle angle calculator, SSS triangle calculator, SAS triangle calculator, ASA triangle calculator"
+          content="triangle calculator, triangle area calculator base and height, triangle perimeter calculator three sides, find area of triangle online, calculate perimeter of triangle, geometry triangle tool"
         />
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
           href="https://www.unitedcalculator.net/geometry/triangle-calculator"
         />
-
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Triangle Calculator | Find Area, Perimeter & Angles of Any Triangle"
+          content="Triangle Calculator - Area & Perimeter"
         />
         <meta
           property="og:description"
-          content="Solve triangle problems with ease using our Triangle Calculator. Find area, perimeter, angles, and unknown sides using Heron's formula, trigonometry, and triangle theorems."
+          content="Enter base, height, and three sides to get triangle area and perimeter."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/geometry/triangle-calculator"
         />
-
-        {/* JSON-LD: WebPage */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Triangle Area & Perimeter Calculator"
+        />
+        <meta
+          name="twitter:description"
+          content="½ × base × height for area; sum of sides for perimeter."
+        />
         <script type="application/ld+json">
           {`
     {
@@ -83,7 +107,7 @@ const TriangleCalculator = () => {
       "@type": "WebPage",
       "name": "Triangle Calculator",
       "url": "https://www.unitedcalculator.net/geometry/triangle-calculator",
-      "description": "This Triangle Calculator helps you find the area, perimeter, angles, and side lengths of any triangle. Supports all triangle types with SSS, SAS, ASA, and AAS solving methods.",
+      "description": "Triangle calculator for area using base and height and perimeter from three side lengths.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -92,8 +116,6 @@ const TriangleCalculator = () => {
     }
     `}
         </script>
-
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
           {`
     {
@@ -102,26 +124,24 @@ const TriangleCalculator = () => {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How do I calculate the area of a triangle?",
+          "name": "How does this triangle calculator find area?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The area of a triangle can be calculated using various formulas depending on the known values. The most common is ½ × base × height. For known sides, Heron's formula is used."
+            "text": "Area uses the formula ½ × base × height. Enter the base length and the perpendicular height from that base to the opposite vertex."
           }
         },
         {
           "@type": "Question",
-          "name": "What methods does the Triangle Calculator use?",
+          "name": "How is perimeter calculated?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The Triangle Calculator supports solving using SSS (Side-Side-Side), SAS (Side-Angle-Side), ASA (Angle-Side-Angle), and Heron's formula. It calculates angles, area, perimeter, and missing sides."
+            "text": "Perimeter is the sum of side A, side B, and side C. The three sides must form a valid triangle (triangle inequality)."
           }
         }
       ]
     }
     `}
         </script>
-
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
           {`
     {
@@ -152,80 +172,138 @@ const TriangleCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="grid gap-4">
-          <div>
-            <label className="block mb-1 font-medium">Base</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <p className="text-sm font-medium text-on-surface-variant uppercase tracking-wide">
+              For area (½ × b × h)
+            </p>
+          </div>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Base</label>
             <input
               type="number"
               value={base}
               onChange={(e) => setBase(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter base"
+              className={inputClassName}
+              placeholder={DEFAULTS.base}
+              min="0"
+              step="any"
             />
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Height</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Height</label>
             <input
               type="number"
               value={height}
               onChange={(e) => setHeight(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter height"
+              className={inputClassName}
+              placeholder={DEFAULTS.height}
+              min="0"
+              step="any"
             />
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Side A</label>
+
+          <div className="space-y-2 md:col-span-2 pt-2 border-t border-outline-variant">
+            <p className="text-sm font-medium text-on-surface-variant uppercase tracking-wide">
+              For perimeter (a + b + c)
+            </p>
+          </div>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Side A</label>
             <input
               type="number"
               value={sideA}
               onChange={(e) => setSideA(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter side A"
+              className={inputClassName}
+              placeholder={DEFAULTS.sideA}
+              min="0"
+              step="any"
             />
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Side B</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Side B</label>
             <input
               type="number"
               value={sideB}
               onChange={(e) => setSideB(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter side B"
+              className={inputClassName}
+              placeholder={DEFAULTS.sideB}
+              min="0"
+              step="any"
             />
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Side C</label>
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">Side C</label>
             <input
               type="number"
               value={sideC}
               onChange={(e) => setSideC(e.target.value)}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter side C"
+              className={inputClassName}
+              placeholder={DEFAULTS.sideC}
+              min="0"
+              step="any"
             />
           </div>
-
-          <button
-            onClick={calculateTriangle}
-            className="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition"
-          >
-            Calculate Area & Perimeter
-          </button>
         </div>
 
-        {results.area && (
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Results
-            </h2>
-            <p className="text-green-600 font-semibold text-lg">
-              Area: {results.area} units²
-            </p>
-            <p className="text-blue-600 font-semibold text-lg">
-              Perimeter: {results.perimeter} units
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Triangle Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Area</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result?.area != null
+                  ? `${result.area.toFixed(4)} sq units`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Perimeter</span>
+              <span className="font-code-num text-code-num">
+                {result?.perimeter != null
+                  ? `${result.perimeter.toFixed(4)} units`
+                  : "—"}
+              </span>
+            </div>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Area uses base and height only. Perimeter sums the three side
+              lengths (they must satisfy the triangle inequality).
             </p>
           </div>
-        )}
+        </section>
       </div>
     </>
   );

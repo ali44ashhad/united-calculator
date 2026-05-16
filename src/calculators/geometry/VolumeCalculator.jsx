@@ -1,115 +1,195 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+
+const SHAPE_DEFAULTS = {
+  cube: { side: "5" },
+  cuboid: { length: "6", width: "4", height: "3" },
+  sphere: { radius: "5" },
+  cylinder: { radius: "4", height: "10" },
+  cone: { radius: "3", height: "4" },
+};
+
+const SHAPE_LABELS = {
+  cube: "Cube",
+  cuboid: "Cuboid (rectangular prism)",
+  sphere: "Sphere",
+  cylinder: "Cylinder",
+  cone: "Cone",
+};
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const parsePositive = (val) => {
+  const n = parseFloat(val);
+  return val !== undefined && val !== "" && !isNaN(n) && n > 0 ? n : null;
+};
+
 const VolumeCalculator = () => {
   const [shape, setShape] = useState("cube");
-  const [inputs, setInputs] = useState({});
-  const [volume, setVolume] = useState(null);
+  const [inputs, setInputs] = useState(SHAPE_DEFAULTS.cube);
 
   const handleInputChange = (e) => {
-    setInputs({
-      ...inputs,
-      [e.target.name]: parseFloat(e.target.value),
-    });
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+
+  const handleShapeChange = (e) => {
+    const nextShape = e.target.value;
+    setShape(nextShape);
+    setInputs(SHAPE_DEFAULTS[nextShape]);
   };
 
   const calculateVolume = () => {
-    let result = 0;
+    const { side, length, width, height, radius } = inputs;
 
     switch (shape) {
-      case "cube":
-        if (inputs.side) result = Math.pow(inputs.side, 3);
-        break;
-      case "cuboid":
-        if (inputs.length && inputs.width && inputs.height)
-          result = inputs.length * inputs.width * inputs.height;
-        break;
-      case "sphere":
-        if (inputs.radius)
-          result = (4 / 3) * Math.PI * Math.pow(inputs.radius, 3);
-        break;
-      case "cylinder":
-        if (inputs.radius && inputs.height)
-          result = Math.PI * Math.pow(inputs.radius, 2) * inputs.height;
-        break;
-      case "cone":
-        if (inputs.radius && inputs.height)
-          result =
-            (1 / 3) * Math.PI * Math.pow(inputs.radius, 2) * inputs.height;
-        break;
+      case "cube": {
+        const s = parsePositive(side);
+        if (s === null) return { error: "Enter a positive side length." };
+        return { volume: s ** 3, formula: "V = s³" };
+      }
+      case "cuboid": {
+        const l = parsePositive(length);
+        const w = parsePositive(width);
+        const h = parsePositive(height);
+        if (l === null || w === null || h === null) {
+          return { error: "Enter positive length, width, and height." };
+        }
+        return { volume: l * w * h, formula: "V = l × w × h" };
+      }
+      case "sphere": {
+        const r = parsePositive(radius);
+        if (r === null) return { error: "Enter a positive radius." };
+        return {
+          volume: (4 / 3) * Math.PI * r ** 3,
+          formula: "V = (4/3)πr³",
+        };
+      }
+      case "cylinder": {
+        const r = parsePositive(radius);
+        const h = parsePositive(height);
+        if (r === null || h === null) {
+          return { error: "Enter positive radius and height." };
+        }
+        return {
+          volume: Math.PI * r ** 2 * h,
+          formula: "V = πr²h",
+        };
+      }
+      case "cone": {
+        const r = parsePositive(radius);
+        const h = parsePositive(height);
+        if (r === null || h === null) {
+          return { error: "Enter positive radius and vertical height." };
+        }
+        return {
+          volume: (1 / 3) * Math.PI * r ** 2 * h,
+          formula: "V = (1/3)πr²h",
+        };
+      }
       default:
-        result = 0;
+        return null;
     }
-
-    setVolume(result ? result.toFixed(2) : "Invalid input");
   };
 
-  const renderFields = () => {
+  const result = calculateVolume();
+
+  const reset = () => {
+    setShape("cube");
+    setInputs(SHAPE_DEFAULTS.cube);
+  };
+
+  const renderInputs = () => {
     switch (shape) {
       case "cube":
         return (
-          <input
-            type="number"
-            name="side"
-            onChange={handleInputChange}
-            className="w-full border rounded p-2"
-            placeholder="Side Length"
-          />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Side length</label>
+            <input
+              type="number"
+              name="side"
+              value={inputs.side ?? ""}
+              onChange={handleInputChange}
+              className={inputClassName}
+              placeholder={SHAPE_DEFAULTS.cube.side}
+              min="0"
+              step="any"
+            />
+          </div>
         );
       case "cuboid":
         return (
-          <>
-            <input
-              type="number"
-              name="length"
-              onChange={handleInputChange}
-              className="w-full border rounded p-2"
-              placeholder="Length"
-            />
-            <input
-              type="number"
-              name="width"
-              onChange={handleInputChange}
-              className="w-full border rounded p-2 mt-2"
-              placeholder="Width"
-            />
-            <input
-              type="number"
-              name="height"
-              onChange={handleInputChange}
-              className="w-full border rounded p-2 mt-2"
-              placeholder="Height"
-            />
-          </>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              ["length", "Length", SHAPE_DEFAULTS.cuboid.length],
+              ["width", "Width", SHAPE_DEFAULTS.cuboid.width],
+              ["height", "Height", SHAPE_DEFAULTS.cuboid.height],
+            ].map(([name, label, placeholder]) => (
+              <div key={name} className="space-y-2">
+                <label className="font-h3 text-h3 text-on-surface">{label}</label>
+                <input
+                  type="number"
+                  name={name}
+                  value={inputs[name] ?? ""}
+                  onChange={handleInputChange}
+                  className={inputClassName}
+                  placeholder={placeholder}
+                  min="0"
+                  step="any"
+                />
+              </div>
+            ))}
+          </div>
         );
       case "sphere":
         return (
-          <input
-            type="number"
-            name="radius"
-            onChange={handleInputChange}
-            className="w-full border rounded p-2"
-            placeholder="Radius"
-          />
-        );
-      case "cylinder":
-      case "cone":
-        return (
-          <>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Radius</label>
             <input
               type="number"
               name="radius"
+              value={inputs.radius ?? ""}
               onChange={handleInputChange}
-              className="w-full border rounded p-2"
-              placeholder="Radius"
+              className={inputClassName}
+              placeholder={SHAPE_DEFAULTS.sphere.radius}
+              min="0"
+              step="any"
             />
-            <input
-              type="number"
-              name="height"
-              onChange={handleInputChange}
-              className="w-full border rounded p-2 mt-2"
-              placeholder="Height"
-            />
-          </>
+          </div>
+        );
+      case "cylinder":
+      case "cone":
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="font-h3 text-h3 text-on-surface">Radius</label>
+              <input
+                type="number"
+                name="radius"
+                value={inputs.radius ?? ""}
+                onChange={handleInputChange}
+                className={inputClassName}
+                placeholder={SHAPE_DEFAULTS[shape].radius}
+                min="0"
+                step="any"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="font-h3 text-h3 text-on-surface">
+                {shape === "cone" ? "Vertical height (h)" : "Height"}
+              </label>
+              <input
+                type="number"
+                name="height"
+                value={inputs.height ?? ""}
+                onChange={handleInputChange}
+                className={inputClassName}
+                placeholder={SHAPE_DEFAULTS[shape].height}
+                min="0"
+                step="any"
+              />
+            </div>
+          </div>
         );
       default:
         return null;
@@ -120,38 +200,43 @@ const VolumeCalculator = () => {
     <>
       <Helmet>
         <title>
-          Volume Calculator | Calculate Volume of 3D Shapes Instantly
+          Volume Calculator - Cube, Sphere, Cylinder, Cone & Cuboid
         </title>
         <meta
           name="description"
-          content="Use our Volume Calculator to find the volume of 3D shapes like cubes, cylinders, cones, spheres, pyramids, and more. Accurate and fast geometry tool with formulas and visual aids."
+          content="Calculate volume of 3D shapes: cube, cuboid, sphere, cylinder, and cone. Enter dimensions for instant cubic-unit results with standard geometry formulas."
         />
         <meta
           name="keywords"
-          content="volume calculator, 3D shape volume calculator, cube volume calculator, sphere volume calculator, cone volume calculator, cylinder volume calculator, geometry calculator, solid volume formulas"
+          content="volume calculator, cube volume calculator, sphere volume formula calculator, cylinder volume calculator, cone volume calculator, rectangular prism volume, how to find volume of 3d shapes online"
         />
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
           href="https://www.unitedcalculator.net/geometry/volume-calculator"
         />
-
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Volume Calculator | Calculate Volume of 3D Shapes Instantly"
+          content="Volume Calculator - 3D Shape Capacity"
         />
         <meta
           property="og:description"
-          content="Quickly calculate the volume of 3D geometric shapes like cubes, spheres, cones, cylinders, and pyramids using our free Volume Calculator. Includes volume formulas and step-by-step results."
+          content="Pick a solid, enter measurements, get volume in cubic units."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/geometry/volume-calculator"
         />
-
-        {/* JSON-LD: WebPage */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Volume Calculator - Cubic Units for 3D Solids"
+        />
+        <meta
+          name="twitter:description"
+          content="Free online volume calculator for common 3D geometry shapes."
+        />
         <script type="application/ld+json">
           {`
     {
@@ -159,7 +244,7 @@ const VolumeCalculator = () => {
       "@type": "WebPage",
       "name": "Volume Calculator",
       "url": "https://www.unitedcalculator.net/geometry/volume-calculator",
-      "description": "This Volume Calculator allows you to calculate the volume of common 3D shapes including cubes, cylinders, cones, spheres, and pyramids. Ideal for students, teachers, and geometry learners.",
+      "description": "Volume calculator for cube, cuboid, sphere, cylinder, and cone using standard volume formulas.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -168,8 +253,6 @@ const VolumeCalculator = () => {
     }
     `}
         </script>
-
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
           {`
     {
@@ -178,26 +261,24 @@ const VolumeCalculator = () => {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is volume in geometry?",
+          "name": "What shapes does this volume calculator support?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Volume is the amount of space occupied by a 3D object and is measured in cubic units. Common shapes include cubes, spheres, cones, and cylinders."
+            "text": "Cube, cuboid (rectangular prism), sphere, cylinder, and cone. Each uses its standard volume formula."
           }
         },
         {
           "@type": "Question",
-          "name": "How does this Volume Calculator work?",
+          "name": "Does the cone use slant height or vertical height?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "To use the Volume Calculator, select a 3D shape and enter its dimensions such as radius, height, or base. The calculator then applies the correct formula to find the volume."
+            "text": "Vertical height h in V = (1/3)πr²h, measured perpendicular from base to apex—not slant height."
           }
         }
       ]
     }
     `}
         </script>
-
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
           {`
     {
@@ -228,47 +309,82 @@ const VolumeCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <h2 className="text-xl font-bold mb-4 text-center">
-          Volume Calculator
-        </h2>
-
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Choose Shape</label>
-          <select
-            value={shape}
-            onChange={(e) => {
-              setShape(e.target.value);
-              setInputs({});
-              setVolume(null);
-            }}
-            className="w-full border rounded p-2"
-          >
-            <option value="cube">Cube</option>
-            <option value="cuboid">Cuboid</option>
-            <option value="sphere">Sphere</option>
-            <option value="cylinder">Cylinder</option>
-            <option value="cone">Cone</option>
-          </select>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">3D shape</label>
+            <select
+              value={shape}
+              onChange={handleShapeChange}
+              className={inputClassName}
+            >
+              <option value="cube">Cube</option>
+              <option value="cuboid">Cuboid (rectangular prism)</option>
+              <option value="sphere">Sphere</option>
+              <option value="cylinder">Cylinder</option>
+              <option value="cone">Cone</option>
+            </select>
+          </div>
+          {renderInputs()}
         </div>
 
-        <div className="space-y-2">{renderFields()}</div>
-
-        <button
-          onClick={calculateVolume}
-          className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition"
-        >
-          Calculate Volume
-        </button>
-
-        {volume !== null && (
-          <div className="mt-4 p-4 bg-gray-50 border rounded">
-            <h3 className="text-lg font-semibold text-gray-800">Result:</h3>
-            <p className="text-green-600 text-xl font-bold">
-              {volume} cubic units
-            </p>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
           </div>
-        )}
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Volume Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Shape</span>
+              <span className="font-code-num text-code-num">
+                {SHAPE_LABELS[shape]}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Formula used</span>
+              <span className="font-code-num text-code-num text-sm">
+                {result?.formula ?? "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Volume</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result?.volume != null
+                  ? `${result.volume.toFixed(4)} cubic units`
+                  : "—"}
+              </span>
+            </div>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+          </div>
+        </section>
       </div>
     </>
   );

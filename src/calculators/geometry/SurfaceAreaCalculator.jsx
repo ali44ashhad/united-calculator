@@ -1,150 +1,231 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+
+const SHAPE_DEFAULTS = {
+  cube: { side: "5" },
+  cuboid: { length: "6", width: "4", height: "3" },
+  sphere: { radius: "5" },
+  cylinder: { radius: "4", height: "10" },
+  cone: { radius: "3", slantHeight: "5" },
+};
+
+const SHAPE_LABELS = {
+  cube: "Cube",
+  cuboid: "Cuboid (rectangular prism)",
+  sphere: "Sphere",
+  cylinder: "Cylinder",
+  cone: "Cone",
+};
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const parsePositive = (val) => {
+  const n = parseFloat(val);
+  return val !== undefined && val !== "" && !isNaN(n) && n > 0 ? n : null;
+};
+
 const SurfaceAreaCalculator = () => {
   const [shape, setShape] = useState("cube");
-  const [inputs, setInputs] = useState({});
-  const [result, setResult] = useState("");
+  const [inputs, setInputs] = useState(SHAPE_DEFAULTS.cube);
 
   const handleInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const handleShapeChange = (e) => {
+    const nextShape = e.target.value;
+    setShape(nextShape);
+    setInputs(SHAPE_DEFAULTS[nextShape]);
+  };
+
   const calculateSurfaceArea = () => {
-    let area = 0;
     const { side, length, width, height, radius, slantHeight } = inputs;
 
     switch (shape) {
-      case "cube":
-        area = 6 * Math.pow(parseFloat(side), 2);
-        break;
-      case "cuboid":
-        area =
-          2 *
-          (parseFloat(length) * parseFloat(width) +
-            parseFloat(length) * parseFloat(height) +
-            parseFloat(width) * parseFloat(height));
-        break;
-      case "sphere":
-        area = 4 * Math.PI * Math.pow(parseFloat(radius), 2);
-        break;
-      case "cylinder":
-        area =
-          2 *
-          Math.PI *
-          parseFloat(radius) *
-          (parseFloat(radius) + parseFloat(height));
-        break;
-      case "cone":
-        area =
-          Math.PI *
-          parseFloat(radius) *
-          (parseFloat(radius) + parseFloat(slantHeight));
-        break;
+      case "cube": {
+        const s = parsePositive(side);
+        if (s === null) return { error: "Enter a positive side length." };
+        return {
+          area: 6 * s * s,
+          formula: "SA = 6s²",
+        };
+      }
+      case "cuboid": {
+        const l = parsePositive(length);
+        const w = parsePositive(width);
+        const h = parsePositive(height);
+        if (l === null || w === null || h === null) {
+          return { error: "Enter positive length, width, and height." };
+        }
+        return {
+          area: 2 * (l * w + l * h + w * h),
+          formula: "SA = 2(lw + lh + wh)",
+        };
+      }
+      case "sphere": {
+        const r = parsePositive(radius);
+        if (r === null) return { error: "Enter a positive radius." };
+        return {
+          area: 4 * Math.PI * r * r,
+          formula: "SA = 4πr²",
+        };
+      }
+      case "cylinder": {
+        const r = parsePositive(radius);
+        const h = parsePositive(height);
+        if (r === null || h === null) {
+          return { error: "Enter positive radius and height." };
+        }
+        return {
+          area: 2 * Math.PI * r * (r + h),
+          formula: "SA = 2πr(r + h)",
+        };
+      }
+      case "cone": {
+        const r = parsePositive(radius);
+        const l = parsePositive(slantHeight);
+        if (r === null || l === null) {
+          return { error: "Enter positive radius and slant height." };
+        }
+        return {
+          area: Math.PI * r * (r + l),
+          formula: "SA = πr(r + l)",
+        };
+      }
       default:
-        area = 0;
+        return null;
     }
+  };
 
-    if (isNaN(area)) {
-      setResult("Invalid input");
-    } else {
-      setResult(area.toFixed(2) + " sq units");
-    }
+  const result = calculateSurfaceArea();
+
+  const reset = () => {
+    setShape("cube");
+    setInputs(SHAPE_DEFAULTS.cube);
   };
 
   const renderInputs = () => {
     switch (shape) {
       case "cube":
         return (
-          <input
-            type="number"
-            name="side"
-            value={inputs.side || ""}
-            onChange={handleInputChange}
-            className="w-full border px-3 py-2 rounded"
-            placeholder="Side length"
-          />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Side length</label>
+            <input
+              type="number"
+              name="side"
+              value={inputs.side ?? ""}
+              onChange={handleInputChange}
+              className={inputClassName}
+              placeholder={SHAPE_DEFAULTS.cube.side}
+              min="0"
+              step="any"
+            />
+          </div>
         );
       case "cuboid":
         return (
-          <>
-            <input
-              type="number"
-              name="length"
-              value={inputs.length || ""}
-              onChange={handleInputChange}
-              className="w-full border px-3 py-2 rounded"
-              placeholder="Length"
-            />
-            <input
-              type="number"
-              name="width"
-              value={inputs.width || ""}
-              onChange={handleInputChange}
-              className="w-full border px-3 py-2 rounded mt-2"
-              placeholder="Width"
-            />
-            <input
-              type="number"
-              name="height"
-              value={inputs.height || ""}
-              onChange={handleInputChange}
-              className="w-full border px-3 py-2 rounded mt-2"
-              placeholder="Height"
-            />
-          </>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              ["length", "Length", SHAPE_DEFAULTS.cuboid.length],
+              ["width", "Width", SHAPE_DEFAULTS.cuboid.width],
+              ["height", "Height", SHAPE_DEFAULTS.cuboid.height],
+            ].map(([name, label, placeholder]) => (
+              <div key={name} className="space-y-2">
+                <label className="font-h3 text-h3 text-on-surface">{label}</label>
+                <input
+                  type="number"
+                  name={name}
+                  value={inputs[name] ?? ""}
+                  onChange={handleInputChange}
+                  className={inputClassName}
+                  placeholder={placeholder}
+                  min="0"
+                  step="any"
+                />
+              </div>
+            ))}
+          </div>
         );
       case "sphere":
         return (
-          <input
-            type="number"
-            name="radius"
-            value={inputs.radius || ""}
-            onChange={handleInputChange}
-            className="w-full border px-3 py-2 rounded"
-            placeholder="Radius"
-          />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Radius</label>
+            <input
+              type="number"
+              name="radius"
+              value={inputs.radius ?? ""}
+              onChange={handleInputChange}
+              className={inputClassName}
+              placeholder={SHAPE_DEFAULTS.sphere.radius}
+              min="0"
+              step="any"
+            />
+          </div>
         );
       case "cylinder":
         return (
-          <>
-            <input
-              type="number"
-              name="radius"
-              value={inputs.radius || ""}
-              onChange={handleInputChange}
-              className="w-full border px-3 py-2 rounded"
-              placeholder="Radius"
-            />
-            <input
-              type="number"
-              name="height"
-              value={inputs.height || ""}
-              onChange={handleInputChange}
-              className="w-full border px-3 py-2 rounded mt-2"
-              placeholder="Height"
-            />
-          </>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="font-h3 text-h3 text-on-surface">Radius</label>
+              <input
+                type="number"
+                name="radius"
+                value={inputs.radius ?? ""}
+                onChange={handleInputChange}
+                className={inputClassName}
+                placeholder={SHAPE_DEFAULTS.cylinder.radius}
+                min="0"
+                step="any"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="font-h3 text-h3 text-on-surface">Height</label>
+              <input
+                type="number"
+                name="height"
+                value={inputs.height ?? ""}
+                onChange={handleInputChange}
+                className={inputClassName}
+                placeholder={SHAPE_DEFAULTS.cylinder.height}
+                min="0"
+                step="any"
+              />
+            </div>
+          </div>
         );
       case "cone":
         return (
-          <>
-            <input
-              type="number"
-              name="radius"
-              value={inputs.radius || ""}
-              onChange={handleInputChange}
-              className="w-full border px-3 py-2 rounded"
-              placeholder="Radius"
-            />
-            <input
-              type="number"
-              name="slantHeight"
-              value={inputs.slantHeight || ""}
-              onChange={handleInputChange}
-              className="w-full border px-3 py-2 rounded mt-2"
-              placeholder="Slant Height"
-            />
-          </>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="font-h3 text-h3 text-on-surface">Radius</label>
+              <input
+                type="number"
+                name="radius"
+                value={inputs.radius ?? ""}
+                onChange={handleInputChange}
+                className={inputClassName}
+                placeholder={SHAPE_DEFAULTS.cone.radius}
+                min="0"
+                step="any"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="font-h3 text-h3 text-on-surface">
+                Slant height (l)
+              </label>
+              <input
+                type="number"
+                name="slantHeight"
+                value={inputs.slantHeight ?? ""}
+                onChange={handleInputChange}
+                className={inputClassName}
+                placeholder={SHAPE_DEFAULTS.cone.slantHeight}
+                min="0"
+                step="any"
+              />
+            </div>
+          </div>
         );
       default:
         return null;
@@ -154,37 +235,44 @@ const SurfaceAreaCalculator = () => {
   return (
     <>
       <Helmet>
-        <title>Surface Area Calculator | Find Surface Area of 3D Shapes</title>
+        <title>
+          Surface Area Calculator - Cube, Sphere, Cylinder, Cone & Cuboid
+        </title>
         <meta
           name="description"
-          content="Use our Surface Area Calculator to find the surface area of 3D shapes like cubes, spheres, cylinders, cones, and more. Quick and accurate results with formulas and explanations."
+          content="Free surface area calculator for 3D shapes: cube, cuboid, sphere, cylinder, and cone. Enter dimensions to get total surface area in square units with standard geometry formulas."
         />
         <meta
           name="keywords"
-          content="surface area calculator, 3D shape surface area, cube surface area, sphere surface area, cone surface area, cylinder surface area, geometry calculator, area formulas"
+          content="surface area calculator, cube surface area calculator, sphere surface area formula calculator, cylinder total surface area, cone surface area slant height, cuboid surface area rectangular prism, 3d shape surface area online"
         />
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
           href="https://www.unitedcalculator.net/geometry/surface-area-calculator"
         />
-
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Surface Area Calculator | Find Surface Area of 3D Shapes"
+          content="Surface Area Calculator - 3D Shapes"
         />
         <meta
           property="og:description"
-          content="Instantly calculate the surface area of cubes, spheres, cones, cylinders, and other 3D geometric shapes with our free Surface Area Calculator. Includes formulas and step-by-step breakdowns."
+          content="Calculate surface area of cubes, spheres, cylinders, cones, and cuboids from your measurements."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/geometry/surface-area-calculator"
         />
-
-        {/* JSON-LD: WebPage */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Surface Area Calculator - Geometry 3D Tool"
+        />
+        <meta
+          name="twitter:description"
+          content="Pick a shape, enter dimensions, get total surface area instantly."
+        />
         <script type="application/ld+json">
           {`
     {
@@ -192,7 +280,7 @@ const SurfaceAreaCalculator = () => {
       "@type": "WebPage",
       "name": "Surface Area Calculator",
       "url": "https://www.unitedcalculator.net/geometry/surface-area-calculator",
-      "description": "Easily calculate the surface area of 3D geometric shapes like spheres, cubes, cones, and cylinders using standard formulas. Perfect for students, teachers, and geometry problems.",
+      "description": "Surface area calculator for cube, cuboid, sphere, cylinder, and cone using standard total surface area formulas.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -201,8 +289,6 @@ const SurfaceAreaCalculator = () => {
     }
     `}
         </script>
-
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
           {`
     {
@@ -211,26 +297,24 @@ const SurfaceAreaCalculator = () => {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is surface area?",
+          "name": "What shapes does this surface area calculator support?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Surface area is the total area of all the outer surfaces of a 3D object. It is measured in square units and varies based on the shape, such as a cube, sphere, or cone."
+            "text": "Cube, cuboid (rectangular prism), sphere, cylinder, and cone. Each shape uses its standard total surface area formula."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I calculate surface area using this calculator?",
+          "name": "Does the cone calculator use slant height?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Select the 3D shape you want to calculate, enter the required dimensions (like radius, height, side length), and the calculator will use the correct formula to compute the surface area."
+            "text": "Yes. The cone option uses radius and slant height in SA = πr(r + l), which is the total surface area including the circular base and curved side."
           }
         }
       ]
     }
     `}
         </script>
-
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
           {`
     {
@@ -261,43 +345,82 @@ const SurfaceAreaCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md max-w-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Select Shape</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">3D shape</label>
             <select
               value={shape}
-              onChange={(e) => {
-                setShape(e.target.value);
-                setInputs({});
-                setResult("");
-              }}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              onChange={handleShapeChange}
+              className={inputClassName}
             >
               <option value="cube">Cube</option>
-              <option value="cuboid">Cuboid</option>
+              <option value="cuboid">Cuboid (rectangular prism)</option>
               <option value="sphere">Sphere</option>
               <option value="cylinder">Cylinder</option>
               <option value="cone">Cone</option>
             </select>
           </div>
-
-          <div>{renderInputs()}</div>
-
-          <button
-            onClick={calculateSurfaceArea}
-            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition mt-2"
-          >
-            Calculate Surface Area
-          </button>
+          {renderInputs()}
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Result</h2>
-            <div className="text-green-600 font-bold text-2xl">{result}</div>
-          </section>
-        )}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Surface Area Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Shape</span>
+              <span className="font-code-num text-code-num">
+                {SHAPE_LABELS[shape]}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Formula used</span>
+              <span className="font-code-num text-code-num text-sm">
+                {result?.formula ?? "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total surface area</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result?.area != null
+                  ? `${result.area.toFixed(4)} sq units`
+                  : "—"}
+              </span>
+            </div>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+          </div>
+        </section>
       </div>
     </>
   );

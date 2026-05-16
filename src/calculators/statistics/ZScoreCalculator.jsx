@@ -1,59 +1,91 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+
 const ZScoreCalculator = () => {
-  const [score, setScore] = useState("85");
-  const [mean, setMean] = useState("70");
-  const [stdDev, setStdDev] = useState("10");
-  const [zScore, setZScore] = useState(null);
+  const DEFAULTS = {
+    score: "85",
+    mean: "70",
+    stdDev: "10",
+  };
+
+  const [score, setScore] = useState(DEFAULTS.score);
+  const [mean, setMean] = useState(DEFAULTS.mean);
+  const [stdDev, setStdDev] = useState(DEFAULTS.stdDev);
 
   const calculateZScore = () => {
     const x = parseFloat(score);
     const mu = parseFloat(mean);
     const sigma = parseFloat(stdDev);
 
-    if (isNaN(x) || isNaN(mu) || isNaN(sigma) || sigma === 0) {
-      setZScore("Invalid input");
-      return;
+    if (
+      score.trim() === "" ||
+      mean.trim() === "" ||
+      stdDev.trim() === "" ||
+      isNaN(x) ||
+      isNaN(mu) ||
+      isNaN(sigma) ||
+      sigma === 0
+    ) {
+      return null;
     }
 
     const z = (x - mu) / sigma;
-    setZScore(z.toFixed(4));
+    return {
+      z,
+      aboveMean: z > 0,
+      belowMean: z < 0,
+    };
+  };
+
+  const result = calculateZScore();
+
+  const reset = () => {
+    setScore(DEFAULTS.score);
+    setMean(DEFAULTS.mean);
+    setStdDev(DEFAULTS.stdDev);
   };
 
   return (
     <>
       <Helmet>
-        <title>Z-Score Calculator | Find Standard Score & Probability</title>
+        <title>
+          Z-Score Calculator - Standard Score from Mean & Standard Deviation
+        </title>
         <meta
           name="description"
-          content="Use our Z-Score Calculator to compute the standard score (z-value) for your dataset. Understand how far a data point is from the mean in terms of standard deviations. Supports population and sample data."
+          content="Compute the z-score (standard score) for a value using z = (x − μ) / σ. Enter raw score, mean, and standard deviation."
         />
         <meta
           name="keywords"
-          content="z-score calculator, standard score calculator, statistics calculator, z value calculator, standard deviation, normal distribution calculator, probability calculator, z table"
+          content="z-score calculator, standard score calculator, z value formula, statistics z score, normal distribution standard score"
         />
         <meta name="robots" content="index, follow" />
         <link
           rel="canonical"
           href="https://www.unitedcalculator.net/statistics/z-score-calculator"
         />
-
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Z-Score Calculator | Find Standard Score & Probability"
+          content="Z-Score Calculator - Standard Score"
         />
         <meta
           property="og:description"
-          content="Calculate the z-score (standard score) of a data point based on the mean and standard deviation. Our Z-Score Calculator supports normal distribution, population, and sample data."
+          content="See how many standard deviations a value sits from the mean."
         />
         <meta
           property="og:url"
           content="https://www.unitedcalculator.net/statistics/z-score-calculator"
         />
-
-        {/* JSON-LD: WebPage */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Z-Score Calculator - (x − μ) / σ"
+        />
+        <meta
+          name="twitter:description"
+          content="Quick standard score from raw score, mean, and standard deviation."
+        />
         <script type="application/ld+json">
           {`
     {
@@ -61,7 +93,7 @@ const ZScoreCalculator = () => {
       "@type": "WebPage",
       "name": "Z-Score Calculator",
       "url": "https://www.unitedcalculator.net/statistics/z-score-calculator",
-      "description": "The Z-Score Calculator helps you determine how far a value is from the mean in terms of standard deviations. Useful for statistical analysis and understanding standard normal distribution.",
+      "description": "Z-score calculator that computes (x − mean) / standard deviation for a single data point.",
       "publisher": {
         "@type": "Organization",
         "name": "United Calculator",
@@ -70,8 +102,6 @@ const ZScoreCalculator = () => {
     }
     `}
         </script>
-
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
           {`
     {
@@ -83,23 +113,21 @@ const ZScoreCalculator = () => {
           "name": "What is a z-score?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A z-score is a statistical measurement that describes a value's relationship to the mean of a group of values, expressed in terms of standard deviations from the mean."
+            "text": "A z-score measures how many standard deviations a value is from the mean. Positive z means above the mean; negative z means below."
           }
         },
         {
           "@type": "Question",
-          "name": "How do I use the Z-Score Calculator?",
+          "name": "What if standard deviation is zero?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Enter the data value, mean, and standard deviation. The calculator will instantly compute the z-score, showing how many standard deviations the value is from the mean."
+            "text": "Division by zero is undefined, so σ must be greater than zero. Enter a positive standard deviation."
           }
         }
       ]
     }
     `}
         </script>
-
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
           {`
     {
@@ -130,59 +158,106 @@ const ZScoreCalculator = () => {
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Raw Score (X)</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Raw Score (x)
+            </label>
             <input
               type="number"
               value={score}
               onChange={(e) => setScore(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter raw score"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              placeholder={DEFAULTS.score}
+              step="any"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Mean (μ)</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Mean (μ)</label>
             <input
               type="number"
               value={mean}
               onChange={(e) => setMean(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter mean"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              placeholder={DEFAULTS.mean}
+              step="any"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
               Standard Deviation (σ)
             </label>
             <input
               type="number"
               value={stdDev}
               onChange={(e) => setStdDev(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter standard deviation"
+              className="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all"
+              placeholder={DEFAULTS.stdDev}
+              min="0.0001"
+              step="any"
             />
           </div>
-
-          <button
-            onClick={calculateZScore}
-            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
-          >
-            Calculate Z-Score
-          </button>
         </div>
 
-        {zScore !== null && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Z-Score Result
-            </h2>
-            <div className="text-green-600 font-bold text-2xl">{zScore}</div>
-          </section>
-        )}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Z-Score Summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Z-score</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result ? result.z.toFixed(4) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Position vs mean</span>
+              <span className="font-code-num text-code-num">
+                {result
+                  ? result.z === 0
+                    ? "At the mean"
+                    : result.aboveMean
+                      ? "Above mean"
+                      : "Below mean"
+                  : "—"}
+              </span>
+            </div>
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Formula: z = (x − μ) / σ. Standard deviation must be greater than
+              zero.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );
