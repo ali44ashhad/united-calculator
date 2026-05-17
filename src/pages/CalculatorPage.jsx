@@ -31,6 +31,17 @@ import RightTriangleSeoContent from "../components/seo/RightTriangleSeoContent";
 import SurfaceAreaSeoContent from "../components/seo/SurfaceAreaSeoContent";
 import TriangleSeoContent from "../components/seo/TriangleSeoContent";
 import VolumeSeoContent from "../components/seo/VolumeSeoContent";
+import AgeSeoContent from "../components/seo/AgeSeoContent";
+import BandwidthSeoContent from "../components/seo/BandwidthSeoContent";
+import BraSizeSeoContent from "../components/seo/BraSizeSeoContent";
+import BTUSeoContent from "../components/seo/BTUSeoContent";
+import ConcreteSeoContent from "../components/seo/ConcreteSeoContent";
+import ConversionSeoContent from "../components/seo/ConversionSeoContent";
+import DateSeoContent from "../components/seo/DateSeoContent";
+import DayCounterSeoContent from "../components/seo/DayCounterSeoContent";
+import DayOfTheWeekSeoContent from "../components/seo/DayOfTheWeekSeoContent";
+import ShoeSizeConversionSeoContent from "../components/seo/ShoeSizeConversionSeoContent";
+import DensitySeoContent from "../components/seo/DensitySeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -217,7 +228,7 @@ import PasswordGenerator from "../calculators/other/PasswordGenerator";
 import ResistorCalculator from "../calculators/other/ResistorCalculator";
 import RomanNumeralConverter from "../calculators/other/RomanNumeralConverter";
 import RoofingCalculator from "../calculators/other/RoofingCalculator";
-import ShoeSizeConverter from "../calculators/other/ShoeSizeConversion";
+import ShoeSizeConversion from "../calculators/other/ShoeSizeConversion";
 import SleepCalculator from "../calculators/other/SleepCalculator";
 import SpeedCalculator from "../calculators/other/SpeedCalculator";
 import SquareFootageCalculator from "../calculators/other/SquareFootageCalculator";
@@ -421,7 +432,7 @@ const componentMap = {
   ResistorCalculator,
   RomanNumeralConverter,
   RoofingCalculator,
-  ShoeSizeConverter,
+  ShoeSizeConversion,
   SleepCalculator,
   SpeedCalculator,
   SquareFootageCalculator,
@@ -657,6 +668,27 @@ const CalculatorPage = () => {
           )}
           {calculator?.id === "triangle-calculator" && <TriangleSeoContent />}
           {calculator?.id === "volume-calculator" && <VolumeSeoContent />}
+          {calculator?.id === "age-calculator" && <AgeSeoContent />}
+          {calculator?.id === "bandwidth-calculator" && (
+            <BandwidthSeoContent />
+          )}
+          {calculator?.id === "bra-size-calculator" && <BraSizeSeoContent />}
+          {calculator?.id === "btu-calculator" && <BTUSeoContent />}
+          {calculator?.id === "concrete-calculator" && (
+            <ConcreteSeoContent />
+          )}
+          {calculator?.id === "conversion-calculator" && (
+            <ConversionSeoContent />
+          )}
+          {calculator?.id === "date-calculator" && <DateSeoContent />}
+          {calculator?.id === "day-counter" && <DayCounterSeoContent />}
+          {calculator?.id === "day-of-the-week-calculator" && (
+            <DayOfTheWeekSeoContent />
+          )}
+          {calculator?.id === "shoe-size-conversion" && (
+            <ShoeSizeConversionSeoContent />
+          )}
+          {calculator?.id === "density-calculator" && <DensitySeoContent />}
 
           {/* Related Tools (global, same for all calculators) */}
           <div className="space-y-6">
