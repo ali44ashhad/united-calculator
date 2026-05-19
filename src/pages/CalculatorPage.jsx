@@ -42,6 +42,11 @@ import DayCounterSeoContent from "../components/seo/DayCounterSeoContent";
 import DayOfTheWeekSeoContent from "../components/seo/DayOfTheWeekSeoContent";
 import ShoeSizeConversionSeoContent from "../components/seo/ShoeSizeConversionSeoContent";
 import DensitySeoContent from "../components/seo/DensitySeoContent";
+import DewPointSeoContent from "../components/seo/DewPointSeoContent";
+import DiceRollerSeoContent from "../components/seo/DiceRollerSeoContent";
+import ElectricitySeoContent from "../components/seo/ElectricitySeoContent";
+import EngineHorsepowerSeoContent from "../components/seo/EngineHorsepowerSeoContent";
+import FuelCostSeoContent from "../components/seo/FuelCostSeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -689,6 +694,19 @@ const CalculatorPage = () => {
             <ShoeSizeConversionSeoContent />
           )}
           {calculator?.id === "density-calculator" && <DensitySeoContent />}
+          {calculator?.id === "dew-point-calculator" && (
+            <DewPointSeoContent />
+          )}
+          {calculator?.id === "dice-roller" && <DiceRollerSeoContent />}
+          {calculator?.id === "electricity-calculator" && (
+            <ElectricitySeoContent />
+          )}
+          {calculator?.id === "engine-horsepower-calculator" && (
+            <EngineHorsepowerSeoContent />
+          )}
+          {calculator?.id === "fuel-cost-calculator" && (
+            <FuelCostSeoContent />
+          )}
 
           {/* Related Tools (global, same for all calculators) */}
           <div className="space-y-6">
