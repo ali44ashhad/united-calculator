@@ -47,6 +47,22 @@ import DiceRollerSeoContent from "../components/seo/DiceRollerSeoContent";
 import ElectricitySeoContent from "../components/seo/ElectricitySeoContent";
 import EngineHorsepowerSeoContent from "../components/seo/EngineHorsepowerSeoContent";
 import FuelCostSeoContent from "../components/seo/FuelCostSeoContent";
+import GasMileageSeoContent from "../components/seo/GasMileageSeoContent";
+import GDPSeoContent from "../components/seo/GDPSeoContent";
+import GolfHandicapSeoContent from "../components/seo/GolfHandicapSeoContent";
+import GPASeoContent from "../components/seo/GPASeoContent";
+import GradeSeoContent from "../components/seo/GradeSeoContent";
+import GravelSeoContent from "../components/seo/GravelSeoContent";
+import HeatIndexSeoContent from "../components/seo/HeatIndexSeoContent";
+import HeightSeoContent from "../components/seo/HeightSeoContent";
+import HorsepowerSeoContent from "../components/seo/HorsepowerSeoContent";
+import HoursSeoContent from "../components/seo/HoursSeoContent";
+import IPSubnetSeoContent from "../components/seo/IPSubnetSeoContent";
+import LoveSeoContent from "../components/seo/LoveSeoContent";
+import MassSeoContent from "../components/seo/MassSeoContent";
+import MileageSeoContent from "../components/seo/MileageSeoContent";
+import MolaritySeoContent from "../components/seo/MolaritySeoContent";
+import MolecularWeightSeoContent from "../components/seo/MolecularWeightSeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -706,6 +722,38 @@ const CalculatorPage = () => {
           )}
           {calculator?.id === "fuel-cost-calculator" && (
             <FuelCostSeoContent />
+          )}
+          {calculator?.id === "gas-mileage-calculator" && (
+            <GasMileageSeoContent />
+          )}
+          {calculator?.id === "gdp-calculator" && <GDPSeoContent />}
+          {calculator?.id === "golf-handicap-calculator" && (
+            <GolfHandicapSeoContent />
+          )}
+          {calculator?.id === "gpa-calculator" && <GPASeoContent />}
+          {calculator?.id === "grade-calculator" && <GradeSeoContent />}
+          {calculator?.id === "gravel-calculator" && <GravelSeoContent />}
+          {calculator?.id === "heat-index-calculator" && (
+            <HeatIndexSeoContent />
+          )}
+          {calculator?.id === "height-calculator" && <HeightSeoContent />}
+          {calculator?.id === "horsepower-calculator" && (
+            <HorsepowerSeoContent />
+          )}
+          {calculator?.id === "hours-calculator" && <HoursSeoContent />}
+          {calculator?.id === "ip-subnet-calculator" && (
+            <IPSubnetSeoContent />
+          )}
+          {calculator?.id === "love-calculator" && <LoveSeoContent />}
+          {calculator?.id === "mass-calculator" && <MassSeoContent />}
+          {calculator?.id === "mileage-calculator" && (
+            <MileageSeoContent />
+          )}
+          {calculator?.id === "molarity-calculator" && (
+            <MolaritySeoContent />
+          )}
+          {calculator?.id === "molecular-weight-calculator" && (
+            <MolecularWeightSeoContent />
           )}
 
           {/* Related Tools (global, same for all calculators) */}

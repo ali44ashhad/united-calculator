@@ -1,190 +1,351 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const MassCalculator = () => {
-  const [density, setDensity] = useState("");
-  const [volume, setVolume] = useState("");
-  const [mass, setMass] = useState(null);
 
-  const calculateMass = () => {
-    const d = parseFloat(density);
-    const v = parseFloat(volume);
+const PAGE_URL = "https://www.unitedcalculator.net/other/mass-calculator";
 
-    if (!isNaN(d) && !isNaN(v)) {
-      const result = d * v;
-      setMass(result.toFixed(2));
-    } else {
-      setMass(null);
-    }
+const DEFAULTS = {
+  density: "1000",
+  volume: "1",
+};
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const computeMass = (density, volume) => {
+  if (density.trim() === "" || volume.trim() === "") {
+    return null;
+  }
+
+  const d = parseFloat(density);
+  const v = parseFloat(volume);
+
+  if (isNaN(d) || isNaN(v)) {
+    return { error: "Enter valid numbers for density and volume." };
+  }
+
+  if (d <= 0 || v <= 0) {
+    return { error: "Density and volume must be greater than zero." };
+  }
+
+  const massKg = d * v;
+
+  return {
+    density: d,
+    volume: v,
+    massKg,
+    massG: massKg * 1000,
+    massT: massKg / 1000,
   };
+};
 
-  const handleReset = () => {
-    setDensity("");
-    setVolume("");
-    setMass(null);
+const fmt2 = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+
+const fmt3 = (n) =>
+  parseFloat(n.toFixed(3)).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 3,
+  });
+
+const MassCalculator = () => {
+  const [density, setDensity] = useState(DEFAULTS.density);
+  const [volume, setVolume] = useState(DEFAULTS.volume);
+
+  const result = computeMass(density, volume);
+
+  const reset = () => {
+    setDensity(DEFAULTS.density);
+    setVolume(DEFAULTS.volume);
   };
 
   return (
     <>
       <Helmet>
-        <title>Mass Calculator | Convert and Calculate Mass Easily</title>
+        <title>
+          Mass Calculator - kg from Density (kg/m³) × Volume (m³)
+        </title>
         <meta
           name="description"
-          content="Use our Mass Calculator to convert and calculate mass between different units quickly and accurately."
+          content="Calculate mass in kilograms from density in kg per cubic meter and volume in cubic meters. Formula: mass = density × volume. Includes grams and metric tons."
         />
         <meta
           name="keywords"
-          content="mass calculator, mass conversion calculator, weight calculator, other calculator"
+          content="mass calculator, calculate mass from density and volume, mass equals density times volume, kg from kg/m3 and m3, density volume mass formula, physics mass calculator, material mass calculator cubic meters, water mass calculator 1000 kg/m3, mass in kg grams and tonnes"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/other/mass-calculator"
-        />
-
-        {/* Open Graph */}
+        <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Mass Calculator | Convert and Calculate Mass Easily"
+          content="Mass Calculator - ρ × V"
         />
         <meta
           property="og:description"
-          content="Quickly convert and calculate mass between different units using our Mass Calculator."
+          content="Density (kg/m³) times volume (m³) gives mass in kg."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mass Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/other/mass-calculator"
+          name="twitter:description"
+          content="Mass from density and volume in SI units."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Mass Calculator",
-  "url": "https://www.unitedcalculator.net/other/mass-calculator",
-  "description": "Convert and calculate mass easily between various units with our Mass Calculator.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "United Calculator",
-    "url": "https://www.unitedcalculator.net"
-  }
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Mass Calculator",
+            url: PAGE_URL,
+            description:
+              "Compute mass in kilograms from density in kg/m³ and volume in m³ using mass = density × volume.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is a Mass Calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A Mass Calculator helps you convert and calculate mass between different units quickly."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I use the Mass Calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Enter the mass value and select the units to convert or calculate mass accordingly."
-      }
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Mass Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to calculate mass from density and volume in metric units.",
+            applicationCategory: "UtilityApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.unitedcalculator.net"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Other Calculators",
-      "item": "https://www.unitedcalculator.net/other"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Mass Calculator",
-      "item": "https://www.unitedcalculator.net/other/mass-calculator"
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How to Calculate Mass from Density and Volume",
+            description:
+              "Use ρ × V when density is in kg per cubic meter and volume is in cubic meters to obtain mass in kilograms.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What is the mass formula used here?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Mass (kg) = density (kg/m³) × volume (m³). Both inputs must use these SI units for the result to be in kilograms.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What are example density values?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Fresh water is about 1000 kg/m³ at room temperature. Many metals are several thousand kg/m³ depending on alloy.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is mass the same as weight?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No. Mass is the amount of matter in kg. Weight is a force (newtons) that depends on gravity. This page reports mass, not weight on a scale.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Can I enter volume in liters?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Convert liters to cubic meters first (1 L = 0.001 m³), then enter volume in m³.",
+                },
+              },
+            ],
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Other Calculators",
+                item: "https://www.unitedcalculator.net/other",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Mass Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <h2 className="text-xl font-bold mb-4 text-center text-blue-600">
-          Mass Calculator
-        </h2>
-
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Density (kg/m³)</label>
-            <input
-              type="number"
-              value={density}
-              onChange={(e) => setDensity(e.target.value)}
-              placeholder="Enter density"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Density</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={density}
+                onChange={(e) => setDensity(e.target.value)}
+                className={`${inputClassName} pr-20`}
+                placeholder={DEFAULTS.density}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium text-sm">
+                kg/m³
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Volume (m³)</label>
-            <input
-              type="number"
-              value={volume}
-              onChange={(e) => setVolume(e.target.value)}
-              placeholder="Enter volume"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Volume</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={volume}
+                onChange={(e) => setVolume(e.target.value)}
+                className={`${inputClassName} pr-12`}
+                placeholder={DEFAULTS.volume}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium text-sm">
+                m³
+              </span>
+            </div>
           </div>
+        </div>
 
-          <div className="flex space-x-4">
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
             <button
-              onClick={calculateMass}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full"
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
             >
-              Calculate
+              Calculate Now
             </button>
             <button
-              onClick={handleReset}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded w-full"
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
             >
               Reset
             </button>
           </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
         </div>
 
-        {mass !== null && (
-          <section className="bg-blue-50 p-4 rounded-lg border border-blue-200 mt-6">
-            <h3 className="text-lg font-semibold text-blue-700 mb-2">
-              Result:
-            </h3>
-            <p className="text-2xl font-bold text-blue-800">{mass} kg</p>
-          </section>
-        )}
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">Mass summary</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-on-surface">Inputs</span>
+              <span className="font-code-num text-code-num text-right">
+                {result?.density != null && !result.error
+                  ? `ρ ${fmt3(result.density)} kg/m³ × ${fmt3(result.volume)} m³`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-on-surface">Mass</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result?.massKg != null && !result.error
+                  ? `${fmt2(result.massKg)} kg`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-on-surface">Grams</span>
+              <span className="font-code-num text-code-num">
+                {result?.massG != null && !result.error
+                  ? `${fmt2(result.massG)} g`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-on-surface">Metric tons</span>
+              <span className="font-code-num text-code-num">
+                {result?.massT != null && !result.error
+                  ? `${fmt3(result.massT)} t`
+                  : "—"}
+              </span>
+            </div>
+            <div className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              <p>
+                <strong>m = ρ × V</strong> with density in kg/m³ and volume in
+                m³. Default example is roughly{" "}
+                <strong>1 m³ of water</strong> (~1000 kg/m³).
+              </p>
+            </div>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              For density from known mass and volume, use the{" "}
+              <strong>Density Calculator</strong> on this site. Mass is not
+              weight—multiply by <strong>g</strong> only when you need force.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

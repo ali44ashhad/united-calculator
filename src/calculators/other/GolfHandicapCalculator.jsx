@@ -1,182 +1,357 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const GolfHandicapCalculator = () => {
-  const [score, setScore] = useState("");
-  const [courseRating, setCourseRating] = useState("");
-  const [slopeRating, setSlopeRating] = useState("");
 
-  const calculateHandicap = () => {
-    const s = parseFloat(score);
-    const cr = parseFloat(courseRating);
-    const sr = parseFloat(slopeRating);
+const PAGE_URL =
+  "https://www.unitedcalculator.net/other/golf-handicap-calculator";
 
-    if (isNaN(s) || isNaN(cr) || isNaN(sr) || sr === 0) return null;
+const DEFAULTS = {
+  score: "90",
+  courseRating: "72.5",
+  slopeRating: "113",
+};
 
-    const handicap = ((s - cr) * 113) / sr;
-    return handicap.toFixed(2);
+const STANDARD_SLOPE = 113;
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const computeScoreDifferential = (score, courseRating, slopeRating) => {
+  if (
+    score.trim() === "" ||
+    courseRating.trim() === "" ||
+    slopeRating.trim() === ""
+  ) {
+    return null;
+  }
+
+  const s = parseFloat(score);
+  const cr = parseFloat(courseRating);
+  const sr = parseFloat(slopeRating);
+
+  if (isNaN(s) || isNaN(cr) || isNaN(sr)) {
+    return { error: "Enter valid numbers for score, course rating, and slope." };
+  }
+
+  if (sr <= 0) {
+    return { error: "Slope rating must be greater than zero." };
+  }
+
+  const grossOverCr = s - cr;
+  const differential = (grossOverCr * STANDARD_SLOPE) / sr;
+
+  return {
+    score: s,
+    courseRating: cr,
+    slopeRating: sr,
+    grossOverCr,
+    differential,
   };
+};
 
-  const result = calculateHandicap();
+const formatNum = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+
+const GolfHandicapCalculator = () => {
+  const [score, setScore] = useState(DEFAULTS.score);
+  const [courseRating, setCourseRating] = useState(DEFAULTS.courseRating);
+  const [slopeRating, setSlopeRating] = useState(DEFAULTS.slopeRating);
+
+  const result = computeScoreDifferential(score, courseRating, slopeRating);
+
+  const reset = () => {
+    setScore(DEFAULTS.score);
+    setCourseRating(DEFAULTS.courseRating);
+    setSlopeRating(DEFAULTS.slopeRating);
+  };
 
   return (
     <>
       <Helmet>
         <title>
-          Golf Handicap Calculator | Calculate Your Golf Handicap Easily
+          Golf Handicap Calculator - Score Differential (WHS-style formula)
         </title>
         <meta
           name="description"
-          content="Use our Golf Handicap Calculator to accurately calculate your golf handicap based on your scores and course ratings."
+          content="Compute a single-round score differential from gross score, course rating, and slope rating: (Score − Course Rating) × 113 ÷ Slope. Not a full official Handicap Index."
         />
         <meta
           name="keywords"
-          content="golf handicap calculator, calculate golf handicap, golf score calculator, other calculator"
+          content="golf handicap calculator, score differential calculator golf, course rating slope rating 113 formula, USGA WHS differential estimate, golf handicap from one round"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/other/golf-handicap-calculator"
-        />
-
-        {/* Open Graph */}
+        <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Golf Handicap Calculator | Calculate Your Golf Handicap Easily"
+          content="Golf Score Differential Calculator"
         />
         <meta
           property="og:description"
-          content="Quickly calculate your golf handicap using our easy-to-use Golf Handicap Calculator."
+          content="Enter score, course rating, and slope to get a score differential."
+        />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Golf Handicap / Differential Calculator"
         />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/other/golf-handicap-calculator"
+          name="twitter:description"
+          content="113 ÷ slope × (score − course rating) in one step."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Golf Handicap Calculator",
-  "url": "https://www.unitedcalculator.net/other/golf-handicap-calculator",
-  "description": "Calculate your golf handicap accurately based on your scores and course ratings with our Golf Handicap Calculator.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "United Calculator",
-    "url": "https://www.unitedcalculator.net"
-  }
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Golf Handicap Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate a single-round score differential from gross score, course rating, and slope rating.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is a Golf Handicap Calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A Golf Handicap Calculator helps you determine your golf handicap based on your recent scores and course difficulty."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I use the Golf Handicap Calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Enter your golf scores and course ratings, and the calculator will provide your handicap index."
-      }
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Golf Handicap Calculator",
+            url: PAGE_URL,
+            description:
+              "Web application to compute score differential using score, course rating, and slope rating.",
+            applicationCategory: "UtilityApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.unitedcalculator.net"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Other Calculators",
-      "item": "https://www.unitedcalculator.net/other"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Golf Handicap Calculator",
-      "item": "https://www.unitedcalculator.net/other/golf-handicap-calculator"
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline:
+              "How to Calculate a Golf Score Differential from Course Rating and Slope",
+            description:
+              "Guide to the 113-based score differential formula used in World Handicap System math for one adjusted gross score.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "What formula does this golf calculator use?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Score differential ≈ (Gross score − Course rating) × 113 ÷ Slope rating, omitting playing conditions calculation and handicap authority rounding used for an official index.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Is this my official Handicap Index?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No. An official Handicap Index combines multiple score differentials, rules for maximum hole scores, and updates from your golf association or app.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "What is slope rating 113?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "113 is the standard slope rating reference. Courses harder than average have slope above 113; easier courses have slope below 113.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Where do I find course rating and slope?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "They are printed on scorecards and listed in GHIN, USGA, or your national union’s course database for each tee set.",
+                },
+              },
+            ],
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Other Calculators",
+                item: "https://www.unitedcalculator.net/other",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Golf Handicap Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Score</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Gross score
+            </label>
             <input
               type="number"
               value={score}
               onChange={(e) => setScore(e.target.value)}
-              placeholder="e.g. 90"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className={inputClassName}
+              placeholder={DEFAULTS.score}
+              step="any"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Course Rating</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Course rating
+            </label>
             <input
               type="number"
               value={courseRating}
               onChange={(e) => setCourseRating(e.target.value)}
-              placeholder="e.g. 72.5"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className={inputClassName}
+              placeholder={DEFAULTS.courseRating}
+              step="any"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Slope Rating</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Slope rating
+            </label>
             <input
               type="number"
               value={slopeRating}
               onChange={(e) => setSlopeRating(e.target.value)}
-              placeholder="e.g. 113"
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className={inputClassName}
+              placeholder={DEFAULTS.slopeRating}
+              min="1"
+              step="any"
             />
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Handicap Result
-            </h2>
-            <div className="flex justify-between text-lg font-semibold">
-              <span className="text-gray-800">Handicap Index:</span>
-              <span className="text-green-600">{result}</span>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Score differential summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Score − course rating</span>
+              <span className="font-code-num text-code-num">
+                {result?.grossOverCr != null && !result.error
+                  ? formatNum(result.grossOverCr)
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Slope rating</span>
+              <span className="font-code-num text-code-num">
+                {result?.slopeRating != null && !result.error
+                  ? result.slopeRating.toLocaleString()
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Score differential ((S − CR) × 113 ÷ slope)
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result?.differential != null && !result.error
+                  ? formatNum(result.differential)
+                  : "—"}
+              </span>
+            </div>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Single-round math only—no Playing Conditions Calculation (PCC),
+              net double bogey cap, or handicap authority rounding. Use GHIN or
+              your union for an official Handicap Index.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );
