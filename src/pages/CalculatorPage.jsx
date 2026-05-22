@@ -63,6 +63,10 @@ import MassSeoContent from "../components/seo/MassSeoContent";
 import MileageSeoContent from "../components/seo/MileageSeoContent";
 import MolaritySeoContent from "../components/seo/MolaritySeoContent";
 import MolecularWeightSeoContent from "../components/seo/MolecularWeightSeoContent";
+import MulchSeoContent from "../components/seo/MulchSeoContent";
+import OhmsLawSeoContent from "../components/seo/OhmsLawSeoContent";
+import PasswordGeneratorSeoContent from "../components/seo/PasswordGeneratorSeoContent";
+import ResistorSeoContent from "../components/seo/ResistorSeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -754,6 +758,16 @@ const CalculatorPage = () => {
           )}
           {calculator?.id === "molecular-weight-calculator" && (
             <MolecularWeightSeoContent />
+          )}
+          {calculator?.id === "mulch-calculator" && <MulchSeoContent />}
+          {calculator?.id === "ohms-law-calculator" && (
+            <OhmsLawSeoContent />
+          )}
+          {calculator?.id === "password-generator" && (
+            <PasswordGeneratorSeoContent />
+          )}
+          {calculator?.id === "resistor-calculator" && (
+            <ResistorSeoContent />
           )}
 
           {/* Related Tools (global, same for all calculators) */}
