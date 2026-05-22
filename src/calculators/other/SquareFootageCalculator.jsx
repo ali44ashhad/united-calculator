@@ -1,259 +1,331 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
+
+const PAGE_URL =
+  "https://www.unitedcalculator.net/other/square-footage-calculator";
+
+const SQFT_TO_SQM = 0.09290304;
+
+const DEFAULTS = {
+  length: "12",
+  width: "10",
+};
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const computeSquareFootage = (length, width) => {
+  if (length.trim() === "" || width.trim() === "") {
+    return null;
+  }
+
+  const l = parseFloat(length);
+  const w = parseFloat(width);
+
+  if (isNaN(l) || isNaN(w)) {
+    return { error: "Enter valid numbers for length and width." };
+  }
+
+  if (l <= 0 || w <= 0) {
+    return { error: "Length and width must be greater than zero." };
+  }
+
+  const sqFt = l * w;
+  const sqM = sqFt * SQFT_TO_SQM;
+
+  return { l, w, sqFt, sqM };
+};
+
+const fmt2 = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
 
 const SquareFootageCalculator = () => {
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [squareFootage, setSquareFootage] = useState(null);
+  const [length, setLength] = useState(DEFAULTS.length);
+  const [width, setWidth] = useState(DEFAULTS.width);
 
-  const calculateSquareFootage = () => {
-    const l = parseFloat(length);
-    const w = parseFloat(width);
+  const result = computeSquareFootage(length, width);
 
-    if (isNaN(l) || isNaN(w) || l <= 0 || w <= 0) {
-      setSquareFootage(null);
-      return;
-    }
-
-    const result = l * w;
-    setSquareFootage(result.toFixed(2));
-  };
-
-  const resetFields = () => {
-    setLength("");
-    setWidth("");
-    setSquareFootage(null);
+  const reset = () => {
+    setLength(DEFAULTS.length);
+    setWidth(DEFAULTS.width);
   };
 
   return (
     <>
-      <div className=" mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          Square Footage Calculator
-        </h2>
+      <Helmet>
+        <title>
+          Square Footage Calculator - Area in ft² from Length &amp; Width (feet)
+        </title>
+        <meta
+          name="description"
+          content="Calculate square feet for a rectangular room or plot from length and width in feet. Includes approximate square meters (m²) conversion."
+        />
+        <meta
+          name="keywords"
+          content="square footage calculator, room area calculator sq ft, length times width square feet, floor area calculator feet, convert sq ft to sq m"
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={PAGE_URL} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Square Footage Calculator - ft² Area"
+        />
+        <meta
+          property="og:description"
+          content="Length × width in feet → square feet and approximate m²."
+        />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Square Footage Calculator" />
+        <meta
+          name="twitter:description"
+          content="Rectangular area in square feet from dimensions in feet."
+        />
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Length (feet)</label>
-          <input
-            type="number"
-            value={length}
-            onChange={(e) => setLength(e.target.value)}
-            className="w-full p-2 border rounded-md"
-            placeholder="e.g., 12"
-          />
-        </div>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Square Footage Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate rectangular floor area in square feet from length and width in feet.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
+        </script>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Width (feet)</label>
-          <input
-            type="number"
-            value={width}
-            onChange={(e) => setWidth(e.target.value)}
-            className="w-full p-2 border rounded-md"
-            placeholder="e.g., 10"
-          />
-        </div>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Square Footage Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to compute square footage and approximate square meters for rectangular areas.",
+            applicationCategory: "UtilityApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
+        </script>
 
-        <div className="flex gap-2">
-          <button
-            onClick={calculateSquareFootage}
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-          >
-            Calculate
-          </button>
-          <button
-            onClick={resetFields}
-            className="w-full bg-gray-300 text-gray-800 py-2 rounded-md hover:bg-gray-400 transition"
-          >
-            Reset
-          </button>
-        </div>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How to Calculate Square Footage for a Rectangle",
+            description:
+              "Multiply length in feet by width in feet to get area in square feet for rooms, decks, and plots.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
 
-        {squareFootage !== null && (
-          <div className="mt-6 text-center">
-            <h3 className="text-lg font-semibold text-green-600">
-              Total Area: {squareFootage} ft²
-            </h3>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "How do you calculate square footage?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "For a rectangle, multiply length in feet by width in feet. The result is area in square feet (ft²).",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How do I convert square feet to square meters?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Multiply square feet by about 0.092903 to get square meters, or divide square meters by that factor to get square feet.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Does this work for irregular rooms?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "This page is for one rectangle. Split L-shaped or complex floors into smaller rectangles, calculate each, then add the areas.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Should I include closets in square footage?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "For materials like flooring, measure every space you will cover. Real estate listings vary—follow local convention for listings.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "How much extra flooring should I order?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Many installers add 5–10% for cuts and waste; complex layouts may need more. Use total ft² from this calculator as your base.",
+                },
+              },
+            ],
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Other Calculators",
+                item: "https://www.unitedcalculator.net/other",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Square Footage Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
+        </script>
+      </Helmet>
+
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Length (feet)
+            </label>
+            <input
+              type="number"
+              value={length}
+              onChange={(e) => setLength(e.target.value)}
+              className={inputClassName}
+              placeholder={DEFAULTS.length}
+              min="0"
+              step="any"
+            />
           </div>
-        )}
+
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Width (feet)
+            </label>
+            <input
+              type="number"
+              value={width}
+              onChange={(e) => setWidth(e.target.value)}
+              className={inputClassName}
+              placeholder={DEFAULTS.width}
+              min="0"
+              step="any"
+            />
+          </div>
+        </div>
+
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">Area summary</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-on-surface">Dimensions</span>
+              <span className="font-code-num text-code-num text-right">
+                {result?.l != null && !result.error
+                  ? `${fmt2(result.l)} ft × ${fmt2(result.w)} ft`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-on-surface">Square footage</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result?.sqFt != null && !result.error
+                  ? `${fmt2(result.sqFt)} ft²`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-on-surface">Square meters (approx.)</span>
+              <span className="font-code-num text-code-num">
+                {result?.sqM != null && !result.error
+                  ? `${fmt2(result.sqM)} m²`
+                  : "—"}
+              </span>
+            </div>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              <strong>Area = length × width</strong> in feet. For sloped roof
+              surface (not flat footprint), use the Roofing Calculator. Add 5–10%
+              extra material for cuts when ordering tile or flooring.
+            </p>
+          </div>
+        </section>
       </div>
-      <article class="py-6">
-        <p class="mb-6">
-          Our <strong>Square Footage Calculator</strong> is a fast, reliable
-          tool to help you measure area for rooms, houses, gardens, or any
-          rectangular and irregular spaces. Whether you’re planning flooring,
-          budgeting for paint, or checking property size, this calculator
-          converts dimensions into square feet so you can plan with confidence.
-        </p>
-
-        <p class="mb-6">
-          The tool works for simple rectangles as well as shapes that can be
-          split into smaller rectangles and triangles. If you need to estimate
-          how much paint or carpet to buy after measuring area, you can try our{" "}
-          <a
-            href="https://www.unitedcalculator.net/other/tile-calculator"
-            target="_blank"
-            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-          >
-            Tile Calculator
-          </a>
-          .
-        </p>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">What is Square Footage?</h2>
-          <p>
-            Square footage (sq ft) is a tool from which users can calculate area
-            of a place, tile or terrace. It`s commonly used in real estate and
-            construction in the US and all over the world. It tells us that how
-            much two-dimensional space covers a surface. for example - the floor
-            area of a room. iIts measurement always takes place in ordering
-            materials, estimating costs, and comparing spaces.
-          </p>
-          <p class="mt-2">
-            If you’re working with metric units, you should also try Area
-            Converter tool to switch between square meters and square feet.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Square Footage Formula</h2>
-          <p>Square Footage Formula for standard rectangular spaces:</p>
-          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
-            <code>Area = Length × Width </code>
-          </pre>
-          <p class="mt-2">
-            For irregular shapes, divide the area into rectangles like triangles
-            or circles, calculate each part separately, then add them together.
-            For circular areas:
-          </p>
-          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
-            <code>Area (circle) = π × radius²</code>
-          </pre>
-          <ul class="list-disc ml-5 mb-3">
-            <li>Use feet and inches for imperial inputs</li>
-            <li>Convert centimeters/meters to feet if necessary</li>
-          </ul>
-          <p>
-            If you need help converting measurements before calculating area,
-            check our Length Converter .
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            How to Use the Square Footage Calculator in 2025
-          </h2>
-          <ol class="list-decimal ml-5 mb-3">
-            <li>
-              Measure the length and width of the area in feet if you are
-              calculating in feets otherwise you also can measure area in
-              metere.
-            </li>
-            <li>Enter the values into the calculator.</li>
-            <li>
-              For irregular rooms split the space into simple shapes and measure
-              each one.
-            </li>
-            <li>
-              Click <strong>Calculate</strong> to get the total square footage.
-            </li>
-          </ol>
-          <ul class="list-disc ml-5">
-            <li>Works for rooms, yards, patios, and more</li>
-            <li>Helps estimate materials like flooring, tile, and carpet</li>
-            <li>Include or exclude closet and alcove areas as needed</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Example Calculations</h2>
-          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
-            <p>
-              <strong>Rectangle example:</strong> A room 15 ft long and 12 ft
-              wide → 15 × 12 = <strong>180 sq ft</strong>.
-            </p>
-            <p>
-              <strong>Split-shape example:</strong> A living area that’s 20 × 12
-              ft plus an adjoining 6 × 8 ft alcove → (20 × 12) + (6 × 8) = 240 +
-              48 = <strong>288 sq ft</strong>.
-            </p>
-            <p>
-              <strong>Circle example:</strong> A round patio with a 6 ft radius
-              → π × 6² ≈ 3.1416 × 36 ≈ <strong>113.1 sq ft</strong>.
-            </p>
-          </div>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Practical Tips</h2>
-          <ul class="list-disc ml-5">
-            <li>Always measure at least twice to avoid errors.</li>
-            <li>
-              Round up slightly when ordering materials to account for cuts and
-              waste (usually 5–10% extra).
-            </li>
-            <li>
-              When measuring irregular spaces, sketch the floor plan and label
-              dimensions — it reduces mistakes.
-            </li>
-            <li>
-              For flooring, consider the plank or tile size when estimating to
-              reduce leftover waste.
-            </li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <dl>
-            <dt class="font-semibold mt-4">
-              Q.1 What is included in square footage?
-            </dt>
-            <dd>
-              Ans. Square footage usually measures the usable floor area. Some
-              property listings include finished basements or balconies, while
-              others do not check the definition used in your market or
-              contract.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.2 How do I convert square meters to square feet?
-            </dt>
-            <dd>
-              Ans. Multiply square meters by 10.7639 to get square feet. For
-              quick conversions, use our Area Converter .
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.3 Do I include closets and staircases?
-            </dt>
-            <dd>
-              Ans. It depends for usable living area, include closets if they
-              are finished and heated. Stairwells and utility spaces are
-              sometimes excluded; follow local real estate conventions.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.4 How much extra material should I buy?
-            </dt>
-            <dd>
-              Ans. Typically add 5–10% extra for cuts and mistakes. For complex
-              patterns or diagonal installations consider 10–15% extra.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.5 Can I use the calculator for outdoor spaces?
-            </dt>
-            <dd>
-              Ans. Yes it’s great for patios, decks, and yards. For landscaping
-              materials like mulch or soil, you may need volume calculators
-              rather than square footage.
-            </dd>
-          </dl>
-        </section>
-      </article>
     </>
   );
 };

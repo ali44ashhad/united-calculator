@@ -175,6 +175,22 @@ const ShoeSizeConverter = () => {
                   text: "With this formula, US 9 ≈ EU 39 (9 + 30). Brand charts may list 42 or other values—always check the label.",
                 },
               },
+              {
+                "@type": "Question",
+                name: "What is US size 10 in EU?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "With this formula, US 10 ≈ EU 40 (10 + 30). Some brand charts list different EU numbers for the same US size.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Are UK and US shoe sizes the same?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "No. UK sizes are typically about half a size smaller than US for similar fit. This calculator estimates UK ≈ US − 0.5.",
+                },
+              },
             ],
           })}
         </script>

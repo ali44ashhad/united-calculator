@@ -41,6 +41,20 @@ import DateSeoContent from "../components/seo/DateSeoContent";
 import DayCounterSeoContent from "../components/seo/DayCounterSeoContent";
 import DayOfTheWeekSeoContent from "../components/seo/DayOfTheWeekSeoContent";
 import ShoeSizeConversionSeoContent from "../components/seo/ShoeSizeConversionSeoContent";
+import SleepSeoContent from "../components/seo/SleepSeoContent";
+import SpeedSeoContent from "../components/seo/SpeedSeoContent";
+import SquareFootageSeoContent from "../components/seo/SquareFootageSeoContent";
+import StairSeoContent from "../components/seo/StairSeoContent";
+import TileSeoContent from "../components/seo/TileSeoContent";
+import TimeSeoContent from "../components/seo/TimeSeoContent";
+import TimeCardSeoContent from "../components/seo/TimeCardSeoContent";
+import TimeDurationSeoContent from "../components/seo/TimeDurationSeoContent";
+import TimeZoneSeoContent from "../components/seo/TimeZoneSeoContent";
+import TipSeoContent from "../components/seo/TipSeoContent";
+import TireSizeSeoContent from "../components/seo/TireSizeSeoContent";
+import VoltageDropSeoContent from "../components/seo/VoltageDropSeoContent";
+import WeightSeoContent from "../components/seo/WeightSeoContent";
+import WindChillSeoContent from "../components/seo/WindChillSeoContent";
 import DensitySeoContent from "../components/seo/DensitySeoContent";
 import DewPointSeoContent from "../components/seo/DewPointSeoContent";
 import DiceRollerSeoContent from "../components/seo/DiceRollerSeoContent";
@@ -67,6 +81,8 @@ import MulchSeoContent from "../components/seo/MulchSeoContent";
 import OhmsLawSeoContent from "../components/seo/OhmsLawSeoContent";
 import PasswordGeneratorSeoContent from "../components/seo/PasswordGeneratorSeoContent";
 import ResistorSeoContent from "../components/seo/ResistorSeoContent";
+import RomanNumeralSeoContent from "../components/seo/RomanNumeralSeoContent";
+import RoofingSeoContent from "../components/seo/RoofingSeoContent";
 
 import SIPCalculator from "../calculators/finance/SIPCalculator";
 import BMICalculator from "../calculators/health/BMICalculator";
@@ -713,6 +729,31 @@ const CalculatorPage = () => {
           {calculator?.id === "shoe-size-conversion" && (
             <ShoeSizeConversionSeoContent />
           )}
+          {calculator?.id === "sleep-calculator" && <SleepSeoContent />}
+          {calculator?.id === "speed-calculator" && <SpeedSeoContent />}
+          {calculator?.id === "square-footage-calculator" && (
+            <SquareFootageSeoContent />
+          )}
+          {calculator?.id === "stair-calculator" && <StairSeoContent />}
+          {calculator?.id === "tile-calculator" && <TileSeoContent />}
+          {calculator?.id === "time-calculator" && <TimeSeoContent />}
+          {calculator?.id === "time-card-calculator" && (
+            <TimeCardSeoContent />
+          )}
+          {calculator?.id === "time-duration-calculator" && (
+            <TimeDurationSeoContent />
+          )}
+          {calculator?.id === "time-zone-calculator" && (
+            <TimeZoneSeoContent />
+          )}
+          {calculator?.id === "tip-calculator" && <TipSeoContent />}
+          {calculator?.id === "tire-size-calculator" && (
+            <TireSizeSeoContent />
+          )}
+          {calculator?.id === "voltage-drop-calculator" && (
+            <VoltageDropSeoContent />
+          )}
+          {calculator?.id === "weight-calculator" && <WeightSeoContent />}
           {calculator?.id === "density-calculator" && <DensitySeoContent />}
           {calculator?.id === "dew-point-calculator" && (
             <DewPointSeoContent />
@@ -739,6 +780,9 @@ const CalculatorPage = () => {
           {calculator?.id === "gravel-calculator" && <GravelSeoContent />}
           {calculator?.id === "heat-index-calculator" && (
             <HeatIndexSeoContent />
+          )}
+          {calculator?.id === "wind-chill-calculator" && (
+            <WindChillSeoContent />
           )}
           {calculator?.id === "height-calculator" && <HeightSeoContent />}
           {calculator?.id === "horsepower-calculator" && (
@@ -769,6 +813,10 @@ const CalculatorPage = () => {
           {calculator?.id === "resistor-calculator" && (
             <ResistorSeoContent />
           )}
+          {calculator?.id === "roman-numeral-converter" && (
+            <RomanNumeralSeoContent />
+          )}
+          {calculator?.id === "roofing-calculator" && <RoofingSeoContent />}
 
           {/* Related Tools (global, same for all calculators) */}
           <div className="space-y-6">
