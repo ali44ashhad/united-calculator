@@ -1,247 +1,500 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const HouseAffordabilityCalculator = () => {
-  const [annualIncome, setAnnualIncome] = useState("80000");
-  const [monthlyDebt, setMonthlyDebt] = useState("500");
-  const [downPayment, setDownPayment] = useState("20000");
-  const [interestRate, setInterestRate] = useState("6.5");
-  const [loanTerm, setLoanTerm] = useState("30");
 
-  const calculateAffordability = () => {
-    const income = parseFloat(annualIncome) / 12; // monthly income
-    const debt = parseFloat(monthlyDebt);
-    const down = parseFloat(downPayment);
-    const rate = parseFloat(interestRate) / 100 / 12;
-    const termMonths = parseFloat(loanTerm) * 12;
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/house-affordability-calculator";
 
-    if (
-      isNaN(income) ||
-      isNaN(debt) ||
-      isNaN(down) ||
-      isNaN(rate) ||
-      isNaN(termMonths)
-    )
-      return null;
+const DTI_LIMIT = 0.36;
 
-    // Max 36% of income can go to debt payments (standard DTI rule)
-    const maxMonthlyPayment = income * 0.36 - debt;
+const DEFAULTS = {
+  annualIncome: "80000",
+  monthlyDebt: "500",
+  downPayment: "20000",
+  interestRate: "6.5",
+  loanTerm: "30",
+};
 
-    // Mortgage affordability based on maxMonthlyPayment
-    const loanAmount =
-      (maxMonthlyPayment * (1 - Math.pow(1 + rate, -termMonths))) / rate;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    const housePrice = loanAmount + down;
+const computeHouseAffordability = (
+  annualIncome,
+  monthlyDebt,
+  downPayment,
+  interestRate,
+  loanTerm
+) => {
+  if (
+    annualIncome.trim() === "" ||
+    monthlyDebt.trim() === "" ||
+    downPayment.trim() === "" ||
+    interestRate.trim() === "" ||
+    loanTerm.trim() === ""
+  ) {
+    return null;
+  }
 
+  const incomeMonthly = parseFloat(annualIncome) / 12;
+  const debt = parseFloat(monthlyDebt);
+  const down = parseFloat(downPayment);
+  const rateAnnual = parseFloat(interestRate);
+  const termYears = parseFloat(loanTerm);
+
+  if (
+    isNaN(incomeMonthly) ||
+    isNaN(debt) ||
+    isNaN(down) ||
+    isNaN(rateAnnual) ||
+    isNaN(termYears)
+  ) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (incomeMonthly <= 0) {
+    return { error: "Annual income must be greater than zero." };
+  }
+
+  if (debt < 0 || down < 0) {
+    return { error: "Monthly debt and down payment cannot be negative." };
+  }
+
+  if (termYears <= 0) {
+    return { error: "Loan term must be greater than zero years." };
+  }
+
+  const rate = rateAnnual / 100 / 12;
+  const termMonths = termYears * 12;
+
+  const maxMonthlyPayment = incomeMonthly * DTI_LIMIT - debt;
+
+  if (maxMonthlyPayment <= 0) {
     return {
-      maxHousePrice: housePrice.toFixed(2),
-      maxLoanAmount: loanAmount.toFixed(2),
-      monthlyPayment: maxMonthlyPayment.toFixed(2),
+      error:
+        "Existing monthly debt already meets or exceeds the 36% income limit. Lower debt or increase income to afford a mortgage payment.",
     };
-  };
+  }
 
-  const result = calculateAffordability();
+  let loanAmount;
+  if (rate === 0) {
+    loanAmount = maxMonthlyPayment * termMonths;
+  } else {
+    loanAmount =
+      (maxMonthlyPayment * (1 - Math.pow(1 + rate, -termMonths))) / rate;
+  }
+
+  const housePrice = loanAmount + down;
+  const dtiWithMortgage =
+    ((debt + maxMonthlyPayment) / incomeMonthly) * 100;
+
+  return {
+    maxHousePrice: housePrice,
+    maxLoanAmount: loanAmount,
+    maxMonthlyPayment,
+    monthlyIncome: incomeMonthly,
+    dtiWithMortgage,
+    downPayment: down,
+    interestRatePercent: rateAnnual,
+    loanTermYears: termYears,
+  };
+};
+
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does the House Affordability Calculator estimate?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It estimates maximum home price from annual income, existing monthly debt, down payment, interest rate, and loan term using a 36% back-end debt-to-income cap for the new mortgage payment.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What is the 36% rule used here?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Total monthly debt payments (existing debt plus the estimated mortgage principal and interest) are capped at 36% of gross monthly income. The tool solves for the largest P&I payment that fits under that limit.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are property taxes and insurance included?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. The affordable monthly payment is principal and interest only. Taxes, homeowners insurance, HOA fees, and PMI are not added—real budgets need room for those costs.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is maximum loan amount calculated?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "The maximum P&I payment is discounted over the loan term at the monthly interest rate (present value of an annuity). Maximum home price equals that loan amount plus your down payment.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this a lender approval?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Lenders use their own DTI limits, credit, reserves, and programs. Use this as a planning estimate, not a pre-approval.",
+    },
+  },
+];
+
+const HouseAffordabilityCalculator = () => {
+  const [annualIncome, setAnnualIncome] = useState(DEFAULTS.annualIncome);
+  const [monthlyDebt, setMonthlyDebt] = useState(DEFAULTS.monthlyDebt);
+  const [downPayment, setDownPayment] = useState(DEFAULTS.downPayment);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+  const [loanTerm, setLoanTerm] = useState(DEFAULTS.loanTerm);
+
+  const result = computeHouseAffordability(
+    annualIncome,
+    monthlyDebt,
+    downPayment,
+    interestRate,
+    loanTerm
+  );
+
+  const reset = () => {
+    setAnnualIncome(DEFAULTS.annualIncome);
+    setMonthlyDebt(DEFAULTS.monthlyDebt);
+    setDownPayment(DEFAULTS.downPayment);
+    setInterestRate(DEFAULTS.interestRate);
+    setLoanTerm(DEFAULTS.loanTerm);
+  };
 
   return (
     <>
       <Helmet>
         <title>
-          House Affordability Calculator - Know How Much Home You Can Afford
+          House Affordability Calculator - 36% DTI Home Price Estimate
         </title>
         <meta
           name="description"
-          content="Use our House Affordability Calculator to estimate how much house you can afford based on your income, expenses, and mortgage terms. Plan your home purchase smartly."
+          content="Estimate max home price from income, monthly debt, down payment, rate, and term using a 36% back-end DTI rule for principal and interest."
         />
         <meta
           name="keywords"
-          content="house affordability calculator, home affordability calculator, how much house can I afford, mortgage calculator, income-based house calculator, home loan calculator"
+          content="house affordability calculator, how much house can I afford, home affordability estimate, DTI home calculator, max home price"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/house-affordability-calculator"
-        />
-
-        {/* Open Graph */}
+        <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="House Affordability Calculator - Know How Much Home You Can Afford"
+          content="House Affordability Calculator"
         />
         <meta
           property="og:description"
-          content="Find out how much house you can afford with our House Affordability Calculator. Enter your income, expenses, and mortgage details to get an accurate estimate."
+          content="Max home price from income, debt, down payment, and mortgage terms."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="House Affordability Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/house-affordability-calculator"
+          name="twitter:description"
+          content="36% DTI-based home price planning estimate."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "House Affordability Calculator",
-      "url": "https://www.unitedcalculator.net/finance/house-affordability-calculator",
-      "description": "Calculate how much house you can afford based on your income, monthly debts, and mortgage rate. This House Affordability Calculator helps you plan smart home purchases.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "House Affordability Calculator",
+            url: PAGE_URL,
+            description:
+              "Estimate maximum affordable home price using income, monthly debt, down payment, and mortgage rate with a 36% DTI cap.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a house affordability calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A house affordability calculator helps you estimate the maximum home price you can afford based on your income, debts, and mortgage terms."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why should I use a home affordability calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It gives you a realistic idea of what home price fits your budget so you can avoid overspending and plan your finances better."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "House Affordability Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to estimate max home price from income and debt using a 36% back-end DTI limit.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "House Affordability Calculator",
-          "item": "https://www.unitedcalculator.net/finance/house-affordability-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How Much House Can You Afford on 36% DTI?",
+            description:
+              "Back out maximum principal-and-interest payment from income and existing debt, then convert to loan size and home price with your down payment.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "House Affordability Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Annual Income ($)</label>
-            <input
-              type="number"
-              value={annualIncome}
-              onChange={(e) => setAnnualIncome(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 80000"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual income
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={annualIncome}
+                onChange={(e) => setAnnualIncome(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.annualIncome}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Monthly Debt ($)</label>
-            <input
-              type="number"
-              value={monthlyDebt}
-              onChange={(e) => setMonthlyDebt(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 500"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Monthly debt payments
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={monthlyDebt}
+                onChange={(e) => setMonthlyDebt(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.monthlyDebt}
+                min="0"
+                step="any"
+              />
+            </div>
+            <p className="text-sm text-on-surface-variant">
+              Car loans, cards, student loans, etc. (not the new mortgage)
+            </p>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Down Payment ($)</label>
-            <input
-              type="number"
-              value={downPayment}
-              onChange={(e) => setDownPayment(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 20000"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Down payment
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={downPayment}
+                onChange={(e) => setDownPayment(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.downPayment}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Interest Rate (%)</label>
-            <input
-              type="number"
-              value={interestRate}
-              onChange={(e) => setInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 6.5"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Mortgage interest rate
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.interestRate}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Loan term (years)
+            </label>
             <input
               type="number"
               value={loanTerm}
               onChange={(e) => setLoanTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 30"
+              className={inputClassName}
+              placeholder={DEFAULTS.loanTerm}
+              min="0"
+              step="any"
             />
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              House Affordability Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">
-                  Estimated Monthly Payment:
-                </span>
-                <span className="text-green-600 font-medium">
-                  ${result.monthlyPayment}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">
-                  Loan Amount You Can Afford:
-                </span>
-                <span className="text-blue-600 font-medium">
-                  ${result.maxLoanAmount}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">
-                  Max House Price You Can Afford:
-                </span>
-                <span className="text-yellow-600">${result.maxHousePrice}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Affordability summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Max home price
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.maxHousePrice)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Max loan amount</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.maxLoanAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Max principal &amp; interest payment
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.maxMonthlyPayment)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Back-end DTI at max payment
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${result.dtiWithMortgage.toFixed(1)}%`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Gross monthly income</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.monthlyIncome)}`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Uses {(DTI_LIMIT * 100).toFixed(0)}% of gross monthly income for
+              all debt including the new mortgage P&amp;I. Taxes, insurance, HOA,
+              and PMI are not included in the payment cap.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

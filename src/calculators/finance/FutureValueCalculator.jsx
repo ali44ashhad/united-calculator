@@ -1,224 +1,445 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const FutureValueCalculator = () => {
-  const [initialInvestment, setInitialInvestment] = useState("10000");
-  const [annualContribution, setAnnualContribution] = useState("5000");
-  const [annualRate, setAnnualRate] = useState("8"); // in %
-  const [years, setYears] = useState("15");
 
-  const calculateFutureValue = () => {
-    const P = parseFloat(initialInvestment);
-    const PMT = parseFloat(annualContribution);
-    const r = parseFloat(annualRate) / 100;
-    const t = parseFloat(years);
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/future-value-calculator";
 
-    if (isNaN(P) || isNaN(PMT) || isNaN(r) || isNaN(t)) return null;
+const DEFAULTS = {
+  initialInvestment: "10000",
+  annualContribution: "5000",
+  annualRate: "8",
+  years: "15",
+};
 
-    const compoundGrowth = P * Math.pow(1 + r, t);
-    const contributionGrowth = PMT * ((Math.pow(1 + r, t) - 1) / r);
-    const futureValue = compoundGrowth + contributionGrowth;
-    const totalInvested = P + PMT * t;
-    const totalInterest = futureValue - totalInvested;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    return {
-      futureValue: futureValue.toFixed(2),
-      totalInvested: totalInvested.toFixed(2),
-      totalInterest: totalInterest.toFixed(2),
-    };
+const computeFutureValue = (
+  initialInvestment,
+  annualContribution,
+  annualRate,
+  years
+) => {
+  if (
+    initialInvestment.trim() === "" ||
+    annualContribution.trim() === "" ||
+    annualRate.trim() === "" ||
+    years.trim() === ""
+  ) {
+    return null;
+  }
+
+  const P = parseFloat(initialInvestment);
+  const PMT = parseFloat(annualContribution);
+  const r = parseFloat(annualRate) / 100;
+  const t = parseFloat(years);
+
+  if (isNaN(P) || isNaN(PMT) || isNaN(r) || isNaN(t)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (P < 0 || PMT < 0) {
+    return { error: "Initial amount and annual contribution cannot be negative." };
+  }
+
+  if (t <= 0) {
+    return { error: "Time period must be greater than zero years." };
+  }
+
+  let compoundGrowth;
+  let contributionGrowth;
+
+  if (r === 0) {
+    compoundGrowth = P;
+    contributionGrowth = PMT * t;
+  } else {
+    compoundGrowth = P * Math.pow(1 + r, t);
+    contributionGrowth = PMT * ((Math.pow(1 + r, t) - 1) / r);
+  }
+
+  const futureValue = compoundGrowth + contributionGrowth;
+  const totalInvested = P + PMT * t;
+  const totalGrowth = futureValue - totalInvested;
+
+  return {
+    futureValue,
+    totalInvested,
+    totalGrowth,
+    compoundGrowth,
+    contributionGrowth,
+    initialInvestment: P,
+    annualContribution: PMT,
+    annualRatePercent: parseFloat(annualRate),
+    years: t,
   };
+};
 
-  const result = calculateFutureValue();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does the Future Value Calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It estimates future value from an initial lump sum compounded annually plus level annual contributions at the end of each year, using standard future value formulas.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What formulas are used?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "FV = P(1+r)^t + PMT × [(1+r)^t − 1] / r, where P is initial investment, PMT is annual contribution, r is annual rate, and t is years.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are contributions made at the start or end of each year?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Contributions are modeled at the end of each year (ordinary annuity). Beginning-of-year deposits would produce a slightly higher balance.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is this different from the Finance Calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "The Finance Calculator on this site models a single deposit with no ongoing contributions. This tool adds annual contributions to the projection.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this include taxes or fees?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Results are pretax and assume the stated return is achieved each year without investment fees.",
+    },
+  },
+];
+
+const FutureValueCalculator = () => {
+  const [initialInvestment, setInitialInvestment] = useState(
+    DEFAULTS.initialInvestment
+  );
+  const [annualContribution, setAnnualContribution] = useState(
+    DEFAULTS.annualContribution
+  );
+  const [annualRate, setAnnualRate] = useState(DEFAULTS.annualRate);
+  const [years, setYears] = useState(DEFAULTS.years);
+
+  const result = computeFutureValue(
+    initialInvestment,
+    annualContribution,
+    annualRate,
+    years
+  );
+
+  const reset = () => {
+    setInitialInvestment(DEFAULTS.initialInvestment);
+    setAnnualContribution(DEFAULTS.annualContribution);
+    setAnnualRate(DEFAULTS.annualRate);
+    setYears(DEFAULTS.years);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Future Value Calculator - Estimate Investment Growth</title>
+        <title>
+          Future Value Calculator - Lump Sum & Annual Contributions
+        </title>
         <meta
           name="description"
-          content="Use our Future Value Calculator to estimate the value of an investment or savings over time. Adjust interest rate, time period, and contributions for accurate results."
+          content="Calculate future value from initial investment, annual contributions, return rate, and years. See total invested, growth, and FV with annual compounding."
         />
         <meta
           name="keywords"
-          content="future value calculator, investment calculator, savings growth calculator, compound interest calculator, fv calculator, investment returns, future value formula, financial planning tool"
+          content="future value calculator, FV calculator, annual contribution calculator, investment growth estimate, compound savings calculator"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/future-value-calculator"
-        />
-
-        {/* Open Graph */}
+        <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Future Value Calculator - Estimate Investment Growth"
+          content="Future Value Calculator"
         />
         <meta
           property="og:description"
-          content="Calculate the future value of your investments or savings using our free Future Value Calculator. Great for long-term financial planning and goal setting."
+          content="Future value with initial deposit plus annual contributions."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Future Value Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/future-value-calculator"
+          name="twitter:description"
+          content="FV estimate with lump sum and yearly deposits."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Future Value Calculator",
-      "url": "https://www.unitedcalculator.net/finance/future-value-calculator",
-      "description": "Calculate the future value of your investments with interest using this free online Future Value Calculator. Perfect for planning savings and returns over time.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Future Value Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate future value from initial investment and annual contributions with annual compounding.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a future value calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A future value calculator helps estimate the value of an investment or savings at a future date based on interest rate, time period, and contribution amount."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why use a future value calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It helps you forecast how much your money will grow over time, making it a valuable tool for financial planning, saving for goals, or retirement preparation."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Future Value Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to compute future value of initial plus annual contributions.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Future Value Calculator",
-          "item": "https://www.unitedcalculator.net/finance/future-value-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How to Calculate Future Value with Annual Contributions",
+            description:
+              "Combine future value of a lump sum with the future value of an ordinary annuity of annual contributions at a constant return rate.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Future Value Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">
-              Initial Investment ($)
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Initial investment
             </label>
-            <input
-              type="number"
-              value={initialInvestment}
-              onChange={(e) => setInitialInvestment(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10000"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={initialInvestment}
+                onChange={(e) => setInitialInvestment(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.initialInvestment}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Contribution ($)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual contribution
             </label>
-            <input
-              type="number"
-              value={annualContribution}
-              onChange={(e) => setAnnualContribution(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5000"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={annualContribution}
+                onChange={(e) => setAnnualContribution(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.annualContribution}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Interest Rate (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual return rate
             </label>
-            <input
-              type="number"
-              value={annualRate}
-              onChange={(e) => setAnnualRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 8"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={annualRate}
+                onChange={(e) => setAnnualRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.annualRate}
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Time Period (Years)
-            </label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Years</label>
             <input
               type="number"
               value={years}
               onChange={(e) => setYears(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 15"
+              className={inputClassName}
+              placeholder={DEFAULTS.years}
+              min="0"
+              step="any"
             />
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Future Value Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Invested:</span>
-                <span className="text-yellow-600 font-medium">
-                  ${result.totalInvested}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Interest Earned:</span>
-                <span className="text-green-600 font-medium">
-                  ${result.totalInterest}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Future Value:</span>
-                <span className="text-blue-600">${result.futureValue}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Future value summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Future value</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.futureValue)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total invested</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalInvested)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total growth</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalGrowth)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">From initial deposit</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.compoundGrowth)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">From contributions</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.contributionGrowth)}`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              FV = P(1+r)^t + PMT×[(1+r)^t − 1]/r with annual compounding.
+              Contributions are added at the end of each year. Use zero
+              contribution for a single lump sum only.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

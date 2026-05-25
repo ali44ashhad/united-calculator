@@ -1,461 +1,490 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const FourZeroOneKCalculator = () => {
-  const [annualContribution, setAnnualContribution] = useState("19500");
-  const [employerMatch, setEmployerMatch] = useState("50"); // in percentage
-  const [salary, setSalary] = useState("60000");
-  const [annualReturn, setAnnualReturn] = useState("7");
-  const [years, setYears] = useState("30");
 
-  const calculate401k = () => {
-    const contribution = parseFloat(annualContribution);
-    const matchPercent = parseFloat(employerMatch) / 100;
-    const salaryAmt = parseFloat(salary);
-    const returnRate = parseFloat(annualReturn) / 100;
-    const time = parseFloat(years);
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/401k-calculator";
 
-    if (
-      isNaN(contribution) ||
-      isNaN(matchPercent) ||
-      isNaN(salaryAmt) ||
-      isNaN(returnRate) ||
-      isNaN(time)
-    )
-      return null;
+const MATCH_SALARY_CAP = 0.06;
 
-    const employerMatchAmount =
-      Math.min(contribution, salaryAmt * 0.06) * matchPercent;
+const DEFAULTS = {
+  annualContribution: "19500",
+  employerMatch: "50",
+  salary: "60000",
+  annualReturn: "7",
+  years: "30",
+};
 
-    let total = 0;
-    for (let i = 0; i < time; i++) {
-      total = (total + contribution + employerMatchAmount) * (1 + returnRate);
-    }
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    const totalContribution = (contribution + employerMatchAmount) * time;
-    const totalGrowth = total - totalContribution;
+const compute401k = (
+  annualContribution,
+  employerMatch,
+  salary,
+  annualReturn,
+  years
+) => {
+  if (
+    annualContribution.trim() === "" ||
+    employerMatch.trim() === "" ||
+    salary.trim() === "" ||
+    annualReturn.trim() === "" ||
+    years.trim() === ""
+  ) {
+    return null;
+  }
 
-    return {
-      total: total.toFixed(2),
-      totalContribution: totalContribution.toFixed(2),
-      totalGrowth: totalGrowth.toFixed(2),
-    };
+  const contribution = parseFloat(annualContribution);
+  const matchPercent = parseFloat(employerMatch) / 100;
+  const salaryAmt = parseFloat(salary);
+  const returnRate = parseFloat(annualReturn) / 100;
+  const time = parseFloat(years);
+
+  if (
+    isNaN(contribution) ||
+    isNaN(matchPercent) ||
+    isNaN(salaryAmt) ||
+    isNaN(returnRate) ||
+    isNaN(time)
+  ) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (contribution < 0 || salaryAmt < 0) {
+    return { error: "Contribution and salary cannot be negative." };
+  }
+
+  if (matchPercent < 0 || matchPercent > 1) {
+    return { error: "Employer match must be between 0% and 100%." };
+  }
+
+  if (time <= 0) {
+    return { error: "Years must be greater than zero." };
+  }
+
+  const matchableBase = Math.min(contribution, salaryAmt * MATCH_SALARY_CAP);
+  const employerMatchAmount = matchableBase * matchPercent;
+  const annualTotal = contribution + employerMatchAmount;
+
+  let balance = 0;
+  for (let i = 0; i < time; i++) {
+    balance = (balance + annualTotal) * (1 + returnRate);
+  }
+
+  const totalContribution = annualTotal * time;
+  const totalGrowth = balance - totalContribution;
+
+  return {
+    balance,
+    totalContribution,
+    totalGrowth,
+    contribution,
+    employerMatchAmount,
+    annualTotal,
+    matchableBase,
+    employerMatchPercent: parseFloat(employerMatch),
+    returnRatePercent: parseFloat(annualReturn),
+    years: time,
   };
+};
 
-  const result = calculate401k();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does the 401(k) Calculator estimate?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It projects an ending balance from fixed annual employee contributions, an employer match based on match percent applied to contributions up to 6% of salary, and a constant annual investment return compounded each year.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is employer match calculated here?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Employer match equals the match percentage times the lesser of your annual contribution and 6% of annual salary. For example, 50% match on a $3,600 cap yields $1,800 per year.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this use monthly paycheck deposits?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Contributions are modeled as one lump sum per year added before annual growth. Real plans deposit each pay period; results will differ slightly from this simplified timeline.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are taxes and plan fees included?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. The projection is pretax growth without administrative fees, catch-up contributions, vesting schedules, or withdrawal taxes.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What annual return should I use?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Many planners use a long-term stock-heavy average near 6–8%, but actual returns vary every year. Run multiple scenarios with lower and higher rates.",
+    },
+  },
+];
+
+const FourZeroOneKCalculator = () => {
+  const [annualContribution, setAnnualContribution] = useState(
+    DEFAULTS.annualContribution
+  );
+  const [employerMatch, setEmployerMatch] = useState(DEFAULTS.employerMatch);
+  const [salary, setSalary] = useState(DEFAULTS.salary);
+  const [annualReturn, setAnnualReturn] = useState(DEFAULTS.annualReturn);
+  const [years, setYears] = useState(DEFAULTS.years);
+
+  const result = compute401k(
+    annualContribution,
+    employerMatch,
+    salary,
+    annualReturn,
+    years
+  );
+
+  const reset = () => {
+    setAnnualContribution(DEFAULTS.annualContribution);
+    setEmployerMatch(DEFAULTS.employerMatch);
+    setSalary(DEFAULTS.salary);
+    setAnnualReturn(DEFAULTS.annualReturn);
+    setYears(DEFAULTS.years);
+  };
 
   return (
     <>
       <Helmet>
-        <title>401(k) Calculator - Estimate Your Retirement Savings</title>
+        <title>
+          401(k) Calculator - Retirement Balance & Employer Match
+        </title>
         <meta
           name="description"
-          content="Use our 401(k) Calculator to estimate how much you’ll have saved for retirement. Customize your contribution, employer match, and growth rate for accurate projections."
+          content="Estimate 401(k) balance from annual contributions, employer match up to 6% of salary, expected return, and years invested. Annual compounding model."
         />
         <meta
           name="keywords"
-          content="401k calculator, four zero one k calculator, retirement calculator, 401k retirement savings, investment calculator, employer match calculator, retirement planning tool"
+          content="401k calculator, employer match calculator, retirement savings estimate, 401k growth projection, four zero one k calculator"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/four-zero-one-k-calculator"
-        />
-
-        {/* Open Graph */}
+        <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="401(k) Calculator - Estimate Your Retirement Savings"
+          content="401(k) Calculator"
         />
         <meta
           property="og:description"
-          content="Plan your retirement with our 401(k) Calculator. Calculate how contributions and employer matches grow your savings over time."
+          content="Project 401(k) balance with employee contributions and employer match."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="401(k) Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/four-zero-one-k-calculator"
+          name="twitter:description"
+          content="401(k) retirement savings estimate with match."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "401(k) Calculator",
-      "url": "https://www.unitedcalculator.net/finance/four-zero-one-k-calculator",
-      "description": "Use this 401(k) Calculator to forecast your retirement savings based on contribution rate, employer match, and expected investment returns.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "401(k) Calculator",
+            url: PAGE_URL,
+            description:
+              "Estimate 401(k) retirement balance from annual contributions, employer match, return rate, and years.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a 401(k) calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A 401(k) calculator helps you estimate your retirement savings by calculating future value based on contributions, employer match, and investment growth."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How accurate is a 401(k) calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It provides a useful estimate based on the inputs you provide, but actual outcomes depend on market performance, contribution consistency, and employer policies."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "401(k) Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to project 401(k) savings with employer match capped at 6% of salary.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "401(k) Calculator",
-          "item": "https://www.unitedcalculator.net/finance/four-zero-one-k-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How to Estimate 401(k) Growth with Employer Match",
+            description:
+              "Each year add employee plus employer contributions, then grow the balance by the annual return rate. Employer match applies to contributions up to 6% of salary.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "401(k) Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Contribution ($)
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Your annual contribution
             </label>
-            <input
-              type="number"
-              value={annualContribution}
-              onChange={(e) => setAnnualContribution(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 19500"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={annualContribution}
+                onChange={(e) => setAnnualContribution(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.annualContribution}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Employer Match (%)</label>
-            <input
-              type="number"
-              value={employerMatch}
-              onChange={(e) => setEmployerMatch(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 50"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">Annual Salary ($)</label>
-            <input
-              type="number"
-              value={salary}
-              onChange={(e) => setSalary(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 60000"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">
-              Expected Annual Return (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual salary
             </label>
-            <input
-              type="number"
-              value={annualReturn}
-              onChange={(e) => setAnnualReturn(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 7"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={salary}
+                onChange={(e) => setSalary(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.salary}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Years of Investment
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Employer match
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={employerMatch}
+                onChange={(e) => setEmployerMatch(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.employerMatch}
+                min="0"
+                max="100"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
+            <p className="text-sm text-on-surface-variant">
+              Match applied to contributions up to 6% of salary.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Expected annual return
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={annualReturn}
+                onChange={(e) => setAnnualReturn(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.annualReturn}
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Years invested
             </label>
             <input
               type="number"
               value={years}
               onChange={(e) => setYears(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 30"
+              className={`${inputClassName} max-w-full md:max-w-xs`}
+              placeholder={DEFAULTS.years}
+              min="0"
+              step="any"
             />
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              401(k) Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Contributions:</span>
-                <span className="text-yellow-600 font-medium">
-                  ${result.totalContribution}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Estimated Growth:</span>
-                <span className="text-green-600 font-medium">
-                  ${result.totalGrowth}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">
-                  Total Value at Retirement:
-                </span>
-                <span className="text-blue-600">${result.total}</span>
-              </div>
-            </div>
-          </section>
-        )}
-      </div>
-      <article class="py-6">
-        <p class="mb-6">
-          Our <strong>401(k) Calculator</strong> helps you estimate how much you
-          could accumulate in your retirement account based on your
-          contributions, employer match, expected investment return, and years
-          to retirement. Whether you’re starting your first job or reviewing
-          your retirement plan, this tool gives a clear snapshot of your
-          long-term savings outlook.
-        </p>
-
-        <p class="mb-6">
-          The calculator models tax-deferred growth (for traditional 401(k)
-          plans) and shows how employer contributions and compound returns can
-          accelerate your savings. If you want a broader retirement projection
-          that includes other savings and retirement goals, try our
-          <a
-            href="https://www.unitedcalculator.net/finance/retirement-calculator"
-            target="_blank"
-            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-          >
-            Retirement Calculator
-          </a>
-          .
-        </p>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">What is a 401(k)?</h2>
-          <p>
-            A 401(k) is an employer-sponsored retirement account commonly used
-            in the United States. You contribute a portion of your
-            paycheck—often pre-tax for traditional 401(k)s—and your employer may
-            match some portion of that contribution. Money in the account grows
-            tax-deferred until withdrawal, usually in retirement.
-          </p>
-          <p class="mt-2">
-            Some employers offer a dollar-for-dollar match, others match a
-            percentage; either way, the employer match is effectively free money
-            and can significantly boost your retirement balance. To compare
-            growth under different return scenarios, you can also use our
-            <a
-              href="https://www.unitedcalculator.net/finance/compound-interest-calculator"
-              target="_blank"
-              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
             >
-              Compound Interest Calculator
-            </a>
-            .
-          </p>
-        </section>
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            How the 401(k) Calculator Works
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            401(k) projection summary
           </h2>
-          <p>
-            The calculator asks for a few simple inputs and uses compound growth
-            to project your balance:
-          </p>
-          <ul class="list-disc ml-5 mb-3">
-            <li>
-              <strong>Employee contribution</strong> (amount or % of salary)
-            </li>
-            <li>
-              <strong>Employer match</strong> (percentage or fixed amount)
-            </li>
-            <li>
-              <strong>Expected annual rate of return</strong> (assumed average)
-            </li>
-            <li>
-              <strong>Years until retirement</strong>
-            </li>
-          </ul>
-          <p>
-            Results include a projected ending balance, total contributions (you
-            + employer), and the portion of your balance that comes from
-            investment gains.
-          </p>
-        </section>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Projected balance
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.balance)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total contributions</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalContribution)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Investment growth</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalGrowth)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Employer match (per year)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.employerMatchAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Your contribution (per year)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.contribution)}`
+                  : "—"}
+              </span>
+            </div>
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Calculation Logic (basic)</h2>
-          <p>
-            For regular contributions at the end of each period, the future
-            value of a series of equal contributions is commonly calculated
-            using:
-          </p>
-          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
-            <code>FV = C × [ (1 + r)^n − 1 ] ÷ r</code>
-          </pre>
-          <p class="mt-2">
-            Where <code>C</code> is the total annual contribution (employee +
-            employer), <code>r</code> is the annual rate of return (expressed as
-            a decimal), and <code>n</code> is the number of years. If
-            contributions are made monthly, the same formula applies using
-            monthly values (monthly contribution, monthly rate, and total
-            months).
-          </p>
-        </section>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
-          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
-            <p>
-              <strong>Example:</strong> Suppose you contribute{" "}
-              <strong>$5,000</strong> per year, your employer contributes an
-              additional <strong>$2,500</strong> per year (total annual
-              contribution = <strong>$7,500</strong>), you expect an average
-              annual return of <strong>7%</strong>, and you plan to work for{" "}
-              <strong>30 years</strong>.
-            </p>
-            <p>Step 1: Annual contribution (C) = $7,500</p>
-            <p>Step 2: Annual rate (r) = 7% = 0.07</p>
-            <p>Step 3: Years (n) = 30</p>
-            <p>
-              Step 4: Apply formula →{" "}
-              <strong>Projected balance ≈ $708,456</strong>
-            </p>
-            <p>
-              Over 30 years you would have contributed <strong>$225,000</strong>{" "}
-              in total (you + employer), and the remaining{" "}
-              <strong>≈ $483,456</strong> comes from investment growth — that’s
-              the power of compound interest.
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Each year: balance = (balance + your contribution + employer
+              match) × (1 + return). Employer match uses{" "}
+              {MATCH_SALARY_CAP * 100}% of salary cap. Not a substitute for plan
+              documents, vesting rules, or tax advice.
             </p>
           </div>
         </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Tips for Maximizing Your 401(k)
-          </h2>
-          <ul class="list-disc ml-5">
-            <li>
-              Try to contribute at least enough to get the full employer match —
-              it’s essentially free return.
-            </li>
-            <li>
-              Increase contributions gradually when you get raises or bonuses.
-            </li>
-            <li>
-              Consider diversified investments within your plan to manage risk.
-            </li>
-            <li>
-              If you switch jobs, roll over old 401(k) balances into your new
-              401(k) or an IRA to avoid losing tax advantages.
-            </li>
-            <li>
-              Adjust assumptions (rate of return and years) in the calculator to
-              see best- and worst-case scenarios.
-            </li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <dl>
-            <dt class="font-semibold mt-4">
-              Q.1 Does this calculator account for taxes?
-            </dt>
-            <dd>
-              Ans. This projection assumes tax-deferred growth typical of
-              traditional 401(k)s and does not explicitly model post-retirement
-              taxes. For Roth 401(k)s, contributions are after-tax but qualified
-              withdrawals are tax-free — you may want to consult a tax
-              professional for detailed planning.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.2 What if my employer match changes?
-            </dt>
-            <dd>
-              Ans. You can adjust the employer match input in the calculator to
-              model different employer contributions. Small increases in
-              employer match significantly improve long-term results.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.3 Is the calculator accurate for all cases?
-            </dt>
-            <dd>
-              Ans. The tool provides estimates based on the inputs you provide.
-              Real returns vary year to year and fees, plan-specific investment
-              options, and taxes will affect actual results.
-            </dd>
-
-            <dt class="font-semibold mt-4">Q.4 Should I consider inflation?</dt>
-            <dd>
-              Ans. Yes — inflation reduces purchasing power over time. To see
-              inflation-adjusted values, try our
-              <a
-                href="https://www.unitedcalculator.net/finance/inflation-calculator"
-                target="_blank"
-                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-              >
-                Inflation Calculator
-              </a>
-              .
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.5 Can I use this for non-US retirement accounts?
-            </dt>
-            <dd>
-              Ans. The growth math is the same for most retirement savings
-              accounts worldwide; adjust contribution rules and tax assumptions
-              according to your country’s regulations.
-            </dd>
-          </dl>
-        </section>
-      </article>
+      </div>
     </>
   );
 };

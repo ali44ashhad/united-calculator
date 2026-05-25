@@ -1,368 +1,404 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
-const DebtPayoffCalculator = () => {
-  const [debtAmount, setDebtAmount] = useState("10000");
-  const [annualInterestRate, setAnnualInterestRate] = useState("12");
-  const [monthlyPayment, setMonthlyPayment] = useState("500");
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/debt-payoff-calculator";
 
-  // Calculate months needed to pay off the debt and total interest paid
-  const calculatePayoff = () => {
-    const principal = parseFloat(debtAmount);
-    const annualRate = parseFloat(annualInterestRate) / 100;
-    const monthlyPay = parseFloat(monthlyPayment);
+const DEFAULTS = {
+  debtAmount: "10000",
+  annualInterestRate: "12",
+  monthlyPayment: "500",
+};
 
-    if (
-      isNaN(principal) ||
-      isNaN(annualRate) ||
-      isNaN(monthlyPay) ||
-      principal <= 0 ||
-      monthlyPay <= 0 ||
-      annualRate < 0
-    )
-      return null;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    const monthlyInterestRate = annualRate / 12;
+const computePayoff = (debtAmount, annualInterestRate, monthlyPayment) => {
+  if (
+    debtAmount.trim() === "" ||
+    annualInterestRate.trim() === "" ||
+    monthlyPayment.trim() === ""
+  ) {
+    return null;
+  }
 
-    if (monthlyPay <= principal * monthlyInterestRate) {
-      // Payment too low to ever pay off the debt
-      return { error: "Monthly payment is too low to pay off the debt." };
-    }
+  const principal = parseFloat(debtAmount);
+  const monthlyRate = parseFloat(annualInterestRate) / 100 / 12;
+  const monthlyPay = parseFloat(monthlyPayment);
 
-    // Formula to calculate number of months to payoff
-    const months =
-      Math.log(monthlyPay / (monthlyPay - principal * monthlyInterestRate)) /
-      Math.log(1 + monthlyInterestRate);
+  if (isNaN(principal) || isNaN(monthlyRate) || isNaN(monthlyPay)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
 
-    // Total paid over payoff period
-    const totalPaid = monthlyPay * months;
-    const totalInterest = totalPaid - principal;
-
+  if (principal <= 0 || monthlyPay <= 0) {
     return {
-      months: Math.ceil(months),
-      totalInterest: totalInterest.toFixed(2),
-      totalPaid: totalPaid.toFixed(2),
+      error: "Debt amount and monthly payment must be greater than zero.",
     };
-  };
+  }
 
-  const result = calculatePayoff();
+  if (parseFloat(annualInterestRate) < 0) {
+    return { error: "Interest rate cannot be negative." };
+  }
+
+  if (monthlyRate > 0 && monthlyPay <= principal * monthlyRate) {
+    return {
+      error: "Monthly payment is too low to cover interest on this balance.",
+    };
+  }
+
+  let balance = principal;
+  let months = 0;
+  let totalPaid = 0;
+
+  while (balance > 0 && months < 1000) {
+    const interest = balance * monthlyRate;
+    balance = balance + interest - monthlyPay;
+    if (balance < 0) balance = 0;
+    totalPaid += monthlyPay;
+    months++;
+  }
+
+  return {
+    months,
+    totalInterest: totalPaid - principal,
+    totalPaid,
+    principal,
+  };
+};
+
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does the Debt Payoff Calculator show?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It estimates how many months a fixed monthly payment takes to clear one debt balance, plus total amount paid and total interest, using monthly compounding on the remaining balance.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this compare snowball and avalanche methods?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. This version models one balance with one steady payment. Snowball and avalanche apply when you prioritize multiple debts; run the calculator separately for each account or use the Credit Cards Payoff Calculator for several cards.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Why does it say my payment is too low?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "If the monthly payment does not exceed the first month's interest charge, the balance cannot shrink. Increase the payment above that interest amount.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is interest calculated each month?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Each month, interest equals the remaining balance times the annual rate divided by 12. The new balance is the old balance plus interest minus your payment, repeated until the balance reaches zero.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can I use this for loans and credit cards?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes, as long as you treat the account like a fixed payment plan with no new charges. Revolving cards with minimums that change need careful assumptions; the Credit Card Calculator uses the same monthly-update logic for one card.",
+    },
+  },
+];
+
+const DebtPayoffCalculator = () => {
+  const [debtAmount, setDebtAmount] = useState(DEFAULTS.debtAmount);
+  const [annualInterestRate, setAnnualInterestRate] = useState(
+    DEFAULTS.annualInterestRate
+  );
+  const [monthlyPayment, setMonthlyPayment] = useState(DEFAULTS.monthlyPayment);
+
+  const result = computePayoff(debtAmount, annualInterestRate, monthlyPayment);
+
+  const reset = () => {
+    setDebtAmount(DEFAULTS.debtAmount);
+    setAnnualInterestRate(DEFAULTS.annualInterestRate);
+    setMonthlyPayment(DEFAULTS.monthlyPayment);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Debt Payoff Calculator</title>
+        <title>
+          Debt Payoff Calculator - Months, Interest & Total Paid
+        </title>
         <meta
           name="description"
-          content="Use our Debt Payoff Calculator to create a strategy for paying off your loans faster. Compare snowball and avalanche methods, estimate your debt-free date, and save on interest."
+          content="Estimate how long a fixed monthly payment takes to pay off one debt. See months to debt-free, total interest, and total amount paid."
         />
         <meta
           name="keywords"
-          content="debt payoff calculator, debt repayment plan, snowball method calculator, avalanche method calculator, pay off debt faster, loan payoff calculator, credit card payoff calculator, debt strategy"
+          content="debt payoff calculator, loan payoff calculator, debt free date calculator, fixed payment debt calculator, interest on debt calculator"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/debt-payoff-calculator"
-        />
-
-        {/* Open Graph */}
+        <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Debt Payoff Calculator" />
         <meta
           property="og:description"
-          content="Use the Debt Payoff Calculator to develop a personalized plan to eliminate debt. Compare methods like snowball and avalanche to see which works best for you."
+          content="See payoff months and total interest for one debt with a steady monthly payment."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Debt Payoff Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/debt-payoff-calculator"
+          name="twitter:description"
+          content="Single-debt payoff timeline with balance, APR, and monthly payment."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Debt Payoff Calculator",
-      "url": "https://www.unitedcalculator.net/finance/debt-payoff-calculator",
-      "description": "Use the Debt Payoff Calculator to plan and manage how you’ll pay off your loans or credit cards. Choose the best repayment strategy and track your debt-free journey.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Debt Payoff Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate months to pay off one debt with a fixed monthly payment, including total interest and total paid.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a debt payoff calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A debt payoff calculator helps you figure out how long it will take to pay off your debts based on your current payments and interest rates. It also lets you compare strategies like snowball or avalanche."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Which debt repayment method should I use?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The snowball method focuses on paying off smaller debts first for quick wins, while the avalanche method targets high-interest debts to save more money over time."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Debt Payoff Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to estimate debt payoff time and interest with fixed monthly payments.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Debt Payoff Calculator",
-          "item": "https://www.unitedcalculator.net/finance/debt-payoff-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How to Estimate Payoff Time for a Single Debt",
+            description:
+              "Apply monthly interest to the balance, subtract a fixed payment each month, and count months until the balance reaches zero.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Debt Payoff Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">
-              Total Debt Amount ($)
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Total debt amount
             </label>
-            <input
-              type="number"
-              value={debtAmount}
-              onChange={(e) => setDebtAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10000"
-              min="0"
-            />
+            <div className="relative max-w-full md:max-w-md">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={debtAmount}
+                onChange={(e) => setDebtAmount(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.debtAmount}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Interest Rate (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual interest rate
             </label>
-            <input
-              type="number"
-              value={annualInterestRate}
-              onChange={(e) => setAnnualInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 12"
-              min="0"
-              step="0.01"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={annualInterestRate}
+                onChange={(e) => setAnnualInterestRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.annualInterestRate}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Monthly Payment ($)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Fixed monthly payment
             </label>
-            <input
-              type="number"
-              value={monthlyPayment}
-              onChange={(e) => setMonthlyPayment(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 500"
-              min="0"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={monthlyPayment}
+                onChange={(e) => setMonthlyPayment(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.monthlyPayment}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Debt Payoff Summary
-            </h2>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
 
-            {result.error ? (
-              <p className="text-red-600 font-medium">{result.error}</p>
-            ) : (
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-700">Months to Pay Off:</span>
-                  <span className="text-blue-600 font-medium">
-                    {result.months}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-700">Total Interest Paid:</span>
-                  <span className="text-green-600 font-medium">
-                    ${result.totalInterest}
-                  </span>
-                </div>
-                <div className="flex justify-between text-lg font-semibold">
-                  <span className="text-gray-800">Total Amount Paid:</span>
-                  <span className="text-yellow-600">${result.totalPaid}</span>
-                </div>
-              </div>
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Debt payoff summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Months to pay off</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error ? result.months : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total interest paid</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalInterest)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total amount paid</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalPaid)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Starting balance</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.principal)}`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
             )}
-          </section>
-        )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Models one debt with the same payment every month. Interest accrues
+              on the remaining balance; new charges and changing minimums are not
+              included. For several cards, use the Credit Cards Payoff Calculator.
+            </p>
+          </div>
+        </section>
       </div>
-      <article class="py-6">
-  <div class="mx-auto">
-    <p class="mb-6 text-base sm:text-lg leading-relaxed">
-      Our <strong>Debt Payoff Calculator</strong> helps you create a clear,
-      actionable plan to pay down debt faster. Enter your balances, interest
-      rates, and monthly payments to compare payoff strategies like the
-      avalanche (highest interest first) and snowball (smallest balance first),
-      and see timelines, interest saved, and monthly targets.
-    </p>
-
-    <p class="mb-6 text-base sm:text-lg leading-relaxed">
-      Designed for people managing credit cards, loans, or multiple balances,
-      this tool shows which strategy gets you debt-free sooner. For other debt
-      planning tools.
-    </p>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">What is a Debt Payoff Plan?</h2>
-      <p class="text-sm sm:text-base leading-relaxed">
-        A debt payoff plan is a structured approach to repaying outstanding
-        debts. Common strategies include:
-      </p>
-      <ul class="list-disc ml-5 mt-3 text-sm sm:text-base space-y-1">
-        <li><strong>Snowball:</strong> pay smallest balances first to build momentum.</li>
-        <li><strong>Avalanche:</strong> pay highest-interest debts first to minimize interest costs.</li>
-        <li><strong>Custom:</strong> prioritize by due dates, relationships, or account type.</li>
-      </ul>
-      <p class="mt-2 text-sm sm:text-base leading-relaxed">
-        The calculator compares these approaches and shows estimated payoff dates
-        and interest saved so you can pick the best plan for your goals.
-      </p>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">How the Debt Payoff Calculator Works</h2>
-      <p class="text-sm sm:text-base leading-relaxed mb-3">
-        Enter each debt's balance, APR, and minimum monthly payment. Optionally
-        add the extra monthly amount you're willing to pay. The calculator will:
-      </p>
-
-      <div class="bg-gray-50 border border-gray-100 rounded-lg p-3 overflow-x-auto">
-        <pre class="whitespace-pre-wrap text-sm sm:text-base leading-relaxed"><code>• Calculate payoff time for each debt under different strategies
-• Show total interest paid and interest saved compared to minimum payments
-• Provide monthly schedule and recommended payment amounts per account</code></pre>
-      </div>
-
-      <p class="mt-3 text-sm sm:text-base leading-relaxed">
-        Results assume fixed APRs and that you make payments as scheduled. For revolving balances that change due to new purchases, re-run the calculator with updated balances.
-      </p>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">How to Use the Calculator</h2>
-      <p class="text-sm sm:text-base leading-relaxed">
-        Provide each debt's details and your payment plan options:
-      </p>
-      <ol class="list-decimal ml-5 mb-3 text-sm sm:text-base space-y-1">
-        <li>Creditor/account name (optional), outstanding balance, APR, minimum payment.</li>
-        <li>Enter any additional monthly amount you can pay toward debts.</li>
-        <li>Choose a payoff strategy: Snowball, Avalanche, or Custom order.</li>
-        <li>Click <strong>Calculate</strong> to view payoff timelines, interest paid, and monthly breakdowns.</li>
-      </ol>
-
-      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
-        <li>Compare payoff dates and total interest under each strategy</li>
-        <li>See recommended payment distribution for each account</li>
-        <li>Estimate how much extra to pay monthly to reach a target payoff date</li>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Example Scenarios</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div class="bg-blue-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
-          <p><strong>Scenario A — Snowball:</strong></p>
-          <p>• Card A: $800 @ 18% (min $25)</p>
-          <p>• Card B: $2,400 @ 22% (min $75)</p>
-          <p>• Personal Loan: $4,000 @ 8% (payment $125)</p>
-          <p>With an extra $150/month, snowball pays off Card A first, then applies its payment to Card B — faster for psychology/motivation; total interest may be slightly higher than avalanche.</p>
-        </div>
-
-        <div class="bg-blue-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
-          <p><strong>Scenario B — Avalanche:</strong></p>
-          <p>Using same balances but directing extra payments to highest APR first reduces total interest paid and may shorten payoff time versus snowball.</p>
-          <p>Calculator shows side-by-side payoff dates and dollars saved for each method.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Extra Features & Tips</h2>
-      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
-        <li><strong>Target payoff date:</strong> tell the calculator when you want to be debt-free and it will compute necessary extra monthly payment.</li>
-        <li><strong>One-time payments:</strong> model windfalls by applying lump-sum payments and seeing the impact.</li>
-        <li><strong>Re-run after changes:</strong> update balances after consolidations, balance transfers, or new purchases.</li>
-        <li><strong>Export schedule:</strong> print or save an amortization-like schedule for accountability.</li>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Frequently Asked Questions (FAQs)</h2>
-      <dl class="text-sm sm:text-base">
-        <dt class="font-semibold mt-4">Q.1 Which strategy saves the most money?</dt>
-        <dd class="mt-1">Ans. The avalanche (highest APR first) typically saves the most interest. Snowball is better for motivation and momentum. Use our calculator to compare both for your balances.</dd>
-
-        <dt class="font-semibold mt-4">Q.2 Should I consolidate before using a payoff plan?</dt>
-        <dd class="mt-1">Ans. Sometimes — consolidating to a lower-rate loan or 0% balance transfer can help. Check the <a href="/DebtConsolidationCalculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Debt Consolidation Calculator</a> to compare options and include fees.</dd>
-
-        <dt class="font-semibold mt-4">Q.3 How do I model credit card interest?</dt>
-        <dd class="mt-1">Ans. Enter each card's APR and current balance. For issuer-specific compounding quirks, approximate using the APR and typical payment schedule or consult the <a href="/CreditCardCalculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Credit Card Calculator</a>.</dd>
-
-        <dt class="font-semibold mt-4">Q.4 What if I want to reach payoff in X months?</dt>
-        <dd class="mt-1">Ans. Use the target payoff option; the calculator will show the extra monthly amount required and a recommended payment distribution. You can also use a <a href="/PaymentCalculator" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Payment Calculator</a> to verify monthly payment math for a consolidated loan.</dd>
-      </dl>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Conclusion</h2>
-      <p class="text-sm sm:text-base leading-relaxed">
-        The <strong>Debt Payoff Calculator</strong> gives a simple, visual plan to
-        accelerate debt repayment. Compare strategies, estimate interest savings,
-        and set realistic monthly goals — then re-run as balances change.
-      </p>
-      <p class="mt-2 text-sm sm:text-base leading-relaxed">
-        Ready to try different scenarios? Enter your debts and experiment with
-        extra payments, target payoff dates, and consolidation options to find
-        the fastest path to being debt-free.
-      </p>
-    </section>
-  </div>
-</article>
-
     </>
   );
 };

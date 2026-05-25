@@ -1,155 +1,275 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const exchangeRates = {
+
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/currency-calculator";
+
+const EXCHANGE_RATES = {
   USD: { INR: 83.5, EUR: 0.93, GBP: 0.81 },
   INR: { USD: 0.012, EUR: 0.011, GBP: 0.0097 },
   EUR: { USD: 1.08, INR: 89.5, GBP: 0.87 },
   GBP: { USD: 1.23, INR: 103, EUR: 1.15 },
 };
 
-const currencies = ["USD", "INR", "EUR", "GBP"];
+const CURRENCIES = ["USD", "INR", "EUR", "GBP"];
+
+const DEFAULTS = {
+  amount: "1",
+  fromCurrency: "USD",
+  toCurrency: "INR",
+};
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const computeConversion = (amount, fromCurrency, toCurrency) => {
+  if (amount.trim() === "") return null;
+
+  const amt = parseFloat(amount);
+  if (isNaN(amt)) {
+    return { error: "Enter a valid amount." };
+  }
+
+  if (fromCurrency === toCurrency) {
+    return {
+      converted: amt,
+      rate: 1,
+      fromCurrency,
+      toCurrency,
+      amount: amt,
+    };
+  }
+
+  const rate = EXCHANGE_RATES[fromCurrency]?.[toCurrency];
+  if (rate == null) {
+    return { error: "No exchange rate for this currency pair." };
+  }
+
+  return {
+    converted: amt * rate,
+    rate,
+    fromCurrency,
+    toCurrency,
+    amount: amt,
+  };
+};
+
+const fmtAmount = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does the Currency Calculator do?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It multiplies your amount by a built-in exchange rate between USD, INR, EUR, and GBP. Select a from and to currency to see the converted value instantly.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are the exchange rates live?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Rates in this tool are illustrative sample values for quick estimates. Check your bank, card issuer, or a live forex feed before making transactions.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Which currencies are supported?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "US dollar (USD), Indian rupee (INR), euro (EUR), and British pound (GBP). Converting between the same currency returns the same amount.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is the converted amount calculated?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Converted amount equals the amount you enter times the rate from the from-currency row to the to-currency column in the built-in rate table.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this include bank fees or markups?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. The result is the mathematical conversion only. Banks and payment providers often add spreads or fees on top of the mid-market rate.",
+    },
+  },
+];
 
 const CurrencyCalculator = () => {
-  const [amount, setAmount] = useState("1");
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("INR");
+  const [amount, setAmount] = useState(DEFAULTS.amount);
+  const [fromCurrency, setFromCurrency] = useState(DEFAULTS.fromCurrency);
+  const [toCurrency, setToCurrency] = useState(DEFAULTS.toCurrency);
 
-  const calculateConversion = () => {
-    const amt = parseFloat(amount);
-    if (isNaN(amt)) return null;
+  const result = computeConversion(amount, fromCurrency, toCurrency);
 
-    if (fromCurrency === toCurrency) {
-      return amt.toFixed(2);
-    }
-
-    const rate = exchangeRates[fromCurrency]?.[toCurrency];
-    if (!rate) return null;
-
-    return (amt * rate).toFixed(2);
+  const reset = () => {
+    setAmount(DEFAULTS.amount);
+    setFromCurrency(DEFAULTS.fromCurrency);
+    setToCurrency(DEFAULTS.toCurrency);
   };
-
-  const convertedAmount = calculateConversion();
 
   return (
     <>
       <Helmet>
-        <title>Currency Calculator - change your currencies</title>
+        <title>
+          Currency Calculator - USD, INR, EUR & GBP Converter
+        </title>
         <meta
           name="description"
-          content="Use our Currency Calculator to convert between international currencies in real-time. Get accurate exchange rate conversions for travel, business, or investing."
+          content="Convert between USD, INR, EUR, and GBP using built-in sample exchange rates. Enter an amount and see the converted value for travel or quick estimates."
         />
         <meta
           name="keywords"
-          content="currency calculator, currency converter, forex calculator, exchange rate calculator, money converter, convert currency online"
+          content="currency calculator, currency converter, USD to INR calculator, EUR GBP exchange calculator, money converter, forex estimate"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/currency-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Currency Calculator" />
         <meta
           property="og:description"
-          content="Convert currencies instantly using our Currency Calculator. Check live exchange rates and calculate the value between international currencies."
+          content="Quick currency conversion between USD, INR, EUR, and GBP with illustrative exchange rates."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Currency Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/currency-calculator"
+          name="twitter:description"
+          content="Convert USD, INR, EUR, and GBP with sample rates for planning."
         />
+
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Currency Calculator",
-      "url": "https://www.unitedcalculator.net/finance/currency-calculator",
-      "description": "The Currency Calculator helps you convert between different currencies using real-time exchange rates. Ideal for travelers, investors, and international shoppers.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Currency Calculator",
+            url: PAGE_URL,
+            description:
+              "Convert money between USD, INR, EUR, and GBP using built-in sample exchange rates for quick estimates.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
+
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a currency calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A currency calculator is a tool that allows users to convert one currency into another using current exchange rates."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How accurate is the Currency Calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The Currency Calculator uses real-time exchange rates to provide accurate and up-to-date currency conversions for personal or professional use."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Currency Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to convert amounts between USD, INR, EUR, and GBP using illustrative exchange rates.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
+
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Currency Calculator",
-          "item": "https://www.unitedcalculator.net/finance/currency-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How to Convert Between Major Currencies",
+            description:
+              "Multiply the amount in the base currency by the exchange rate to the target currency. Rates in this tool are sample values for illustration.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Currency Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md ">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Amount</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="space-y-2 md:col-span-3">
+            <label className="font-h3 text-h3 text-on-surface">Amount</label>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Enter amount"
+              className={inputClassName}
+              placeholder={DEFAULTS.amount}
+              min="0"
+              step="any"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">From Currency</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">From</label>
             <select
               value={fromCurrency}
               onChange={(e) => setFromCurrency(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className={inputClassName}
             >
-              {currencies.map((cur) => (
+              {CURRENCIES.map((cur) => (
                 <option key={cur} value={cur}>
                   {cur}
                 </option>
@@ -157,14 +277,14 @@ const CurrencyCalculator = () => {
             </select>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">To Currency</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">To</label>
             <select
               value={toCurrency}
               onChange={(e) => setToCurrency(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className={inputClassName}
             >
-              {currencies.map((cur) => (
+              {CURRENCIES.map((cur) => (
                 <option key={cur} value={cur}>
                   {cur}
                 </option>
@@ -173,190 +293,75 @@ const CurrencyCalculator = () => {
           </div>
         </div>
 
-        {convertedAmount !== null && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Conversion Result
-            </h2>
-            <div className="flex justify-between text-lg font-semibold">
-              <span className="text-gray-800">
-                {amount} {fromCurrency} =
-              </span>
-              <span className="text-blue-600">
-                {convertedAmount} {toCurrency}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Conversion result
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Converted amount</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `${fmtAmount(result.converted)} ${result.toCurrency}`
+                  : "—"}
               </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">You entered</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${fmtAmount(result.amount)} ${result.fromCurrency}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Rate used</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `1 ${result.fromCurrency} = ${result.rate} ${result.toCurrency}`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Rates are sample values for illustration—not live market quotes.
+              Banks and card networks may charge spreads or fees on top of this
+              math.
+            </p>
+          </div>
+        </section>
       </div>
-      <article class="py-6">
-  <div class="mx-auto">
-    <p class="mb-6 text-base sm:text-lg leading-relaxed">
-      Our <strong>Currency Calculator</strong> helps you convert money between
-      currencies with ease. Enter an amount, select your base and target
-      currencies, and get the converted value instantly. You can also include
-      transaction fees or markups to see the final amount you’ll actually
-      receive.
-    </p>
-
-    <p class="mb-6 text-base sm:text-lg leading-relaxed">
-      It’s useful for travelers, online shoppers, freelancers, and businesses
-      that deal in multiple currencies. The calculator ensures you’re not
-      overpaying due to poor exchange rates or hidden fees and helps you
-      understand the real cost of currency conversion.
-    </p>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">What is a Currency Calculator?</h2>
-      <p class="text-sm sm:text-base leading-relaxed">
-        A currency calculator converts an amount from one currency to another
-        using an exchange rate. You can also apply optional provider fees,
-        markups, or rounding rules to see what you’ll actually receive or pay
-        after conversion.
-      </p>
-      <ul class="list-disc ml-5 mt-3 text-sm sm:text-base space-y-1">
-        <li><strong>Base currency:</strong> the currency you’re converting from.</li>
-        <li><strong>Target currency:</strong> the currency you’re converting to.</li>
-        <li><strong>Exchange rate:</strong> the conversion rate between the two.</li>
-        <li><strong>Fees:</strong> any percentage or flat charges by your bank or card provider.</li>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">How the Calculation Works</h2>
-      <p class="text-sm sm:text-base leading-relaxed">
-        The conversion process uses a simple formula to calculate how much your
-        money is worth in another currency:
-      </p>
-      <div class="bg-gray-50 border border-gray-100 rounded-lg p-3 overflow-x-auto">
-        <pre class="whitespace-pre-wrap text-sm sm:text-base leading-relaxed"><code>Converted Amount = Base Amount × Exchange Rate
-
-If a percentage fee applies:
-Net Amount = Converted Amount × (1 − Fee Rate)
-
-If a fixed fee applies:
-Net Amount = Converted Amount − Fixed Fee</code></pre>
-      </div>
-      <p class="mt-3 text-sm sm:text-base leading-relaxed">
-        You can also use tools like the {" "}
-        <a href="https://www.unitedcalculator.net/finance/conversion-calculator" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800 underline">Conversion Calculator</a>{" "}
-        to handle other unit or value conversions beyond currencies.
-      </p>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">How to Use the Currency Calculator</h2>
-      <p class="text-sm sm:text-base leading-relaxed">
-        Follow these simple steps:
-      </p>
-      <ol class="list-decimal ml-5 mb-3 text-sm sm:text-base space-y-1">
-        <li>Enter the amount in your source currency.</li>
-        <li>Select the base and target currencies from the dropdown list.</li>
-        <li>Input the current exchange rate or choose the live rate option.</li>
-        <li>Add any bank or provider fee (optional).</li>
-        <li>Click <strong>Calculate</strong> to view your converted and net amount.</li>
-      </ol>
-      <p class="text-sm sm:text-base leading-relaxed">
-        The calculator will instantly show both gross and net amounts,
-        factoring in your chosen exchange rate and any additional fees.
-      </p>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Example Calculations</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div class="bg-blue-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
-          <p><strong>Example 1:</strong></p>
-          <p>
-            Convert $1,000 USD to EUR at a rate of 0.90 →
-            <strong>€900.00</strong>.
-          </p>
-        </div>
-
-        <div class="bg-blue-50 p-4 rounded-lg space-y-2 text-sm sm:text-base">
-          <p><strong>Example 2 (with fee):</strong></p>
-          <p>
-            Convert $1,000 USD to EUR at 0.90 with a 2% fee → Gross €900 − €18
-            fee = <strong>€882</strong>.
-          </p>
-        </div>
-      </div>
-      <p class="mt-3 text-sm sm:text-base leading-relaxed">
-        If you’d like to explore how such conversions affect your budgeting or
-        savings plans, our {" "}
-        <a href="https://www.unitedcalculator.net/finance/finance-calculator" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800 underline">Finance Calculator</a>{" "}
-        can help you estimate currency impacts on loans, investments, or long-term goals.
-      </p>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Factors That Affect Exchange Rates</h2>
-      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
-        <li>Market supply and demand for each currency</li>
-        <li>Central bank policies and interest rates</li>
-        <li>Inflation, trade balances, and political stability</li>
-        <li>Global financial news and investor sentiment</li>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Benefits of Using the Currency Calculator</h2>
-      <ul class="list-disc ml-5 text-sm sm:text-base space-y-1">
-        <li>Accurately convert between major and minor currencies</li>
-        <li>Include provider fees for real-world estimates</li>
-        <li>Instant, mobile-friendly results with transparent calculations</li>
-        <li>Useful for travel, e-commerce, and global transactions</li>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Frequently Asked Questions (FAQs)</h2>
-      <dl class="text-sm sm:text-base">
-        <dt class="font-semibold mt-4">Q.1 How accurate are these conversions?</dt>
-        <dd class="mt-1">
-          Ans. It depends on the exchange rate source you use. Market rates
-          update every few seconds during trading hours.
-        </dd>
-
-        <dt class="font-semibold mt-4">Q.2 Can I include bank fees?</dt>
-        <dd class="mt-1">
-          Ans. Yes, you can add either percentage-based or fixed fees to
-          calculate what you’ll actually receive after deductions.
-        </dd>
-
-        <dt class="font-semibold mt-4">Q.3 How often do exchange rates change?</dt>
-        <dd class="mt-1">
-          Ans. Exchange rates fluctuate continuously, especially during active
-          market hours. Always check live data for the latest rates.
-        </dd>
-
-        <dt class="font-semibold mt-4">Q.4 Can I use this for cryptocurrencies?</dt>
-        <dd class="mt-1">
-          Ans. Yes, if you enter the correct exchange rate manually. The formula
-          works for any numerical value pair.
-        </dd>
-      </dl>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-xl sm:text-2xl font-semibold mb-2">Conclusion</h2>
-      <p class="text-sm sm:text-base leading-relaxed">
-        The <strong>Currency Calculator</strong> gives you accurate, transparent
-        conversions between global currencies. Whether for business transactions
-        or personal travel, it ensures you always know the true value of your
-        money in another currency.
-      </p>
-      <p class="mt-2 text-sm sm:text-base leading-relaxed">
-        If you’re planning international investments or saving across currencies,
-        the {" "}
-        <a href="https://www.unitedcalculator.net/finance/compound-interest-calculator" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800 underline">Compound Interest Calculator</a>{" "}
-        can help you project how currency growth and interest interact over time.
-      </p>
-    </section>
-  </div>
-</article>
-
-
     </>
   );
 };

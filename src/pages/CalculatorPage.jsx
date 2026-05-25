@@ -21,6 +21,21 @@ import CollegeCostSeoContent from "../components/seo/CollegeCostSeoContent";
 import CommissionSeoContent from "../components/seo/CommissionSeoContent";
 import CompoundInterestSeoContent from "../components/seo/CompoundInterestSeoContent";
 import CreditCardSeoContent from "../components/seo/CreditCardSeoContent";
+import CreditCardsPayoffSeoContent from "../components/seo/CreditCardsPayoffSeoContent";
+import CurrencySeoContent from "../components/seo/CurrencySeoContent";
+import DebtConsolidationSeoContent from "../components/seo/DebtConsolidationSeoContent";
+import DebtPayoffSeoContent from "../components/seo/DebtPayoffSeoContent";
+import DebtToIncomeRatioSeoContent from "../components/seo/DebtToIncomeRatioSeoContent";
+import DepreciationSeoContent from "../components/seo/DepreciationSeoContent";
+import DiscountSeoContent from "../components/seo/DiscountSeoContent";
+import DownPaymentSeoContent from "../components/seo/DownPaymentSeoContent";
+import EstateTaxSeoContent from "../components/seo/EstateTaxSeoContent";
+import FHALoanSeoContent from "../components/seo/FHALoanSeoContent";
+import FinanceSeoContent from "../components/seo/FinanceSeoContent";
+import FourZeroOneKSeoContent from "../components/seo/FourZeroOneKSeoContent";
+import FutureValueSeoContent from "../components/seo/FutureValueSeoContent";
+import HouseAffordabilitySeoContent from "../components/seo/HouseAffordabilitySeoContent";
+import IncomeTaxSeoContent from "../components/seo/IncomeTaxSeoContent";
 import PValueSeoContent from "../components/seo/PValueSeoContent";
 import SampleSizeSeoContent from "../components/seo/SampleSizeSeoContent";
 import StandardDeviationSeoContent from "../components/seo/StandardDeviationSeoContent";
@@ -686,6 +701,49 @@ const CalculatorPage = () => {
           )}
           {calculator?.id === "credit-card-calculator" && (
             <CreditCardSeoContent />
+          )}
+          {calculator?.id === "credit-cards-payoff-calculator" && (
+            <CreditCardsPayoffSeoContent />
+          )}
+          {calculator?.id === "currency-calculator" && <CurrencySeoContent />}
+          {calculator?.id === "debt-consolidation-calculator" && (
+            <DebtConsolidationSeoContent />
+          )}
+          {calculator?.id === "debt-payoff-calculator" && (
+            <DebtPayoffSeoContent />
+          )}
+          {calculator?.id === "debt-to-income-ratio-calculator" && (
+            <DebtToIncomeRatioSeoContent />
+          )}
+          {calculator?.id === "depreciation-calculator" && (
+            <DepreciationSeoContent />
+          )}
+          {calculator?.id === "discount-calculator" && (
+            <DiscountSeoContent />
+          )}
+          {calculator?.id === "down-payment-calculator" && (
+            <DownPaymentSeoContent />
+          )}
+          {calculator?.id === "estate-tax-calculator" && (
+            <EstateTaxSeoContent />
+          )}
+          {calculator?.id === "fha-loan-calculator" && (
+            <FHALoanSeoContent />
+          )}
+          {calculator?.id === "finance-calculator" && (
+            <FinanceSeoContent />
+          )}
+          {calculator?.id === "401k-calculator" && (
+            <FourZeroOneKSeoContent />
+          )}
+          {calculator?.id === "future-value-calculator" && (
+            <FutureValueSeoContent />
+          )}
+          {calculator?.id === "house-affordability-calculator" && (
+            <HouseAffordabilitySeoContent />
+          )}
+          {calculator?.id === "income-tax-calculator" && (
+            <IncomeTaxSeoContent />
           )}
           {calculator?.id === "p-value-calculator" && <PValueSeoContent />}
           {calculator?.id === "sample-size-calculator" && (
