@@ -36,6 +36,18 @@ import FourZeroOneKSeoContent from "../components/seo/FourZeroOneKSeoContent";
 import FutureValueSeoContent from "../components/seo/FutureValueSeoContent";
 import HouseAffordabilitySeoContent from "../components/seo/HouseAffordabilitySeoContent";
 import IncomeTaxSeoContent from "../components/seo/IncomeTaxSeoContent";
+import InflationSeoContent from "../components/seo/InflationSeoContent";
+import InterestSeoContent from "../components/seo/InterestSeoContent";
+import InterestRateSeoContent from "../components/seo/InterestRateSeoContent";
+import InvestmentSeoContent from "../components/seo/InvestmentSeoContent";
+import IRASeoContent from "../components/seo/IRASeoContent";
+import IRRSeoContent from "../components/seo/IRRSeoContent";
+import LeaseSeoContent from "../components/seo/LeaseSeoContent";
+import LoanSeoContent from "../components/seo/LoanSeoContent";
+import LoanPayoffSeoContent from "../components/seo/LoanPayoffSeoContent";
+import MarginSeoContent from "../components/seo/MarginSeoContent";
+import MarriageTaxSeoContent from "../components/seo/MarriageTaxSeoContent";
+import MortgageAmortizationSeoContent from "../components/seo/MortgageAmortizationSeoContent";
 import PValueSeoContent from "../components/seo/PValueSeoContent";
 import SampleSizeSeoContent from "../components/seo/SampleSizeSeoContent";
 import StandardDeviationSeoContent from "../components/seo/StandardDeviationSeoContent";
@@ -744,6 +756,32 @@ const CalculatorPage = () => {
           )}
           {calculator?.id === "income-tax-calculator" && (
             <IncomeTaxSeoContent />
+          )}
+          {calculator?.id === "inflation-calculator" && (
+            <InflationSeoContent />
+          )}
+          {calculator?.id === "interest-calculator" && (
+            <InterestSeoContent />
+          )}
+          {calculator?.id === "interest-rate-calculator" && (
+            <InterestRateSeoContent />
+          )}
+          {calculator?.id === "investment-calculator" && (
+            <InvestmentSeoContent />
+          )}
+          {calculator?.id === "ira-calculator" && <IRASeoContent />}
+          {calculator?.id === "irr-calculator" && <IRRSeoContent />}
+          {calculator?.id === "lease-calculator" && <LeaseSeoContent />}
+          {calculator?.id === "loan-calculator" && <LoanSeoContent />}
+          {calculator?.id === "loan-payoff-calculator" && (
+            <LoanPayoffSeoContent />
+          )}
+          {calculator?.id === "margin-calculator" && <MarginSeoContent />}
+          {calculator?.id === "marriage-tax-calculator" && (
+            <MarriageTaxSeoContent />
+          )}
+          {calculator?.id === "mortgage-amortization-calculator" && (
+            <MortgageAmortizationSeoContent />
           )}
           {calculator?.id === "p-value-calculator" && <PValueSeoContent />}
           {calculator?.id === "sample-size-calculator" && (

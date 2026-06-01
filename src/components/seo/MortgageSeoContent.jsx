@@ -1,194 +1,143 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 export default function MortgageSeoContent() {
   return (
-    <article className="bg-white rounded-xl border border-outline-variant p-8 space-y-10">
-      <header className="space-y-2">
-        <h2 className="text-2xl font-bold text-on-surface">
-          Mortgage Calculator: estimate your monthly payment
+    <article className="mt-10 space-y-10">
+      <section className="space-y-4">
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-on-surface">
+          Mortgage calculator: monthly principal and interest
         </h2>
-        <p className="text-on-surface-variant leading-relaxed">
-          A mortgage payment looks simple on paper, but small changes in{" "}
-          <strong>interest rate</strong>, <strong>down payment</strong>, or{" "}
-          <strong>loan term</strong> can move your monthly cost by a lot. This
-          guide explains what the calculator is doing, how to use it correctly,
-          and how to sanity‑check the output before you make a decision.
+        <p className="text-body-lg font-body-lg text-on-surface-variant">
+          Buying a home starts with knowing the loan payment. This{" "}
+          <strong>mortgage calculator</strong> uses <strong>home price</strong>,{" "}
+          <strong>down payment</strong>, <strong>interest rate</strong>, and{" "}
+          <strong>loan term</strong> to estimate monthly{" "}
+          <strong>principal and interest (P&amp;I)</strong>, plus total interest
+          over the life of the loan.
         </p>
-      </header>
-
-      <section className="space-y-3">
-        <h3 className="text-lg font-semibold text-primary">How to use it</h3>
-        <ol className="list-decimal ml-5 text-on-surface-variant leading-relaxed space-y-2">
-          <li>
-            Put your <strong>Home Price</strong> (purchase price).
-          </li>
-          <li>
-            Add your <strong>Down Payment</strong>. The calculator subtracts
-            this from the home price to get the loan amount.
-          </li>
-          <li>
-            Select a <strong>Loan Term</strong> (10/15/20/30 years).
-          </li>
-          <li>
-            Enter your <strong>Interest Rate (%)</strong>.
-          </li>
-          <li>
-            Read the summary: <strong>monthly payment</strong>,{" "}
-            <strong>total interest</strong>, and <strong>total paid</strong>.
-          </li>
-        </ol>
-        <p className="text-on-surface-variant leading-relaxed">
-          If your goal is to quickly understand what your monthly payment might
-          look like for a fixed‑rate loan, try a few realistic values and compare
-          options (for example, different down payments or a shorter term).
+        <p className="text-body-lg font-body-lg text-on-surface-variant">
+          For how much home fits your budget from income and debt, try the{" "}
+          <Link
+            to="/finance/house-affordability-calculator"
+            className="text-primary hover:underline"
+          >
+            House Affordability Calculator
+          </Link>
+          . For amortization totals and first-month split, see the{" "}
+          <Link
+            to="/finance/mortgage-amortization-calculator"
+            className="text-primary hover:underline"
+          >
+            Mortgage Amortization Calculator
+          </Link>
+          . To compare renting vs owning costs, the{" "}
+          <Link
+            to="/finance/rent-vs-buy-calculator"
+            className="text-primary hover:underline"
+          >
+            Rent vs Buy Calculator
+          </Link>{" "}
+          uses a different model.
         </p>
-      </section>
-
-      <section className="space-y-3">
-        <h3 className="text-lg font-semibold text-primary">
-          The formula behind the payment
-        </h3>
-        <p className="text-on-surface-variant leading-relaxed">
-          Fixed‑rate mortgages typically use a standard amortization equation.
-          The monthly payment \(M\) is:
-        </p>
-        <div className="bg-surface-container-low rounded-lg border border-outline-variant p-4 overflow-x-auto">
-          <pre className="whitespace-pre-wrap text-sm text-on-surface">
-{`M = P × r × (1 + r)^n / ((1 + r)^n − 1)
-
-P = loan amount (home price − down payment)
-r = monthly interest rate (annual rate / 12)
-n = number of payments (years × 12)`}
-          </pre>
-        </div>
-        <p className="text-on-surface-variant leading-relaxed">
-          That’s why a 30‑year loan usually has a lower monthly payment than a
-          15‑year loan — you’re spreading payments across more months, even
-          though the total interest can be higher.
-        </p>
-      </section>
-
-      <section className="space-y-3">
-        <h3 className="text-lg font-semibold text-primary">
-          Example (simple walk‑through)
-        </h3>
-        <p className="text-on-surface-variant leading-relaxed">
-          Example:{" "}
-          <strong>$500,000 home</strong> with a <strong>$100,000</strong> down
-          payment at <strong>4%</strong> for <strong>30 years</strong>.
-        </p>
-        <ul className="list-disc ml-5 text-on-surface-variant leading-relaxed space-y-1">
-          <li>Loan amount \(P = 500000 − 100000 = 400000\)</li>
-          <li>Monthly rate \(r = 0.04 / 12\)</li>
-          <li>Total payments \(n = 30 × 12 = 360\)</li>
-        </ul>
-        <p className="text-on-surface-variant leading-relaxed">
-          When you plug those values into the formula, you get the estimated
-          monthly principal‑and‑interest payment. Multiply that payment by \(n\)
-          to estimate the total amount paid, and subtract the loan amount to
-          estimate total interest.
-        </p>
-        <p className="text-on-surface-variant leading-relaxed">
-          Tip: If you’re comparing two rates (for example, 6.5% vs 6.0%), keep
-          everything else the same and change only one input at a time. That’s
-          the easiest way to see what’s driving the change.
-        </p>
-      </section>
-
-      <section className="space-y-3">
-        <h3 className="text-lg font-semibold text-primary">
-          Related finance tools
-        </h3>
-        <p className="text-on-surface-variant leading-relaxed">
-          Mortgage planning usually isn’t just one number. These are the most
-          useful follow‑ups:
-        </p>
-        <ul className="list-disc ml-5 text-on-surface-variant leading-relaxed space-y-2">
-          <li>
-            <Link
-              className="text-primary hover:underline underline-offset-4"
-              to="/finance/house-affordability-calculator"
-            >
-              House Affordability Calculator
-            </Link>{" "}
-            — a quick way to estimate a comfortable budget based on your income
-            and monthly expenses.
-          </li>
-          <li>
-            <Link
-              className="text-primary hover:underline underline-offset-4"
-              to="/finance/rent-vs-buy-calculator"
-            >
-              Rent vs Buy Calculator
-            </Link>{" "}
-            — helps compare the long‑term cost of renting vs owning.
-          </li>
-          <li>
-            <Link
-              className="text-primary hover:underline underline-offset-4"
-              to="/finance/refinance-calculator"
-            >
-              Refinance Calculator
-            </Link>{" "}
-            — useful when you want to compare your current loan to a new rate or
-            term.
-          </li>
-        </ul>
       </section>
 
       <section className="space-y-4">
-        <h3 className="text-lg font-semibold text-primary">FAQs</h3>
+        <h3 className="font-h3 text-h3 text-on-surface">The formula</h3>
+        <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 overflow-auto">
+          <pre className="font-code text-sm text-on-surface whitespace-pre-wrap">{`Loan amount P = Home price − Down payment
+M = P × r / (1 − (1 + r)^−n)
 
-        <details className="group border-b border-outline-variant pb-4" open>
-          <summary className="flex items-center justify-between cursor-pointer list-none">
-            <h4 className="font-semibold text-on-surface">
-              Is this payment the same as my “total monthly mortgage”?
-            </h4>
-            <span className="material-symbols-outlined transition-transform group-open:rotate-180">
-              expand_more
-            </span>
-          </summary>
-          <p className="mt-3 text-on-surface-variant leading-relaxed">
-            Not always. This page estimates principal + interest. Many real
-            payments also include property tax, homeowners insurance, HOA, and
-            sometimes PMI. Use the result here as a baseline, then add those
-            items for a full budget.
+r = annual rate ÷ 12
+n = years × 12
+
+Total interest = (M × n) − P`}</pre>
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <h3 className="font-h3 text-h3 text-on-surface">How to use it</h3>
+        <ol className="list-decimal pl-6 space-y-2 text-body-lg font-body-lg text-on-surface-variant">
+          <li>Enter the purchase price.</li>
+          <li>Enter cash down (subtracted from price for the loan).</li>
+          <li>Pick 10-, 15-, 20-, or 30-year fixed term.</li>
+          <li>Enter the annual note rate.</li>
+          <li>Review monthly P&amp;I, loan amount, and lifetime interest.</li>
+        </ol>
+      </section>
+
+      <section className="space-y-4">
+        <h3 className="font-h3 text-h3 text-on-surface">Example</h3>
+        <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 space-y-3">
+          <p className="text-body-lg font-body-lg text-on-surface-variant">
+            <strong>$500,000</strong> home with <strong>$100,000</strong> down (
+            <strong>20%</strong>) at <strong>4%</strong> for <strong>30
+            years</strong> → about <strong>$400,000</strong> borrowed and monthly
+            P&amp;I near <strong>$1,910</strong> (use defaults for exact
+            figures).
           </p>
-        </details>
+        </div>
+      </section>
 
-        <details className="group border-b border-outline-variant pb-4">
-          <summary className="flex items-center justify-between cursor-pointer list-none">
-            <h4 className="font-semibold text-on-surface">
+      <section className="space-y-4">
+        <h3 className="font-h3 text-h3 text-on-surface">FAQs</h3>
+        <dl className="space-y-6 text-body-lg font-body-lg text-on-surface-variant">
+          <div>
+            <dt className="font-h3 text-h3 text-on-surface">
+              Is this my full monthly mortgage payment?
+            </dt>
+            <dd className="mt-2">
+              Often not. Lenders may add property tax, homeowners insurance, HOA,
+              and PMI to escrow. This tool shows P&amp;I only.
+            </dd>
+          </div>
+          <div>
+            <dt className="font-h3 text-h3 text-on-surface">
               How much down payment do I need?
-            </h4>
-            <span className="material-symbols-outlined transition-transform group-open:rotate-180">
-              expand_more
-            </span>
-          </summary>
-          <p className="mt-3 text-on-surface-variant leading-relaxed">
-            A bigger down payment reduces your loan amount, which can reduce the
-            monthly payment and lifetime interest. Many buyers aim for 20% to
-            avoid PMI, but there are loan programs with lower down payments too.
-          </p>
-        </details>
-
-        <details className="group border-b border-outline-variant pb-4">
-          <summary className="flex items-center justify-between cursor-pointer list-none">
-            <h4 className="font-semibold text-on-surface">
-              Why does a shorter term save interest?
-            </h4>
-            <span className="material-symbols-outlined transition-transform group-open:rotate-180">
-              expand_more
-            </span>
-          </summary>
-          <p className="mt-3 text-on-surface-variant leading-relaxed">
-            With fewer payments, interest has less time to accrue. A 15‑year
-            mortgage often costs more per month but can significantly reduce the
-            total interest compared to a 30‑year term.
-          </p>
-        </details>
+            </dt>
+            <dd className="mt-2">
+              Programs vary. Twenty percent down often avoids PMI on conventional
+              loans, but many buyers put less down and accept PMI or use other
+              loan types.
+            </dd>
+          </div>
+          <div>
+            <dt className="font-h3 text-h3 text-on-surface">
+              Why does a 15-year loan cost more per month?
+            </dt>
+            <dd className="mt-2">
+              You pay off the same principal in fewer months, so each payment is
+              larger—but total interest is usually much lower than a 30-year
+              term.
+            </dd>
+          </div>
+          <div>
+            <dt className="font-h3 text-h3 text-on-surface">
+              Can I compare refinance options here?
+            </dt>
+            <dd className="mt-2">
+              This page is for purchase math from price and down payment. For
+              replacing an existing loan, use the{" "}
+              <Link
+                to="/finance/refinance-calculator"
+                className="text-primary hover:underline"
+              >
+                Refinance Calculator
+              </Link>
+              .
+            </dd>
+          </div>
+          <div>
+            <dt className="font-h3 text-h3 text-on-surface">
+              Does the rate include points or APR?
+            </dt>
+            <dd className="mt-2">
+              Enter the note rate used for the payment calculation. Discount
+              points, fees, and APR are not broken out here.
+            </dd>
+          </div>
+        </dl>
       </section>
     </article>
   );
 }
-
