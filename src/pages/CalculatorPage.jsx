@@ -48,6 +48,8 @@ import LoanPayoffSeoContent from "../components/seo/LoanPayoffSeoContent";
 import MarginSeoContent from "../components/seo/MarginSeoContent";
 import MarriageTaxSeoContent from "../components/seo/MarriageTaxSeoContent";
 import MortgageAmortizationSeoContent from "../components/seo/MortgageAmortizationSeoContent";
+import MortgageUKSeoContent from "../components/seo/MortgageUKSeoContent";
+import MortgagePayoffSeoContent from "../components/seo/MortgagePayoffSeoContent";
 import PValueSeoContent from "../components/seo/PValueSeoContent";
 import SampleSizeSeoContent from "../components/seo/SampleSizeSeoContent";
 import StandardDeviationSeoContent from "../components/seo/StandardDeviationSeoContent";
@@ -782,6 +784,10 @@ const CalculatorPage = () => {
           )}
           {calculator?.id === "mortgage-amortization-calculator" && (
             <MortgageAmortizationSeoContent />
+          )}
+          {calculator?.id === "mortgage-calculator-uk" && <MortgageUKSeoContent />}
+          {calculator?.id === "mortgage-payoff-calculator" && (
+            <MortgagePayoffSeoContent />
           )}
           {calculator?.id === "p-value-calculator" && <PValueSeoContent />}
           {calculator?.id === "sample-size-calculator" && (

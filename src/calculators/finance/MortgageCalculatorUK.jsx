@@ -1,201 +1,387 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const MortgageCalculatorUK = () => {
-  const [loanAmount, setLoanAmount] = useState("250000"); // in GBP
-  const [interestRate, setInterestRate] = useState("4"); // annual %
-  const [loanTerm, setLoanTerm] = useState("25"); // in years
 
-  const calculateMortgage = () => {
-    const P = parseFloat(loanAmount);
-    const r = parseFloat(interestRate) / 100 / 12; // monthly interest rate
-    const n = parseFloat(loanTerm) * 12; // total number of payments
+const PAGE_URL = "https://www.unitedcalculator.net/finance/mortgage-calculator-uk";
 
-    if (isNaN(P) || isNaN(r) || isNaN(n)) return null;
+const DEFAULTS = {
+  loanAmount: "250000",
+  interestRate: "4",
+  loanTermYears: "25",
+};
 
-    const monthlyPayment =
-      (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    const totalPayment = monthlyPayment * n;
-    const totalInterest = totalPayment - P;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    return {
-      monthlyPayment: monthlyPayment.toFixed(2),
-      totalPayment: totalPayment.toFixed(2),
-      totalInterest: totalInterest.toFixed(2),
-    };
+const computeMortgageUK = (loanAmount, interestRate, loanTermYears) => {
+  if (
+    loanAmount.trim() === "" ||
+    interestRate.trim() === "" ||
+    loanTermYears.trim() === ""
+  ) {
+    return null;
+  }
+
+  const P = parseFloat(loanAmount);
+  const ratePercent = parseFloat(interestRate);
+  const years = parseFloat(loanTermYears);
+  const r = ratePercent / 100 / 12;
+  const n = years * 12;
+
+  if (isNaN(P) || isNaN(ratePercent) || isNaN(years) || isNaN(r) || isNaN(n)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (P < 0) return { error: "Loan amount cannot be negative." };
+  if (ratePercent < 0) return { error: "Interest rate cannot be negative." };
+  if (years <= 0) return { error: "Loan term must be greater than zero." };
+
+  const monthlyPayment =
+    r === 0
+      ? P / n
+      : (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  const totalPayment = monthlyPayment * n;
+  const totalInterest = totalPayment - P;
+
+  return {
+    loanAmount: P,
+    interestRatePercent: ratePercent,
+    loanTermYears: years,
+    totalPayments: n,
+    monthlyPayment,
+    totalPayment,
+    totalInterest,
   };
+};
 
-  const result = calculateMortgage();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this UK mortgage calculator estimate?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It estimates monthly principal and interest (P&I), total interest, and total repayment from the loan amount, interest rate, and term. It does not include fees, insurance, or taxes.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What loan types does it model?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "This tool models a standard repayment mortgage payment calculation. It does not model interest-only payments.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What happens if the interest rate is 0%?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "At 0% interest, the monthly payment is simply the loan amount divided by the number of months in the term.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this the same as APR?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Enter the note rate used to calculate payments. APR includes certain fees and may be higher than the note rate.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does it include overpayments or early repayment charges?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. It assumes a fixed payment over the full term and does not account for overpayments, lender fees, or early repayment charges.",
+    },
+  },
+];
+
+const MortgageCalculatorUK = () => {
+  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+  const [loanTermYears, setLoanTermYears] = useState(DEFAULTS.loanTermYears);
+
+  const result = computeMortgageUK(loanAmount, interestRate, loanTermYears);
+
+  const reset = () => {
+    setLoanAmount(DEFAULTS.loanAmount);
+    setInterestRate(DEFAULTS.interestRate);
+    setLoanTermYears(DEFAULTS.loanTermYears);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Mortgage Calculator UK</title>
+        <title>Mortgage Calculator UK - Monthly Repayment Estimate</title>
         <meta
           name="description"
-          content="Use our Mortgage Calculator UK to estimate your monthly payments, interest costs, and total repayment amount. Ideal for home buyers in the UK planning their mortgage budget."
+          content="Estimate UK mortgage repayments (principal & interest) from loan amount, interest rate, and term. Shows monthly payment, total interest, and total repaid."
         />
         <meta
           name="keywords"
-          content="mortgage calculator UK, UK home loan calculator, monthly mortgage payments, UK mortgage interest calculator, property loan UK, mortgage repayment calculator, UK housing loan calculator"
+          content="mortgage calculator UK, UK mortgage repayment, repayment mortgage calculator, monthly mortgage payment UK, mortgage interest total"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/mortgage-calculator-uk"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Mortgage Calculator UK" />
         <meta
           property="og:description"
-          content="Estimate your monthly mortgage payments and interest using our UK Mortgage Calculator. Perfect for home buyers and real estate planning in the UK."
+          content="Estimate UK mortgage monthly repayments and total interest."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mortgage Calculator UK" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/mortgage-calculator-uk"
+          name="twitter:description"
+          content="Repayment estimate from loan amount, rate, and term."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Mortgage Calculator UK",
-      "url": "https://www.unitedcalculator.net/finance/mortgage-calculator-uk",
-      "description": "Calculate your mortgage payments in the UK based on loan amount, interest rate, and repayment term. Useful for budgeting your home loan and understanding total cost.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Mortgage Calculator UK",
+            url: PAGE_URL,
+            description:
+              "Calculate UK mortgage monthly principal and interest from loan amount, interest rate, and term.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a Mortgage Calculator UK?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A Mortgage Calculator UK helps you estimate your monthly mortgage payments, interest charges, and total repayment amount based on UK-specific loan parameters."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why should I use a mortgage calculator before buying a home?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It allows you to plan your finances better by showing how much you'll pay monthly and in total, helping you make an informed home-buying decision."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Mortgage Calculator UK",
+            url: PAGE_URL,
+            description:
+              "Web tool to estimate UK mortgage repayment (principal and interest).",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "GBP",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Mortgage Calculator UK",
-          "item": "https://www.unitedcalculator.net/finance/mortgage-calculator-uk"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "UK Mortgage Repayment Calculation",
+            description:
+              "Estimate the repayment mortgage payment from loan amount, annual rate, and term.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": PAGE_URL,
+            },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Mortgage Calculator UK",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Loan Amount (£)</label>
-            <input
-              type="number"
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 250000"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan amount</label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                £
+              </span>
+              <input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.loanAmount}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Interest Rate (% per annum)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Interest rate
             </label>
-            <input
-              type="number"
-              value={interestRate}
-              onChange={(e) => setInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 4"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.interestRate}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan term</label>
             <input
               type="number"
-              value={loanTerm}
-              onChange={(e) => setLoanTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 25"
+              value={loanTermYears}
+              onChange={(e) => setLoanTermYears(e.target.value)}
+              className={inputClassName}
+              placeholder={DEFAULTS.loanTermYears}
+              min="1"
+              step="1"
             />
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Mortgage Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Monthly Payment:</span>
-                <span className="text-yellow-600 font-medium">
-                  £{result.monthlyPayment}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Interest Paid:</span>
-                <span className="text-green-600 font-medium">
-                  £{result.totalInterest}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Total Repayment Amount:</span>
-                <span className="text-blue-600">£{result.totalPayment}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Mortgage summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Monthly P&amp;I payment
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `£${fmtMoney(result.monthlyPayment)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total interest</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `£${fmtMoney(result.totalInterest)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total repaid</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `£${fmtMoney(result.totalPayment)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Loan amount</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `£${fmtMoney(result.loanAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Rate / term</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${result.interestRatePercent.toFixed(3)}% • ${result.loanTermYears} years`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && <p className="text-sm text-error">{result.error}</p>}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Principal and interest only. Fees, insurance, and taxes aren’t
+              included.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

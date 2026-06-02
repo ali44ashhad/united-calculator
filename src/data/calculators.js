@@ -388,7 +388,7 @@ export const calculators = [
   {
     id: "mortgage-calculator-uk",
     title: "Mortgage Calculator UK",
-    description: "UK-specific mortgage calculator with taxes and interest.",
+    description: "Estimate UK mortgage repayments and total interest.",
     category: "Finance",
     path: "/finance/mortgage-calculator-uk",
     component: "MortgageCalculatorUK",
@@ -396,7 +396,7 @@ export const calculators = [
   {
     id: "mortgage-payoff-calculator",
     title: "Mortgage Payoff Calculator",
-    description: "Find out how to pay off your mortgage faster.",
+    description: "Estimate payoff time and total interest from your payment.",
     category: "Finance",
     path: "/finance/mortgage-payoff-calculator",
     component: "MortgagePayoffCalculator",
