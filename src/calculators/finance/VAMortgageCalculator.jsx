@@ -1,278 +1,551 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const VAMortgageCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState("300000");
-  const [interestRate, setInterestRate] = useState("3.25"); // Annual
-  const [loanTerm, setLoanTerm] = useState("30"); // Years
-  const [propertyTax, setPropertyTax] = useState("1.2"); // Annual % of home price
-  const [homeInsurance, setHomeInsurance] = useState("1000"); // Annual fixed
-  const [vaFundingFee, setVaFundingFee] = useState("2.3"); // Percentage of loan
 
-  const calculateMortgage = () => {
-    const principal = parseFloat(loanAmount);
-    const rate = parseFloat(interestRate) / 100 / 12;
-    const months = parseFloat(loanTerm) * 12;
-    const propertyTaxRate = parseFloat(propertyTax) / 100;
-    const insurance = parseFloat(homeInsurance);
-    const fundingFeeRate = parseFloat(vaFundingFee) / 100;
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/va-mortgage-calculator";
 
-    if (
-      isNaN(principal) ||
-      isNaN(rate) ||
-      isNaN(months) ||
-      isNaN(propertyTaxRate) ||
-      isNaN(insurance) ||
-      isNaN(fundingFeeRate)
-    )
-      return null;
+const DEFAULTS = {
+  loanAmount: "300000",
+  interestRate: "3.25",
+  loanTermYears: "30",
+  propertyTaxRate: "1.2",
+  homeInsuranceAnnual: "1000",
+  vaFundingFeePercent: "2.3",
+};
 
-    const fundingFeeAmount = principal * fundingFeeRate;
-    const totalLoan = principal + fundingFeeAmount;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    const monthlyPrincipalInterest =
-      (totalLoan * rate) / (1 - Math.pow(1 + rate, -months));
-    const monthlyTax = (principal * propertyTaxRate) / 12;
-    const monthlyInsurance = insurance / 12;
-    const totalMonthlyPayment =
-      monthlyPrincipalInterest + monthlyTax + monthlyInsurance;
+const computeVAMortgage = (
+  loanAmount,
+  interestRate,
+  loanTermYears,
+  propertyTaxRate,
+  homeInsuranceAnnual,
+  vaFundingFeePercent
+) => {
+  if (
+    loanAmount.trim() === "" ||
+    interestRate.trim() === "" ||
+    loanTermYears.trim() === "" ||
+    propertyTaxRate.trim() === "" ||
+    homeInsuranceAnnual.trim() === "" ||
+    vaFundingFeePercent.trim() === ""
+  ) {
+    return null;
+  }
 
-    return {
-      totalLoan: totalLoan.toFixed(2),
-      monthlyPrincipalInterest: monthlyPrincipalInterest.toFixed(2),
-      monthlyTax: monthlyTax.toFixed(2),
-      monthlyInsurance: monthlyInsurance.toFixed(2),
-      totalMonthlyPayment: totalMonthlyPayment.toFixed(2),
-    };
+  const principal = parseFloat(loanAmount);
+  const ratePercent = parseFloat(interestRate);
+  const years = parseFloat(loanTermYears);
+  const taxRatePercent = parseFloat(propertyTaxRate);
+  const insuranceAnnual = parseFloat(homeInsuranceAnnual);
+  const fundingFeePercent = parseFloat(vaFundingFeePercent);
+  const r = ratePercent / 100 / 12;
+  const months = years * 12;
+
+  if (
+    isNaN(principal) ||
+    isNaN(ratePercent) ||
+    isNaN(years) ||
+    isNaN(taxRatePercent) ||
+    isNaN(insuranceAnnual) ||
+    isNaN(fundingFeePercent) ||
+    isNaN(r) ||
+    isNaN(months)
+  ) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (principal <= 0) {
+    return { error: "Loan amount must be greater than zero." };
+  }
+
+  if (years <= 0) {
+    return { error: "Loan term must be greater than zero years." };
+  }
+
+  if (
+    ratePercent < 0 ||
+    taxRatePercent < 0 ||
+    insuranceAnnual < 0 ||
+    fundingFeePercent < 0
+  ) {
+    return { error: "Rates and insurance cannot be negative." };
+  }
+
+  const fundingFeeAmount = principal * (fundingFeePercent / 100);
+  const totalLoanAmount = principal + fundingFeeAmount;
+  const monthlyPrincipalInterest =
+    r === 0
+      ? totalLoanAmount / months
+      : (totalLoanAmount * r) / (1 - Math.pow(1 + r, -months));
+  const monthlyPropertyTax = (principal * (taxRatePercent / 100)) / 12;
+  const monthlyInsurance = insuranceAnnual / 12;
+  const totalMonthlyPayment =
+    monthlyPrincipalInterest + monthlyPropertyTax + monthlyInsurance;
+
+  return {
+    loanAmount: principal,
+    interestRatePercent: ratePercent,
+    loanTermYears: years,
+    propertyTaxRatePercent: taxRatePercent,
+    homeInsuranceAnnual: insuranceAnnual,
+    vaFundingFeePercent: fundingFeePercent,
+    fundingFeeAmount,
+    totalLoanAmount,
+    monthlyPrincipalInterest,
+    monthlyPropertyTax,
+    monthlyInsurance,
+    totalMonthlyPayment,
   };
+};
 
-  const result = calculateMortgage();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this VA mortgage calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Monthly principal and interest on the loan amount plus a financed VA funding fee, plus estimated monthly property tax and homeowners insurance. PMI is not included—VA loans typically do not require private mortgage insurance.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is the VA funding fee handled?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "You enter a funding fee percent of the base loan amount; that dollar amount is added to the balance and amortized with principal and interest. Official VA fee tables vary by service, down payment, and disability status—this tool does not look them up automatically.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What is property tax based on?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Annual property tax is the tax rate percent you enter times the base loan amount field, divided by 12. If your loan amount equals the home price (common with $0 down), that matches tax on price; otherwise adjust the rate or amount.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this check VA loan eligibility?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. It is a payment estimator only. Eligibility and certificate of eligibility are determined by the VA and lenders.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are HOA fees or escrow included?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Only P&I on the loan with funding fee, property tax, and insurance estimates you enter. HOA and other housing costs are excluded.",
+    },
+  },
+];
+
+const VAMortgageCalculator = () => {
+  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+  const [loanTermYears, setLoanTermYears] = useState(DEFAULTS.loanTermYears);
+  const [propertyTaxRate, setPropertyTaxRate] = useState(
+    DEFAULTS.propertyTaxRate
+  );
+  const [homeInsuranceAnnual, setHomeInsuranceAnnual] = useState(
+    DEFAULTS.homeInsuranceAnnual
+  );
+  const [vaFundingFeePercent, setVaFundingFeePercent] = useState(
+    DEFAULTS.vaFundingFeePercent
+  );
+
+  const result = computeVAMortgage(
+    loanAmount,
+    interestRate,
+    loanTermYears,
+    propertyTaxRate,
+    homeInsuranceAnnual,
+    vaFundingFeePercent
+  );
+
+  const reset = () => {
+    setLoanAmount(DEFAULTS.loanAmount);
+    setInterestRate(DEFAULTS.interestRate);
+    setLoanTermYears(DEFAULTS.loanTermYears);
+    setPropertyTaxRate(DEFAULTS.propertyTaxRate);
+    setHomeInsuranceAnnual(DEFAULTS.homeInsuranceAnnual);
+    setVaFundingFeePercent(DEFAULTS.vaFundingFeePercent);
+  };
 
   return (
     <>
       <Helmet>
         <title>
-          VA Mortgage Calculator | Estimate Your VA Home Loan Payments
+          VA Mortgage Calculator - Monthly Payment with Funding Fee
         </title>
         <meta
           name="description"
-          content="Use our VA Mortgage Calculator to estimate monthly payments on your VA home loan, including principal, interest, taxes, insurance, and VA funding fee. Ideal for veterans and military families planning homeownership."
+          content="VA loan monthly payment: P&I on balance plus financed funding fee, property tax, and insurance. Enter your own funding fee %—not official VA tables or eligibility."
         />
         <meta
           name="keywords"
-          content="VA mortgage calculator, VA loan calculator, VA home loan calculator, veteran mortgage calculator, military home loan estimator, VA funding fee calculator"
+          content="VA mortgage calculator, VA loan payment, VA funding fee, PITI estimate veterans"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/va-mortgage-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="VA Mortgage Calculator | Estimate Your VA Home Loan Payments"
-        />
+        <meta property="og:title" content="VA Mortgage Calculator" />
         <meta
           property="og:description"
-          content="Calculate your VA home loan payments with our VA Mortgage Calculator. Includes estimates for principal, interest, property taxes, insurance, and VA funding fee for veterans and active-duty military."
+          content="Estimate VA loan monthly payment with funding fee, tax, and insurance."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="VA Mortgage Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/va-mortgage-calculator"
+          name="twitter:description"
+          content="P&I plus tax and insurance for a VA home loan scenario."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "VA Mortgage Calculator",
-      "url": "https://www.unitedcalculator.net/finance/va-mortgage-calculator",
-      "description": "Use our VA Mortgage Calculator to determine your monthly payments for a VA loan. It includes principal, interest, taxes, insurance, and VA funding fees, tailored for veterans, military members, and their families.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "VA Mortgage Calculator",
+            url: PAGE_URL,
+            description:
+              "Estimate VA mortgage monthly payment with funding fee, property tax, and insurance.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a VA mortgage calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A VA mortgage calculator estimates monthly payments for VA home loans, including principal, interest, VA funding fee, property taxes, and homeowners insurance."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Who is eligible for a VA loan?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "VA loans are available to eligible veterans, active-duty service members, members of the National Guard or Reserves, and certain surviving spouses as defined by the U.S. Department of Veterans Affairs."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "VA Mortgage Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to estimate VA loan monthly housing payment components.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "VA Mortgage Calculator",
-          "item": "https://www.unitedcalculator.net/finance/va-mortgage-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "VA Loan Monthly Payment Estimate",
+            description:
+              "Amortize VA loan principal plus financed funding fee with property tax and insurance estimates.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "VA Mortgage Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Loan Amount ($)</label>
-            <input
-              type="number"
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 300000"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">Interest Rate (%)</label>
-            <input
-              type="number"
-              value={interestRate}
-              onChange={(e) => setInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 3.25"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
-            <input
-              type="number"
-              value={loanTerm}
-              onChange={(e) => setLoanTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 30"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">Property Tax (%)</label>
-            <input
-              type="number"
-              value={propertyTax}
-              onChange={(e) => setPropertyTax(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 1.2"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">
-              Home Insurance (Annual $)
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Base loan amount
             </label>
-            <input
-              type="number"
-              value={homeInsurance}
-              onChange={(e) => setHomeInsurance(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 1000"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.loanAmount}
+                min="0"
+                step="any"
+              />
+            </div>
+            <p className="text-sm text-on-surface-variant">
+              Amount before funding fee (often full home price with $0 down)
+            </p>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">VA Funding Fee (%)</label>
-            <input
-              type="number"
-              value={vaFundingFee}
-              onChange={(e) => setVaFundingFee(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 2.3"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Interest rate
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.interestRate}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan term</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={loanTermYears}
+                onChange={(e) => setLoanTermYears(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.loanTermYears}
+                min="1"
+                step="1"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                yrs
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Property tax rate
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={propertyTaxRate}
+                onChange={(e) => setPropertyTaxRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.propertyTaxRate}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium text-sm">
+                % / yr
+              </span>
+            </div>
+            <p className="text-sm text-on-surface-variant">
+              Applied to base loan amount ÷ 12 each month
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Homeowners insurance
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={homeInsuranceAnnual}
+                onChange={(e) => setHomeInsuranceAnnual(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.homeInsuranceAnnual}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium text-sm">
+                / yr
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              VA funding fee
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={vaFundingFeePercent}
+                onChange={(e) => setVaFundingFeePercent(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.vaFundingFeePercent}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
+            <p className="text-sm text-on-surface-variant">
+              Percent of base loan, financed into balance (enter 0 if exempt)
+            </p>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              VA Mortgage Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">
-                  Total Loan Amount (incl. VA Fee):
-                </span>
-                <span className="text-yellow-600 font-medium">
-                  ${result.totalLoan}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">
-                  Principal & Interest (Monthly):
-                </span>
-                <span className="text-green-600 font-medium">
-                  ${result.monthlyPrincipalInterest}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Property Tax (Monthly):</span>
-                <span className="text-green-600 font-medium">
-                  ${result.monthlyTax}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Home Insurance (Monthly):</span>
-                <span className="text-green-600 font-medium">
-                  ${result.monthlyInsurance}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Total Monthly Payment:</span>
-                <span className="text-blue-600">
-                  ${result.totalMonthlyPayment}
-                </span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            VA mortgage summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Total monthly payment
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalMonthlyPayment)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Principal &amp; interest (monthly)
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.monthlyPrincipalInterest)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Property tax (monthly)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.monthlyPropertyTax)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Insurance (monthly)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.monthlyInsurance)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                Loan amount with funding fee
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalLoanAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">VA funding fee ($)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.fundingFeeAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Base loan amount</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.loanAmount)}`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              P&amp;I amortizes base loan plus financed funding fee. Tax uses
+              your rate on the base loan amount. No PMI, HOA, or official VA
+              fee table lookup.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

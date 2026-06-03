@@ -1,196 +1,386 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const PersonalLoanCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState("500000");
-  const [interestRate, setInterestRate] = useState("12");
-  const [loanTerm, setLoanTerm] = useState("5");
 
-  const calculateLoan = () => {
-    const P = parseFloat(loanAmount);
-    const r = parseFloat(interestRate) / 12 / 100;
-    const n = parseFloat(loanTerm) * 12;
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/personal-loan-calculator";
 
-    if (isNaN(P) || isNaN(r) || isNaN(n) || r === 0) return null;
+const DEFAULTS = {
+  loanAmount: "25000",
+  interestRate: "12",
+  loanTermYears: "5",
+};
 
-    const EMI = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    const totalPayment = EMI * n;
-    const totalInterest = totalPayment - P;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    return {
-      emi: EMI.toFixed(2),
-      totalPayment: totalPayment.toFixed(2),
-      totalInterest: totalInterest.toFixed(2),
-    };
+const computePersonalLoan = (loanAmount, interestRate, loanTermYears) => {
+  if (
+    loanAmount.trim() === "" ||
+    interestRate.trim() === "" ||
+    loanTermYears.trim() === ""
+  ) {
+    return null;
+  }
+
+  const P = parseFloat(loanAmount);
+  const ratePercent = parseFloat(interestRate);
+  const years = parseFloat(loanTermYears);
+  const r = ratePercent / 100 / 12;
+  const n = years * 12;
+
+  if (isNaN(P) || isNaN(ratePercent) || isNaN(years) || isNaN(r) || isNaN(n)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (P < 0) return { error: "Loan amount cannot be negative." };
+  if (ratePercent < 0) return { error: "Interest rate cannot be negative." };
+  if (years <= 0) return { error: "Loan term must be greater than zero years." };
+
+  const monthlyPayment =
+    r === 0 ? P / n : (P * r) / (1 - Math.pow(1 + r, -n));
+  const totalPayment = monthlyPayment * n;
+  const totalInterest = totalPayment - P;
+
+  return {
+    loanAmount: P,
+    interestRatePercent: ratePercent,
+    loanTermYears: years,
+    numberOfPayments: n,
+    monthlyPayment,
+    totalPayment,
+    totalInterest,
   };
+};
 
-  const result = calculateLoan();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this personal loan calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Fixed-rate monthly payment (EMI), total interest, and total repaid from loan amount, annual interest rate, and term in years.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What is EMI?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Equated monthly installment—a level payment each month that amortizes the loan over the term. Same math as a standard installment loan payment.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are origination fees included?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Not unless you add them to the loan amount you enter. The calculator uses principal, rate, and term only.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What if the interest rate is 0%?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "The monthly payment is the loan amount divided by the number of months in the term.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this show an amortization schedule?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. It returns summary totals only. For a payment-by-payment schedule, use the Amortization Calculator on this site.",
+    },
+  },
+];
+
+const PersonalLoanCalculator = () => {
+  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+  const [loanTermYears, setLoanTermYears] = useState(DEFAULTS.loanTermYears);
+
+  const result = computePersonalLoan(loanAmount, interestRate, loanTermYears);
+
+  const reset = () => {
+    setLoanAmount(DEFAULTS.loanAmount);
+    setInterestRate(DEFAULTS.interestRate);
+    setLoanTermYears(DEFAULTS.loanTermYears);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Personal Loan Calculator</title>
+        <title>
+          Personal Loan Calculator - Monthly Payment &amp; Total Interest
+        </title>
         <meta
           name="description"
-          content="Use our Personal Loan Calculator to estimate your monthly payments based on loan amount, interest rate, and term. Plan your finances smartly for personal loans."
+          content="Estimate personal loan monthly payment (EMI), total interest, and total repaid from amount, rate, and term. Fixed-rate amortization—no fees unless in principal."
         />
         <meta
           name="keywords"
-          content="personal loan calculator, loan emi calculator, monthly loan payment calculator, interest calculator, personal finance calculator, loan repayment calculator"
+          content="personal loan calculator, loan EMI calculator, monthly payment calculator, personal loan interest, installment loan payment"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/personal-loan-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Personal Loan Calculator" />
         <meta
           property="og:description"
-          content="Estimate your monthly payments and total loan cost with our Personal Loan Calculator. Great for managing budgets and planning personal loans."
+          content="Monthly payment and total interest for a personal loan."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Personal Loan Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/personal-loan-calculator"
+          name="twitter:description"
+          content="EMI and total cost from amount, rate, and term."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Personal Loan Calculator",
-      "url": "https://www.unitedcalculator.net/finance/personal-loan-calculator",
-      "description": "Calculate monthly EMI and total repayment for your personal loan using our Personal Loan Calculator. Ideal for financial planning and debt management.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Personal Loan Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate personal loan monthly payment, total interest, and total repaid.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a Personal Loan Calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A Personal Loan Calculator helps you determine your monthly EMI and total interest payable based on loan amount, interest rate, and tenure."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why use a Personal Loan Calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Using a Personal Loan Calculator allows you to plan repayments in advance, compare different loan offers, and make informed financial decisions."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Personal Loan Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to estimate personal loan EMI and total interest.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Personal Loan Calculator",
-          "item": "https://www.unitedcalculator.net/finance/personal-loan-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Personal Loan Monthly Payment Calculation",
+            description:
+              "Amortize a personal loan balance over a fixed term at a stated annual rate.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Personal Loan Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Loan Amount (₹)</label>
-            <input
-              type="number"
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 500000"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan amount</label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.loanAmount}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Interest Rate (%)</label>
-            <input
-              type="number"
-              value={interestRate}
-              onChange={(e) => setInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 12"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Interest rate
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.interestRate}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
-            <input
-              type="number"
-              value={loanTerm}
-              onChange={(e) => setLoanTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan term</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={loanTermYears}
+                onChange={(e) => setLoanTermYears(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.loanTermYears}
+                min="1"
+                step="1"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                yrs
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Loan Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Monthly EMI:</span>
-                <span className="text-blue-600 font-medium">₹{result.emi}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Total Interest:</span>
-                <span className="text-red-600 font-medium">
-                  ₹{result.totalInterest}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Total Payment:</span>
-                <span className="text-green-600">₹{result.totalPayment}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">Loan summary</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Monthly payment (EMI)
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.monthlyPayment)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total interest</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalInterest)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total repaid</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalPayment)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Loan amount</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.loanAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Rate / term</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${result.interestRatePercent.toFixed(3)}% • ${result.loanTermYears} years`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Fixed-rate amortizing payment. Origination fees and insurance are
+              not included unless added to the loan amount.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

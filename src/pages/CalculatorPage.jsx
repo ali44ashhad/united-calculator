@@ -50,6 +50,32 @@ import MarriageTaxSeoContent from "../components/seo/MarriageTaxSeoContent";
 import MortgageAmortizationSeoContent from "../components/seo/MortgageAmortizationSeoContent";
 import MortgageUKSeoContent from "../components/seo/MortgageUKSeoContent";
 import MortgagePayoffSeoContent from "../components/seo/MortgagePayoffSeoContent";
+import PaybackPeriodSeoContent from "../components/seo/PaybackPeriodSeoContent";
+import PaymentSeoContent from "../components/seo/PaymentSeoContent";
+import PensionSeoContent from "../components/seo/PensionSeoContent";
+import PercentOffSeoContent from "../components/seo/PercentOffSeoContent";
+import PersonalLoanSeoContent from "../components/seo/PersonalLoanSeoContent";
+import PresentValueSeoContent from "../components/seo/PresentValueSeoContent";
+import RealEstateSeoContent from "../components/seo/RealEstateSeoContent";
+import RefinanceSeoContent from "../components/seo/RefinanceSeoContent";
+import RentSeoContent from "../components/seo/RentSeoContent";
+import RentVsBuySeoContent from "../components/seo/RentVsBuySeoContent";
+import RentalPropertySeoContent from "../components/seo/RentalPropertySeoContent";
+import RepaymentSeoContent from "../components/seo/RepaymentSeoContent";
+import RetirementSeoContent from "../components/seo/RetirementSeoContent";
+import RMDSeoContent from "../components/seo/RMDSeoContent";
+import ROISeoContent from "../components/seo/ROISeoContent";
+import RothIRASeoContent from "../components/seo/RothIRASeoContent";
+import SalarySeoContent from "../components/seo/SalarySeoContent";
+import SalesTaxSeoContent from "../components/seo/SalesTaxSeoContent";
+import SavingsSeoContent from "../components/seo/SavingsSeoContent";
+import SimpleInterestSeoContent from "../components/seo/SimpleInterestSeoContent";
+import SIPSeoContent from "../components/seo/SIPSeoContent";
+import SocialSecuritySeoContent from "../components/seo/SocialSecuritySeoContent";
+import StudentLoanSeoContent from "../components/seo/StudentLoanSeoContent";
+import TakeHomePaycheckSeoContent from "../components/seo/TakeHomePaycheckSeoContent";
+import VAMortgageSeoContent from "../components/seo/VAMortgageSeoContent";
+import VATSeoContent from "../components/seo/VATSeoContent";
 import PValueSeoContent from "../components/seo/PValueSeoContent";
 import SampleSizeSeoContent from "../components/seo/SampleSizeSeoContent";
 import StandardDeviationSeoContent from "../components/seo/StandardDeviationSeoContent";
@@ -744,6 +770,10 @@ const CalculatorPage = () => {
           {calculator?.id === "fha-loan-calculator" && (
             <FHALoanSeoContent />
           )}
+          {calculator?.id === "va-mortgage-calculator" && (
+            <VAMortgageSeoContent />
+          )}
+          {calculator?.id === "vat-calculator" && <VATSeoContent />}
           {calculator?.id === "finance-calculator" && (
             <FinanceSeoContent />
           )}
@@ -788,6 +818,64 @@ const CalculatorPage = () => {
           {calculator?.id === "mortgage-calculator-uk" && <MortgageUKSeoContent />}
           {calculator?.id === "mortgage-payoff-calculator" && (
             <MortgagePayoffSeoContent />
+          )}
+          {calculator?.id === "payback-period-calculator" && (
+            <PaybackPeriodSeoContent />
+          )}
+          {calculator?.id === "payment-calculator" && <PaymentSeoContent />}
+          {calculator?.id === "pension-calculator" && <PensionSeoContent />}
+          {calculator?.id === "percent-off-calculator" && (
+            <PercentOffSeoContent />
+          )}
+          {calculator?.id === "personal-loan-calculator" && (
+            <PersonalLoanSeoContent />
+          )}
+          {calculator?.id === "present-value-calculator" && (
+            <PresentValueSeoContent />
+          )}
+          {calculator?.id === "real-estate-calculator" && (
+            <RealEstateSeoContent />
+          )}
+          {calculator?.id === "refinance-calculator" && (
+            <RefinanceSeoContent />
+          )}
+          {calculator?.id === "rent-calculator" && <RentSeoContent />}
+          {calculator?.id === "rent-vs-buy-calculator" && (
+            <RentVsBuySeoContent />
+          )}
+          {calculator?.id === "rental-property-calculator" && (
+            <RentalPropertySeoContent />
+          )}
+          {calculator?.id === "repayment-calculator" && (
+            <RepaymentSeoContent />
+          )}
+          {calculator?.id === "retirement-calculator" && (
+            <RetirementSeoContent />
+          )}
+          {calculator?.id === "rmd-calculator" && <RMDSeoContent />}
+          {calculator?.id === "roi-calculator" && <ROISeoContent />}
+          {calculator?.id === "roth-ira-calculator" && (
+            <RothIRASeoContent />
+          )}
+          {calculator?.id === "salary-calculator" && <SalarySeoContent />}
+          {calculator?.id === "sales-tax-calculator" && (
+            <SalesTaxSeoContent />
+          )}
+          {calculator?.id === "savings-calculator" && (
+            <SavingsSeoContent />
+          )}
+          {calculator?.id === "simple-interest-calculator" && (
+            <SimpleInterestSeoContent />
+          )}
+          {calculator?.id === "sip-calculator" && <SIPSeoContent />}
+          {calculator?.id === "social-security-calculator" && (
+            <SocialSecuritySeoContent />
+          )}
+          {calculator?.id === "student-loan-calculator" && (
+            <StudentLoanSeoContent />
+          )}
+          {calculator?.id === "take-home-paycheck-calculator" && (
+            <TakeHomePaycheckSeoContent />
           )}
           {calculator?.id === "p-value-calculator" && <PValueSeoContent />}
           {calculator?.id === "sample-size-calculator" && (

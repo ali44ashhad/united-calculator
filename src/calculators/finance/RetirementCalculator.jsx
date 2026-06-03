@@ -1,231 +1,495 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const RetirementCalculator = () => {
-  const [currentAge, setCurrentAge] = useState("30");
-  const [retirementAge, setRetirementAge] = useState("60");
-  const [currentSavings, setCurrentSavings] = useState("500000");
-  const [monthlyContribution, setMonthlyContribution] = useState("10000");
-  const [expectedReturn, setExpectedReturn] = useState("10");
 
-  const calculateRetirementSavings = () => {
-    const ageNow = parseFloat(currentAge);
-    const ageRetire = parseFloat(retirementAge);
-    const savings = parseFloat(currentSavings);
-    const monthly = parseFloat(monthlyContribution);
-    const rate = parseFloat(expectedReturn) / 100;
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/retirement-calculator";
 
-    if (
-      isNaN(ageNow) ||
-      isNaN(ageRetire) ||
-      isNaN(savings) ||
-      isNaN(monthly) ||
-      isNaN(rate)
-    )
-      return null;
+const DEFAULTS = {
+  currentAge: "35",
+  retirementAge: "65",
+  currentSavings: "50000",
+  monthlyContribution: "500",
+  expectedReturn: "7",
+};
 
-    const years = ageRetire - ageNow;
-    const months = years * 12;
-    const monthlyRate = rate / 12;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    const futureValueSavings = savings * Math.pow(1 + monthlyRate, months);
-    const futureValueContributions =
-      monthly *
-      ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
-      (1 + monthlyRate);
+const computeRetirement = (
+  currentAge,
+  retirementAge,
+  currentSavings,
+  monthlyContribution,
+  expectedReturn
+) => {
+  if (
+    currentAge.trim() === "" ||
+    retirementAge.trim() === "" ||
+    currentSavings.trim() === "" ||
+    monthlyContribution.trim() === "" ||
+    expectedReturn.trim() === ""
+  ) {
+    return null;
+  }
 
-    const total = futureValueSavings + futureValueContributions;
+  const ageNow = parseFloat(currentAge);
+  const ageRetire = parseFloat(retirementAge);
+  const savings = parseFloat(currentSavings);
+  const monthly = parseFloat(monthlyContribution);
+  const ratePercent = parseFloat(expectedReturn);
+  const r = ratePercent / 100 / 12;
 
-    return {
-      totalSavings: total.toFixed(2),
-    };
+  if (
+    isNaN(ageNow) ||
+    isNaN(ageRetire) ||
+    isNaN(savings) ||
+    isNaN(monthly) ||
+    isNaN(ratePercent) ||
+    isNaN(r)
+  ) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (ageNow < 0 || ageRetire < 0) {
+    return { error: "Ages cannot be negative." };
+  }
+
+  if (ageNow >= ageRetire) {
+    return { error: "Retirement age must be greater than current age." };
+  }
+
+  if (savings < 0 || monthly < 0) {
+    return { error: "Savings and contributions cannot be negative." };
+  }
+
+  const yearsToRetirement = ageRetire - ageNow;
+  const months = yearsToRetirement * 12;
+
+  const futureValueSavings =
+    r === 0 ? savings : savings * Math.pow(1 + r, months);
+
+  const futureValueContributions =
+    r === 0
+      ? monthly * months
+      : monthly *
+        ((Math.pow(1 + r, months) - 1) / r) *
+        (1 + r);
+
+  const totalAtRetirement = futureValueSavings + futureValueContributions;
+  const totalContributions = monthly * months;
+  const totalInvested = savings + totalContributions;
+  const estimatedGrowth = totalAtRetirement - totalInvested;
+
+  return {
+    currentAge: ageNow,
+    retirementAge: ageRetire,
+    yearsToRetirement,
+    months,
+    currentSavings: savings,
+    monthlyContribution: monthly,
+    expectedReturnPercent: ratePercent,
+    futureValueSavings,
+    futureValueContributions,
+    totalAtRetirement,
+    totalContributions,
+    totalInvested,
+    estimatedGrowth,
   };
+};
 
-  const result = calculateRetirementSavings();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this retirement calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Projected lump-sum savings at retirement from current balance plus monthly contributions, compounded at a fixed annual return. Not monthly retirement income or expense needs.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are contributions assumed at the start or end of each month?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Start of month (annuity due)—each contribution earns return for the full month it is deposited.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does it tell me how much I need to retire?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. It projects what you could accumulate from your inputs. Comparing that to living expenses requires separate planning.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What if the expected return is 0%?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Current savings stay flat and future value equals contributions summed with no growth.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are taxes or inflation included?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Returns are nominal and pre-tax unless you adjust inputs yourself.",
+    },
+  },
+];
+
+const RetirementCalculator = () => {
+  const [currentAge, setCurrentAge] = useState(DEFAULTS.currentAge);
+  const [retirementAge, setRetirementAge] = useState(DEFAULTS.retirementAge);
+  const [currentSavings, setCurrentSavings] = useState(
+    DEFAULTS.currentSavings
+  );
+  const [monthlyContribution, setMonthlyContribution] = useState(
+    DEFAULTS.monthlyContribution
+  );
+  const [expectedReturn, setExpectedReturn] = useState(
+    DEFAULTS.expectedReturn
+  );
+
+  const result = computeRetirement(
+    currentAge,
+    retirementAge,
+    currentSavings,
+    monthlyContribution,
+    expectedReturn
+  );
+
+  const reset = () => {
+    setCurrentAge(DEFAULTS.currentAge);
+    setRetirementAge(DEFAULTS.retirementAge);
+    setCurrentSavings(DEFAULTS.currentSavings);
+    setMonthlyContribution(DEFAULTS.monthlyContribution);
+    setExpectedReturn(DEFAULTS.expectedReturn);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Retirement Calculator</title>
+        <title>
+          Retirement Calculator - Projected Savings at Retirement
+        </title>
         <meta
           name="description"
-          content="Use our Retirement Calculator to estimate how much you need to save to retire comfortably. Plan your retirement with accurate projections based on age, savings, and expenses."
+          content="Project lump-sum retirement savings from current balance, monthly contributions, and expected return. Not monthly income or expense-based needs."
         />
         <meta
           name="keywords"
-          content="retirement calculator, retirement planning calculator, retirement savings calculator, retirement goal calculator, retirement estimate, pension calculator, retirement corpus calculator"
+          content="retirement calculator, retirement savings projection, nest egg calculator, compound growth retirement"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/retirement-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Retirement Calculator" />
         <meta
           property="og:description"
-          content="Estimate your retirement savings with our Retirement Calculator. Find out how much you need to retire comfortably and reach your financial goals."
+          content="Estimate total savings at retirement from current balance and monthly investing."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Retirement Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/retirement-calculator"
+          name="twitter:description"
+          content="Lump-sum retirement savings projection."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Retirement Calculator",
-      "url": "https://www.unitedcalculator.net/finance/retirement-calculator",
-      "description": "Use the Retirement Calculator to determine how much you need to save for a financially secure retirement. It helps you estimate your retirement corpus based on current savings, future expenses, and age.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Retirement Calculator",
+            url: PAGE_URL,
+            description:
+              "Project retirement savings from current balance, monthly contributions, and expected return.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a retirement calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A retirement calculator helps estimate how much money you’ll need to save to maintain your lifestyle after retirement based on current income, savings, and expected expenses."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why should I use a retirement calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Using a retirement calculator allows you to plan effectively for the future, ensuring that you don’t outlive your savings and can retire comfortably."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Retirement Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to estimate retirement nest egg from savings and contributions.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Retirement Calculator",
-          "item": "https://www.unitedcalculator.net/finance/retirement-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Retirement Savings Projection from Contributions",
+            description:
+              "Compound current savings and monthly contributions to a retirement age at a fixed annual return.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Retirement Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Current Age</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Current age
+            </label>
             <input
               type="number"
               value={currentAge}
               onChange={(e) => setCurrentAge(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 30"
+              className={inputClassName}
+              placeholder={DEFAULTS.currentAge}
+              min="0"
+              step="1"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Retirement Age</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Retirement age
+            </label>
             <input
               type="number"
               value={retirementAge}
               onChange={(e) => setRetirementAge(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 60"
+              className={inputClassName}
+              placeholder={DEFAULTS.retirementAge}
+              min="1"
+              step="1"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Current Savings (₹)
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Current retirement savings
             </label>
-            <input
-              type="number"
-              value={currentSavings}
-              onChange={(e) => setCurrentSavings(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 500000"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={currentSavings}
+                onChange={(e) => setCurrentSavings(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.currentSavings}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Monthly Contribution (₹)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Monthly contribution
             </label>
-            <input
-              type="number"
-              value={monthlyContribution}
-              onChange={(e) => setMonthlyContribution(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10000"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={monthlyContribution}
+                onChange={(e) => setMonthlyContribution(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.monthlyContribution}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Expected Annual Return (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Expected annual return
             </label>
-            <input
-              type="number"
-              value={expectedReturn}
-              onChange={(e) => setExpectedReturn(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={expectedReturn}
+                onChange={(e) => setExpectedReturn(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.expectedReturn}
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Retirement Savings Summary
-            </h2>
-            <div className="flex justify-between text-lg font-semibold">
-              <span className="text-gray-800">
-                Total Savings at Retirement:
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Retirement savings summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Total at retirement
               </span>
-              <span className="text-green-600">₹{result.totalSavings}</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalAtRetirement)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                From current savings (with growth)
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.futureValueSavings)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                From monthly contributions (with growth)
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.futureValueContributions)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total you contribute</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalContributions)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Estimated investment growth</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.estimatedGrowth)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Years to retirement</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${result.yearsToRetirement} years`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Lump sum at retirement age—not monthly pension income. Fixed
+              return, no tax, inflation, or employer match unless you adjust
+              inputs.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

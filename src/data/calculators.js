@@ -2,7 +2,7 @@ export const calculators = [
   {
     id: "sip-calculator",
     title: "SIP Calculator",
-    description: "Calculate your SIP returns easily.",
+    description: "Future value of fixed monthly SIP-style investments at an assumed annual return.",
     category: "Finance",
     path: "/finance/sip-calculator",
     component: "SIPCalculator",
@@ -404,7 +404,7 @@ export const calculators = [
   {
     id: "payback-period-calculator",
     title: "Payback Period Calculator",
-    description: "Calculate how long it takes to recoup your investment.",
+    description: "Simple payback period from investment and annual inflow.",
     category: "Finance",
     path: "/finance/payback-period-calculator",
     component: "PaybackPeriodCalculator",
@@ -412,7 +412,7 @@ export const calculators = [
   {
     id: "payment-calculator",
     title: "Payment Calculator",
-    description: "Estimate loan payments based on interest and term.",
+    description: "Monthly payment, total interest, and total paid from amount, rate, and term.",
     category: "Finance",
     path: "/finance/payment-calculator",
     component: "PaymentCalculator",
@@ -420,7 +420,7 @@ export const calculators = [
   {
     id: "pension-calculator",
     title: "Pension Calculator",
-    description: "Plan your retirement with this pension calculator.",
+    description: "Retirement fund from monthly contributions and return rate.",
     category: "Finance",
     path: "/finance/pension-calculator",
     component: "PensionCalculator",
@@ -428,7 +428,7 @@ export const calculators = [
   {
     id: "percent-off-calculator",
     title: "Percent Off Calculator",
-    description: "Calculate discounts easily using percentage off.",
+    description: "Sale price and savings from original price and percent off.",
     category: "Finance",
     path: "/finance/percent-off-calculator",
     component: "PercentOffCalculator",
@@ -436,7 +436,7 @@ export const calculators = [
   {
     id: "personal-loan-calculator",
     title: "Personal Loan Calculator",
-    description: "Estimate EMIs and total interest on personal loans.",
+    description: "Monthly EMI, total interest, and total repaid for personal loans.",
     category: "Finance",
     path: "/finance/personal-loan-calculator",
     component: "PersonalLoanCalculator",
@@ -444,7 +444,7 @@ export const calculators = [
   {
     id: "present-value-calculator",
     title: "Present Value Calculator",
-    description: "Calculate the present value of future money.",
+    description: "Discount one future lump sum to today's value at a rate.",
     category: "Finance",
     path: "/finance/present-value-calculator",
     component: "PresentValueCalculator",
@@ -452,7 +452,7 @@ export const calculators = [
   {
     id: "real-estate-calculator",
     title: "Real Estate Calculator",
-    description: "Analyze property investments and returns.",
+    description: "Property loan P&I from price, down payment, rate, and term.",
     category: "Finance",
     path: "/finance/real-estate-calculator",
     component: "RealEstateCalculator",
@@ -460,7 +460,7 @@ export const calculators = [
   {
     id: "refinance-calculator",
     title: "Refinance Calculator",
-    description: "Check if refinancing your loan is beneficial.",
+    description: "Compare current vs new P&I and total interest on the same balance.",
     category: "Finance",
     path: "/finance/refinance-calculator",
     component: "RefinanceCalculator",
@@ -468,7 +468,7 @@ export const calculators = [
   {
     id: "rent-calculator",
     title: "Rent Calculator",
-    description: "Estimate how much rent you can afford.",
+    description: "Total rent = monthly rent × number of months.",
     category: "Finance",
     path: "/finance/rent-calculator",
     component: "RentCalculator",
@@ -476,7 +476,7 @@ export const calculators = [
   {
     id: "rent-vs-buy-calculator",
     title: "Rent vs Buy Calculator",
-    description: "Compare renting versus buying a home.",
+    description: "Total rent vs mortgage P&I plus down over the same term.",
     category: "Finance",
     path: "/finance/rent-vs-buy-calculator",
     component: "RentVsBuyCalculator",
@@ -484,7 +484,7 @@ export const calculators = [
   {
     id: "rental-property-calculator",
     title: "Rental Property Calculator",
-    description: "Analyze rental income and investment returns.",
+    description: "Net cash flow and cash yield from rent, expenses, and price.",
     category: "Finance",
     path: "/finance/rental-property-calculator",
     component: "RentalPropertyCalculator",
@@ -492,7 +492,7 @@ export const calculators = [
   {
     id: "repayment-calculator",
     title: "Repayment Calculator",
-    description: "Calculate your loan repayment amount easily.",
+    description: "Monthly EMI, total repaid, and interest from amount, rate, and term.",
     category: "Finance",
     path: "/finance/repayment-calculator",
     component: "RepaymentCalculator",
@@ -500,7 +500,7 @@ export const calculators = [
   {
     id: "retirement-calculator",
     title: "Retirement Calculator",
-    description: "Plan your retirement with accurate projections.",
+    description: "Project lump-sum savings at retirement from balance and contributions.",
     category: "Finance",
     path: "/finance/retirement-calculator",
     component: "RetirementCalculator",
@@ -508,7 +508,7 @@ export const calculators = [
   {
     id: "rmd-calculator",
     title: "RMD Calculator",
-    description: "Calculate your Required Minimum Distributions (RMD).",
+    description: "Annual RMD estimate from balance and IRS Uniform Lifetime divisor.",
     category: "Finance",
     path: "/finance/rmd-calculator",
     component: "RMDCalculator",
@@ -516,7 +516,7 @@ export const calculators = [
   {
     id: "roi-calculator",
     title: "ROI Calculator",
-    description: "Measure the Return on Investment (ROI) for your assets.",
+    description: "Simple ROI % from final value and initial cost.",
     category: "Finance",
     path: "/finance/roi-calculator",
     component: "ROICalculator",
@@ -524,7 +524,7 @@ export const calculators = [
   {
     id: "roth-ira-calculator",
     title: "Roth IRA Calculator",
-    description: "Estimate your Roth IRA growth over time.",
+    description: "Project Roth balance from annual contributions and return.",
     category: "Finance",
     path: "/finance/roth-ira-calculator",
     component: "RothIRACalculator",
@@ -532,7 +532,7 @@ export const calculators = [
   {
     id: "salary-calculator",
     title: "Salary Calculator",
-    description: "Calculate your monthly or yearly salary accurately.",
+    description: "Gross weekly, monthly, and annual pay from hourly wage.",
     category: "Finance",
     path: "/finance/salary-calculator",
     component: "SalaryCalculator",
@@ -540,7 +540,7 @@ export const calculators = [
   {
     id: "sales-tax-calculator",
     title: "Sales Tax Calculator",
-    description: "Easily calculate sales tax for your purchases.",
+    description: "Sales tax and total from pre-tax price and rate %.",
     category: "Finance",
     path: "/finance/sales-tax-calculator",
     component: "SalesTaxCalculator",
@@ -548,7 +548,7 @@ export const calculators = [
   {
     id: "savings-calculator",
     title: "Savings Calculator",
-    description: "Plan your savings and see future returns.",
+    description: "Future value from initial deposit and monthly contributions.",
     category: "Finance",
     path: "/finance/savings-calculator",
     component: "SavingsCalculator",
@@ -556,7 +556,7 @@ export const calculators = [
   {
     id: "simple-interest-calculator",
     title: "Simple Interest Calculator",
-    description: "Calculate simple interest on your investment.",
+    description: "Simple interest and total from principal, annual rate %, and years.",
     category: "Finance",
     path: "/finance/simple-interest-calculator",
     component: "SimpleInterestCalculator",
@@ -565,7 +565,7 @@ export const calculators = [
   {
     id: "social-security-calculator",
     title: "Social Security Calculator",
-    description: "Estimate your social security benefits.",
+    description: "Lifetime total from your monthly Social Security payment from retirement age through assumed age 85.",
     category: "Finance",
     path: "/finance/social-security-calculator",
     component: "SocialSecurityCalculator",
@@ -573,7 +573,7 @@ export const calculators = [
   {
     id: "student-loan-calculator",
     title: "Student Loan Calculator",
-    description: "Calculate monthly payments for your student loans.",
+    description: "Fixed-rate monthly payment, total repaid, and interest from balance, rate, and years—not IDR or forgiveness.",
     category: "Finance",
     path: "/finance/student-loan-calculator",
     component: "StudentLoanCalculator",
@@ -581,7 +581,7 @@ export const calculators = [
   {
     id: "take-home-paycheck-calculator",
     title: "Take-Home Paycheck Calculator",
-    description: "Find out your net salary after deductions.",
+    description: "Annual and monthly net pay from gross income, flat federal/state tax %, and other annual deductions—not IRS brackets or FICA.",
     category: "Finance",
     path: "/finance/take-home-paycheck-calculator",
     component: "TakeHomePaycheckCalculator",
@@ -589,7 +589,7 @@ export const calculators = [
   {
     id: "va-mortgage-calculator",
     title: "VA Mortgage Calculator",
-    description: "Estimate your mortgage payments with VA loan benefits.",
+    description: "Monthly VA loan payment: P&I on balance plus financed funding fee, property tax, and insurance—not eligibility or official fee tables.",
     category: "Finance",
     path: "/finance/va-mortgage-calculator",
     component: "VAMortgageCalculator",
@@ -597,7 +597,7 @@ export const calculators = [
   {
     id: "vat-calculator",
     title: "VAT Calculator",
-    description: "Easily calculate VAT on your purchases.",
+    description: "Net, VAT, and gross from one amount and rate %—add VAT to net or remove VAT from tax-inclusive totals.",
     category: "Finance",
     path: "/finance/vat-calculator",
     component: "VATCalculator",

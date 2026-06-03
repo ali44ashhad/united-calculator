@@ -1,201 +1,448 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const SavingsCalculator = () => {
-  const [initialAmount, setInitialAmount] = useState("10000");
-  const [monthlyContribution, setMonthlyContribution] = useState("500");
-  const [annualInterestRate, setAnnualInterestRate] = useState("5");
-  const [years, setYears] = useState("10");
 
-  const calculateSavings = () => {
-    const P = parseFloat(initialAmount);
-    const PMT = parseFloat(monthlyContribution);
-    const r = parseFloat(annualInterestRate) / 100 / 12;
-    const n = parseFloat(years) * 12;
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/savings-calculator";
 
-    if (isNaN(P) || isNaN(PMT) || isNaN(r) || isNaN(n)) return null;
+const DEFAULTS = {
+  initialAmount: "10000",
+  monthlyContribution: "500",
+  annualInterestRate: "5",
+  years: "10",
+};
 
-    const futureValue =
-      P * Math.pow(1 + r, n) + PMT * ((Math.pow(1 + r, n) - 1) / r);
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    return {
-      futureValue: futureValue.toFixed(2),
-    };
+const computeSavings = (
+  initialAmount,
+  monthlyContribution,
+  annualInterestRate,
+  years
+) => {
+  if (
+    initialAmount.trim() === "" ||
+    monthlyContribution.trim() === "" ||
+    annualInterestRate.trim() === "" ||
+    years.trim() === ""
+  ) {
+    return null;
+  }
+
+  const P = parseFloat(initialAmount);
+  const PMT = parseFloat(monthlyContribution);
+  const ratePercent = parseFloat(annualInterestRate);
+  const r = ratePercent / 100 / 12;
+  const n = parseFloat(years) * 12;
+  const yearCount = parseFloat(years);
+
+  if (
+    isNaN(P) ||
+    isNaN(PMT) ||
+    isNaN(ratePercent) ||
+    isNaN(yearCount) ||
+    isNaN(r) ||
+    isNaN(n)
+  ) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (P < 0 || PMT < 0) {
+    return { error: "Initial amount and contributions cannot be negative." };
+  }
+
+  if (yearCount <= 0) {
+    return { error: "Years must be greater than zero." };
+  }
+
+  const futureValueInitial = r === 0 ? P : P * Math.pow(1 + r, n);
+  const futureValueContributions =
+    r === 0 ? PMT * n : PMT * ((Math.pow(1 + r, n) - 1) / r);
+  const futureValue = futureValueInitial + futureValueContributions;
+  const totalContributed = P + PMT * n;
+  const estimatedGrowth = futureValue - totalContributed;
+
+  return {
+    initialAmount: P,
+    monthlyContribution: PMT,
+    annualInterestRatePercent: ratePercent,
+    years: yearCount,
+    months: n,
+    futureValue,
+    futureValueInitial,
+    futureValueContributions,
+    totalContributed,
+    estimatedGrowth,
   };
+};
 
-  const result = calculateSavings();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this savings calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Future value of an initial deposit plus monthly contributions with monthly compounding at a fixed annual rate. Contributions are modeled at the end of each month.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this compound interest?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes. Interest compounds monthly on the growing balance from your starting amount and each contribution.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does it calculate how much to save for a goal?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. It projects growth from amounts you enter. It does not solve for required monthly savings to hit a target balance.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What if the interest rate is 0%?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Future value equals initial amount plus the sum of all monthly contributions with no growth.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is this different from the retirement calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Similar compound math, but retirement pages may use different contribution timing. This tool uses end-of-month contributions and shows savings growth, not retirement income.",
+    },
+  },
+];
+
+const SavingsCalculator = () => {
+  const [initialAmount, setInitialAmount] = useState(DEFAULTS.initialAmount);
+  const [monthlyContribution, setMonthlyContribution] = useState(
+    DEFAULTS.monthlyContribution
+  );
+  const [annualInterestRate, setAnnualInterestRate] = useState(
+    DEFAULTS.annualInterestRate
+  );
+  const [years, setYears] = useState(DEFAULTS.years);
+
+  const result = computeSavings(
+    initialAmount,
+    monthlyContribution,
+    annualInterestRate,
+    years
+  );
+
+  const reset = () => {
+    setInitialAmount(DEFAULTS.initialAmount);
+    setMonthlyContribution(DEFAULTS.monthlyContribution);
+    setAnnualInterestRate(DEFAULTS.annualInterestRate);
+    setYears(DEFAULTS.years);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Savings Calculator | Estimate Future Savings & Interest</title>
+        <title>
+          Savings Calculator - Future Value with Monthly Contributions
+        </title>
         <meta
           name="description"
-          content="Use our Savings Calculator to estimate how your money will grow over time. Enter initial deposit, interest rate, and monthly contributions to calculate future savings."
+          content="Project savings balance from initial deposit, monthly contributions, rate, and years. Monthly compounding, end-of-month deposits—not a savings goal solver."
         />
         <meta
           name="keywords"
-          content="savings calculator, future savings calculator, interest calculator, savings goal calculator, compound interest calculator, money growth calculator, calculate savings"
+          content="savings calculator, compound interest savings, future value, monthly deposit growth"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/savings-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Savings Calculator | Estimate Future Savings & Interest"
-        />
+        <meta property="og:title" content="Savings Calculator" />
         <meta
           property="og:description"
-          content="Find out how much you’ll save with our Savings Calculator. Calculate future value with compound interest and regular monthly deposits."
+          content="Future savings from initial balance and monthly contributions at a fixed rate."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Savings Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/savings-calculator"
+          name="twitter:description"
+          content="Compound growth on savings with monthly deposits."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Savings Calculator",
-      "url": "https://www.unitedcalculator.net/finance/savings-calculator",
-      "description": "Estimate how your savings will grow over time using our Savings Calculator. Input interest rate, monthly deposit, and duration to calculate future savings with or without compounding.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Savings Calculator",
+            url: PAGE_URL,
+            description:
+              "Estimate future savings from initial amount, monthly contributions, and interest rate.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a savings calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A savings calculator helps estimate how much money you’ll have in the future based on your initial amount, interest rate, monthly contributions, and time period."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I use this calculator for compound interest?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, the calculator factors in compound interest to give you an accurate picture of how your savings will grow over time."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Savings Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to project compound savings growth over time.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Savings Calculator",
-          "item": "https://www.unitedcalculator.net/finance/savings-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Savings Growth with Compound Interest",
+            description:
+              "Future value of lump sum plus ordinary annuity of monthly contributions with monthly compounding.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Savings Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Initial Amount ($)</label>
-            <input
-              type="number"
-              value={initialAmount}
-              onChange={(e) => setInitialAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10000"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-medium">
-              Monthly Contribution ($)
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Initial amount
             </label>
-            <input
-              type="number"
-              value={monthlyContribution}
-              onChange={(e) => setMonthlyContribution(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 500"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={initialAmount}
+                onChange={(e) => setInitialAmount(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.initialAmount}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Interest Rate (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Monthly contribution
             </label>
-            <input
-              type="number"
-              value={annualInterestRate}
-              onChange={(e) => setAnnualInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={monthlyContribution}
+                onChange={(e) => setMonthlyContribution(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.monthlyContribution}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Years</label>
-            <input
-              type="number"
-              value={years}
-              onChange={(e) => setYears(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Annual interest rate
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={annualInterestRate}
+                onChange={(e) => setAnnualInterestRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.annualInterestRate}
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">Years</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={years}
+                onChange={(e) => setYears(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.years}
+                min="1"
+                step="1"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                yrs
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Savings Growth
-            </h2>
-            <div className="text-lg font-semibold flex justify-between">
-              <span>Future Value:</span>
-              <span className="text-green-600">${result.futureValue}</span>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Savings summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Future value
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.futureValue)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total contributed</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalContributed)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Estimated interest growth</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.estimatedGrowth)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                From initial deposit (with growth)
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.futureValueInitial)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">
+                From contributions (with growth)
+              </span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.futureValueContributions)}`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Monthly compounding; contributions at end of each month. Not a
+              savings goal target solver or tax-advantaged account rules.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

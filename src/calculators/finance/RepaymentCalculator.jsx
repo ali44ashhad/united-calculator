@@ -1,198 +1,388 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const RepaymentCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState("100000");
-  const [annualInterestRate, setAnnualInterestRate] = useState("7");
-  const [loanTerm, setLoanTerm] = useState("5");
 
-  const calculateRepayment = () => {
-    const P = parseFloat(loanAmount);
-    const r = parseFloat(annualInterestRate) / 100 / 12;
-    const n = parseFloat(loanTerm) * 12;
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/repayment-calculator";
 
-    if (isNaN(P) || isNaN(r) || isNaN(n) || n === 0) return null;
+const DEFAULTS = {
+  loanAmount: "100000",
+  interestRate: "7",
+  loanTermYears: "5",
+};
 
-    const monthlyRepayment = (P * r) / (1 - Math.pow(1 + r, -n));
-    const totalRepayment = monthlyRepayment * n;
-    const totalInterest = totalRepayment - P;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    return {
-      monthlyRepayment: monthlyRepayment.toFixed(2),
-      totalRepayment: totalRepayment.toFixed(2),
-      totalInterest: totalInterest.toFixed(2),
-    };
+const computeRepayment = (loanAmount, interestRate, loanTermYears) => {
+  if (
+    loanAmount.trim() === "" ||
+    interestRate.trim() === "" ||
+    loanTermYears.trim() === ""
+  ) {
+    return null;
+  }
+
+  const P = parseFloat(loanAmount);
+  const ratePercent = parseFloat(interestRate);
+  const years = parseFloat(loanTermYears);
+  const r = ratePercent / 100 / 12;
+  const n = years * 12;
+
+  if (isNaN(P) || isNaN(ratePercent) || isNaN(years) || isNaN(r) || isNaN(n)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (P < 0) return { error: "Loan amount cannot be negative." };
+  if (ratePercent < 0) return { error: "Interest rate cannot be negative." };
+  if (years <= 0) return { error: "Loan term must be greater than zero years." };
+
+  const monthlyRepayment =
+    r === 0 ? P / n : (P * r) / (1 - Math.pow(1 + r, -n));
+  const totalRepayment = monthlyRepayment * n;
+  const totalInterest = totalRepayment - P;
+
+  return {
+    loanAmount: P,
+    interestRatePercent: ratePercent,
+    loanTermYears: years,
+    numberOfPayments: n,
+    monthlyRepayment,
+    totalRepayment,
+    totalInterest,
   };
+};
 
-  const result = calculateRepayment();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this repayment calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Fixed-rate monthly repayment (EMI), total amount repaid, and total interest from loan amount, annual rate, and term in years.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is repayment the same as EMI?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes for this tool—a level monthly payment that amortizes the loan over the term. Same formula as standard installment loan calculators.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are fees included in the repayment?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Not unless you add them to the loan amount. Only principal, interest rate, and term are used.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What if the interest rate is 0%?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Monthly repayment is the loan amount divided by the number of months in the term.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this plan extra payments or early payoff?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. It assumes fixed scheduled payments for the full term. For payoff scenarios, use a loan payoff calculator on this site.",
+    },
+  },
+];
+
+const RepaymentCalculator = () => {
+  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+  const [loanTermYears, setLoanTermYears] = useState(DEFAULTS.loanTermYears);
+
+  const result = computeRepayment(loanAmount, interestRate, loanTermYears);
+
+  const reset = () => {
+    setLoanAmount(DEFAULTS.loanAmount);
+    setInterestRate(DEFAULTS.interestRate);
+    setLoanTermYears(DEFAULTS.loanTermYears);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Repayment Calculator</title>
+        <title>
+          Repayment Calculator - Monthly EMI &amp; Total Interest
+        </title>
         <meta
           name="description"
-          content="Use our Repayment Calculator to estimate your monthly loan repayments. Calculate EMI based on loan amount, interest rate, and loan tenure to manage your finances effectively."
+          content="Calculate fixed monthly loan repayment (EMI), total repaid, and total interest from amount, rate, and term. Standard amortization—no fees unless in principal."
         />
         <meta
           name="keywords"
-          content="repayment calculator, loan repayment calculator, emi calculator, monthly repayment calculator, loan calculator, debt repayment planner, mortgage repayment calculator"
+          content="repayment calculator, loan repayment, EMI calculator, monthly repayment, total interest"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/repayment-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Repayment Calculator" />
         <meta
           property="og:description"
-          content="Estimate your monthly loan repayments with our Repayment Calculator. Adjust loan amount, tenure, and interest rate to plan your EMI effectively."
+          content="Monthly repayment and total loan cost from amount, rate, and term."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Repayment Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/repayment-calculator"
+          name="twitter:description"
+          content="EMI and total interest for a fixed-rate loan."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Repayment Calculator",
-      "url": "https://www.unitedcalculator.net/finance/repayment-calculator",
-      "description": "Use the Repayment Calculator to plan your loan EMI based on principal amount, interest rate, and repayment tenure. Ideal for home, personal, and car loans.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Repayment Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate monthly loan repayment, total repaid, and total interest.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a repayment calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A repayment calculator helps you determine the monthly EMI for a loan based on the loan amount, interest rate, and repayment period."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why should I use a repayment calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Using a repayment calculator allows you to plan your finances by giving an accurate estimate of how much you need to repay monthly and the total cost of the loan."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Repayment Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to estimate loan monthly repayment and total cost.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Repayment Calculator",
-          "item": "https://www.unitedcalculator.net/finance/repayment-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Loan Repayment and EMI Calculation",
+            description:
+              "Amortize a fixed-rate loan balance over a stated term at an annual interest rate.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Repayment Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Loan Amount</label>
-            <input
-              type="number"
-              value={loanAmount}
-              onChange={(e) => setLoanAmount(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 100000"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan amount</label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={loanAmount}
+                onChange={(e) => setLoanAmount(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.loanAmount}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Annual Interest Rate (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Interest rate
             </label>
-            <input
-              type="number"
-              value={annualInterestRate}
-              onChange={(e) => setAnnualInterestRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 7"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.interestRate}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Loan Term (Years)</label>
-            <input
-              type="number"
-              value={loanTerm}
-              onChange={(e) => setLoanTerm(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Loan term</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={loanTermYears}
+                onChange={(e) => setLoanTermYears(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.loanTermYears}
+                min="1"
+                step="1"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                yrs
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Repayment Summary
-            </h2>
-            <div className="space-y-2 text-lg font-medium text-gray-700">
-              <div className="flex justify-between">
-                <span>Monthly Repayment:</span>
-                <span className="text-green-600">
-                  ₹{result.monthlyRepayment}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span>Total Repayment:</span>
-                <span className="text-blue-600">₹{result.totalRepayment}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Total Interest Paid:</span>
-                <span className="text-red-600">₹{result.totalInterest}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Repayment summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Monthly repayment (EMI)
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.monthlyRepayment)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total repaid</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalRepayment)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total interest</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalInterest)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Loan amount</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.loanAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Rate / term</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${result.interestRatePercent.toFixed(3)}% • ${result.loanTermYears} years`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Fixed-rate amortizing repayment. Fees and insurance are not
+              included unless added to the loan amount.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

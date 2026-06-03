@@ -1,399 +1,395 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const SIPCalculator = () => {
-  const [monthlyInvestment, setMonthlyInvestment] = useState("5000");
-  const [expectedRate, setExpectedRate] = useState("12");
-  const [timePeriod, setTimePeriod] = useState("10");
 
-  const calculateSIP = () => {
-    const P = parseFloat(monthlyInvestment);
-    const r = parseFloat(expectedRate) / 100 / 12;
-    const n = parseFloat(timePeriod) * 12;
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/sip-calculator";
 
-    if (isNaN(P) || isNaN(r) || isNaN(n)) return null;
+const DEFAULTS = {
+  monthlyInvestment: "500",
+  expectedAnnualReturn: "7",
+  years: "10",
+};
 
-    const maturityValue = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-    const totalInvested = P * n;
-    const estimatedReturns = maturityValue - totalInvested;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    return {
-      maturityValue: maturityValue.toFixed(2),
-      totalInvested: totalInvested.toFixed(2),
-      estimatedReturns: estimatedReturns.toFixed(2),
-    };
+const computeSIP = (monthlyInvestment, expectedAnnualReturn, years) => {
+  if (
+    monthlyInvestment.trim() === "" ||
+    expectedAnnualReturn.trim() === "" ||
+    years.trim() === ""
+  ) {
+    return null;
+  }
+
+  const PMT = parseFloat(monthlyInvestment);
+  const ratePercent = parseFloat(expectedAnnualReturn);
+  const yearCount = parseFloat(years);
+  const r = ratePercent / 100 / 12;
+  const n = yearCount * 12;
+
+  if (isNaN(PMT) || isNaN(ratePercent) || isNaN(yearCount) || isNaN(n)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (PMT < 0) {
+    return { error: "Monthly investment cannot be negative." };
+  }
+
+  if (yearCount <= 0) {
+    return { error: "Years must be greater than zero." };
+  }
+
+  const maturityValue =
+    r === 0 ? PMT * n : PMT * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+  const totalInvested = PMT * n;
+  const estimatedGrowth = maturityValue - totalInvested;
+
+  return {
+    monthlyInvestment: PMT,
+    expectedAnnualReturnPercent: ratePercent,
+    years: yearCount,
+    months: n,
+    maturityValue,
+    totalInvested,
+    estimatedGrowth,
   };
+};
 
-  const result = calculateSIP();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this SIP calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Future value of equal monthly investments at a fixed annual return with monthly compounding. Deposits are modeled at the beginning of each month (annuity due).",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this the same as the savings calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Similar compound math, but this tool has no starting lump sum and uses beginning-of-month deposits. The savings calculator includes an initial balance and end-of-month contributions.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does it include step-up SIP or inflation?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. It uses one fixed monthly amount and one fixed annual return for the whole period. It does not model annual contribution increases or inflation-adjusted returns.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Are mutual fund returns guaranteed?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. The rate you enter is an assumption for illustration. Actual fund performance varies with markets, fees, and taxes.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What if the expected return is 0%?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Future value equals the sum of all monthly investments with no growth.",
+    },
+  },
+];
+
+const SIPCalculator = () => {
+  const [monthlyInvestment, setMonthlyInvestment] = useState(
+    DEFAULTS.monthlyInvestment
+  );
+  const [expectedAnnualReturn, setExpectedAnnualReturn] = useState(
+    DEFAULTS.expectedAnnualReturn
+  );
+  const [years, setYears] = useState(DEFAULTS.years);
+
+  const result = computeSIP(
+    monthlyInvestment,
+    expectedAnnualReturn,
+    years
+  );
+
+  const reset = () => {
+    setMonthlyInvestment(DEFAULTS.monthlyInvestment);
+    setExpectedAnnualReturn(DEFAULTS.expectedAnnualReturn);
+    setYears(DEFAULTS.years);
+  };
 
   return (
     <>
-      {" "}
       <Helmet>
         <title>
-          Calculate Your Online Mutual Fund Returns with the SIP Calculator -
-          united calculator
+          SIP Calculator - Monthly Investment Future Value
         </title>
         <meta
           name="description"
-          content="To determine how much your mutual funds will return, use our free SIP Calculator. Plan your monthly contributions, consider projected returns, and prudently increase your capital."
+          content="Estimate SIP maturity from fixed monthly investment, expected annual return, and years. Monthly compounding, beginning-of-month deposits—not step-up or inflation."
         />
         <meta
           name="keywords"
-          content="step up sip calculator, sip calculator sbi, sbi sip calculator, sip calculator groww, groww sip calculator, sip calculator with step up, sip calculator with inflation, hdfc sip calculator, sip calculator online"
+          content="sip calculator, systematic investment plan, monthly investment future value, mutual fund projection"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/sip-calculator"
-        />
-        {/* Open Graph */}
+        <link rel="canonical" href={PAGE_URL} />
+
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Calculate Your Online Mutual Fund Returns with the SIP Calculator - united calculator"
-        />
+        <meta property="og:title" content="SIP Calculator" />
         <meta
           property="og:description"
-          content="Use a free online SIP calculator to find out the expected returns on your mutual fund investments. Using precise projections will help you make better selections."
+          content="Project future value of equal monthly SIP-style investments at a fixed assumed return."
         />
-        <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/sip-calculator"
-        />
-
-        {/* Twitter */}
+        <meta property="og:url" content={PAGE_URL} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="SIP Calculator - Mutual Fund Return Estimator"
-        />
+        <meta name="twitter:title" content="SIP Calculator" />
         <meta
           name="twitter:description"
-          content="Use our SIP calculator to calculate mutual fund returns. Perfect tool for monthly investment planning."
+          content="Fixed monthly deposits with monthly compounding—illustrative only."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-          {
+          {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "SIP Calculator",
-            "url": "https://www.unitedcalculator.net/finance/sip-calculator",
-            "description": "Free online SIP calculator to estimate mutual fund returns. Calculate your monthly investment and future value to plan your wealth.",
-            "publisher": {
+            name: "SIP Calculator",
+            url: PAGE_URL,
+            description:
+              "Estimate future value of equal monthly investments at an assumed annual return.",
+            publisher: {
               "@type": "Organization",
-              "name": "United Calculators",
-              "url": "https://www.unitedcalculator.net"
-            }
-          }
-          `}
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
-        {/* JSON-LD: FAQ */}
+
         <script type="application/ld+json">
-          {`
-          {
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "SIP Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to project SIP-style monthly investment growth.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "SIP Future Value with Monthly Compounding",
+            description:
+              "Future value of a level monthly investment stream with monthly compounding and beginning-of-period deposits.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "What is a SIP calculator?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "A SIP calculator is a financial tool that helps investors estimate the future value of their SIP investments based on expected returns and time period."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Is SIP calculator accurate?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "SIP calculators provide estimates based on assumed rates of return. Actual returns may vary depending on market performance."
-                }
-              }
-            ]
-          }
-          `}
+            mainEntity: FAQ_SCHEMA,
+          })}
         </script>
-        {/* JSON-LD: Breadcrumb */}
+
         <script type="application/ld+json">
-          {`
-          {
+          {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
-            "itemListElement": [
+            itemListElement: [
               {
                 "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://www.unitedcalculator.net"
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
               },
               {
                 "@type": "ListItem",
-                "position": 2,
-                "name": "Finance Calculators",
-                "item": "https://www.unitedcalculator.net/finance"
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
               },
               {
                 "@type": "ListItem",
-                "position": 3,
-                "name": "SIP Calculator",
-                "item": "https://www.unitedcalculator.net/finance/sip-calculator"
-              }
-            ]
-          }
-          `}
+                position: 3,
+                name: "SIP Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
-      <div className=" mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">
-              Monthly Investment (₹)
+
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2 md:col-span-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Monthly investment
             </label>
-            <input
-              type="number"
-              value={monthlyInvestment}
-              onChange={(e) => setMonthlyInvestment(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 5000"
-            />
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={monthlyInvestment}
+                onChange={(e) => setMonthlyInvestment(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.monthlyInvestment}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Expected Annual Return (%)
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Expected annual return
             </label>
-            <input
-              type="number"
-              value={expectedRate}
-              onChange={(e) => setExpectedRate(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 12"
-            />
+            <div className="relative">
+              <input
+                type="number"
+                value={expectedAnnualReturn}
+                onChange={(e) => setExpectedAnnualReturn(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.expectedAnnualReturn}
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">
-              Time Period (in Years)
-            </label>
-            <input
-              type="number"
-              value={timePeriod}
-              onChange={(e) => setTimePeriod(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 10"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Years</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={years}
+                onChange={(e) => setYears(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.years}
+                min="1"
+                step="1"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                yrs
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              SIP Result Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Invested Amount:</span>
-                <span className="text-yellow-600 font-medium">
-                  ₹{result.totalInvested}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-700">Estimated Returns:</span>
-                <span className="text-green-600 font-medium">
-                  ₹{result.estimatedReturns}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Total Value at Maturity:</span>
-                <span className="text-blue-600">₹{result.maturityValue}</span>
-              </div>
-            </div>
-          </section>
-        )}
-      </div>
-      <article class="py-6">
-        <p class="mb-6">
-          Our <strong>SIP Calculator</strong> is a simple yet powerful tool that
-          helps you estimate the future value of your mutual fund investments
-          made through a Systematic Investment Plan (SIP). Whether you’re
-          investing for retirement, a dream home, or your child’s education,
-          this calculator shows how consistent monthly investments can grow into
-          substantial wealth over time.
-        </p>
-
-        <p class="mb-6">
-          Understanding how SIP works can help you plan your financial goals
-          better and stay motivated to invest regularly. If you want to explore
-          how inflation affects your returns, you can try our{" "}
-          <a
-            href="https://www.unitedcalculator.net/finance/inflation-calculator"
-            target="_blank"
-            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-          >
-            Inflation Calculator
-          </a>
-          .
-        </p>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">What is SIP?</h2>
-          <p>
-            A Systematic Investment Plan (SIP) is a disciplined way of investing
-            a fixed amount in mutual funds at regular intervals, typically
-            monthly. It works on the principle of rupee cost averaging, which
-            helps you buy more units when prices are low and fewer when prices
-            are high, balancing out market fluctuations.
-          </p>
-          <p class="mt-2">
-            SIP encourages consistent investing habits and makes wealth creation
-            easier over the long term. For a one-time investment projection, you
-            can use our Lump Sum Calculator .
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">SIP Calculator Formula</h2>
-          <p>
-            The SIP maturity amount is calculated using the future value
-            formula:
-          </p>
-          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
-            <code>FV = P × [(1 + r)ⁿ - 1] × (1 + r) ÷ r</code>
-          </pre>
-          <ul class="list-disc ml-5 mb-3">
-            <li>
-              <code>P</code> — Monthly investment amount
-            </li>
-            <li>
-              <code>r</code> — Monthly rate of return (annual return ÷ 12)
-            </li>
-            <li>
-              <code>n</code> — Total number of months
-            </li>
-          </ul>
-          <p>
-            For example, investing ₹5,000/month for 10 years at an annual return
-            of 12% would give you a maturity amount of around ₹11.6 lakh. To
-            estimate returns with different interest rates, try our{" "}
-            <a
-              href="https://www.unitedcalculator.net/finance/compound-interest-calculator"
-              target="_blank"
-              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
             >
-              Compound Interest Calculator
-            </a>
-            .
-          </p>
-        </section>
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            How to Use the SIP Calculator
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            SIP summary
           </h2>
-          <ol class="list-decimal ml-5 mb-3">
-            <li>Enter your monthly investment amount.</li>
-            <li>Enter the expected annual return rate (in %).</li>
-            <li>Enter the total investment duration (in years or months).</li>
-            <li>
-              Click <strong>Calculate</strong> to see your maturity amount and
-              total investment value.
-            </li>
-          </ol>
-          <ul class="list-disc ml-5">
-            <li>Shows total invested amount and total wealth gained</li>
-            <li>Calculates returns instantly</li>
-            <li>Works for any time frame or return rate</li>
-          </ul>
-        </section>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                Future value (maturity)
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.maturityValue)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Total invested</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.totalInvested)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Estimated growth</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.estimatedGrowth)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Monthly investment</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.monthlyInvestment)}`
+                  : "—"}
+              </span>
+            </div>
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
-          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
-            <p>
-              <strong>Example:</strong> You invest <strong>₹10,000</strong>{" "}
-              monthly for <strong>15 years</strong> at an annual return rate of{" "}
-              <strong>12%</strong>.
-            </p>
-            <p>Step 1: Monthly rate → 12% ÷ 12 = 0.01</p>
-            <p>Step 2: Total months → 15 × 12 = 180</p>
-            <p>Step 3: Apply formula → FV ≈ ₹50.4 lakh</p>
-            <p>
-              Out of this, your total investment is ₹18 lakh, and the remaining
-              ₹32.4 lakh is the wealth created through compounding.
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Monthly compounding at a fixed annual rate; equal deposits at the
+              beginning of each month. Illustrative only—no step-up SIP,
+              inflation, fund fees, or market guarantees.
             </p>
           </div>
         </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Benefits of Using SIP Calculator
-          </h2>
-          <ul class="list-disc ml-5">
-            <li>Plan your financial goals with clarity</li>
-            <li>Visualize the power of compounding</li>
-            <li>Experiment with different investment amounts</li>
-            <li>Stay motivated to invest regularly</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <dl>
-            <dt class="font-semibold mt-4">
-              Q.1 Is SIP better than lump sum investment?
-            </dt>
-            <dd>
-              Ans. SIP is ideal for regular investing and managing market
-              volatility, while lump sum investment can be better if you have a
-              large amount ready to invest.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.2 Can I change my SIP amount later?
-            </dt>
-            <dd>
-              Ans. Yes, you can increase or decrease your SIP amount anytime,
-              depending on your financial situation.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.3 What happens if I miss a SIP payment?
-            </dt>
-            <dd>
-              Ans. Missing one or two payments won’t cancel your SIP, but
-              frequent misses may affect your total returns.
-            </dd>
-
-            <dt class="font-semibold mt-4">Q.4 Does SIP guarantee returns?</dt>
-            <dd>
-              Ans. No, mutual fund returns depend on market performance, but SIP
-              helps reduce the impact of volatility over time.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.5 Can I use this calculator for retirement planning?
-            </dt>
-            <dd>
-              Ans. Absolutely — SIP is one of the most effective ways to build a
-              retirement corpus. For a more detailed retirement projection,
-              check our{" "}
-              <a
-                href="https://www.unitedcalculator.net/finance/retirement-calculator"
-                target="_blank"
-                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-              >
-                Retirement Calculator
-              </a>
-              .
-            </dd>
-          </dl>
-        </section>
-      </article>
+      </div>
     </>
   );
 };

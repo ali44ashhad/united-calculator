@@ -1,177 +1,354 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const PercentOffCalculator = () => {
-  const [originalPrice, setOriginalPrice] = useState("100");
-  const [discountPercent, setDiscountPercent] = useState("20");
 
-  const calculateDiscount = () => {
-    const price = parseFloat(originalPrice);
-    const discount = parseFloat(discountPercent);
+const PAGE_URL =
+  "https://www.unitedcalculator.net/finance/percent-off-calculator";
 
-    if (isNaN(price) || isNaN(discount)) return null;
+const DEFAULTS = {
+  originalPrice: "100",
+  discountPercent: "20",
+};
 
-    const discountAmount = (price * discount) / 100;
-    const finalPrice = price - discountAmount;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    return {
-      discountAmount: discountAmount.toFixed(2),
-      finalPrice: finalPrice.toFixed(2),
-    };
+const computePercentOff = (originalPrice, discountPercent) => {
+  if (originalPrice.trim() === "" || discountPercent.trim() === "") {
+    return null;
+  }
+
+  const price = parseFloat(originalPrice);
+  const discount = parseFloat(discountPercent);
+
+  if (isNaN(price) || isNaN(discount)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (price < 0) {
+    return { error: "Original price cannot be negative." };
+  }
+
+  if (discount < 0 || discount > 100) {
+    return { error: "Discount must be between 0 and 100 percent." };
+  }
+
+  const discountAmount = (price * discount) / 100;
+  const finalPrice = price - discountAmount;
+  const percentPaid = price > 0 ? 100 - discount : 0;
+
+  return {
+    originalPrice: price,
+    discountPercent: discount,
+    discountAmount,
+    finalPrice,
+    percentPaid,
   };
+};
 
-  const result = calculateDiscount();
+const fmtMoney = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What does this percent off calculator compute?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Discount amount and sale price from original price and one percentage off. Formula: discount = price × percent ÷ 100; final price = price − discount.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is percent off different from a coupon dollar amount?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Percent off scales with price—a 20% discount on $100 saves $20, on $50 saves $10. This tool takes a percentage, not a fixed dollar coupon.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can I stack multiple percent-off deals?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. One discount percentage only. Stacked sales apply each percent to the already-reduced price—calculate step by step for those cases.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this include sales tax?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Tax is usually applied after the discounted price depending on jurisdiction. Use a sales tax calculator if you need tax on the final amount.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this the same as the Discount Calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Same math—one percentage off an original price. This page is labeled for percent-off shopping; the Discount Calculator on this site uses the same formula.",
+    },
+  },
+];
+
+const PercentOffCalculator = () => {
+  const [originalPrice, setOriginalPrice] = useState(DEFAULTS.originalPrice);
+  const [discountPercent, setDiscountPercent] = useState(
+    DEFAULTS.discountPercent
+  );
+
+  const result = computePercentOff(originalPrice, discountPercent);
+
+  const reset = () => {
+    setOriginalPrice(DEFAULTS.originalPrice);
+    setDiscountPercent(DEFAULTS.discountPercent);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Percent Off Calculator</title>
+        <title>Percent Off Calculator - Sale Price &amp; Savings</title>
         <meta
           name="description"
-          content="Use our Percent Off Calculator to quickly calculate discounts and final prices. Ideal for shopping deals, sales, and price comparisons."
+          content="Calculate discount amount and final price from original price and percent off. One percentage discount—no tax or stacked deals."
         />
         <meta
           name="keywords"
-          content="percent off calculator, discount calculator, sale price calculator, price reduction calculator, calculate percent off, shopping discount calculator, percentage off tool"
+          content="percent off calculator, sale price calculator, discount amount, percentage off, shopping discount"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/finance/percent-off-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Percent Off Calculator" />
         <meta
           property="og:description"
-          content="Calculate discounts instantly using our Percent Off Calculator. Perfect for shopping, budgeting, and saving money during sales."
+          content="Discount amount and sale price from percent off."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Percent Off Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/finance/percent-off-calculator"
+          name="twitter:description"
+          content="Quick percent-off price and savings."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Percent Off Calculator",
-      "url": "https://www.unitedcalculator.net/finance/percent-off-calculator",
-      "description": "Easily find out how much you save with our Percent Off Calculator. Enter the original price and discount percentage to get the final price instantly.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Percent Off Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate discount amount and final price from original price and percent off.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a Percent Off Calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A Percent Off Calculator helps you calculate the discount amount and final price when a percentage is taken off an item's original cost."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I calculate percent off?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Enter the original price and the discount percentage. The calculator will subtract the discount from the original price to show your savings and final cost."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Percent Off Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to compute sale price from a single percentage discount.",
+            applicationCategory: "FinanceApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Finance Calculators",
-          "item": "https://www.unitedcalculator.net/finance"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Percent Off Calculator",
-          "item": "https://www.unitedcalculator.net/finance/percent-off-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "How to Calculate Percent Off a Price",
+            description:
+              "Multiply original price by discount percent and subtract from the original.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Finance Calculators",
+                item: "https://www.unitedcalculator.net/finance",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Percent Off Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Original Price</label>
-            <input
-              type="number"
-              value={originalPrice}
-              onChange={(e) => setOriginalPrice(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 100"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Original price
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                $
+              </span>
+              <input
+                type="number"
+                value={originalPrice}
+                onChange={(e) => setOriginalPrice(e.target.value)}
+                className={`${inputClassName} pl-10`}
+                placeholder={DEFAULTS.originalPrice}
+                min="0"
+                step="any"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Discount (%)</label>
-            <input
-              type="number"
-              value={discountPercent}
-              onChange={(e) => setDiscountPercent(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 20"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Percent off
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={discountPercent}
+                onChange={(e) => setDiscountPercent(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.discountPercent}
+                min="0"
+                max="100"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                %
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Discount Result Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Discount Amount:</span>
-                <span className="text-red-600 font-medium">
-                  ₹{result.discountAmount}
-                </span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Final Price:</span>
-                <span className="text-green-600">₹{result.finalPrice}</span>
-              </div>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Discount summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">Final price</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `$${fmtMoney(result.finalPrice)}`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">You save</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.discountAmount)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Original price</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `$${fmtMoney(result.originalPrice)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Percent off</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${result.discountPercent}% off (${result.percentPaid}% of original)`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              One percentage discount only. Sales tax and stacked promotions are
+              not included.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );
