@@ -1,394 +1,372 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const AnorexicBMICalculator = () => {
-  const [weight, setWeight] = useState("45"); // kg
-  const [height, setHeight] = useState("160"); // cm
 
-  const calculateBMI = () => {
-    const w = parseFloat(weight);
-    const h = parseFloat(height) / 100; // convert cm to meters
+const PAGE_URL =
+  "https://www.unitedcalculator.net/health/anorexic-bmi-calculator";
 
-    if (isNaN(w) || isNaN(h) || h === 0) return null;
+const DEFAULTS = {
+  weight: "45",
+  height: "160",
+};
 
-    const bmi = w / (h * h);
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-    let category = "";
-    let warning = "";
+const computeAnorexicBMI = (weight, height) => {
+  if (weight.trim() === "" || height.trim() === "") {
+    return null;
+  }
 
-    if (bmi < 16) {
-      category = "Severely Underweight (Anorexic Range)";
-      warning = "⚠️ Warning: BMI indicates severe underweight/anorexia risk.";
-    } else if (bmi >= 16 && bmi < 18.5) {
-      category = "Underweight";
-    } else if (bmi >= 18.5 && bmi < 24.9) {
-      category = "Normal weight";
-    } else if (bmi >= 25 && bmi < 29.9) {
-      category = "Overweight";
-    } else {
-      category = "Obese";
-    }
+  const w = parseFloat(weight);
+  const hCm = parseFloat(height);
 
-    return {
-      bmi: bmi.toFixed(2),
-      category,
-      warning,
-    };
+  if (isNaN(w) || isNaN(hCm)) {
+    return { error: "Enter valid numbers for weight and height." };
+  }
+
+  if (w <= 0) {
+    return { error: "Weight must be greater than zero." };
+  }
+
+  if (hCm <= 0) {
+    return { error: "Height must be greater than zero." };
+  }
+
+  const hM = hCm / 100;
+  const bmi = w / (hM * hM);
+
+  let category = "";
+  let warning = "";
+
+  if (bmi < 17.5) {
+    category = "Severely underweight (possible anorexia risk)";
+    warning =
+      "BMI below 17.5 may indicate severe underweight or eating-disorder risk. This is not a diagnosis—consult a healthcare provider.";
+  } else if (bmi < 18.5) {
+    category = "Underweight";
+  } else if (bmi < 25) {
+    category = "Healthy weight";
+  } else if (bmi < 30) {
+    category = "Overweight";
+  } else {
+    category = "Obese";
+  }
+
+  return {
+    bmi,
+    category,
+    warning,
+    weightKg: w,
+    heightCm: hCm,
   };
+};
 
-  const result = calculateBMI();
+const fmtBmi = (n) => parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What is an anorexic BMI?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Many clinicians use BMI below 17.5 as a warning sign for severe underweight that may warrant evaluation for malnutrition or eating disorders. It is not a diagnosis on its own.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is BMI calculated in this tool?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "BMI = weight (kg) ÷ [height (m)]². Enter weight in kilograms and height in centimeters; height is converted to meters internally.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How accurate is the Anorexic BMI Calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It gives a standard BMI from height and weight. It does not account for muscle mass, age, or sex, and cannot replace a medical assessment.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does a low BMI always mean anorexia?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Low BMI can result from genetics, illness, metabolism, or eating disorders. Professional evaluation is needed for diagnosis.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What BMI categories does this calculator show?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Below 17.5: severely underweight with alert; 17.5–18.4: underweight; 18.5–24.9: healthy range; 25+: overweight or obese per standard BMI bands.",
+    },
+  },
+];
+
+const AnorexicBMICalculator = () => {
+  const [weight, setWeight] = useState(DEFAULTS.weight);
+  const [height, setHeight] = useState(DEFAULTS.height);
+
+  const result = computeAnorexicBMI(weight, height);
+
+  const reset = () => {
+    setWeight(DEFAULTS.weight);
+    setHeight(DEFAULTS.height);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Anorexic BMI Calculator | Check for Anorexia Risk by BMI</title>
+        <title>
+          Anorexic BMI Calculator - Check Severely Underweight Range
+        </title>
         <meta
           name="description"
-          content="Use our Anorexic BMI Calculator to determine if your body mass index falls into the anorexic range. Instantly check BMI health status and understand your body weight classification."
+          content="BMI from kg and cm with underweight bands and alert below 17.5. Awareness tool—not a medical diagnosis."
         />
         <meta
           name="keywords"
-          content="anorexic bmi calculator, bmi calculator for anorexia, underweight bmi calculator, health risk calculator, eating disorder calculator, body mass index tool"
+          content="anorexic bmi calculator, bmi calculator for anorexia, underweight bmi calculator, severely underweight bmi, eating disorder bmi"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/health/anorexic-bmi-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Anorexic BMI Calculator | Check for Anorexia Risk by BMI"
+          content="Anorexic BMI Calculator"
         />
         <meta
           property="og:description"
-          content="Determine if your BMI falls in the anorexic range using our accurate Anorexic BMI Calculator. Know your health risk instantly based on weight and height."
+          content="Calculate BMI and see when it falls into severely underweight ranges often used as anorexia risk markers."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Anorexic BMI Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/health/anorexic-bmi-calculator"
+          name="twitter:description"
+          content="BMI from weight and height with low-BMI awareness bands."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Anorexic BMI Calculator",
-      "url": "https://www.unitedcalculator.net/health/anorexic-bmi-calculator",
-      "description": "Use the Anorexic BMI Calculator to assess whether your Body Mass Index (BMI) indicates an anorexic range. Helpful for identifying eating disorder-related risks and understanding body weight classification.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Anorexic BMI Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate BMI from kg and cm and see underweight categories including alert below 17.5.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is an anorexic BMI?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "An anorexic BMI typically falls below 17.5, indicating a severely underweight status that may be associated with anorexia nervosa or other eating disorders."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How accurate is the Anorexic BMI Calculator?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The Anorexic BMI Calculator provides a reliable indication of your BMI status based on your height and weight, but it is not a medical diagnosis. Always consult a healthcare provider for professional assessment."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Anorexic BMI Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool to compute BMI and highlight severely underweight ranges.",
+            applicationCategory: "HealthApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Health Calculators",
-          "item": "https://www.unitedcalculator.net/health"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Anorexic BMI Calculator",
-          "item": "https://www.unitedcalculator.net/health/anorexic-bmi-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Anorexic BMI and Severely Underweight Ranges",
+            description:
+              "How BMI is calculated and when values below 17.5 may warrant clinical follow-up.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Health Calculators",
+                item: "https://www.unitedcalculator.net/health",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Anorexic BMI Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Weight (kg)</label>
-            <input
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 45"
-              min="0"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Weight
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.weight}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                kg
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Height (cm)</label>
-            <input
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 160"
-              min="0"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Height
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.height}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                cm
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              BMI Result Summary
-            </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-700">Your BMI:</span>
-                <span className="text-blue-600 font-medium">{result.bmi}</span>
-              </div>
-              <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-800">Category:</span>
-                <span
-                  className={`${
-                    result.warning ? "text-red-600" : "text-green-600"
-                  }`}
-                >
-                  {result.category}
-                </span>
-              </div>
-              {result.warning && (
-                <p className="mt-3 text-red-700 font-semibold">
-                  {result.warning}
-                </p>
-              )}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">BMI summary</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">Your BMI</span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error ? fmtBmi(result.bmi) : "—"}
+              </span>
             </div>
-          </section>
-        )}
-      </div>
-      <article class="py-6">
-        <p class="mb-6">
-          This <strong>Anorexic BMI Calculator</strong> is a specialized free
-          tool which will helps you to determine if your Body Mass Index (BMI)
-          falls into the severely underweight range often associated with
-          anorexia or other health risks. this calculator is specially designed
-          to raise awareness about dangerously low BMI values so you can take
-          action early by checking your anorexic with this calculator.
-        </p>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Category</span>
+              <span
+                className={`font-code-num text-code-num text-sm text-right max-w-[55%] ${
+                  result?.warning ? "text-error" : "text-on-surface"
+                }`}
+              >
+                {result && !result.error ? result.category : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Weight</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? `${result.weightKg} kg` : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Height</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? `${result.heightCm} cm` : "—"}
+              </span>
+            </div>
 
-        <p class="mb-6">
-          You should aware that only BMI alone doesn’t diagnose anorexia, it’s
-          only a way to see that your weight is too below the healthy range for
-          your height which is average for your height. For a more complete
-          picture of your body composition, you can also check your{" "}
-          <a
-            href="https://www.unitedcalculator.net/health/body-fat-calculator"
-            target="_blank"
-            class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-          >
-            Body Fat Percentage
-          </a>
-          .
-        </p>
+            {result?.warning && (
+              <p className="text-sm text-error border-t border-outline-variant pt-3">
+                {result.warning}
+              </p>
+            )}
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">What is an Anorexic BMI?</h2>
-          <p>
-            BMI (Body Mass Index) is calculated by using your weight and
-            height.if your BMI below 18.5 then you are considered as
-            underweight, and below 17.5 is often considered as a warning sign
-            for anorexia or severe malnutrition.
-          </p>
-          <p class="mt-2">
-            Extremely low BMI can harm your in ealy stages of life span and
-            serious health risks such as weakened immunity system , nutrient
-            deficiencies effect, or heart complications for long time. If you
-            want to understand how many calories you need to regain healthy
-            weight, our{" "}
-            <a
-              href="https://www.unitedcalculator.net/health/calorie-calculator"
-              target="_blank"
-              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-            >
-              Calorie Calculator
-            </a>
-            can be a helpful guide.
-          </p>
-        </section>
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
 
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Anorexic BMI Formula</h2>
-          <p>Standard BMI formula is given below</p>
-          <pre class="bg-gray-100 p-3 rounded-lg overflow-auto mb-3">
-            <code>
-              Metric: BMI = weight (kg) ÷ [height (m)]² Imperial: BMI = (weight
-              (lb) ÷ [height (in)]²) × 703
-            </code>
-          </pre>
-          <ul class="list-disc ml-5 mb-3">
-            <li>
-              <code>Weight</code> — Your body weight in kilograms or pounds
-            </li>
-            <li>
-              <code>Height</code> — Your height in meters or inches
-            </li>
-          </ul>
-          <p>
-            Example: A person who has 42 kg weight and 1.65 m height would have:
-            <code>42 ÷ (1.65 × 1.65) = 15.43</code> → Severely underweight. To
-            know your body’s energy needs in recovery, also check our{" "}
-            <a
-              href="https://www.unitedcalculator.net/health/bmr-calculator"
-              target="_blank"
-              class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-            >
-              BMR Calculator
-            </a>
-            .
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            How to Use the Anorexic BMI Calculator
-          </h2>
-          <ol class="list-decimal ml-5 mb-3">
-            <li>Enter your weight (kg or lb).</li>
-            <li>Enter your height in (cm/m or ft/in).</li>
-            <li>
-              Click <strong>Calculate</strong>.
-            </li>
-            <li>Check if your BMI is in the severely underweight range.</li>
-          </ol>
-          <ul class="list-disc ml-5">
-            <li>Below 17.5 — Possible anorexia risk</li>
-            <li>17.5 – 18.4 — Underweight</li>
-            <li>18.5 – 24.9 — Healthy weight</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Example Calculation</h2>
-          <div class="bg-blue-50 p-4 rounded-lg space-y-2">
-            <p>
-              <strong>Example:</strong> You weigh <strong>40 kg</strong> and
-              your height is <strong>1.60 m</strong>.
-            </p>
-            <p>Step 1: Square your height → 1.60 × 1.60 = 2.56</p>
-            <p>Step 2: Divide weight by squared height → 40 ÷ 2.56 = 15.62</p>
-            <p>
-              Your BMI is <strong>15.6</strong>, which is in the severely
-              underweight range and may require medical attention.
-            </p>
-            <p>
-              Using imperial units: 88 lb at 5 ft 3 in → (88 ÷ (63 × 63)) × 703
-              ≈ <strong>15.6</strong>.
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              BMI = kg ÷ (m)². Alert shown below 17.5. Not a substitute for
+              medical diagnosis—seek professional care if you are concerned.
             </p>
           </div>
         </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">Risks of Low BMI</h2>
-          <ul class="list-disc ml-5">
-            <li>Weakened immune system and higher risk of infections</li>
-            <li>Loss of bone density leading to fractures</li>
-            <li>Hormonal imbalances affecting metabolism and fertility</li>
-            <li>Potential heart complications due to malnutrition</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-semibold mb-2">
-            Frequently Asked Questions (FAQs)
-          </h2>
-          <dl>
-            <dt class="font-semibold mt-4">
-              Q.1 Is a low BMI always mean anorexia disease?
-            </dt>
-            <dd>
-              Ans. Not always. A low BMI can result from genetics, high
-              metabolism, illness, or eating disorders. Professional evaluation
-              is necessary for a proper diagnosis.
-            </dd>
-
-            <dt class="font-semibold mt-4">Q.2 What BMI indicates anorexia?</dt>
-            <dd>
-              Ans. A BMI below 17.5 is often considered a marker for anorexia
-              risk, though diagnosis involves more factors than BMI alone.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.3 Can you recover from a severely low BMI?
-            </dt>
-            <dd>
-              Ans. Yes, with proper nutrition, medical support, and sometimes
-              therapy, healthy weight can be restored.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.4 How quickly should I gain weight if my BMI is very low?
-            </dt>
-            <dd>
-              Ans. Weight gain should be gradual under the guidance of a
-              healthcare professional to avoid refeeding syndrome and other
-              complications.
-            </dd>
-
-            <dt class="font-semibold mt-4">
-              Q.5 Should I track other health metrics too?
-            </dt>
-            <dd>
-              Ans. Absolutely — monitoring body fat percentage, muscle mass, and
-              calorie intake is crucial for recovery. Tools like our{" "}
-              <a
-                href="https://www.unitedcalculator.net/health/macro-calculator"
-                target="_blank"
-                class="text-blue-600 hover:text-blue-800 underline hover:no-underline transition duration-200"
-              >
-                Macro Calculator
-              </a>
-              can help plan balanced meals.
-            </dd>
-          </dl>
-        </section>
-      </article>
+      </div>
     </>
   );
 };

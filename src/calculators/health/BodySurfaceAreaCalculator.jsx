@@ -1,169 +1,355 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const BodySurfaceAreaCalculator = () => {
-  const [weight, setWeight] = useState("70");
-  const [height, setHeight] = useState("175");
 
-  const calculateBSA = () => {
-    const w = parseFloat(weight);
-    const h = parseFloat(height);
+const PAGE_URL =
+  "https://www.unitedcalculator.net/health/body-surface-area-calculator";
 
-    if (isNaN(w) || isNaN(h)) return null;
+const DEFAULTS = {
+  weight: "70",
+  height: "175",
+};
 
-    const bsa = Math.sqrt((w * h) / 3600);
-    return bsa.toFixed(2);
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const computeBSA = (weight, height) => {
+  if (weight.trim() === "" || height.trim() === "") {
+    return null;
+  }
+
+  const w = parseFloat(weight);
+  const h = parseFloat(height);
+
+  if (isNaN(w) || isNaN(h)) {
+    return { error: "Enter valid numbers for weight and height." };
+  }
+
+  if (w <= 0) {
+    return { error: "Weight must be greater than zero." };
+  }
+
+  if (h <= 0) {
+    return { error: "Height must be greater than zero." };
+  }
+
+  const mosteller = Math.sqrt((w * h) / 3600);
+  const duBois = 0.007184 * Math.pow(w, 0.425) * Math.pow(h, 0.725);
+
+  if (!Number.isFinite(mosteller) || mosteller <= 0) {
+    return { error: "Could not compute BSA from these values." };
+  }
+
+  return {
+    mosteller,
+    duBois,
+    weightKg: w,
+    heightCm: h,
+    bsaCm2: mosteller * 10000,
   };
+};
 
-  const result = calculateBSA();
+const fmtArea = (n) =>
+  parseFloat(n.toFixed(2)).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What is body surface area (BSA)?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "BSA is the estimated total surface area of the body in square meters. Clinicians sometimes use it for drug dosing (e.g. chemotherapy) and other calculations.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How is BSA calculated in this tool?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Primary result uses the Mosteller formula: BSA (m²) = √((height(cm) × weight(kg)) / 3600). A Du Bois estimate is also shown for comparison.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Mosteller vs Du Bois—which is better?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Both are common approximations from height and weight. Mosteller is simple; Du Bois is older. Follow your clinician or protocol for medical dosing.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can I use BSA for medication dosing at home?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Drug dosing must follow a licensed prescriber and institutional protocols. This calculator is for education and estimation only.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What units should I enter?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Weight in kilograms and height in centimeters. Results are in square meters (m²).",
+    },
+  },
+];
+
+const BodySurfaceAreaCalculator = () => {
+  const [weight, setWeight] = useState(DEFAULTS.weight);
+  const [height, setHeight] = useState(DEFAULTS.height);
+
+  const result = computeBSA(weight, height);
+
+  const reset = () => {
+    setWeight(DEFAULTS.weight);
+    setHeight(DEFAULTS.height);
+  };
 
   return (
     <>
       <Helmet>
         <title>
-          Body Surface Area (BSA) Calculator | Calculate BSA for Medical Use
+          Body Surface Area Calculator - BSA (Mosteller & Du Bois)
         </title>
         <meta
           name="description"
-          content="Use our Body Surface Area (BSA) Calculator to quickly estimate your BSA using height and weight. Ideal for medical dosing, clinical assessments, and health evaluations."
+          content="BSA in m² from kg and cm using Mosteller (√(hw/3600)) plus Du Bois reference. Educational— not for unsupervised medical dosing."
         />
         <meta
           name="keywords"
-          content="body surface area calculator, BSA calculator, calculate BSA, Du Bois formula, medical dosage calculator, BSA medical tool, health calculators"
+          content="body surface area calculator, BSA calculator, Mosteller formula, Du Bois BSA, medical BSA"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/health/body-surface-area-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Body Surface Area (BSA) Calculator | Calculate BSA for Medical Use"
-        />
+        <meta property="og:title" content="Body Surface Area Calculator" />
         <meta
           property="og:description"
-          content="Estimate your Body Surface Area (BSA) accurately using our online BSA Calculator. Commonly used in clinical and medical settings for drug dosing and health analysis."
+          content="Estimate BSA in square meters from height and weight."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Body Surface Area Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/health/body-surface-area-calculator"
+          name="twitter:description"
+          content="Mosteller and Du Bois BSA from metric inputs."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Body Surface Area Calculator",
-      "url": "https://www.unitedcalculator.net/health/body-surface-area-calculator",
-      "description": "Use the Body Surface Area (BSA) Calculator to estimate BSA using standard formulas such as Du Bois or Mosteller. Suitable for medical professionals and individuals monitoring health.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Body Surface Area Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate body surface area using Mosteller and Du Bois formulas.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is Body Surface Area (BSA)?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Body Surface Area (BSA) is the total surface area of the human body, often used in medicine to calculate drug dosages, especially in chemotherapy and critical care."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How is BSA calculated?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "BSA is calculated using formulas such as Du Bois, Mosteller, or Haycock, which typically require your height and weight to provide an accurate surface area estimate in square meters (m²)."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Body Surface Area Calculator",
+            url: PAGE_URL,
+            description: "Web tool to estimate BSA from height and weight.",
+            applicationCategory: "HealthApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Health Calculators",
-          "item": "https://www.unitedcalculator.net/health"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Body Surface Area Calculator",
-          "item": "https://www.unitedcalculator.net/health/body-surface-area-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Body Surface Area Formulas",
+            description:
+              "How Mosteller and Du Bois estimate BSA from height and weight.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Health Calculators",
+                item: "https://www.unitedcalculator.net/health",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Body Surface Area Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Weight (kg)</label>
-            <input
-              type="number"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 70"
-            />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Weight</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.weight}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                kg
+              </span>
+            </div>
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Height (cm)</label>
-            <input
-              type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="e.g. 175"
-            />
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">Height</label>
+            <div className="relative">
+              <input
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                className={inputClassName}
+                placeholder={DEFAULTS.height}
+                min="0"
+                step="any"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">
+                cm
+              </span>
+            </div>
           </div>
         </div>
 
-        {result && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">
-              Body Surface Area Result
-            </h2>
-            <div className="flex justify-between text-lg font-semibold">
-              <span className="text-gray-800">Your BSA:</span>
-              <span className="text-blue-600">{result} m²</span>
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">BSA summary</h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">
+                BSA (Mosteller)
+              </span>
+              <span className="font-code-num text-code-num text-primary text-lg">
+                {result && !result.error
+                  ? `${fmtArea(result.mosteller)} m²`
+                  : "—"}
+              </span>
             </div>
-          </section>
-        )}
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">BSA (Du Bois)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${fmtArea(result.duBois)} m²`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Mosteller (cm²)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${fmtArea(result.bsaCm2)} cm²`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Weight</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? `${result.weightKg} kg` : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Height</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? `${result.heightCm} cm` : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              Mosteller: √(height(cm) × weight(kg) / 3600). Du Bois shown for
+              comparison. Not for prescribing medication without a clinician.
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

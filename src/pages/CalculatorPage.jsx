@@ -4,6 +4,17 @@ import { calculators } from "../data/calculators";
 import GlobalBreadcrumb from "../components/GlobalBreadcrumb";
 import MortgageSeoContent from "../components/seo/MortgageSeoContent";
 import AmortizationSeoContent from "../components/seo/AmortizationSeoContent";
+import AnorexicBMISeoContent from "../components/seo/AnorexicBMISeoContent";
+import ArmyBodyFatSeoContent from "../components/seo/ArmyBodyFatSeoContent";
+import BACSeoContent from "../components/seo/BACSeoContent";
+import BMISeoContent from "../components/seo/BMISeoContent";
+import BMRSeoContent from "../components/seo/BMRSeoContent";
+import BodyFatSeoContent from "../components/seo/BodyFatSeoContent";
+import BodySurfaceAreaSeoContent from "../components/seo/BodySurfaceAreaSeoContent";
+import BodyTypeSeoContent from "../components/seo/BodyTypeSeoContent";
+import CalorieSeoContent from "../components/seo/CalorieSeoContent";
+import CaloriesBurnedSeoContent from "../components/seo/CaloriesBurnedSeoContent";
+import CarbohydrateSeoContent from "../components/seo/CarbohydrateSeoContent";
 import AnnuitySeoContent from "../components/seo/AnnuitySeoContent";
 import AnnuityPayoutSeoContent from "../components/seo/AnnuityPayoutSeoContent";
 import APRSeoContent from "../components/seo/APRSeoContent";
@@ -706,6 +717,33 @@ const CalculatorPage = () => {
           {calculator?.id === "mortgage-calculator" && <MortgageSeoContent />}
           {calculator?.id === "amortization-calculator" && (
             <AmortizationSeoContent />
+          )}
+          {calculator?.id === "anorexic-bmi-calculator" && (
+            <AnorexicBMISeoContent />
+          )}
+          {calculator?.id === "army-body-fat-calculator" && (
+            <ArmyBodyFatSeoContent />
+          )}
+          {calculator?.id === "bac-calculator" && <BACSeoContent />}
+          {calculator?.id === "bmi-calculator" && <BMISeoContent />}
+          {calculator?.id === "bmr-calculator" && <BMRSeoContent />}
+          {calculator?.id === "body-fat-calculator" && (
+            <BodyFatSeoContent />
+          )}
+          {calculator?.id === "body-surface-area-calculator" && (
+            <BodySurfaceAreaSeoContent />
+          )}
+          {calculator?.id === "body-type-calculator" && (
+            <BodyTypeSeoContent />
+          )}
+          {calculator?.id === "calorie-calculator" && (
+            <CalorieSeoContent />
+          )}
+          {calculator?.id === "calories-burned-calculator" && (
+            <CaloriesBurnedSeoContent />
+          )}
+          {calculator?.id === "carbohydrate-calculator" && (
+            <CarbohydrateSeoContent />
           )}
           {calculator?.id === "annuity-calculator" && <AnnuitySeoContent />}
           {calculator?.id === "annuity-payout-calculator" && (
