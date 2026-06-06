@@ -2,11 +2,10 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
 import ScrollToTop from "./ScrollToTop";
 import ErrorBoundary from "./components/UI/ErrorBoundary";
-import PageLoader from "./components/UI/PageLoader";
 
-const Home = lazy(() => import("./pages/Home"));
 const CategoryPage = lazy(() => import("./pages/CategoryPage"));
 const CalculatorPage = lazy(() => import("./pages/CalculatorPage"));
 const AllCalculators = lazy(() => import("./pages/AllCalculators"));
@@ -25,7 +24,7 @@ function App() {
           <Header />
 
           <div className="flex-1">
-            <Suspense fallback={<PageLoader />}>
+            <Suspense fallback={null}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

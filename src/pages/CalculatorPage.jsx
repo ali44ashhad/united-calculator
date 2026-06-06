@@ -2,7 +2,6 @@ import { Suspense, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { calculators } from "../data/calculators";
 import GlobalBreadcrumb from "../components/GlobalBreadcrumb";
-import PageLoader from "../components/UI/PageLoader";
 import {
   getCalculatorComponent,
   getSeoComponent,
@@ -157,8 +156,15 @@ const CalculatorPage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8 space-y-8">
-          <div className="bg-surface-container-lowest rounded-xl border border-outline-variant p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
-            <Suspense fallback={<PageLoader />}>
+          <div className="bg-surface-container-lowest rounded-xl border border-outline-variant p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] min-h-[280px]">
+            <Suspense
+              fallback={
+                <div
+                  className="min-h-[200px] animate-pulse rounded-lg bg-surface-container"
+                  aria-hidden="true"
+                />
+              }
+            >
               {CalculatorComponent ? (
                 <CalculatorComponent />
               ) : (
