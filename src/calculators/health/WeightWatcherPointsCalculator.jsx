@@ -1,179 +1,407 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const WeightWatcherPointsCalculator = () => {
-  const [calories, setCalories] = useState("");
-  const [fat, setFat] = useState("");
-  const [fiber, setFiber] = useState("");
 
-  const calculatePoints = () => {
-    const cal = parseFloat(calories);
-    const fatGrams = parseFloat(fat);
-    let fiberGrams = parseFloat(fiber);
+const PAGE_URL =
+  "https://www.unitedcalculator.net/health/weight-watcher-points-calculator";
 
-    if (isNaN(cal) || isNaN(fatGrams) || isNaN(fiberGrams)) return null;
-    if (fiberGrams > 4) fiberGrams = 4;
+const DEFAULTS = {
+  calories: "250",
+  fat: "10",
+  fiber: "3",
+};
 
-    const points = cal / 50 + fatGrams / 12 - fiberGrams / 5;
-    return Math.round(points * 10) / 10;
+const FIBER_CAP_G = 4;
+const CALORIES_PER_POINT = 50;
+const FAT_G_PER_POINT = 12;
+const FIBER_G_PER_POINT = 5;
+
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const computeWeightWatcherPoints = (calories, fat, fiber) => {
+  if (
+    calories.trim() === "" ||
+    fat.trim() === "" ||
+    fiber.trim() === ""
+  ) {
+    return null;
+  }
+
+  const cal = parseFloat(calories);
+  const fatGrams = parseFloat(fat);
+  const fiberGrams = parseFloat(fiber);
+
+  if (isNaN(cal) || isNaN(fatGrams) || isNaN(fiberGrams)) {
+    return { error: "Enter valid numbers for all fields." };
+  }
+
+  if (cal < 0 || fatGrams < 0 || fiberGrams < 0) {
+    return { error: "Calories, fat, and fiber cannot be negative." };
+  }
+
+  const effectiveFiber = Math.min(Math.max(fiberGrams, 0), FIBER_CAP_G);
+  const caloriePoints = cal / CALORIES_PER_POINT;
+  const fatPoints = fatGrams / FAT_G_PER_POINT;
+  const fiberDeduction = effectiveFiber / FIBER_G_PER_POINT;
+  const rawPoints = caloriePoints + fatPoints - fiberDeduction;
+  const points = Math.round(rawPoints * 10) / 10;
+
+  return {
+    calories: cal,
+    fatGrams,
+    fiberGrams,
+    effectiveFiber,
+    fiberCapped: fiberGrams > FIBER_CAP_G,
+    caloriePoints,
+    fatPoints,
+    fiberDeduction,
+    rawPoints,
+    points,
+    formula: "Points = calories ÷ 50 + fat (g) ÷ 12 − min(fiber, 4) ÷ 5",
   };
+};
 
-  const result = calculatePoints();
+const fmtPts = (n) =>
+  parseFloat(n.toFixed(1)).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 1,
+  });
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "How are Weight Watchers points calculated in this tool?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Classic-style points = calories ÷ 50 + fat (g) ÷ 12 − min(fiber (g), 4) ÷ 5. Enter calories, total fat grams, and fiber grams from a nutrition label.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this calculator use SmartPoints?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Modern WW SmartPoints use protein, sugar, saturated fat, and calories. This page uses the older calories + fat − fiber formula only.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Why is fiber capped at 4 grams?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "In the classic formula, only up to 4 g of dietary fiber reduces points. Fiber above 4 g does not subtract additional points.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What inputs do I need?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Calories, total fat in grams, and dietary fiber in grams per serving or food item—typically from the nutrition facts label.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this Weight Watchers points calculator official?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Independent calculator for educational use. Current WW plans may use different formulas—use the official WW app for enrolled members.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this medical or diet advice?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Food scoring math only. Weight management and medical diets require professional guidance.",
+    },
+  },
+];
+
+const WeightWatcherPointsCalculator = () => {
+  const [calories, setCalories] = useState(DEFAULTS.calories);
+  const [fat, setFat] = useState(DEFAULTS.fat);
+  const [fiber, setFiber] = useState(DEFAULTS.fiber);
+
+  const result = computeWeightWatcherPoints(calories, fat, fiber);
+
+  const reset = () => {
+    setCalories(DEFAULTS.calories);
+    setFat(DEFAULTS.fat);
+    setFiber(DEFAULTS.fiber);
+  };
 
   return (
     <>
       <Helmet>
         <title>
-          Weight Watcher Points Calculator | Track SmartPoints & Food Score
+          Weight Watchers Points Calculator - Classic Points (Cal, Fat, Fiber)
         </title>
         <meta
           name="description"
-          content="Use our Weight Watcher Points Calculator to calculate SmartPoints based on food's protein, sugar, saturated fat, and calories. Stay on track with your WW plan easily."
+          content="Classic WW-style food points: calories ÷ 50 + fat g ÷ 12 − fiber (max 4 g) ÷ 5. Not modern SmartPoints—label inputs only."
         />
         <meta
           name="keywords"
-          content="weight watcher points calculator, smartpoints calculator, ww calculator, food point calculator, weight loss tracker, calorie to point calculator, diet calculator"
+          content="weight watcher points calculator, ww points calculator, classic weight watchers points, calories fat fiber points, food points calculator"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/health/weight-watcher-points-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
-          content="Weight Watcher Points Calculator | Track SmartPoints & Food Score"
+          content="Weight Watchers Points Calculator"
         />
         <meta
           property="og:description"
-          content="Calculate Weight Watcher SmartPoints with our easy-to-use calculator. Input food details like protein, calories, sugar, and saturated fat to track your WW points accurately."
+          content="Classic points from calories, fat, and fiber on the label."
+        />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Weight Watchers Points Calculator"
         />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/health/weight-watcher-points-calculator"
+          name="twitter:description"
+          content="Calories + fat − fiber classic WW-style points."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Weight Watcher Points Calculator",
-      "url": "https://www.unitedcalculator.net/health/weight-watcher-points-calculator",
-      "description": "This Weight Watcher Points Calculator helps you determine SmartPoints based on nutritional values like calories, sugar, saturated fat, and protein. It's ideal for users following the WW diet program and tracking food points for healthy weight loss.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "United Calculator",
-        "url": "https://www.unitedcalculator.net"
-      }
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Weight Watchers Points Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate classic-style Weight Watchers points from calories, fat, and fiber.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How are Weight Watcher Points calculated?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Weight Watcher Points, also known as SmartPoints, are calculated using the nutritional content of food — including calories, protein, sugar, and saturated fat. The formula rewards higher protein and penalizes sugar and saturated fat."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I use this calculator for the latest WW plans?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, our calculator supports the general SmartPoints formula used in recent WW plans. However, always refer to the latest WW app or website for personalized tracking and adjustments."
-          }
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Weight Watchers Points Calculator",
+            url: PAGE_URL,
+            description:
+              "Web tool for classic WW-style food points from label data.",
+            applicationCategory: "HealthApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.unitedcalculator.net"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Health Calculators",
-          "item": "https://www.unitedcalculator.net/health"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Weight Watcher Points Calculator",
-          "item": "https://www.unitedcalculator.net/health/weight-watcher-points-calculator"
-        }
-      ]
-    }
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Classic Weight Watchers Points from Nutrition Labels",
+            description:
+              "Calories, fat, and fiber formula for legacy-style food points.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Health Calculators",
+                item: "https://www.unitedcalculator.net/health",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Weight Watchers Points Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Calories</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Calories (kcal)
+            </label>
             <input
               type="number"
+              min="0"
+              step="1"
               value={calories}
               onChange={(e) => setCalories(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className={inputClassName}
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Fat (g)</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Total fat (g)
+            </label>
             <input
               type="number"
+              min="0"
+              step="0.1"
               value={fat}
               onChange={(e) => setFat(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className={inputClassName}
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Fiber (g)</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Dietary fiber (g)
+            </label>
             <input
               type="number"
+              min="0"
+              step="0.1"
               value={fiber}
               onChange={(e) => setFiber(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className={inputClassName}
             />
+            <p className="text-sm text-on-surface-variant">
+              Only the first 4 g of fiber reduces points in this formula.
+            </p>
           </div>
         </div>
 
-        {result !== null && (
-          <section className="bg-green-50 p-4 rounded-lg border border-green-200 mt-6">
-            <h2 className="text-xl font-semibold text-green-700 mb-2">
-              Weight Watchers Points
-            </h2>
-            <p className="text-gray-800 text-lg">
-              🍽️ <strong>Points:</strong> {result}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Weight Watchers points summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">Food points</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result && !result.error ? fmtPts(result.points) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">From calories (÷ 50)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `+${fmtPts(result.caloriePoints)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">From fat (÷ 12)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `+${fmtPts(result.fatPoints)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Fiber deduction (÷ 5)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `−${fmtPts(result.fiberDeduction)}`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Fiber used in formula</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${fmtPts(result.effectiveFiber)} g${
+                      result.fiberCapped ? " (capped at 4 g)" : ""
+                    }`
+                  : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Calories entered</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error
+                  ? `${Math.round(result.calories)} kcal`
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              {result && !result.error
+                ? `${result.formula}. Classic-style estimate—not official WW SmartPoints. Use the WW app for current plans.`
+                : "Enter calories, fat (g), and fiber (g) from the nutrition label."}
             </p>
-          </section>
-        )}
+          </div>
+        </section>
       </div>
     </>
   );
