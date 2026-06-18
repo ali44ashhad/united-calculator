@@ -38,7 +38,15 @@ export default function MortgageSeoContent() {
           >
             Rent vs Buy Calculator
           </Link>{" "}
-          uses a different model.
+          uses a different model. For UK loans where you enter the loan amount
+          directly, see the{" "}
+          <Link
+            to="/finance/mortgage-calculator-uk"
+            className="text-primary hover:underline"
+          >
+            Mortgage Calculator UK
+          </Link>
+          .
         </p>
       </section>
 

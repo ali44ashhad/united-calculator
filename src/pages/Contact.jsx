@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 const SITE = "https://unitedcalculator.net";
-const CONTACT_EMAIL = "hello@unitedcalculator.net";
+const CONTACT_EMAIL = "info@unitedcalculator.net";
 
 export default function Contact() {
   return (

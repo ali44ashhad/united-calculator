@@ -63,10 +63,50 @@ const fmtAmount = (n) =>
 const FAQ_SCHEMA = [
   {
     "@type": "Question",
-    name: "What does the Currency Calculator do?",
+    name: "Is this a free online currency calculator?",
     acceptedAnswer: {
       "@type": "Answer",
-      text: "It multiplies your amount by a built-in exchange rate between USD, INR, EUR, and GBP. Select a from and to currency to see the converted value instantly.",
+      text: "Yes. It is free to use in your browser with no signup. Enter an amount, choose from and to currencies, and see the converted value and rate instantly.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What is the difference between a currency calculator and currency converter?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "People use both terms for the same task: turning an amount in one currency into another using an exchange rate. This tool multiplies your amount by the rate for the pair you select.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can I use this as an exchange rate calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes. The summary shows the rate applied along with the converted amount. Change the amount or currencies to compare different scenarios.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this the same as Google currency converter?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. Google shows live or frequently updated rates. This calculator uses fixed sample rates for quick private estimates and runs on this page without a live forex API.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Why is my bank, Visa, or Wise rate different?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Banks, card networks, and transfer apps quote their own rates and often add spreads or fees. This tool shows mathematical conversion only.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this work for UK pounds (GBP)?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes. GBP is one of the four supported currencies. Select GBP as from or to for pound-to-dollar, euro, or rupee estimates using the built-in sample rates.",
     },
   },
   {
@@ -120,40 +160,47 @@ const CurrencyCalculator = () => {
     <>
       <Helmet>
         <title>
-          Currency Calculator - USD, INR, EUR & GBP Converter
+          Free Currency Calculator &amp; Converter Online | USD, INR, EUR, GBP
         </title>
         <meta
           name="description"
-          content="Convert between USD, INR, EUR, and GBP using built-in sample exchange rates. Enter an amount and see the converted value for travel or quick estimates."
+          content="Free online currency calculator and converter with sample exchange rates. Convert USD, INR, EUR, GBP instantly. Exchange rate calculator for quick money conversion—no signup."
         />
         <meta
           name="keywords"
-          content="currency calculator, currency converter, USD to INR calculator, EUR GBP exchange calculator, money converter, forex estimate"
+          content="currency calculator, currency converter, online currency calculator, exchange rate calculator, currency converter calculator, money conversion calculator, free currency converter, USD to INR calculator"
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={PAGE_URL} />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Currency Calculator" />
+        <meta
+          property="og:title"
+          content="Free Currency Calculator & Converter Online"
+        />
         <meta
           property="og:description"
-          content="Quick currency conversion between USD, INR, EUR, and GBP with illustrative exchange rates."
+          content="Convert USD, INR, EUR, and GBP with sample exchange rates. Free online currency calculator and money converter."
         />
         <meta property="og:url" content={PAGE_URL} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Currency Calculator" />
+        <meta
+          name="twitter:title"
+          content="Free Currency Calculator & Converter"
+        />
         <meta
           name="twitter:description"
-          content="Convert USD, INR, EUR, and GBP with sample rates for planning."
+          content="Online exchange rate calculator for USD, INR, EUR, and GBP with instant results."
         />
 
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Currency Calculator",
+            name: "Free Currency Calculator & Converter Online",
             url: PAGE_URL,
             description:
-              "Convert money between USD, INR, EUR, and GBP using built-in sample exchange rates for quick estimates.",
+              "Free online currency calculator and converter with sample exchange rates for USD, INR, EUR, and GBP.",
+            inLanguage: "en",
             publisher: {
               "@type": "Organization",
               name: "United Calculator",
@@ -165,14 +212,15 @@ const CurrencyCalculator = () => {
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "WebApplication",
+            "@type": "SoftwareApplication",
             name: "Currency Calculator",
             url: PAGE_URL,
             description:
-              "Web tool to convert amounts between USD, INR, EUR, and GBP using illustrative exchange rates.",
+              "Free web tool to convert money between USD, INR, EUR, and GBP using illustrative exchange rates.",
             applicationCategory: "FinanceApplication",
             operatingSystem: "Any",
             browserRequirements: "Requires JavaScript",
+            inLanguage: "en",
             offers: {
               "@type": "Offer",
               price: "0",
@@ -190,9 +238,9 @@ const CurrencyCalculator = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: "How to Convert Between Major Currencies",
+            headline: "How to Calculate Currency Exchange Rates Online",
             description:
-              "Multiply the amount in the base currency by the exchange rate to the target currency. Rates in this tool are sample values for illustration.",
+              "Multiply the amount in the base currency by the exchange rate to the target currency. This tool supports USD, INR, EUR, and GBP with sample rates for illustration.",
             author: {
               "@type": "Organization",
               name: "United Calculator",

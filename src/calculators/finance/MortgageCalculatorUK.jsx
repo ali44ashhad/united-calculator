@@ -62,6 +62,38 @@ const fmtMoney = (n) =>
 const FAQ_SCHEMA = [
   {
     "@type": "Question",
+    name: "Is this a free mortgage calculator UK?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes. It is free to use with no signup. Enter your loan amount, rate, and term to see monthly repayment, total interest, and total repaid instantly in your browser.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How do I calculate mortgage interest in the UK?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Enter loan amount, annual rate, and term. The calculator applies standard amortisation and shows total interest over the full term. Interest each month is charged on the remaining balance; early payments are mostly interest, later payments mostly principal.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can I use this as a UK home loan or property loan calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes. Repayment mortgages for homes in England, Scotland, Wales, and Northern Ireland use the same principal-and-interest maths. Enter the amount you borrow after your deposit.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this show an amortisation schedule?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "This page shows monthly repayment and lifetime totals. For a full month-by-month schedule, use the Mortgage Amortization Calculator on this site.",
+    },
+  },
+  {
+    "@type": "Question",
     name: "What does this UK mortgage calculator estimate?",
     acceptedAnswer: {
       "@type": "Answer",
@@ -70,10 +102,26 @@ const FAQ_SCHEMA = [
   },
   {
     "@type": "Question",
-    name: "What loan types does it model?",
+    name: "Does this include stamp duty, fees, or insurance?",
     acceptedAnswer: {
       "@type": "Answer",
-      text: "This tool models a standard repayment mortgage payment calculation. It does not model interest-only payments.",
+      text: "No. This calculator focuses on repayment (principal and interest) only. Upfront fees, insurance, and taxes are not included.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is this for repayment or interest-only mortgages?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Repayment mortgages. Interest-only payments are not calculated here.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can I compare mortgage rates with this tool?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes. Run the same loan amount and term at different rates to compare monthly repayments and total interest. Change the rate and note the results for each deal.",
     },
   },
   {
@@ -86,18 +134,10 @@ const FAQ_SCHEMA = [
   },
   {
     "@type": "Question",
-    name: "Is this the same as APR?",
+    name: "Is the interest rate the same as APR?",
     acceptedAnswer: {
       "@type": "Answer",
-      text: "No. Enter the note rate used to calculate payments. APR includes certain fees and may be higher than the note rate.",
-    },
-  },
-  {
-    "@type": "Question",
-    name: "Does it include overpayments or early repayment charges?",
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: "No. It assumes a fixed payment over the full term and does not account for overpayments, lender fees, or early repayment charges.",
+      text: "Not necessarily. APR includes certain fees; the note rate is what drives the monthly payment.",
     },
   },
 ];
@@ -118,40 +158,49 @@ const MortgageCalculatorUK = () => {
   return (
     <>
       <Helmet>
-        <title>Mortgage Calculator UK - Monthly Repayment Estimate</title>
+        <title>
+          Free Mortgage Calculator UK | Monthly Repayment &amp; Interest
+        </title>
         <meta
           name="description"
-          content="Estimate UK mortgage repayments (principal & interest) from loan amount, interest rate, and term. Shows monthly payment, total interest, and total repaid."
+          content="Free UK mortgage calculator for monthly repayment, total interest, and total repaid. Enter loan amount, rate and term. Repayment mortgage — principal and interest only."
         />
         <meta
           name="keywords"
-          content="mortgage calculator UK, UK mortgage repayment, repayment mortgage calculator, monthly mortgage payment UK, mortgage interest total"
+          content="mortgage calculator UK, free mortgage calculator UK, UK home loan calculator, mortgage interest calculator UK, mortgage rate calculator UK, property loan calculator UK, mortgage repayment calculator"
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={PAGE_URL} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Mortgage Calculator UK" />
+        <meta
+          property="og:title"
+          content="Free Mortgage Calculator UK | Monthly Repayment & Interest"
+        />
         <meta
           property="og:description"
-          content="Estimate UK mortgage monthly repayments and total interest."
+          content="Estimate UK mortgage monthly repayment, total interest, and total repaid from loan amount, rate, and term."
         />
         <meta property="og:url" content={PAGE_URL} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Mortgage Calculator UK" />
+        <meta
+          name="twitter:title"
+          content="Free Mortgage Calculator UK"
+        />
         <meta
           name="twitter:description"
-          content="Repayment estimate from loan amount, rate, and term."
+          content="UK home loan repayment and interest estimate from loan amount, rate, and term."
         />
 
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Mortgage Calculator UK",
+            name: "Free Mortgage Calculator UK",
             url: PAGE_URL,
             description:
-              "Calculate UK mortgage monthly principal and interest from loan amount, interest rate, and term.",
+              "Free UK mortgage calculator for monthly repayment, total interest, and total repaid from loan amount, interest rate, and term.",
+            inLanguage: "en-GB",
             publisher: {
               "@type": "Organization",
               name: "United Calculator",
@@ -163,14 +212,15 @@ const MortgageCalculatorUK = () => {
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "WebApplication",
+            "@type": "SoftwareApplication",
             name: "Mortgage Calculator UK",
             url: PAGE_URL,
             description:
-              "Web tool to estimate UK mortgage repayment (principal and interest).",
+              "Free web tool to estimate UK mortgage repayment, total interest, and monthly principal and interest from loan amount, rate, and term.",
             applicationCategory: "FinanceApplication",
             operatingSystem: "Any",
             browserRequirements: "Requires JavaScript",
+            inLanguage: "en-GB",
             offers: {
               "@type": "Offer",
               price: "0",
@@ -188,9 +238,10 @@ const MortgageCalculatorUK = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: "UK Mortgage Repayment Calculation",
+            headline:
+              "How to Calculate UK Mortgage Repayment and Interest",
             description:
-              "Estimate the repayment mortgage payment from loan amount, annual rate, and term.",
+              "Estimate repayment mortgage monthly payment, total interest, and total repaid from loan amount, annual rate, and term in the United Kingdom.",
             author: {
               "@type": "Organization",
               name: "United Calculator",
@@ -205,7 +256,7 @@ const MortgageCalculatorUK = () => {
               "@type": "WebPage",
               "@id": PAGE_URL,
             },
-            inLanguage: "en",
+            inLanguage: "en-GB",
           })}
         </script>
 

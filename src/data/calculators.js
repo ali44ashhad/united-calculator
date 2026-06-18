@@ -178,7 +178,8 @@ export const calculators = [
   {
     id: "currency-calculator",
     title: "Currency Calculator",
-    description: "Convert currency based on current exchange rates.",
+    description:
+      "Free online currency calculator and converter — convert USD, INR, EUR, and GBP with sample exchange rates.",
     category: "Finance",
     path: "/finance/currency-calculator",
     component: "CurrencyCalculator",
@@ -388,7 +389,8 @@ export const calculators = [
   {
     id: "mortgage-calculator-uk",
     title: "Mortgage Calculator UK",
-    description: "Estimate UK mortgage repayments and total interest.",
+    description:
+      "Free UK home loan calculator — estimate monthly repayment, mortgage interest, and total repaid from loan amount, rate, and term.",
     category: "Finance",
     path: "/finance/mortgage-calculator-uk",
     component: "MortgageCalculatorUK",

@@ -1,194 +1,408 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const NumberSequenceCalculator = () => {
-  const [startValue, setStartValue] = useState("1");
-  const [difference, setDifference] = useState("2");
-  const [length, setLength] = useState("10");
 
-  const parsedStart = parseFloat(startValue);
-  const parsedDiff = parseFloat(difference);
-  const parsedLength = parseInt(length);
+const PAGE_URL =
+  "https://www.unitedcalculator.net/math/number-sequence-calculator";
 
-  const isValid =
-    !isNaN(parsedStart) &&
-    !isNaN(parsedDiff) &&
-    !isNaN(parsedLength) &&
-    parsedLength > 0;
+const MAX_TERMS = 500;
 
-  const generateSequence = () => {
-    if (!isValid) return [];
+const DEFAULTS = {
+  startValue: "1",
+  difference: "2",
+  length: "10",
+};
 
-    const sequence = [];
-    for (let i = 0; i < parsedLength; i++) {
-      sequence.push(parsedStart + i * parsedDiff);
-    }
-    return sequence;
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
+
+const fmtNum = (n) =>
+  parseFloat(n.toFixed(10)).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 6,
+  });
+
+const computeArithmeticSequence = (startValue, difference, length) => {
+  if (
+    startValue.trim() === "" ||
+    difference.trim() === "" ||
+    length.trim() === ""
+  ) {
+    return null;
+  }
+
+  const a1 = parseFloat(startValue);
+  const d = parseFloat(difference);
+  const n = parseInt(length, 10);
+
+  if (isNaN(a1) || isNaN(d)) {
+    return { error: "Enter valid numbers for start value and common difference." };
+  }
+
+  if (isNaN(n) || !Number.isInteger(n)) {
+    return { error: "Number of terms must be a whole integer." };
+  }
+
+  if (n <= 0) {
+    return { error: "Number of terms must be greater than zero." };
+  }
+
+  if (n > MAX_TERMS) {
+    return {
+      error: `Number of terms cannot exceed ${MAX_TERMS} on this page.`,
+    };
+  }
+
+  const sequence = [];
+  for (let i = 0; i < n; i++) {
+    sequence.push(a1 + i * d);
+  }
+
+  const lastTerm = sequence[sequence.length - 1];
+  const sum = (n / 2) * (a1 + lastTerm);
+  const nthTermFormula = `aₙ = ${fmtNum(a1)} + (n − 1) × ${fmtNum(d)}`;
+
+  return {
+    startValue: a1,
+    difference: d,
+    length: n,
+    sequence,
+    sequenceText: sequence.map(fmtNum).join(", "),
+    firstTerm: a1,
+    lastTerm,
+    sum,
+    nthTermFormula,
+    sequenceType: "Arithmetic (constant difference)",
+    formula: "aₙ = a₁ + (n − 1)d; sum Sₙ = n(a₁ + aₙ)/2",
   };
+};
 
-  const sequence = generateSequence();
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What is an arithmetic sequence?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "A sequence with a constant difference d between consecutive terms: aₙ = a₁ + (n − 1)d. Example: 1, 3, 5, 7… has a₁=1 and d=2.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What does this number sequence calculator do?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "It generates terms of an arithmetic sequence from first term, common difference, and term count—plus the sum of the list.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can it find geometric sequences?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. This page builds arithmetic sequences only—not geometric (multiply by ratio) or pattern guessing from given terms.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How do you find the sum of an arithmetic sequence?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Sₙ = n(a₁ + aₙ)/2, or Sₙ = n(2a₁ + (n−1)d)/2. The summary shows the sum of generated terms.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What is the common difference?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "The fixed amount added each step. d = a₂ − a₁. Negative d counts down (e.g. 10, 7, 4…).",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can I enter decimals?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes for start value and common difference. Number of terms must be a positive integer.",
+    },
+  },
+];
+
+const NumberSequenceCalculator = () => {
+  const [startValue, setStartValue] = useState(DEFAULTS.startValue);
+  const [difference, setDifference] = useState(DEFAULTS.difference);
+  const [length, setLength] = useState(DEFAULTS.length);
+
+  const result = computeArithmeticSequence(startValue, difference, length);
+
+  const reset = () => {
+    setStartValue(DEFAULTS.startValue);
+    setDifference(DEFAULTS.difference);
+    setLength(DEFAULTS.length);
+  };
 
   return (
     <>
       <Helmet>
         <title>
-          Number Sequence Calculator | Find and Analyze Number Sequences
+          Number Sequence Calculator - Arithmetic Sequence Generator
         </title>
         <meta
           name="description"
-          content="Use our Number Sequence Calculator to identify, extend, and analyze arithmetic, geometric, and other number sequences. Perfect for students and math enthusiasts."
+          content="Generate an arithmetic sequence from first term, common difference d, and term count. Shows list, last term, and sum—not geometric or pattern detection."
         />
         <meta
           name="keywords"
-          content="number sequence calculator, arithmetic sequence calculator, geometric sequence calculator, sequence analyzer, math calculator"
+          content="arithmetic sequence calculator, number sequence generator, common difference, arithmetic progression sum"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/math/number-sequence-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Number Sequence Calculator | Find and Analyze Number Sequences"
-        />
+        <meta property="og:title" content="Number Sequence Calculator" />
         <meta
           property="og:description"
-          content="Identify and analyze arithmetic, geometric, and other sequences easily using our Number Sequence Calculator."
+          content="Arithmetic sequence terms and sum from a₁, d, and n."
         />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Number Sequence Calculator" />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/math/number-sequence-calculator"
+          name="twitter:description"
+          content="Build arithmetic sequences with sum."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Number Sequence Calculator",
-  "url": "https://www.unitedcalculator.net/math/number-sequence-calculator",
-  "description": "Analyze and extend number sequences such as arithmetic and geometric progressions using our Number Sequence Calculator.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "United Calculator",
-    "url": "https://www.unitedcalculator.net"
-  }
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Number Sequence Calculator",
+            url: PAGE_URL,
+            description: "Generate arithmetic sequences and their sum.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What types of number sequences can I analyze?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You can analyze arithmetic sequences, geometric sequences, and other common numerical patterns."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I use the Number Sequence Calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Enter the known terms of your sequence, and the calculator will help identify the pattern and predict subsequent numbers."
-      }
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Number Sequence Calculator",
+            url: PAGE_URL,
+            description: "Web tool for arithmetic sequence generation.",
+            applicationCategory: "EducationalApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.unitedcalculator.net"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Math Calculators",
-      "item": "https://www.unitedcalculator.net/math"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Number Sequence Calculator",
-      "item": "https://www.unitedcalculator.net/math/number-sequence-calculator"
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Arithmetic Number Sequences",
+            description: "How to generate terms and sum of an arithmetic sequence.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Math Calculators",
+                item: "https://www.unitedcalculator.net/math",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Number Sequence Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-medium">Start Value</label>
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              First term (a₁)
+            </label>
             <input
               type="number"
+              step="any"
               value={startValue}
               onChange={(e) => setStartValue(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="e.g. 1"
+              className={inputClassName}
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Common Difference</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Common difference (d)
+            </label>
             <input
               type="number"
+              step="any"
               value={difference}
               onChange={(e) => setDifference(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="e.g. 2"
+              className={inputClassName}
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Number of Terms</label>
+          <div className="space-y-2">
+            <label className="font-h3 text-h3 text-on-surface">
+              Number of terms (n)
+            </label>
             <input
               type="number"
+              min="1"
+              step="1"
               value={length}
               onChange={(e) => setLength(e.target.value)}
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="e.g. 10"
+              className={inputClassName}
             />
+            <p className="text-sm text-on-surface-variant">
+              Arithmetic sequence only—max {MAX_TERMS} terms.
+            </p>
           </div>
         </div>
 
-        {isValid && (
-          <section className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Generated Sequence
-            </h2>
-            <p>{sequence.join(", ")}</p>
-          </section>
-        )}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
 
-        {!isValid && (
-          <p className="text-red-600 mt-4">
-            Please enter valid input. Number of terms must be greater than 0.
-          </p>
-        )}
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Sequence summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">Sequence</span>
+              <span className="font-code-num text-code-num text-primary text-sm text-right max-w-[60%] break-words">
+                {result && !result.error ? result.sequenceText : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Type</span>
+              <span className="font-code-num text-code-num text-sm text-right max-w-[60%]">
+                {result && !result.error ? result.sequenceType : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">First term (a₁)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.firstTerm) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Last term (aₙ)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.lastTerm) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Common difference (d)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.difference) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Term count (n)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? result.length : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Sum (Sₙ)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.sum) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">nth term rule</span>
+              <span className="font-code-num text-code-num text-sm text-right max-w-[60%] break-words">
+                {result && !result.error ? result.nthTermFormula : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              {result && !result.error
+                ? `${result.formula}. Generates arithmetic lists—not geometric sequences or pattern detection from terms.`
+                : "Enter a₁, d, and n to build an arithmetic sequence."}
+            </p>
+          </div>
+        </section>
       </div>
     </>
   );

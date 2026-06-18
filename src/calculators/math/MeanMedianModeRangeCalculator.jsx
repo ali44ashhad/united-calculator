@@ -1,199 +1,405 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-const MeanMedianModeRangeCalculator = () => {
-  const [numbers, setNumbers] = useState("4, 8, 6, 5, 3, 8");
 
-  const parseNumbers = (input) => {
-    return input
-      .split(",")
-      .map((n) => parseFloat(n.trim()))
-      .filter((n) => !isNaN(n));
-  };
+const PAGE_URL =
+  "https://www.unitedcalculator.net/math/mean-median-mode-range-calculator";
 
-  const getMean = (nums) =>
-    nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0;
+const DEFAULTS = {
+  numbers: "4, 8, 6, 5, 3, 8",
+};
 
-  const getMedian = (nums) => {
-    if (!nums.length) return 0;
-    const sorted = [...nums].sort((a, b) => a - b);
-    const mid = Math.floor(sorted.length / 2);
-    return sorted.length % 2 === 0
-      ? (sorted[mid - 1] + sorted[mid]) / 2
-      : sorted[mid];
-  };
+const inputClassName =
+  "w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 text-body-lg font-body-lg transition-all";
 
-  const getMode = (nums) => {
-    if (!nums.length) return [];
+const parseNumberList = (input) => {
+  if (input.trim() === "") {
+    return [];
+  }
 
-    const frequency = {};
-    nums.forEach((num) => {
-      frequency[num] = (frequency[num] || 0) + 1;
-    });
+  return input
+    .split(/[,;\s]+/)
+    .map((n) => n.trim())
+    .filter((n) => n !== "")
+    .map((n) => parseFloat(n))
+    .filter((n) => !isNaN(n));
+};
 
-    const maxFreq = Math.max(...Object.values(frequency));
-    const modes = Object.keys(frequency)
-      .filter((key) => frequency[key] === maxFreq)
-      .map(Number);
+const getMedian = (nums) => {
+  const sorted = [...nums].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[mid - 1] + sorted[mid]) / 2
+    : sorted[mid];
+};
 
-    return modes.length === nums.length ? [] : modes;
-  };
+const getMode = (nums) => {
+  const frequency = {};
+  nums.forEach((num) => {
+    frequency[num] = (frequency[num] || 0) + 1;
+  });
 
-  const getRange = (nums) =>
-    nums.length ? Math.max(...nums) - Math.min(...nums) : 0;
+  const maxFreq = Math.max(...Object.values(frequency));
+  if (maxFreq === 1) {
+    return { modes: [], maxFreq, hasMode: false };
+  }
 
-  const nums = parseNumbers(numbers);
-  const mean = getMean(nums);
+  const modes = Object.keys(frequency)
+    .filter((key) => frequency[key] === maxFreq)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  return { modes, maxFreq, hasMode: modes.length > 0 };
+};
+
+const fmtNum = (n) =>
+  parseFloat(n.toFixed(6)).toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 6,
+  });
+
+const computeStats = (numbersInput) => {
+  if (numbersInput.trim() === "") {
+    return null;
+  }
+
+  const nums = parseNumberList(numbersInput);
+
+  if (nums.length === 0) {
+    return {
+      error: "Enter at least one valid number (comma or space separated).",
+    };
+  }
+
+  const sorted = [...nums].sort((a, b) => a - b);
+  const count = nums.length;
+  const sum = nums.reduce((acc, n) => acc + n, 0);
+  const mean = sum / count;
   const median = getMedian(nums);
-  const mode = getMode(nums);
-  const range = getRange(nums);
+  const { modes, maxFreq, hasMode } = getMode(nums);
+  const min = Math.min(...nums);
+  const max = Math.max(...nums);
+  const range = max - min;
+
+  return {
+    nums,
+    sorted,
+    count,
+    sum,
+    mean,
+    median,
+    modes,
+    modeText: hasMode ? modes.map(fmtNum).join(", ") : "No mode",
+    modeFrequency: hasMode ? maxFreq : 0,
+    min,
+    max,
+    range,
+    formula: "Mean = sum ÷ n; median = middle; mode = most frequent; range = max − min",
+  };
+};
+
+const FAQ_SCHEMA = [
+  {
+    "@type": "Question",
+    name: "What is mean, median, mode, and range?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Mean is the average (sum ÷ count). Median is the middle value when sorted. Mode is the most frequent value. Range is max − min.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "How do I use this mean median mode range calculator?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Enter comma- or space-separated numbers. Read mean, median, mode, range, and sorted list in the summary.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "What if there is no mode?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "When every value appears once, there is no mode. This calculator shows 'No mode' in that case.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Can there be more than one mode?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Yes—bimodal or multimodal data lists every value tied for highest frequency.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Is mean the same as average?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "Here, mean is the arithmetic average. For mean only, see the Average Calculator.",
+    },
+  },
+  {
+    "@type": "Question",
+    name: "Does this calculator include standard deviation?",
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: "No. This page computes mean, median, mode, and range only—not standard deviation or variance.",
+    },
+  },
+];
+
+const MeanMedianModeRangeCalculator = () => {
+  const [numbers, setNumbers] = useState(DEFAULTS.numbers);
+
+  const result = computeStats(numbers);
+
+  const reset = () => {
+    setNumbers(DEFAULTS.numbers);
+  };
 
   return (
     <>
       <Helmet>
         <title>
-          Mean Median Mode Range Calculator | Statistical Measures Calculator
+          Mean Median Mode Range Calculator - Central Tendency &amp; Spread
         </title>
         <meta
           name="description"
-          content="Use our Mean Median Mode Range Calculator to quickly find key statistical measures for your data set. Ideal for students, researchers, and analysts."
+          content="Find mean, median, mode, and range from comma-separated numbers. Sorted list and count—not standard deviation or quartiles."
         />
         <meta
           name="keywords"
-          content="mean calculator, median calculator, mode calculator, range calculator, statistics calculator, statistical measures"
+          content="mean median mode range calculator, average and median, mode calculator, data set statistics"
         />
         <meta name="robots" content="index, follow" />
-        <link
-          rel="canonical"
-          href="https://www.unitedcalculator.net/math/mean-median-mode-range-calculator"
-        />
+        <link rel="canonical" href={PAGE_URL} />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Mean Median Mode Range Calculator | Statistical Measures Calculator"
-        />
+        <meta property="og:title" content="Mean Median Mode Range Calculator" />
         <meta
           property="og:description"
-          content="Easily calculate the mean, median, mode, and range of any data set using our Mean Median Mode Range Calculator."
+          content="Mean, median, mode, and range for a number list."
+        />
+        <meta property="og:url" content={PAGE_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Mean Median Mode Range Calculator"
         />
         <meta
-          property="og:url"
-          content="https://www.unitedcalculator.net/math/mean-median-mode-range-calculator"
+          name="twitter:description"
+          content="Four descriptive statistics from one data set."
         />
 
-        {/* JSON-LD: WebPage */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Mean Median Mode Range Calculator",
-  "url": "https://www.unitedcalculator.net/math/mean-median-mode-range-calculator",
-  "description": "Find the mean, median, mode, and range of your data set instantly with our calculator.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "United Calculator",
-    "url": "https://www.unitedcalculator.net"
-  }
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Mean Median Mode Range Calculator",
+            url: PAGE_URL,
+            description:
+              "Calculate mean, median, mode, and range of a data set.",
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: FAQ */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is mean, median, mode, and range?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Mean is the average of numbers, median is the middle value, mode is the most frequent value, and range is the difference between the highest and lowest values."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I use the calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Input your data set and the calculator will compute mean, median, mode, and range instantly."
-      }
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "Mean Median Mode Range Calculator",
+            url: PAGE_URL,
+            description: "Web tool for mean, median, mode, and range.",
+            applicationCategory: "EducationalApplication",
+            operatingSystem: "Any",
+            browserRequirements: "Requires JavaScript",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+          })}
         </script>
 
-        {/* JSON-LD: Breadcrumb */}
         <script type="application/ld+json">
-          {`
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.unitedcalculator.net"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Math Calculators",
-      "item": "https://www.unitedcalculator.net/math"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Mean Median Mode Range Calculator",
-      "item": "https://www.unitedcalculator.net/math/mean-median-mode-range-calculator"
-    }
-  ]
-}
-    `}
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Mean, Median, Mode, and Range",
+            description: "How to summarize a data set with four measures.",
+            author: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "United Calculator",
+              url: "https://www.unitedcalculator.net",
+            },
+            mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
+            inLanguage: "en",
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQ_SCHEMA,
+          })}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.unitedcalculator.net",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Math Calculators",
+                item: "https://www.unitedcalculator.net/math",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Mean Median Mode Range Calculator",
+                item: PAGE_URL,
+              },
+            ],
+          })}
         </script>
       </Helmet>
 
-      <div className="mx-auto mt-10 p-6 bg-white rounded-xl border border-gray-200 shadow-md">
-        <div>
-          <label className="block mb-2 font-medium">
-            Enter numbers (comma separated)
+      <div className="space-y-8">
+        <div className="space-y-2">
+          <label className="font-h3 text-h3 text-on-surface">
+            Numbers (comma or space separated)
           </label>
           <input
             type="text"
             value={numbers}
             onChange={(e) => setNumbers(e.target.value)}
             placeholder="e.g. 4, 8, 6, 5, 3, 8"
-            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className={inputClassName}
           />
+          <p className="text-sm text-on-surface-variant">
+            Enter a list of numbers to compute mean, median, mode, and range.
+          </p>
         </div>
 
-        {nums.length > 0 ? (
-          <div className="mt-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Results
-            </h2>
-            <p>
-              <strong>Mean:</strong> {mean.toFixed(2)}
-            </p>
-            <p>
-              <strong>Median:</strong> {median}
-            </p>
-            <p>
-              <strong>Mode:</strong> {mode.length ? mode.join(", ") : "No mode"}
-            </p>
-            <p>
-              <strong>Range:</strong> {range}
+        <div className="pt-2 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="bg-primary hover:bg-primary-container text-white px-8 py-4 rounded-lg font-h3 text-h3 shadow-md active:scale-95 transition-all"
+            >
+              Calculate Now
+            </button>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-secondary font-medium px-4 py-2 hover:bg-surface-container transition-colors rounded-lg"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="flex items-center gap-2 text-on-surface-variant">
+            <span
+              className="material-symbols-outlined"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              lock
+            </span>
+            <span className="text-sm">Secure and private calculation</span>
+          </div>
+        </div>
+
+        <section className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6">
+          <h2 className="font-h3 text-h3 text-on-surface mb-6">
+            Statistics summary
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between text-lg">
+              <span className="text-on-surface font-medium">Mean (average)</span>
+              <span className="font-code-num text-code-num text-primary">
+                {result && !result.error ? fmtNum(result.mean) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Median</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.median) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Mode</span>
+              <span className="font-code-num text-code-num text-sm text-right max-w-[60%] break-words">
+                {result && !result.error ? result.modeText : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Range</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.range) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Count (n)</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? result.count : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Sum</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.sum) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Minimum</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.min) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Maximum</span>
+              <span className="font-code-num text-code-num">
+                {result && !result.error ? fmtNum(result.max) : "—"}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-on-surface">Sorted values</span>
+              <span className="font-code-num text-code-num text-sm text-right max-w-[60%] break-words">
+                {result && !result.error
+                  ? result.sorted.map(fmtNum).join(", ")
+                  : "—"}
+              </span>
+            </div>
+
+            {result?.error && (
+              <p className="text-sm text-error">{result.error}</p>
+            )}
+
+            <p className="text-sm text-on-surface-variant pt-2 border-t border-outline-variant">
+              {result && !result.error
+                ? `${result.formula}. Four measures only—not standard deviation or weighted mean.`
+                : "Enter numbers to compute descriptive statistics."}
             </p>
           </div>
-        ) : (
-          <p className="text-red-600 mt-4">Please enter valid numbers.</p>
-        )}
+        </section>
       </div>
     </>
   );
